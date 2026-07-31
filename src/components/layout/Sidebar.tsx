@@ -6,10 +6,10 @@ import {
   SearchCode,
   FileText,
   Eye,
-  Share2,
   Users,
-  FlaskConical,
-  CalendarCheck,
+  Bot,
+  FileSpreadsheet,
+  CheckSquare,
   Settings,
   UserPlus,
   CreditCard,
@@ -28,12 +28,13 @@ export interface SidebarProps {
 export const mainNavItems = [
   { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard, href: '/' },
   { id: 'research', label: 'Research', icon: SearchCode, href: '/research' },
-  { id: 'content', label: 'Content', icon: FileText, href: '#' },
-  { id: 'ai-visibility', label: 'AI Visibility', icon: Eye, href: '#' },
-  { id: 'distribution', label: 'Distribution', icon: Share2, href: '#' },
-  { id: 'crm', label: 'CRM', icon: Users, href: '#' },
-  { id: 'experiments', label: 'Experiments', icon: FlaskConical, href: '#' },
-  { id: 'weekly-review', label: 'Weekly Review', icon: CalendarCheck, href: '#' },
+  { id: 'content', label: 'Content OS', icon: FileText, href: '/content' },
+  { id: 'ai-visibility', label: 'AI Visibility', icon: Eye, href: '/visibility' },
+  { id: 'crm', label: 'Growth CRM', icon: Users, href: '/crm' },
+  { id: 'analytics', label: 'Analytics', icon: LayoutDashboard, href: '/analytics' },
+  { id: 'agents', label: 'AI Agents', icon: Bot, href: '/agents' },
+  { id: 'reports', label: 'Reports', icon: FileSpreadsheet, href: '/reports' },
+  { id: 'tasks', label: 'Tasks', icon: CheckSquare, href: '/tasks' },
 ];
 
 export const bottomNavItems = [
@@ -101,7 +102,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     className={cn(
                       'group flex items-center justify-between rounded-xl px-3 py-2.5 font-sans text-xs md:text-sm font-medium tracking-tight transition-all duration-150 select-none',
                       isActive
-                        ? 'bg-[#000000] text-[#FFFFFF] font-semibold shadow-sm'
+                        ? 'bg-[#000000] text-[#FFFFFF] font-bold shadow-sm'
                         : 'text-[#716D64] hover:bg-[#F0EBE1] hover:text-[#111111]'
                     )}
                   >
@@ -138,7 +139,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   className={cn(
                     'group flex items-center space-x-3 rounded-xl px-3 py-2 font-sans text-xs md:text-sm font-medium tracking-tight transition-all duration-150 select-none',
                     isActive
-                      ? 'bg-[#000000] text-[#FFFFFF] font-semibold shadow-sm'
+                      ? 'bg-[#000000] text-[#FFFFFF] font-bold shadow-sm'
                       : 'text-[#716D64] hover:bg-[#F0EBE1] hover:text-[#111111]'
                   )}
                 >
