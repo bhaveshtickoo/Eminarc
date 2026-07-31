@@ -12,15 +12,18 @@ export interface DashboardShellProps {
 }
 
 export const moduleNames: Record<string, string> = {
-  dashboard: 'Dashboard',
-  research: 'Founder Research',
-  content: 'Content OS',
-  'ai-visibility': 'AI Visibility',
-  crm: 'Growth CRM',
-  analytics: 'Unified Analytics',
-  agents: 'AI Agents',
-  reports: 'Executive Reports',
-  tasks: 'Tasks & Workload',
+  dashboard: 'Overview',
+  research: 'Clients',
+  crm: 'Growth Pipeline',
+  content: 'Content Hub',
+  visibility: 'Outreach',
+  'ai-visibility': 'Outreach',
+  leads: 'Leads & ICP',
+  analytics: 'Analytics',
+  reports: 'Reports',
+  agents: 'Agents (AI)',
+  tasks: 'Tasks',
+  integrations: 'Integrations',
   settings: 'Settings',
   team: 'Team',
   billing: 'Billing',
@@ -32,7 +35,7 @@ export const DashboardShell: React.FC<DashboardShellProps> = ({
   className,
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const activeModuleLabel = moduleNames[activeNavId] || 'Dashboard';
+  const activeModuleLabel = moduleNames[activeNavId] || 'Overview';
 
   return (
     <div className="flex min-h-screen w-full bg-[#F6F2EB]">
