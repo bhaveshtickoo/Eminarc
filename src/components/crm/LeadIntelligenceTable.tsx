@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import { Search, Plus, MoreHorizontal } from 'lucide-react';
-import { cn } from '@/design-system/utils/cn';
+import React, { useState } from "react";
+import { Search, Plus, MoreHorizontal } from "lucide-react";
+import { cn } from "@/design-system/utils/cn";
 
 export interface LeadItem {
   id: string;
@@ -10,119 +10,119 @@ export interface LeadItem {
   email: string;
   company: string;
   role: string;
-  plan: 'Pro' | 'Business' | 'Enterprise' | 'Free';
-  status: 'Qualified' | 'Engaged' | 'New' | 'Won' | 'Lost';
+  plan: "Pro" | "Business" | "Enterprise" | "Free";
+  status: "Qualified" | "Engaged" | "New" | "Won" | "Lost";
   score: number;
-  source: 'LinkedIn' | 'Reddit' | 'AI Search' | 'Website' | 'Email';
+  source: "LinkedIn" | "Reddit" | "AI Search" | "Website" | "Email";
   mrr: string;
   avatarLetter: string;
 }
 
 export const initialLeads: LeadItem[] = [
   {
-    id: 'lead-1',
-    name: 'Sarah Chen',
-    email: 'sarah@neuralflow.ai',
-    company: 'NeuralFlow',
-    role: 'VP Marketing',
-    plan: 'Pro',
-    status: 'Qualified',
+    id: "lead-1",
+    name: "Sarah Chen",
+    email: "sarah@neuralflow.ai",
+    company: "NeuralFlow",
+    role: "VP Marketing",
+    plan: "Pro",
+    status: "Qualified",
     score: 92,
-    source: 'LinkedIn',
-    mrr: '$79/mo',
-    avatarLetter: 'SC',
+    source: "LinkedIn",
+    mrr: "$79/mo",
+    avatarLetter: "SC",
   },
   {
-    id: 'lead-2',
-    name: 'Marcus Webb',
-    email: 'marcus@dataray.io',
-    company: 'DataRay',
-    role: 'Founder',
-    plan: 'Business',
-    status: 'Engaged',
+    id: "lead-2",
+    name: "Marcus Webb",
+    email: "marcus@dataray.io",
+    company: "DataRay",
+    role: "Founder",
+    plan: "Business",
+    status: "Engaged",
     score: 88,
-    source: 'Reddit',
-    mrr: '$199/mo',
-    avatarLetter: 'MW',
+    source: "Reddit",
+    mrr: "$199/mo",
+    avatarLetter: "MW",
   },
   {
-    id: 'lead-3',
-    name: 'Priya Nair',
-    email: 'priya@loopgpt.com',
-    company: 'LoopGPT',
-    role: 'Head of Growth',
-    plan: 'Pro',
-    status: 'New',
+    id: "lead-3",
+    name: "Priya Nair",
+    email: "priya@loopgpt.com",
+    company: "LoopGPT",
+    role: "Head of Growth",
+    plan: "Pro",
+    status: "New",
     score: 81,
-    source: 'AI Search',
-    mrr: '$79/mo',
-    avatarLetter: 'PN',
+    source: "AI Search",
+    mrr: "$79/mo",
+    avatarLetter: "PN",
   },
   {
-    id: 'lead-4',
-    name: 'James Okafor',
-    email: 'james@vaultsec.dev',
-    company: 'VaultSec',
-    role: 'CTO',
-    plan: 'Free',
-    status: 'New',
+    id: "lead-4",
+    name: "James Okafor",
+    email: "james@vaultsec.dev",
+    company: "VaultSec",
+    role: "CTO",
+    plan: "Free",
+    status: "New",
     score: 64,
-    source: 'Website',
-    mrr: '—',
-    avatarLetter: 'JO',
+    source: "Website",
+    mrr: "—",
+    avatarLetter: "JO",
   },
   {
-    id: 'lead-5',
-    name: 'Elena Rossi',
-    email: 'elena@brightml.co',
-    company: 'BrightML',
-    role: 'CEO',
-    plan: 'Enterprise',
-    status: 'Won',
+    id: "lead-5",
+    name: "Elena Rossi",
+    email: "elena@brightml.co",
+    company: "BrightML",
+    role: "CEO",
+    plan: "Enterprise",
+    status: "Won",
     score: 96,
-    source: 'LinkedIn',
-    mrr: '$499/mo',
-    avatarLetter: 'ER',
+    source: "LinkedIn",
+    mrr: "$499/mo",
+    avatarLetter: "ER",
   },
   {
-    id: 'lead-6',
-    name: 'Tom Becker',
-    email: 'tom@fleetops.ai',
-    company: 'FleetOps',
-    role: 'VP Sales',
-    plan: 'Pro',
-    status: 'Qualified',
+    id: "lead-6",
+    name: "Tom Becker",
+    email: "tom@fleetops.ai",
+    company: "FleetOps",
+    role: "VP Sales",
+    plan: "Pro",
+    status: "Qualified",
     score: 89,
-    source: 'Email',
-    mrr: '$79/mo',
-    avatarLetter: 'TB',
+    source: "Email",
+    mrr: "$79/mo",
+    avatarLetter: "TB",
   },
   {
-    id: 'lead-7',
-    name: 'Aisha Khan',
-    email: 'aisha@promptlab.io',
-    company: 'PromptLab',
-    role: 'Founder',
-    plan: 'Business',
-    status: 'Engaged',
+    id: "lead-7",
+    name: "Aisha Khan",
+    email: "aisha@promptlab.io",
+    company: "PromptLab",
+    role: "Founder",
+    plan: "Business",
+    status: "Engaged",
     score: 85,
-    source: 'LinkedIn',
-    mrr: '$199/mo',
-    avatarLetter: 'AK',
+    source: "LinkedIn",
+    mrr: "$199/mo",
+    avatarLetter: "AK",
   },
 ];
 
 export const LeadIntelligenceTable: React.FC = () => {
-  const [search, setSearch] = useState('');
-  const [statusFilter, setStatusFilter] = useState<string>('All');
+  const [search, setSearch] = useState("");
+  const [statusFilter, setStatusFilter] = useState<string>("All");
 
   const filteredLeads = initialLeads.filter((l) => {
     const matchesSearch =
-      search === '' ||
+      search === "" ||
       l.name.toLowerCase().includes(search.toLowerCase()) ||
       l.company.toLowerCase().includes(search.toLowerCase()) ||
       l.email.toLowerCase().includes(search.toLowerCase());
-    const matchesStatus = statusFilter === 'All' || l.status === statusFilter;
+    const matchesStatus = statusFilter === "All" || l.status === statusFilter;
     return matchesSearch && matchesStatus;
   });
 
@@ -142,16 +142,16 @@ export const LeadIntelligenceTable: React.FC = () => {
         <div className="flex flex-wrap items-center gap-2">
           {/* Status Filter Tabs */}
           <div className="flex items-center space-x-1 bg-[#FFFFFF] border border-[#E5E0D6] p-1 rounded-xl select-none">
-            {['All', 'Qualified', 'Engaged', 'New', 'Won'].map((st) => (
+            {["All", "Qualified", "Engaged", "New", "Won"].map((st) => (
               <button
                 key={st}
                 type="button"
                 onClick={() => setStatusFilter(st)}
                 className={cn(
-                  'font-mono text-xs px-2.5 py-1 rounded-lg transition-all',
+                  "font-mono text-xs px-2.5 py-1 rounded-lg transition-all",
                   statusFilter === st
-                    ? 'bg-[#000000] text-[#FFFFFF] font-bold shadow-sm'
-                    : 'text-[#716D64] hover:bg-[#F7F4EE]'
+                    ? "bg-[#000000] text-[#FFFFFF] font-bold shadow-sm"
+                    : "text-[#716D64] hover:bg-[#F7F4EE]",
                 )}
               >
                 {st}
@@ -207,7 +207,9 @@ export const LeadIntelligenceTable: React.FC = () => {
                     </div>
                     <div>
                       <span className="font-bold text-[#111111] block">{lead.name}</span>
-                      <span className="font-mono text-[10px] text-[#716D64] block">{lead.email}</span>
+                      <span className="font-mono text-[10px] text-[#716D64] block">
+                        {lead.email}
+                      </span>
                     </div>
                   </div>
                 </td>
@@ -229,14 +231,14 @@ export const LeadIntelligenceTable: React.FC = () => {
                 <td className="py-3 px-4">
                   <span
                     className={cn(
-                      'font-mono text-[9px] uppercase px-2 py-0.5 rounded font-bold border',
-                      lead.status === 'Won'
-                        ? 'bg-[#EDF6F0] text-[#1E4620] border-[#C8E4D0]'
-                        : lead.status === 'Qualified'
-                        ? 'bg-[#E0F2FE] text-[#0369A1] border-[#BAE6FD]'
-                        : lead.status === 'Engaged'
-                        ? 'bg-[#FEF3C7] text-[#78350F] border-[#FDE68A]'
-                        : 'bg-[#EFEAE1] text-[#716D64] border-[#E5E0D6]'
+                      "font-mono text-[9px] uppercase px-2 py-0.5 rounded font-bold border",
+                      lead.status === "Won"
+                        ? "bg-[#EDF6F0] text-[#1E4620] border-[#C8E4D0]"
+                        : lead.status === "Qualified"
+                          ? "bg-[#E0F2FE] text-[#0369A1] border-[#BAE6FD]"
+                          : lead.status === "Engaged"
+                            ? "bg-[#FEF3C7] text-[#78350F] border-[#FDE68A]"
+                            : "bg-[#EFEAE1] text-[#716D64] border-[#E5E0D6]",
                     )}
                   >
                     {lead.status}
@@ -244,19 +246,13 @@ export const LeadIntelligenceTable: React.FC = () => {
                 </td>
 
                 {/* Score */}
-                <td className="py-3 px-4 font-mono font-bold text-[#2D6A4F]">
-                  {lead.score}
-                </td>
+                <td className="py-3 px-4 font-mono font-bold text-[#2D6A4F]">{lead.score}</td>
 
                 {/* Source */}
-                <td className="py-3 px-4 font-mono text-[11px] text-[#716D64]">
-                  {lead.source}
-                </td>
+                <td className="py-3 px-4 font-mono text-[11px] text-[#716D64]">{lead.source}</td>
 
                 {/* MRR */}
-                <td className="py-3 px-4 font-mono font-bold text-[#111111]">
-                  {lead.mrr}
-                </td>
+                <td className="py-3 px-4 font-mono font-bold text-[#111111]">{lead.mrr}</td>
 
                 {/* Actions */}
                 <td className="py-3 px-4 text-right">

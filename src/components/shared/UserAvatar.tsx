@@ -1,5 +1,5 @@
-import React from 'react';
-import { cn } from '@/design-system/utils/cn';
+import React from "react";
+import { cn } from "@/design-system/utils/cn";
 
 export interface UserAvatarProps {
   className?: string;
@@ -7,14 +7,11 @@ export interface UserAvatarProps {
   role?: string;
 }
 
-export const UserAvatar: React.FC<UserAvatarProps> = ({
-  className,
-  name = 'Pratyush',
-}) => {
+export const UserAvatar: React.FC<UserAvatarProps> = ({ className, name = "Pratyush" }) => {
   const initials = name
-    .split(' ')
+    .split(" ")
     .map((n) => n[0])
-    .join('')
+    .join("")
     .substring(0, 2)
     .toUpperCase();
 
@@ -22,8 +19,8 @@ export const UserAvatar: React.FC<UserAvatarProps> = ({
     <button
       type="button"
       className={cn(
-        'group flex items-center space-x-2.5 rounded-full p-1 transition-all focus:outline-none focus:ring-1 focus:ring-[#18181B]',
-        className
+        "group flex items-center space-x-2.5 rounded-full p-1 transition-all focus:outline-none focus:ring-1 focus:ring-[#18181B]",
+        className,
       )}
     >
       <div className="relative flex h-8 w-8 items-center justify-center rounded-full bg-[#000000] font-mono text-xs font-semibold text-[#FFFFFF] shadow-sm">

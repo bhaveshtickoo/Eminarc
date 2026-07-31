@@ -1,5 +1,5 @@
-import React from 'react';
-import { Kanban, DollarSign } from 'lucide-react';
+import React from "react";
+import { Kanban, DollarSign } from "lucide-react";
 
 export interface PipelineStage {
   label: string;
@@ -9,15 +9,15 @@ export interface PipelineStage {
 }
 
 export const pipelineStages: PipelineStage[] = [
-  { label: 'Qualified', count: 14, color: '#18181B', value: '$6,800' },
-  { label: 'Meetings', count: 6, color: '#716D64', value: '$3,200' },
-  { label: 'Proposal', count: 3, color: '#B45309', value: '$1,600' },
-  { label: 'Closed', count: 1, color: '#2D6A4F', value: '$800' },
+  { label: "Qualified", count: 14, color: "#18181B", value: "$6,800" },
+  { label: "Meetings", count: 6, color: "#716D64", value: "$3,200" },
+  { label: "Proposal", count: 3, color: "#B45309", value: "$1,600" },
+  { label: "Closed", count: 1, color: "#2D6A4F", value: "$800" },
 ];
 
 export const PipelineCard: React.FC = () => {
   const totalCount = pipelineStages.reduce((acc, s) => acc + s.count, 0); // 24
-  
+
   // Calculate SVG stroke-dasharray values for Donut chart
   const radius = 40;
   const circumference = 2 * Math.PI * radius; // ~251.32
@@ -65,14 +65,7 @@ export const PipelineCard: React.FC = () => {
           <div className="relative w-36 h-36 flex items-center justify-center shrink-0">
             <svg viewBox="0 0 100 100" className="w-full h-full transform -rotate-90">
               {/* Background Track */}
-              <circle
-                cx="50"
-                cy="50"
-                r={radius}
-                fill="none"
-                stroke="#E5E0D6"
-                strokeWidth="12"
-              />
+              <circle cx="50" cy="50" r={radius} fill="none" stroke="#E5E0D6" strokeWidth="12" />
               {/* Donut Segments */}
               {donutSlices.map((slice, idx) => (
                 <circle
@@ -113,9 +106,7 @@ export const PipelineCard: React.FC = () => {
                     className="h-2.5 w-2.5 rounded-full"
                     style={{ backgroundColor: stage.color }}
                   />
-                  <span className="font-sans font-medium text-[#18181B]">
-                    {stage.label}
-                  </span>
+                  <span className="font-sans font-medium text-[#18181B]">{stage.label}</span>
                 </div>
                 <div className="flex items-center space-x-3 font-mono">
                   <span className="font-bold text-[#111111]">{stage.count}</span>

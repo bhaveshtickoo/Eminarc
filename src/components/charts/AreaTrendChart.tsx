@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import React from 'react';
+import React from "react";
 
 export interface AreaTrendSeries {
   name: string;
@@ -46,10 +46,7 @@ export const AreaTrendChart: React.FC<AreaTrendChartProps> = ({
       <div className="flex flex-wrap items-center gap-4 text-xs font-mono">
         {series.map((s, idx) => (
           <div key={idx} className="flex items-center space-x-2">
-            <span
-              className="w-2.5 h-2.5 rounded-full"
-              style={{ backgroundColor: s.color }}
-            />
+            <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: s.color }} />
             <span className="font-medium text-[#18181B]">{s.name}</span>
           </div>
         ))}
@@ -75,7 +72,7 @@ export const AreaTrendChart: React.FC<AreaTrendChartProps> = ({
           {/* Series Paths */}
           {series.map((s, sIdx) => {
             const pts = pointsForSeries(s.data);
-            const polylinePoints = pts.map((p) => `${p.x},${p.y}`).join(' ');
+            const polylinePoints = pts.map((p) => `${p.x},${p.y}`).join(" ");
             const gradientId = `areaGrad-${sIdx}`;
 
             return (

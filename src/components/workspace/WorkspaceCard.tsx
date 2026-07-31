@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { ArrowUpRight } from 'lucide-react';
-import { cn } from '@/design-system/utils/cn';
-import { useWorkspace } from './WorkspaceContextProvider';
+import React from "react";
+import { ArrowUpRight } from "lucide-react";
+import { cn } from "@/design-system/utils/cn";
+import { useWorkspace } from "./WorkspaceContextProvider";
 
 export interface WorkspaceCardProps {
   className?: string;
@@ -15,8 +15,8 @@ export const WorkspaceCard: React.FC<WorkspaceCardProps> = ({ className }) => {
   return (
     <div
       className={cn(
-        'group flex items-center justify-between rounded-2xl bg-[#FFFFFF] border border-[#E5E0D6] p-4 shadow-[0_1px_3px_0_rgba(0,0,0,0.02)] transition-all duration-200 hover:border-[#18181B] hover:shadow-[0_4px_12px_-2px_rgba(26,26,26,0.04)]',
-        className
+        "group flex items-center justify-between rounded-2xl bg-[#FFFFFF] border border-[#E5E0D6] p-4 shadow-[0_1px_3px_0_rgba(0,0,0,0.02)] transition-all duration-200 hover:border-[#18181B] hover:shadow-[0_4px_12px_-2px_rgba(26,26,26,0.04)]",
+        className,
       )}
     >
       <div className="flex items-center space-x-3.5">
@@ -24,9 +24,7 @@ export const WorkspaceCard: React.FC<WorkspaceCardProps> = ({ className }) => {
           {currentWorkspace.logoLetter}
         </div>
         <div>
-          <h4 className="font-sans font-bold text-sm text-[#111111]">
-            {currentWorkspace.name}
-          </h4>
+          <h4 className="font-sans font-bold text-sm text-[#111111]">{currentWorkspace.name}</h4>
           <p className="font-mono text-[10px] text-[#716D64] uppercase tracking-wider">
             {currentWorkspace.industry} • {currentWorkspace.targetMarket}
           </p>

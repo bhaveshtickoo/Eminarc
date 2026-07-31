@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { Calendar as CalendarIcon, Clock, Plus, GripVertical } from 'lucide-react';
+import React from "react";
+import { Calendar as CalendarIcon, Clock, Plus, GripVertical } from "lucide-react";
 
 export interface CalendarDay {
   day: string;
@@ -12,78 +12,78 @@ export interface CalendarDay {
     type: string;
     platform: string;
     time: string;
-    status: 'Published' | 'Scheduled' | 'Draft';
+    status: "Published" | "Scheduled" | "Draft";
   }[];
 }
 
 export const weeklySchedule: CalendarDay[] = [
   {
-    day: 'Monday',
-    date: 'Aug 4',
+    day: "Monday",
+    date: "Aug 4",
     posts: [
       {
-        id: 'cal-1',
-        title: 'Why Growth OS Architecture Replaces Fragmented SaaS',
-        type: 'LinkedIn Post',
-        platform: 'LinkedIn',
-        time: '09:00 AM',
-        status: 'Scheduled',
+        id: "cal-1",
+        title: "Why Growth OS Architecture Replaces Fragmented SaaS",
+        type: "LinkedIn Post",
+        platform: "LinkedIn",
+        time: "09:00 AM",
+        status: "Scheduled",
       },
     ],
   },
   {
-    day: 'Tuesday',
-    date: 'Aug 5',
+    day: "Tuesday",
+    date: "Aug 5",
     posts: [
       {
-        id: 'cal-2',
-        title: 'Scaling B2B AI Visibility Citation Scores by 38%',
-        type: 'Medium Article',
-        platform: 'Medium',
-        time: '02:30 PM',
-        status: 'Scheduled',
+        id: "cal-2",
+        title: "Scaling B2B AI Visibility Citation Scores by 38%",
+        type: "Medium Article",
+        platform: "Medium",
+        time: "02:30 PM",
+        status: "Scheduled",
       },
     ],
   },
   {
-    day: 'Wednesday',
-    date: 'Aug 6',
+    day: "Wednesday",
+    date: "Aug 6",
     posts: [
       {
-        id: 'cal-3',
-        title: 'Systemic Founder: Content Engine Workflows',
-        type: 'Reddit Post',
-        platform: 'Reddit',
-        time: '11:15 AM',
-        status: 'Draft',
+        id: "cal-3",
+        title: "Systemic Founder: Content Engine Workflows",
+        type: "Reddit Post",
+        platform: "Reddit",
+        time: "11:15 AM",
+        status: "Draft",
       },
     ],
   },
   {
-    day: 'Thursday',
-    date: 'Aug 7',
+    day: "Thursday",
+    date: "Aug 7",
     posts: [
       {
-        id: 'cal-4',
-        title: '5 AI Search Optimization Frameworks',
-        type: 'LinkedIn Carousel',
-        platform: 'LinkedIn',
-        time: '10:00 AM',
-        status: 'Draft',
+        id: "cal-4",
+        title: "5 AI Search Optimization Frameworks",
+        type: "LinkedIn Carousel",
+        platform: "LinkedIn",
+        time: "10:00 AM",
+        status: "Draft",
       },
     ],
   },
   {
-    day: 'Friday',
-    date: 'Aug 8',
+    day: "Friday",
+    date: "Aug 8",
     posts: [
       {
-        id: 'cal-5',
-        title: 'Weekly Founder Review & Growth OS Wins',
-        type: 'Newsletter',
-        platform: 'Substack',
-        time: '04:00 PM',
-        status: 'Draft',
+        id: "cal-5",
+        title: "Weekly Founder Review & Growth OS Wins",
+        type: "Newsletter",
+        platform: "Substack",
+        time: "04:00 PM",
+        status: "Draft",
       },
     ],
   },
@@ -114,12 +114,8 @@ export const ContentCalendar: React.FC = () => {
             {/* Day Header */}
             <div className="flex items-center justify-between pb-3 border-b border-[#E5E0D6]/60 mb-3">
               <div>
-                <span className="font-sans font-bold text-sm text-[#111111]">
-                  {dayItem.day}
-                </span>
-                <span className="font-mono text-[10px] text-[#716D64] block">
-                  {dayItem.date}
-                </span>
+                <span className="font-sans font-bold text-sm text-[#111111]">{dayItem.day}</span>
+                <span className="font-mono text-[10px] text-[#716D64] block">{dayItem.date}</span>
               </div>
               <button
                 type="button"

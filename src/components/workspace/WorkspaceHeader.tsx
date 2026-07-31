@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { Building2, Globe, Megaphone } from 'lucide-react';
-import { cn } from '@/design-system/utils/cn';
-import { useWorkspace } from '@/hooks/useWorkspace';
+import React from "react";
+import { Building2, Globe, Megaphone } from "lucide-react";
+import { cn } from "@/design-system/utils/cn";
+import { useWorkspace } from "@/hooks/useWorkspace";
 
 export interface WorkspaceHeaderProps {
   className?: string;
@@ -19,8 +19,8 @@ export const WorkspaceHeader: React.FC<WorkspaceHeaderProps> = ({
   return (
     <div
       className={cn(
-        'rounded-[18px] bg-[#FCFAF7] border border-[rgba(0,0,0,0.08)] p-6 shadow-[0_1px_3px_0_rgba(0,0,0,0.025)] transition-all duration-200',
-        className
+        "rounded-[18px] bg-[#FCFAF7] border border-[rgba(0,0,0,0.08)] p-6 shadow-[0_1px_3px_0_rgba(0,0,0,0.025)] transition-all duration-200",
+        className,
       )}
     >
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
@@ -32,7 +32,7 @@ export const WorkspaceHeader: React.FC<WorkspaceHeaderProps> = ({
             </span>
             <span className="flex items-center text-xs font-mono text-[#2D6A4F] bg-[#EDF6F0] px-2.5 py-1 rounded-full font-medium border border-[#C8E4D0]">
               <span className="w-1.5 h-1.5 rounded-full bg-[#2D6A4F] mr-1.5 animate-pulse" />
-              {currentWorkspace.status.toUpperCase()}
+              {(currentWorkspace.status || "Active").toUpperCase()}
             </span>
           </div>
 
@@ -53,12 +53,12 @@ export const WorkspaceHeader: React.FC<WorkspaceHeaderProps> = ({
             <span>•</span>
             <div className="flex items-center space-x-1.5">
               <Globe className="h-3.5 w-3.5 text-[#18181B]" />
-              <span>{currentWorkspace.targetMarket.join(', ')}</span>
+              <span>{currentWorkspace.targetMarket.join(", ")}</span>
             </div>
             <span>•</span>
             <div className="flex items-center space-x-1.5">
               <Megaphone className="h-3.5 w-3.5 text-[#18181B]" />
-              <span>Voice: {currentWorkspace.brandVoice.join(', ')}</span>
+              <span>Voice: {currentWorkspace.brandVoice.join(", ")}</span>
             </div>
           </div>
         </div>

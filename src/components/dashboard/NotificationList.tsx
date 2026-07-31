@@ -1,6 +1,6 @@
-import React from 'react';
-import { Bell, Eye, SearchCode, CalendarCheck, Clock } from 'lucide-react';
-import { cn } from '@/design-system/utils/cn';
+import React from "react";
+import { Bell, Eye, SearchCode, CalendarCheck, Clock } from "lucide-react";
+import { cn } from "@/design-system/utils/cn";
 
 export interface NotificationItem {
   id: string;
@@ -8,50 +8,50 @@ export interface NotificationItem {
   category: string;
   time: string;
   icon: React.ReactNode;
-  variant: 'success' | 'info' | 'warning' | 'neutral';
+  variant: "success" | "info" | "warning" | "neutral";
 }
 
 export const notificationsData: NotificationItem[] = [
   {
-    id: 'n-1',
-    title: 'AI Audit Completed',
-    category: 'AI SCANNER',
-    time: '12m ago',
+    id: "n-1",
+    title: "AI Audit Completed",
+    category: "AI SCANNER",
+    time: "12m ago",
     icon: <Eye className="h-3.5 w-3.5" />,
-    variant: 'success',
+    variant: "success",
   },
   {
-    id: 'n-2',
-    title: 'New Research Report Ready',
-    category: 'RESEARCH',
-    time: '1h ago',
+    id: "n-2",
+    title: "New Research Report Ready",
+    category: "RESEARCH",
+    time: "1h ago",
     icon: <SearchCode className="h-3.5 w-3.5" />,
-    variant: 'info',
+    variant: "info",
   },
   {
-    id: 'n-3',
-    title: '2 CRM Tasks Due',
-    category: 'PIPELINE',
-    time: '3h ago',
+    id: "n-3",
+    title: "2 CRM Tasks Due",
+    category: "PIPELINE",
+    time: "3h ago",
     icon: <Clock className="h-3.5 w-3.5" />,
-    variant: 'warning',
+    variant: "warning",
   },
   {
-    id: 'n-4',
-    title: 'Weekly Review Tomorrow',
-    category: 'SYSTEM',
-    time: 'Scheduled',
+    id: "n-4",
+    title: "Weekly Review Tomorrow",
+    category: "SYSTEM",
+    time: "Scheduled",
     icon: <CalendarCheck className="h-3.5 w-3.5" />,
-    variant: 'neutral',
+    variant: "neutral",
   },
 ];
 
 export const NotificationList: React.FC = () => {
   const badgeStyles = {
-    success: 'bg-[#EDF6F0] text-[#1E4620] border-[#C8E4D0]',
-    info: 'bg-[#F1F5F9] text-[#1E293B] border-[#CBD5E1]',
-    warning: 'bg-[#FEF3C7] text-[#78350F] border-[#FDE68A]',
-    neutral: 'bg-[#F4F4F5] text-[#52525B] border-[#E4E4E7]',
+    success: "bg-[#EDF6F0] text-[#1E4620] border-[#C8E4D0]",
+    info: "bg-[#F1F5F9] text-[#1E293B] border-[#CBD5E1]",
+    warning: "bg-[#FEF3C7] text-[#78350F] border-[#FDE68A]",
+    neutral: "bg-[#F4F4F5] text-[#52525B] border-[#E4E4E7]",
   };
 
   return (
@@ -83,8 +83,8 @@ export const NotificationList: React.FC = () => {
             <div className="flex items-center space-x-3 min-w-0">
               <div
                 className={cn(
-                  'flex h-7 w-7 items-center justify-center rounded-lg border shrink-0',
-                  badgeStyles[item.variant]
+                  "flex h-7 w-7 items-center justify-center rounded-lg border shrink-0",
+                  badgeStyles[item.variant],
                 )}
               >
                 {item.icon}
@@ -99,9 +99,7 @@ export const NotificationList: React.FC = () => {
               </div>
             </div>
 
-            <span className="font-mono text-[10px] text-[#716D64] shrink-0 ml-2">
-              {item.time}
-            </span>
+            <span className="font-mono text-[10px] text-[#716D64] shrink-0 ml-2">{item.time}</span>
           </div>
         ))}
       </div>

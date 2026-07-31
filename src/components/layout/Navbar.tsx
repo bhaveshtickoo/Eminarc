@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { Bell, MessageSquare, Menu } from 'lucide-react';
-import { cn } from '@/design-system/utils/cn';
-import { Breadcrumbs } from '../workspace/Breadcrumbs';
-import { SearchBar } from '../shared/SearchBar';
-import { UserAvatar } from '../shared/UserAvatar';
+import React from "react";
+import { Bell, MessageSquare, Menu } from "lucide-react";
+import { cn } from "@/design-system/utils/cn";
+import { Breadcrumbs } from "../workspace/Breadcrumbs";
+import { SearchBar } from "../shared/SearchBar";
+import { UserAvatar } from "../shared/UserAvatar";
 
 export interface NavbarProps {
   onMenuToggle?: () => void;
@@ -15,14 +15,14 @@ export interface NavbarProps {
 
 export const Navbar: React.FC<NavbarProps> = ({
   onMenuToggle,
-  activeModule = 'Dashboard',
+  activeModule = "Dashboard",
   className,
 }) => {
   return (
     <header
       className={cn(
-        'sticky top-0 z-30 flex h-16 w-full items-center justify-between border-b border-[#E5E0D6] bg-[#F6F2EB]/95 px-4 sm:px-6 md:px-8 backdrop-none',
-        className
+        "sticky top-0 z-30 flex h-16 w-full items-center justify-between border-b border-[#E5E0D6] bg-[#F6F2EB]/95 px-4 sm:px-6 md:px-8 backdrop-none",
+        className,
       )}
     >
       {/* Left Section: Mobile Menu Toggle & Breadcrumbs */}

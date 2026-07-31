@@ -1,11 +1,11 @@
-import React from 'react';
-import { Bot, Sparkles, ArrowRight, CheckCircle2 } from 'lucide-react';
+import React from "react";
+import { Bot, Sparkles, ArrowRight, CheckCircle2 } from "lucide-react";
 
 export const suggestedActions = [
-  'Publish founder story',
-  'Reply to comments',
-  'Improve your headline',
-  'Target Healthcare ICP',
+  "Publish founder story",
+  "Reply to comments",
+  "Improve your headline",
+  "Target Healthcare ICP",
 ];
 
 export const CopilotCard: React.FC = () => {

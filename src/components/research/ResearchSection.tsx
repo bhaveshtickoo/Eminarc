@@ -1,5 +1,5 @@
-import React from 'react';
-import { cn } from '@/design-system/utils/cn';
+import React from "react";
+import { cn } from "@/design-system/utils/cn";
 
 export interface ResearchSectionProps extends React.HTMLAttributes<HTMLDivElement> {
   sectionNumber: string; // e.g. "01", "02"
@@ -22,8 +22,8 @@ export const ResearchSection: React.FC<ResearchSectionProps> = ({
   return (
     <div
       className={cn(
-        'group relative flex flex-col rounded-[18px] bg-[#FCFAF7] border border-[rgba(0,0,0,0.08)] p-6 md:p-8 shadow-[0_1px_3px_0_rgba(0,0,0,0.025)] transition-all duration-200 hover:border-[rgba(0,0,0,0.14)]',
-        className
+        "group relative flex flex-col rounded-[18px] bg-[#FCFAF7] border border-[rgba(0,0,0,0.08)] p-6 md:p-8 shadow-[0_1px_3px_0_rgba(0,0,0,0.025)] transition-all duration-200 hover:border-[rgba(0,0,0,0.14)]",
+        className,
       )}
       {...props}
     >
@@ -60,9 +60,7 @@ export const ResearchSection: React.FC<ResearchSectionProps> = ({
       </div>
 
       {/* Section Body */}
-      <div className="font-sans text-sm text-[#18181B] leading-relaxed space-y-4">
-        {children}
-      </div>
+      <div className="font-sans text-sm text-[#18181B] leading-relaxed space-y-4">{children}</div>
     </div>
   );
 };

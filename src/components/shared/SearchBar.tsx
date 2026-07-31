@@ -1,6 +1,6 @@
-import React from 'react';
-import { Search } from 'lucide-react';
-import { cn } from '@/design-system/utils/cn';
+import React from "react";
+import { Search } from "lucide-react";
+import { cn } from "@/design-system/utils/cn";
 
 export interface SearchBarProps {
   className?: string;
@@ -9,10 +9,10 @@ export interface SearchBarProps {
 
 export const SearchBar: React.FC<SearchBarProps> = ({
   className,
-  placeholder = 'Search commands, research, leads...',
+  placeholder = "Search commands, research, leads...",
 }) => {
   return (
-    <div className={cn('relative w-full max-w-sm', className)}>
+    <div className={cn("relative w-full max-w-sm", className)}>
       <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-[#716D64] pointer-events-none" />
       <input
         type="text"

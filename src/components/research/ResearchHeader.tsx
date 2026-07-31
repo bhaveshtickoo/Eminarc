@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { Globe, ShieldCheck } from 'lucide-react';
-import { StatusBadge } from './StatusBadge';
-import { useWorkspace } from '../workspace/WorkspaceContextProvider';
+import React from "react";
+import { Globe, ShieldCheck } from "lucide-react";
+import { StatusBadge } from "./StatusBadge";
+import { useWorkspace } from "../workspace/WorkspaceContextProvider";
 
 export const ResearchHeader: React.FC = () => {
   const { currentWorkspace } = useWorkspace();
@@ -40,7 +40,11 @@ export const ResearchHeader: React.FC = () => {
 
         {/* Status Badge Group */}
         <div className="shrink-0">
-          <StatusBadge status="Completed" confidence={`${currentWorkspace.metrics.growthScore + 15}%`} timeAgo="2 minutes ago" />
+          <StatusBadge
+            status="Completed"
+            confidence={`${currentWorkspace.metrics.growthScore + 15}%`}
+            timeAgo="2 minutes ago"
+          />
         </div>
       </div>
     </div>

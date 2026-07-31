@@ -1,5 +1,5 @@
-import React from 'react';
-import { cn } from '@/design-system/utils/cn';
+import React from "react";
+import { cn } from "@/design-system/utils/cn";
 
 export interface EmptyCardPlaceholderProps extends React.HTMLAttributes<HTMLDivElement> {
   title: string;
@@ -25,7 +25,7 @@ export const EmptyCardPlaceholder: React.FC<EmptyCardPlaceholderProps> = ({
   subtitle,
   indexCode,
   badge,
-  heightClass = 'min-h-[220px]',
+  heightClass = "min-h-[220px]",
   headerAction,
   children,
   ...props
@@ -33,9 +33,9 @@ export const EmptyCardPlaceholder: React.FC<EmptyCardPlaceholderProps> = ({
   return (
     <div
       className={cn(
-        'group relative flex flex-col rounded-[18px] bg-[#FCFAF7] border border-[rgba(0,0,0,0.08)] p-6 shadow-[0_1px_3px_0_rgba(0,0,0,0.025)] transition-all duration-200 ease-out hover:border-[rgba(0,0,0,0.14)] hover:shadow-[0_4px_12px_-2px_rgba(0,0,0,0.04)]',
+        "group relative flex flex-col rounded-[18px] bg-[#FCFAF7] border border-[rgba(0,0,0,0.08)] p-6 shadow-[0_1px_3px_0_rgba(0,0,0,0.025)] transition-all duration-200 ease-out hover:border-[rgba(0,0,0,0.14)] hover:shadow-[0_4px_12px_-2px_rgba(0,0,0,0.04)]",
         heightClass,
-        className
+        className,
       )}
       {...props}
     >
@@ -54,9 +54,7 @@ export const EmptyCardPlaceholder: React.FC<EmptyCardPlaceholderProps> = ({
             {title}
           </h3>
           {subtitle && (
-            <p className="font-sans text-xs text-[#716D64] mt-0.5 leading-relaxed">
-              {subtitle}
-            </p>
+            <p className="font-sans text-xs text-[#716D64] mt-0.5 leading-relaxed">{subtitle}</p>
           )}
         </div>
         {headerAction && <div className="shrink-0">{headerAction}</div>}

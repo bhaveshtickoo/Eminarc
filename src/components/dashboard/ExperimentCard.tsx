@@ -1,57 +1,57 @@
-import React from 'react';
-import { FlaskConical, TrendingUp, Sparkles } from 'lucide-react';
-import { cn } from '@/design-system/utils/cn';
+import React from "react";
+import { FlaskConical, TrendingUp, Sparkles } from "lucide-react";
+import { cn } from "@/design-system/utils/cn";
 
 export interface ExperimentItem {
   id: string;
   name: string;
   channel: string;
   hypothesis: string;
-  status: 'Active' | 'Testing' | 'Optimizing' | 'Scaling';
+  status: "Active" | "Testing" | "Optimizing" | "Scaling";
   impact: string;
 }
 
 export const experimentList: ExperimentItem[] = [
   {
-    id: 'exp-1',
-    name: 'Founder Content Strategy',
-    channel: 'LinkedIn / Personal Brand',
-    hypothesis: 'Direct story-based posts increase inbound lead DMs by 40%',
-    status: 'Scaling',
-    impact: '+42% DMs',
+    id: "exp-1",
+    name: "Founder Content Strategy",
+    channel: "LinkedIn / Personal Brand",
+    hypothesis: "Direct story-based posts increase inbound lead DMs by 40%",
+    status: "Scaling",
+    impact: "+42% DMs",
   },
   {
-    id: 'exp-2',
-    name: 'Reddit SEO',
-    channel: 'r/startups / r/SaaS',
-    hypothesis: 'Answering high-intent queries ranks in ChatGPT search results',
-    status: 'Testing',
-    impact: '+18% Traffic',
+    id: "exp-2",
+    name: "Reddit SEO",
+    channel: "r/startups / r/SaaS",
+    hypothesis: "Answering high-intent queries ranks in ChatGPT search results",
+    status: "Testing",
+    impact: "+18% Traffic",
   },
   {
-    id: 'exp-3',
-    name: 'AI Search Optimization',
-    channel: 'Perplexity / SearchGPT',
-    hypothesis: 'Optimized schema markdown improves citations across LLMs',
-    status: 'Active',
-    impact: '+25% Citations',
+    id: "exp-3",
+    name: "AI Search Optimization",
+    channel: "Perplexity / SearchGPT",
+    hypothesis: "Optimized schema markdown improves citations across LLMs",
+    status: "Active",
+    impact: "+25% Citations",
   },
   {
-    id: 'exp-4',
-    name: 'Newsletter CTA',
-    channel: 'Email / Growth Digest',
-    hypothesis: 'Inline audit tool widget increases audit request conversion',
-    status: 'Optimizing',
-    impact: '+12% Opt-ins',
+    id: "exp-4",
+    name: "Newsletter CTA",
+    channel: "Email / Growth Digest",
+    hypothesis: "Inline audit tool widget increases audit request conversion",
+    status: "Optimizing",
+    impact: "+12% Opt-ins",
   },
 ];
 
 export const ExperimentCard: React.FC = () => {
   const statusBadges = {
-    Scaling: 'bg-[#EDF6F0] text-[#1E4620] border-[#C8E4D0]',
-    Active: 'bg-[#F1F5F9] text-[#1E293B] border-[#CBD5E1]',
-    Testing: 'bg-[#FEF3C7] text-[#78350F] border-[#FDE68A]',
-    Optimizing: 'bg-[#EEF2FF] text-[#312E81] border-[#C7D2FE]',
+    Scaling: "bg-[#EDF6F0] text-[#1E4620] border-[#C8E4D0]",
+    Active: "bg-[#F1F5F9] text-[#1E293B] border-[#CBD5E1]",
+    Testing: "bg-[#FEF3C7] text-[#78350F] border-[#FDE68A]",
+    Optimizing: "bg-[#EEF2FF] text-[#312E81] border-[#C7D2FE]",
   };
 
   return (
@@ -99,8 +99,8 @@ export const ExperimentCard: React.FC = () => {
                   </span>
                   <span
                     className={cn(
-                      'rounded-full border px-2 py-0.5 font-mono text-[9px] font-medium uppercase tracking-wider',
-                      statusBadges[exp.status]
+                      "rounded-full border px-2 py-0.5 font-mono text-[9px] font-medium uppercase tracking-wider",
+                      statusBadges[exp.status],
                     )}
                   >
                     {exp.status}

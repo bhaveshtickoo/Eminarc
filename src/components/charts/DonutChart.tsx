@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import React from 'react';
+import React from "react";
 
 export interface DonutSegment {
   label: string;
@@ -18,7 +18,7 @@ export interface DonutChartProps {
 
 export const DonutChart: React.FC<DonutChartProps> = ({
   segments,
-  centerLabel = 'TOTAL',
+  centerLabel = "TOTAL",
   centerValue,
   size = 180,
 }) => {
@@ -85,9 +85,7 @@ export const DonutChart: React.FC<DonutChartProps> = ({
                 <span className="font-medium text-[#18181B] truncate">{seg.label}</span>
               </div>
               <div className="flex items-center space-x-2 font-mono text-[10px] shrink-0 ml-2">
-                <span className="font-bold text-[#111111]">
-                  {seg.formattedValue || seg.value}
-                </span>
+                <span className="font-bold text-[#111111]">{seg.formattedValue || seg.value}</span>
                 <span className="text-[#716D64]">({pct}%)</span>
               </div>
             </div>

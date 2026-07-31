@@ -1,14 +1,11 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import {
-  FolderKanban,
-  Plus,
-} from 'lucide-react';
-import { cn } from '@/design-system/utils/cn';
-import { BrandVoiceCard } from './BrandVoiceCard';
-import { ContentFilters } from './ContentFilters';
-import { ContentCard } from './ContentCard';
+import React, { useState } from "react";
+import { FolderKanban, Plus } from "lucide-react";
+import { cn } from "@/design-system/utils/cn";
+import { BrandVoiceCard } from "./BrandVoiceCard";
+import { ContentFilters } from "./ContentFilters";
+import { ContentCard } from "./ContentCard";
 
 export interface CampaignItem {
   id: string;
@@ -21,38 +18,38 @@ export interface DraftItem {
   id: string;
   title: string;
   type: string;
-  status: 'Draft' | 'Scheduled' | 'Published';
+  status: "Draft" | "Scheduled" | "Published";
   updatedAt: string;
 }
 
 export const initialDrafts: DraftItem[] = [
   {
-    id: 'd-1',
-    title: 'Why Growth OS Architecture Replaces Fragmented Marketing Tech Stacks',
-    type: 'LinkedIn Post',
-    status: 'Draft',
-    updatedAt: '12m ago',
+    id: "d-1",
+    title: "Why Growth OS Architecture Replaces Fragmented Marketing Tech Stacks",
+    type: "LinkedIn Post",
+    status: "Draft",
+    updatedAt: "12m ago",
   },
   {
-    id: 'd-2',
-    title: 'How We Scaled B2B AI Visibility Citation Scores by 38% in 30 Days',
-    type: 'Medium Article',
-    status: 'Scheduled',
-    updatedAt: '2h ago',
+    id: "d-2",
+    title: "How We Scaled B2B AI Visibility Citation Scores by 38% in 30 Days",
+    type: "Medium Article",
+    status: "Scheduled",
+    updatedAt: "2h ago",
   },
   {
-    id: 'd-3',
-    title: 'The Systemic Founder: Building Content Engine Workflows without Burnout',
-    type: 'Reddit Case Study',
-    status: 'Published',
-    updatedAt: 'Yesterday',
+    id: "d-3",
+    title: "The Systemic Founder: Building Content Engine Workflows without Burnout",
+    type: "Reddit Case Study",
+    status: "Published",
+    updatedAt: "Yesterday",
   },
   {
-    id: 'd-4',
-    title: '5 AI Search Optimization Frameworks Every B2B Founder Must Implement',
-    type: 'LinkedIn Carousel',
-    status: 'Draft',
-    updatedAt: '2 days ago',
+    id: "d-4",
+    title: "5 AI Search Optimization Frameworks Every B2B Founder Must Implement",
+    type: "LinkedIn Carousel",
+    status: "Draft",
+    updatedAt: "2 days ago",
   },
 ];
 
@@ -63,26 +60,25 @@ export interface CampaignSidebarProps {
 }
 
 export const CampaignSidebar: React.FC<CampaignSidebarProps> = ({
-  activeDraftId = 'd-1',
+  activeDraftId = "d-1",
   onSelectDraft,
   onNewDraft,
 }) => {
-  const [filter, setFilter] = useState('All');
-  const [search, setSearch] = useState('');
+  const [filter, setFilter] = useState("All");
+  const [search, setSearch] = useState("");
 
   const campaigns: CampaignItem[] = [
-    { id: 'c-1', name: 'Growth OS Launch', count: 6, active: true },
-    { id: 'c-2', name: 'AI Visibility Audit', count: 4 },
-    { id: 'c-3', name: 'Founder Stories Series', count: 8 },
+    { id: "c-1", name: "Growth OS Launch", count: 6, active: true },
+    { id: "c-2", name: "AI Visibility Audit", count: 4 },
+    { id: "c-3", name: "Founder Stories Series", count: 8 },
   ];
 
   const filteredDrafts = initialDrafts.filter((draft) => {
     const matchesFilter =
-      filter === 'All' ||
+      filter === "All" ||
       draft.status === filter ||
       draft.type.toLowerCase().includes(filter.toLowerCase());
-    const matchesSearch =
-      search === '' || draft.title.toLowerCase().includes(search.toLowerCase());
+    const matchesSearch = search === "" || draft.title.toLowerCase().includes(search.toLowerCase());
     return matchesFilter && matchesSearch;
   });
 
@@ -117,10 +113,10 @@ export const CampaignSidebar: React.FC<CampaignSidebarProps> = ({
             <div
               key={c.id}
               className={cn(
-                'group flex items-center justify-between rounded-xl px-3 py-2 text-xs font-sans transition-all duration-150 cursor-pointer select-none',
+                "group flex items-center justify-between rounded-xl px-3 py-2 text-xs font-sans transition-all duration-150 cursor-pointer select-none",
                 c.active
-                  ? 'bg-[#FFFFFF] text-[#111111] font-semibold border border-[#E5E0D6] shadow-[0_1px_2px_0_rgba(0,0,0,0.02)]'
-                  : 'text-[#716D64] hover:bg-[#FFFFFF]/70 hover:text-[#111111]'
+                  ? "bg-[#FFFFFF] text-[#111111] font-semibold border border-[#E5E0D6] shadow-[0_1px_2px_0_rgba(0,0,0,0.02)]"
+                  : "text-[#716D64] hover:bg-[#FFFFFF]/70 hover:text-[#111111]",
               )}
             >
               <div className="flex items-center space-x-2 truncate">
@@ -154,9 +150,7 @@ export const CampaignSidebar: React.FC<CampaignSidebarProps> = ({
           <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-[#716D64]">
             Drafts & Posts
           </span>
-          <span className="font-mono text-[9px] text-[#716D64]">
-            {filteredDrafts.length} ITEMS
-          </span>
+          <span className="font-mono text-[9px] text-[#716D64]">{filteredDrafts.length} ITEMS</span>
         </div>
 
         <div className="space-y-2">

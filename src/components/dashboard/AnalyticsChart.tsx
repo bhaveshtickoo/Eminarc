@@ -1,14 +1,16 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import { useWorkspace } from '@/hooks/useWorkspace';
+import React, { useState } from "react";
+import { useWorkspace } from "@/hooks/useWorkspace";
 
 export const AnalyticsChart: React.FC = () => {
   const { currentWorkspace } = useWorkspace();
-  const [activeMetric, setActiveMetric] = useState<'visibility' | 'traffic' | 'leads'>('visibility');
+  const [activeMetric, setActiveMetric] = useState<"visibility" | "traffic" | "leads">(
+    "visibility",
+  );
 
   // Chart dataset for Week 25 -> Week 31
-  const weeks = ['W25', 'W26', 'W27', 'W28', 'W29', 'W30', 'W31'];
+  const weeks = ["W25", "W26", "W27", "W28", "W29", "W30", "W31"];
 
   const metricsData = {
     visibility: [42, 48, 52, 55, 58, 60, currentWorkspace.metrics.aiVisibility],
@@ -29,10 +31,11 @@ export const AnalyticsChart: React.FC = () => {
   const points = currentData
     .map((val, idx) => {
       const x = padding + (idx * (svgWidth - 2 * padding)) / (weeks.length - 1);
-      const y = svgHeight - padding - ((val - minVal) / (maxVal - minVal)) * (svgHeight - 2 * padding);
+      const y =
+        svgHeight - padding - ((val - minVal) / (maxVal - minVal)) * (svgHeight - 2 * padding);
       return `${x},${y}`;
     })
-    .join(' ');
+    .join(" ");
 
   return (
     <div className="rounded-[18px] bg-[#FCFAF7] border border-[rgba(0,0,0,0.08)] p-6 shadow-[0_1px_3px_0_rgba(0,0,0,0.025)] transition-all duration-200">
@@ -60,33 +63,33 @@ export const AnalyticsChart: React.FC = () => {
         <div className="flex items-center space-x-1 bg-[#FFFFFF] border border-[#E5E0D6] p-1 rounded-xl shrink-0 self-start sm:self-auto select-none">
           <button
             type="button"
-            onClick={() => setActiveMetric('visibility')}
+            onClick={() => setActiveMetric("visibility")}
             className={`font-mono text-xs px-3 py-1.5 rounded-lg transition-all ${
-              activeMetric === 'visibility'
-                ? 'bg-[#000000] text-[#FFFFFF] font-bold'
-                : 'text-[#716D64] hover:bg-[#F7F4EE]'
+              activeMetric === "visibility"
+                ? "bg-[#000000] text-[#FFFFFF] font-bold"
+                : "text-[#716D64] hover:bg-[#F7F4EE]"
             }`}
           >
             AI Visibility
           </button>
           <button
             type="button"
-            onClick={() => setActiveMetric('traffic')}
+            onClick={() => setActiveMetric("traffic")}
             className={`font-mono text-xs px-3 py-1.5 rounded-lg transition-all ${
-              activeMetric === 'traffic'
-                ? 'bg-[#000000] text-[#FFFFFF] font-bold'
-                : 'text-[#716D64] hover:bg-[#F7F4EE]'
+              activeMetric === "traffic"
+                ? "bg-[#000000] text-[#FFFFFF] font-bold"
+                : "text-[#716D64] hover:bg-[#F7F4EE]"
             }`}
           >
             Traffic
           </button>
           <button
             type="button"
-            onClick={() => setActiveMetric('leads')}
+            onClick={() => setActiveMetric("leads")}
             className={`font-mono text-xs px-3 py-1.5 rounded-lg transition-all ${
-              activeMetric === 'leads'
-                ? 'bg-[#000000] text-[#FFFFFF] font-bold'
-                : 'text-[#716D64] hover:bg-[#F7F4EE]'
+              activeMetric === "leads"
+                ? "bg-[#000000] text-[#FFFFFF] font-bold"
+                : "text-[#716D64] hover:bg-[#F7F4EE]"
             }`}
           >
             Leads
@@ -140,7 +143,9 @@ export const AnalyticsChart: React.FC = () => {
           {currentData.map((val, idx) => {
             const x = padding + (idx * (svgWidth - 2 * padding)) / (weeks.length - 1);
             const y =
-              svgHeight - padding - ((val - minVal) / (maxVal - minVal)) * (svgHeight - 2 * padding);
+              svgHeight -
+              padding -
+              ((val - minVal) / (maxVal - minVal)) * (svgHeight - 2 * padding);
 
             return (
               <g key={idx} className="group">
@@ -163,7 +168,7 @@ export const AnalyticsChart: React.FC = () => {
           {weeks.map((w, idx) => (
             <span key={w} className="font-medium">
               {w} ({currentData[idx]}
-              {activeMetric === 'visibility' ? '%' : ''})
+              {activeMetric === "visibility" ? "%" : ""})
             </span>
           ))}
         </div>

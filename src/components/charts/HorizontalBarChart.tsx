@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import React from 'react';
+import React from "react";
 
 export interface HorizontalBarItem {
   label: string;
@@ -14,24 +14,19 @@ export interface HorizontalBarChartProps {
   maxVal?: number;
 }
 
-export const HorizontalBarChart: React.FC<HorizontalBarChartProps> = ({
-  data,
-  maxVal,
-}) => {
+export const HorizontalBarChart: React.FC<HorizontalBarChartProps> = ({ data, maxVal }) => {
   const highest = maxVal || Math.max(...data.map((d) => d.value)) || 100;
 
   return (
     <div className="space-y-3 w-full select-none">
       {data.map((item, idx) => {
         const pct = Math.round((item.value / highest) * 100);
-        const barColor = item.color || '#18181B';
+        const barColor = item.color || "#18181B";
 
         return (
           <div key={idx} className="space-y-1">
             <div className="flex items-center justify-between text-xs font-sans">
-              <span className="font-semibold text-[#18181B] truncate pr-2">
-                {item.label}
-              </span>
+              <span className="font-semibold text-[#18181B] truncate pr-2">{item.label}</span>
               <span className="font-mono text-[10px] font-bold text-[#111111] shrink-0">
                 {item.formattedValue || item.value}
               </span>

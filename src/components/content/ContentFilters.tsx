@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { Search } from 'lucide-react';
-import { cn } from '@/design-system/utils/cn';
+import React from "react";
+import { Search } from "lucide-react";
+import { cn } from "@/design-system/utils/cn";
 
 export interface ContentFiltersProps {
   activeFilter?: string;
@@ -12,19 +12,19 @@ export interface ContentFiltersProps {
 }
 
 export const filterOptions = [
-  'All',
-  'Drafts',
-  'Scheduled',
-  'Published',
-  'LinkedIn',
-  'Medium',
-  'Reddit',
+  "All",
+  "Drafts",
+  "Scheduled",
+  "Published",
+  "LinkedIn",
+  "Medium",
+  "Reddit",
 ];
 
 export const ContentFilters: React.FC<ContentFiltersProps> = ({
-  activeFilter = 'All',
+  activeFilter = "All",
   onFilterChange,
-  searchQuery = '',
+  searchQuery = "",
   onSearchChange,
 }) => {
   return (
@@ -52,10 +52,10 @@ export const ContentFilters: React.FC<ContentFiltersProps> = ({
               type="button"
               onClick={() => onFilterChange?.(option)}
               className={cn(
-                'font-mono text-[10px] font-medium px-2.5 py-1 rounded-full border transition-all duration-150 select-none',
+                "font-mono text-[10px] font-medium px-2.5 py-1 rounded-full border transition-all duration-150 select-none",
                 isSelected
-                  ? 'bg-[#000000] text-[#FFFFFF] border-transparent font-semibold'
-                  : 'bg-[#FFFFFF] text-[#716D64] border-[#E5E0D6] hover:bg-[#F7F4EE] hover:text-[#111111]'
+                  ? "bg-[#000000] text-[#FFFFFF] border-transparent font-semibold"
+                  : "bg-[#FFFFFF] text-[#716D64] border-[#E5E0D6] hover:bg-[#F7F4EE] hover:text-[#111111]",
               )}
             >
               {option}

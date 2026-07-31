@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { TrendingUp, Eye, DollarSign, ShieldCheck } from 'lucide-react';
-import { KPICard } from './KPICard';
-import { useWorkspace } from '@/hooks/useWorkspace';
+import React from "react";
+import { TrendingUp, Eye, DollarSign, ShieldCheck } from "lucide-react";
+import { KPICard } from "./KPICard";
+import { useWorkspace } from "@/hooks/useWorkspace";
 
 export const KPICards: React.FC = () => {
   const { currentWorkspace } = useWorkspace();
@@ -29,11 +29,11 @@ export const KPICards: React.FC = () => {
         title="AI Visibility"
         value={`${metrics.aiVisibility}%`}
         badgeText={metrics.aiVisibilityStatus}
-        badgeVariant={metrics.aiVisibility >= 75 ? 'success' : 'warning'}
+        badgeVariant={metrics.aiVisibility >= 75 ? "success" : "warning"}
         subtitle="LLM CITATION COVERAGE"
         indexCode="KPI / 002"
         sparklineData={[50, 54, 58, 60, 59, 61, 62, metrics.aiVisibility]}
-        sparklineColor={metrics.aiVisibility >= 75 ? '#2D6A4F' : '#B45309'}
+        sparklineColor={metrics.aiVisibility >= 75 ? "#2D6A4F" : "#B45309"}
         icon={<Eye className="h-4 w-4" />}
       />
 

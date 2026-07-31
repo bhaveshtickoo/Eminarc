@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { PieChart, Globe, Eye, Share2, Compass } from 'lucide-react';
-import { useWorkspace } from '@/hooks/useWorkspace';
+import React from "react";
+import { PieChart, Globe, Eye, Share2, Compass } from "lucide-react";
+import { useWorkspace } from "@/hooks/useWorkspace";
 
 export interface TrafficSourceItem {
   name: string;
@@ -15,10 +15,10 @@ export const TrafficSourcesCard: React.FC = () => {
   const { currentWorkspace } = useWorkspace();
 
   const sources: TrafficSourceItem[] = [
-    { name: 'LLM Search Engines', pct: 42, color: 'bg-[#18181B]', icon: Eye },
-    { name: 'Organic Search', pct: 28, color: 'bg-[#2D6A4F]', icon: Globe },
-    { name: 'Direct & Referral', pct: 18, color: 'bg-[#B45309]', icon: Compass },
-    { name: 'Social & Founder Brand', pct: 12, color: 'bg-[#64748B]', icon: Share2 },
+    { name: "LLM Search Engines", pct: 42, color: "bg-[#18181B]", icon: Eye },
+    { name: "Organic Search", pct: 28, color: "bg-[#2D6A4F]", icon: Globe },
+    { name: "Direct & Referral", pct: 18, color: "bg-[#B45309]", icon: Compass },
+    { name: "Social & Founder Brand", pct: 12, color: "bg-[#64748B]", icon: Share2 },
   ];
 
   return (
@@ -55,9 +55,7 @@ export const TrafficSourcesCard: React.FC = () => {
                   <Icon className="h-3.5 w-3.5 text-[#716D64]" />
                   <span className="font-semibold text-[#18181B]">{item.name}</span>
                 </div>
-                <span className="font-mono text-[10px] font-bold text-[#111111]">
-                  {item.pct}%
-                </span>
+                <span className="font-mono text-[10px] font-bold text-[#111111]">{item.pct}%</span>
               </div>
 
               {/* Meter Bar */}

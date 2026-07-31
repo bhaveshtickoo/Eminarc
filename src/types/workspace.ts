@@ -1,52 +1,48 @@
-/**
- * Workspace Architecture Type Definitions
- * Scalable schema for enterprise workspace state management (1000+ companies)
- */
-
-export interface TeamMember {
-  id: string;
-  name: string;
-  role: string;
-  avatar?: string;
-  status: 'online' | 'offline' | 'busy';
-}
-
 export interface WorkspaceMetrics {
   growthScore: number;
-  growthScoreChange: string;
+  growthScoreChange?: number;
   aiVisibility: number;
-  aiVisibilityStatus: string;
+  aiVisibilityStatus?: string;
   pipelineValue: string;
-  opportunitiesCount: number;
+  opportunitiesCount?: number;
+  mrr: string;
+  activeClientsCount: number;
+  leadsInPipelineCount: number;
   contentPublishedCount: number;
   contentTargetCount: number;
+  meetingsBookedCount: number;
+  researchStatus: "Complete" | "In Progress" | "Pending";
 }
 
 export interface WorkspaceGoal {
   title: string;
-  targetCount: number;
   currentCount: number;
+  targetCount: number;
   percentage: number;
-  timeframe: string;
+  timeframe?: string;
 }
 
 export interface WorkspaceItem {
   id: string;
   name: string;
-  tagline: string;
+  domain: string;
   industry: string;
+  status?: string;
+  tagline?: string;
+  logoLetter?: string;
+}
+
+export interface WorkspaceData extends WorkspaceItem {
   targetMarket: string[];
   brandVoice: string[];
-  logoLetter: string;
-  status: 'Optimal' | 'Analyzing' | 'Attention Required';
   metrics: WorkspaceMetrics;
   weeklyGoal: WorkspaceGoal;
-  teamMembers: TeamMember[];
+  teamMembers: string[];
 }
 
 export interface WorkspaceContextType {
-  currentWorkspace: WorkspaceItem;
-  availableWorkspaces: WorkspaceItem[];
-  switchWorkspace: (workspaceId: string) => void;
-  updateWorkspaceGoal: (goal: Partial<WorkspaceGoal>) => void;
+  currentWorkspace: WorkspaceData;
+  availableWorkspaces?: WorkspaceData[];
+  switchWorkspace: (id: string) => void;
+  updateWorkspace: (updates: Partial<WorkspaceData>) => void;
 }

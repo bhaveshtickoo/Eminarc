@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { Filter } from 'lucide-react';
-import { useWorkspace } from '@/hooks/useWorkspace';
+import React from "react";
+import { Filter } from "lucide-react";
+import { useWorkspace } from "@/hooks/useWorkspace";
 
 export interface FunnelStage {
   label: string;
@@ -17,32 +17,32 @@ export const GrowthFunnel: React.FC = () => {
 
   const funnelStages: FunnelStage[] = [
     {
-      label: 'Brand Impressions',
-      count: '42,800',
-      conversion: '100%',
+      label: "Brand Impressions",
+      count: "42,800",
+      conversion: "100%",
       pct: 100,
-      color: 'bg-[#18181B]',
+      color: "bg-[#18181B]",
     },
     {
-      label: 'AI Search Citations',
-      count: '14,200',
-      conversion: '33.1%',
+      label: "AI Search Citations",
+      count: "14,200",
+      conversion: "33.1%",
       pct: 75,
-      color: 'bg-[#2D6A4F]',
+      color: "bg-[#2D6A4F]",
     },
     {
-      label: 'Qualified Web Visits',
-      count: '2,850',
-      conversion: '20.1%',
+      label: "Qualified Web Visits",
+      count: "2,850",
+      conversion: "20.1%",
       pct: 55,
-      color: 'bg-[#B45309]',
+      color: "bg-[#B45309]",
     },
     {
-      label: 'Active Pipeline Opportunities',
+      label: "Active Pipeline Opportunities",
       count: `${currentWorkspace.metrics.opportunitiesCount} Deals`,
-      conversion: '0.49%',
+      conversion: "0.49%",
       pct: 35,
-      color: 'bg-[#000000]',
+      color: "bg-[#000000]",
     },
   ];
 

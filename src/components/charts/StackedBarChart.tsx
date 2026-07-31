@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import React from 'react';
+import React from "react";
 
 export interface StackedBarItem {
   label: string;
@@ -16,15 +16,10 @@ export interface StackedBarChartProps {
   height?: number;
 }
 
-export const StackedBarChart: React.FC<StackedBarChartProps> = ({
-  data,
-  height = 180,
-}) => {
+export const StackedBarChart: React.FC<StackedBarChartProps> = ({ data, height = 180 }) => {
   // Extract legend names from first item
   const legendItems = data[0]?.values || [];
-  const maxBarTotal = Math.max(
-    ...data.map((d) => d.values.reduce((acc, v) => acc + v.value, 0))
-  );
+  const maxBarTotal = Math.max(...data.map((d) => d.values.reduce((acc, v) => acc + v.value, 0)));
 
   return (
     <div className="w-full space-y-4 select-none">
@@ -32,10 +27,7 @@ export const StackedBarChart: React.FC<StackedBarChartProps> = ({
       <div className="flex flex-wrap items-center gap-4 text-xs font-mono">
         {legendItems.map((item, idx) => (
           <div key={idx} className="flex items-center space-x-2">
-            <span
-              className="w-2.5 h-2.5 rounded"
-              style={{ backgroundColor: item.color }}
-            />
+            <span className="w-2.5 h-2.5 rounded" style={{ backgroundColor: item.color }} />
             <span className="font-medium text-[#18181B]">{item.name}</span>
           </div>
         ))}

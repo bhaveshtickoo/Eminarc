@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { Target, Sparkles, Users } from 'lucide-react';
-import { ProgressBar } from './ProgressBar';
-import { useWorkspace } from '@/hooks/useWorkspace';
+import React from "react";
+import { Target, Sparkles, Users } from "lucide-react";
+import { ProgressBar } from "./ProgressBar";
+import { useWorkspace } from "@/hooks/useWorkspace";
 
 export const WelcomeHeader: React.FC = () => {
   const { currentWorkspace } = useWorkspace();
-  const primaryMember = currentWorkspace.teamMembers[0]?.name || 'Founder';
+  const primaryMember = currentWorkspace.teamMembers[0] || "Founder";
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
@@ -20,7 +20,7 @@ export const WelcomeHeader: React.FC = () => {
             </span>
             <span className="flex items-center text-xs font-mono text-[#2D6A4F] bg-[#EDF6F0] px-2.5 py-1 rounded-full font-medium border border-[#C8E4D0]">
               <span className="w-1.5 h-1.5 rounded-full bg-[#2D6A4F] mr-1.5 animate-pulse" />
-              {currentWorkspace.status.toUpperCase()}
+              {(currentWorkspace.status || "Active").toUpperCase()}
             </span>
           </div>
 
@@ -36,11 +36,11 @@ export const WelcomeHeader: React.FC = () => {
         <div className="pt-6 mt-6 border-t border-[rgba(0,0,0,0.06)] flex flex-wrap items-center justify-between gap-4 text-xs font-mono text-[#716D64]">
           <div className="flex items-center space-x-2">
             <Sparkles className="h-3.5 w-3.5 text-[#B45309]" />
-            <span>Voice: {currentWorkspace.brandVoice.join(' • ')}</span>
+            <span>Voice: {currentWorkspace.brandVoice.join(" • ")}</span>
           </div>
           <div className="flex items-center space-x-2">
             <Users className="h-3.5 w-3.5 text-[#18181B]" />
-            <span>Team: {currentWorkspace.teamMembers.map((m) => m.name).join(', ')}</span>
+            <span>Team: {currentWorkspace.teamMembers.join(", ")}</span>
           </div>
         </div>
       </div>
@@ -74,7 +74,8 @@ export const WelcomeHeader: React.FC = () => {
         <div className="mt-6 pt-4 border-t border-[rgba(0,0,0,0.06)] space-y-2">
           <div className="flex items-center justify-between text-xs font-mono">
             <span className="text-[#716D64]">
-              {currentWorkspace.weeklyGoal.currentCount} / {currentWorkspace.weeklyGoal.targetCount} Leads Acquired
+              {currentWorkspace.weeklyGoal.currentCount} / {currentWorkspace.weeklyGoal.targetCount}{" "}
+              Leads Acquired
             </span>
             <span className="font-bold text-[#2D6A4F] bg-[#EDF6F0] px-2 py-0.5 rounded-full border border-[#C8E4D0]">
               {currentWorkspace.weeklyGoal.percentage}%
@@ -86,7 +87,7 @@ export const WelcomeHeader: React.FC = () => {
             heightClass="h-2.5"
           />
           <p className="font-mono text-[10px] text-[#716D64] pt-1">
-            MARKET: {currentWorkspace.targetMarket.join(' + ')}
+            MARKET: {currentWorkspace.targetMarket.join(" + ")}
           </p>
         </div>
       </div>

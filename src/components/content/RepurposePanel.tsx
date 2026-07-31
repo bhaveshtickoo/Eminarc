@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   Share2,
   Globe,
@@ -11,8 +11,8 @@ import {
   Layers,
   Video,
   Check,
-} from 'lucide-react';
-import { cn } from '@/design-system/utils/cn';
+} from "lucide-react";
+import { cn } from "@/design-system/utils/cn";
 
 export interface RepurposeFormat {
   id: string;
@@ -22,13 +22,13 @@ export interface RepurposeFormat {
 }
 
 export const repurposeFormats: RepurposeFormat[] = [
-  { id: 'linkedin', label: 'LinkedIn Post', icon: Globe, badge: 'READY' },
-  { id: 'twitter', label: 'Twitter / X Thread', icon: Send, badge: '5 TWEETS' },
-  { id: 'medium', label: 'Medium Article', icon: FileText, badge: 'LONGFORM' },
-  { id: 'newsletter', label: 'Newsletter', icon: Mail, badge: 'SUBSTACK' },
-  { id: 'reddit', label: 'Reddit Post', icon: MessageSquare, badge: 'CASE STUDY' },
-  { id: 'carousel', label: 'LinkedIn Carousel', icon: Layers, badge: '7 SLIDES' },
-  { id: 'video', label: 'Video Script', icon: Video, badge: '90s REEL' },
+  { id: "linkedin", label: "LinkedIn Post", icon: Globe, badge: "READY" },
+  { id: "twitter", label: "Twitter / X Thread", icon: Send, badge: "5 TWEETS" },
+  { id: "medium", label: "Medium Article", icon: FileText, badge: "LONGFORM" },
+  { id: "newsletter", label: "Newsletter", icon: Mail, badge: "SUBSTACK" },
+  { id: "reddit", label: "Reddit Post", icon: MessageSquare, badge: "CASE STUDY" },
+  { id: "carousel", label: "LinkedIn Carousel", icon: Layers, badge: "7 SLIDES" },
+  { id: "video", label: "Video Script", icon: Video, badge: "90s REEL" },
 ];
 
 export const RepurposePanel: React.FC = () => {
@@ -64,23 +64,25 @@ export const RepurposePanel: React.FC = () => {
               type="button"
               onClick={() => handleConvert(fmt.id)}
               className={cn(
-                'group flex flex-col justify-between rounded-xl p-3 text-left transition-all duration-150 border active:scale-[0.98]',
+                "group flex flex-col justify-between rounded-xl p-3 text-left transition-all duration-150 border active:scale-[0.98]",
                 isConverting
-                  ? 'bg-[#EDF6F0] text-[#1E4620] border-[#C8E4D0]'
-                  : 'bg-[#FFFFFF] text-[#18181B] border-[#E5E0D6] hover:bg-[#F7F4EE] hover:border-[#D8D2C5] shadow-[0_1px_2px_0_rgba(0,0,0,0.02)]'
+                  ? "bg-[#EDF6F0] text-[#1E4620] border-[#C8E4D0]"
+                  : "bg-[#FFFFFF] text-[#18181B] border-[#E5E0D6] hover:bg-[#F7F4EE] hover:border-[#D8D2C5] shadow-[0_1px_2px_0_rgba(0,0,0,0.02)]",
               )}
             >
               <div className="flex items-center justify-between mb-2">
                 <Icon
                   className={cn(
-                    'h-4 w-4 transition-colors',
-                    isConverting ? 'text-[#2D6A4F] animate-bounce' : 'text-[#716D64] group-hover:text-[#18181B]'
+                    "h-4 w-4 transition-colors",
+                    isConverting
+                      ? "text-[#2D6A4F] animate-bounce"
+                      : "text-[#716D64] group-hover:text-[#18181B]",
                   )}
                 />
                 <span
                   className={cn(
-                    'font-mono text-[8px] uppercase tracking-wider px-1.5 py-0.2 rounded font-bold',
-                    isConverting ? 'bg-[#2D6A4F] text-[#FFFFFF]' : 'bg-[#EFEAE1] text-[#716D64]'
+                    "font-mono text-[8px] uppercase tracking-wider px-1.5 py-0.2 rounded font-bold",
+                    isConverting ? "bg-[#2D6A4F] text-[#FFFFFF]" : "bg-[#EFEAE1] text-[#716D64]",
                   )}
                 >
                   {isConverting ? <Check className="h-2.5 w-2.5" /> : fmt.badge}
@@ -92,7 +94,7 @@ export const RepurposePanel: React.FC = () => {
                   {fmt.label}
                 </span>
                 <span className="block font-mono text-[9px] text-[#716D64] mt-0.5">
-                  {isConverting ? 'Converted!' : 'Convert'}
+                  {isConverting ? "Converted!" : "Convert"}
                 </span>
               </div>
             </button>

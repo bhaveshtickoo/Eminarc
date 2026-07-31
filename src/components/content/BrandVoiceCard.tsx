@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { Megaphone, Globe } from 'lucide-react';
-import { useWorkspace } from '@/hooks/useWorkspace';
+import React from "react";
+import { Megaphone, Globe } from "lucide-react";
+import { useWorkspace } from "@/hooks/useWorkspace";
 
 export const BrandVoiceCard: React.FC = () => {
   const { currentWorkspace } = useWorkspace();
@@ -36,7 +36,7 @@ export const BrandVoiceCard: React.FC = () => {
       <div className="pt-2 border-t border-[#E5E0D6]/60 flex items-center justify-between text-[10px] font-mono text-[#716D64]">
         <div className="flex items-center space-x-1">
           <Globe className="h-3 w-3 text-[#716D64]" />
-          <span>Market: {currentWorkspace.targetMarket.join(', ')}</span>
+          <span>Market: {currentWorkspace.targetMarket.join(", ")}</span>
         </div>
       </div>
     </div>

@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { Activity, ShieldCheck, FileText, UserCheck, Bot } from 'lucide-react';
-import { useWorkspace } from '@/hooks/useWorkspace';
+import React from "react";
+import { Activity, ShieldCheck, FileText, UserCheck, Bot } from "lucide-react";
+import { useWorkspace } from "@/hooks/useWorkspace";
 
 export interface ActivityFeedItem {
   id: string;
   title: string;
   desc: string;
   time: string;
-  type: 'audit' | 'content' | 'crm' | 'research';
+  type: "audit" | "content" | "crm" | "research";
   icon: React.ComponentType<{ className?: string }>;
 }
 
@@ -18,35 +18,35 @@ export const RecentActivityFeed: React.FC = () => {
 
   const activities: ActivityFeedItem[] = [
     {
-      id: 'act-1',
-      title: 'AI Search Visibility Audit Completed',
+      id: "act-1",
+      title: "AI Search Visibility Audit Completed",
       desc: `LLM citation score scanned at ${currentWorkspace.metrics.aiVisibility}% across Perplexity & ChatGPT.`,
-      time: '10m ago',
-      type: 'audit',
+      time: "10m ago",
+      type: "audit",
       icon: ShieldCheck,
     },
     {
-      id: 'act-2',
-      title: 'Content Asset Published',
+      id: "act-2",
+      title: "Content Asset Published",
       desc: 'LinkedIn Post "Why Growth OS Architecture Replaces Fragmented SaaS" active.',
-      time: '1h ago',
-      type: 'content',
+      time: "1h ago",
+      type: "content",
       icon: FileText,
     },
     {
-      id: 'act-3',
-      title: 'New Account Enriched in CRM',
+      id: "act-3",
+      title: "New Account Enriched in CRM",
       desc: `Acme Health VP Marketing profile enriched into ${currentWorkspace.name} Growth CRM.`,
-      time: '2h ago',
-      type: 'crm',
+      time: "2h ago",
+      type: "crm",
       icon: UserCheck,
     },
     {
-      id: 'act-4',
-      title: 'Strategic Research Report Ready',
-      desc: 'McKinsey Audit Grade research report generated with 93% confidence score.',
-      time: 'Yesterday',
-      type: 'research',
+      id: "act-4",
+      title: "Strategic Research Report Ready",
+      desc: "McKinsey Audit Grade research report generated with 93% confidence score.",
+      time: "Yesterday",
+      type: "research",
       icon: Bot,
     },
   ];
@@ -90,16 +90,10 @@ export const RecentActivityFeed: React.FC = () => {
 
               <div className="flex-1 min-w-0">
                 <div className="flex items-center justify-between gap-2">
-                  <h4 className="font-sans font-semibold text-[#111111] truncate">
-                    {act.title}
-                  </h4>
-                  <span className="font-mono text-[9px] text-[#716D64] shrink-0">
-                    {act.time}
-                  </span>
+                  <h4 className="font-sans font-semibold text-[#111111] truncate">{act.title}</h4>
+                  <span className="font-mono text-[9px] text-[#716D64] shrink-0">{act.time}</span>
                 </div>
-                <p className="text-xs text-[#52525B] mt-0.5 leading-snug">
-                  {act.desc}
-                </p>
+                <p className="text-xs text-[#52525B] mt-0.5 leading-snug">{act.desc}</p>
               </div>
             </div>
           );

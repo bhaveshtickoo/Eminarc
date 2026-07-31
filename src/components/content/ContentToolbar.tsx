@@ -1,17 +1,7 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import {
-  Save,
-  Copy,
-  Archive,
-  Check,
-  Bold,
-  Italic,
-  List,
-  Quote,
-  Code,
-} from 'lucide-react';
+import React, { useState } from "react";
+import { Save, Copy, Archive, Check, Bold, Italic, List, Quote, Code } from "lucide-react";
 
 export interface ContentToolbarProps {
   contentType?: string;
@@ -23,18 +13,18 @@ export interface ContentToolbarProps {
 }
 
 export const contentTypes = [
-  'LinkedIn Post',
-  'Medium Article',
-  'Reddit Case Study',
-  'Newsletter',
-  'Twitter/X Thread',
-  'Video Script',
+  "LinkedIn Post",
+  "Medium Article",
+  "Reddit Case Study",
+  "Newsletter",
+  "Twitter/X Thread",
+  "Video Script",
 ];
 
 export const ContentToolbar: React.FC<ContentToolbarProps> = ({
-  contentType = 'LinkedIn Post',
+  contentType = "LinkedIn Post",
   onTypeChange,
-  status = 'Draft',
+  status = "Draft",
   onSave,
   onDuplicate,
   onArchive,
@@ -123,8 +113,12 @@ export const ContentToolbar: React.FC<ContentToolbarProps> = ({
           onClick={handleDuplicate}
           className="flex items-center space-x-1.5 rounded-xl border border-[#E5E0D6] bg-[#FFFFFF] px-3 py-1.5 font-sans text-xs font-medium text-[#18181B] shadow-[0_1px_2px_0_rgba(0,0,0,0.02)] hover:bg-[#F7F4EE] transition-all"
         >
-          {copied ? <Check className="h-3.5 w-3.5 text-[#2D6A4F]" /> : <Copy className="h-3.5 w-3.5 text-[#716D64]" />}
-          <span>{copied ? 'Duplicated' : 'Duplicate'}</span>
+          {copied ? (
+            <Check className="h-3.5 w-3.5 text-[#2D6A4F]" />
+          ) : (
+            <Copy className="h-3.5 w-3.5 text-[#716D64]" />
+          )}
+          <span>{copied ? "Duplicated" : "Duplicate"}</span>
         </button>
 
         <button
@@ -141,8 +135,12 @@ export const ContentToolbar: React.FC<ContentToolbarProps> = ({
           onClick={handleSave}
           className="flex items-center space-x-1.5 rounded-xl bg-[#000000] px-4 py-1.5 font-sans text-xs font-bold text-[#FFFFFF] shadow-sm hover:bg-[#222222] transition-all active:scale-[0.98]"
         >
-          {saved ? <Check className="h-3.5 w-3.5 text-[#FFFFFF]" /> : <Save className="h-3.5 w-3.5" />}
-          <span>{saved ? 'Saved!' : 'Save'}</span>
+          {saved ? (
+            <Check className="h-3.5 w-3.5 text-[#FFFFFF]" />
+          ) : (
+            <Save className="h-3.5 w-3.5" />
+          )}
+          <span>{saved ? "Saved!" : "Save"}</span>
         </button>
       </div>
     </div>

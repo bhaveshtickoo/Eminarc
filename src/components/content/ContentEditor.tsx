@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import { Clock, Hash, AlignLeft, Sparkles } from 'lucide-react';
-import { ContentToolbar } from './ContentToolbar';
+import React, { useState } from "react";
+import { Clock, Hash, AlignLeft, Sparkles } from "lucide-react";
+import { ContentToolbar } from "./ContentToolbar";
 
 export interface ContentEditorProps {
   initialTitle?: string;
@@ -10,8 +10,7 @@ export interface ContentEditorProps {
   initialType?: string;
 }
 
-export const defaultTitle =
-  'Why Growth OS Architecture Replaces Fragmented Marketing Tech Stacks';
+export const defaultTitle = "Why Growth OS Architecture Replaces Fragmented Marketing Tech Stacks";
 
 export const defaultBody = `Most founders waste 15+ hours every single week managing 5+ disconnected marketing SaaS tools.
 
@@ -38,7 +37,7 @@ Stop managing tools. Start operating your growth system.`;
 export const ContentEditor: React.FC<ContentEditorProps> = ({
   initialTitle = defaultTitle,
   initialBody = defaultBody,
-  initialType = 'LinkedIn Post',
+  initialType = "LinkedIn Post",
 }) => {
   const [title, setTitle] = useState(initialTitle);
   const [body, setBody] = useState(initialBody);
@@ -52,11 +51,7 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
   return (
     <div className="flex flex-col h-full rounded-[18px] bg-[#FCFAF7] border border-[rgba(0,0,0,0.08)] p-6 md:p-8 shadow-[0_1px_3px_0_rgba(0,0,0,0.025)]">
       {/* Editor Header Toolbar */}
-      <ContentToolbar
-        contentType={contentType}
-        onTypeChange={setContentType}
-        status="Draft"
-      />
+      <ContentToolbar contentType={contentType} onTypeChange={setContentType} status="Draft" />
 
       {/* Writing Canvas Body */}
       <div className="flex-1 flex flex-col space-y-4">

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Building2,
   User,
@@ -8,8 +8,8 @@ import {
   AlertTriangle,
   Zap,
   CheckSquare,
-} from 'lucide-react';
-import { ResearchSection } from './ResearchSection';
+} from "lucide-react";
+import { ResearchSection } from "./ResearchSection";
 
 export const ResearchReport: React.FC = () => {
   return (
@@ -23,7 +23,9 @@ export const ResearchReport: React.FC = () => {
         badgeText="PRIMARY ENTITY"
       >
         <p className="text-[#18181B] font-medium leading-relaxed">
-          Eminarc Growth OS is an AI-native platform designed to unify market research, content generation, AI search visibility, and customer relationship management into a single cohesive workspace.
+          Eminarc Growth OS is an AI-native platform designed to unify market research, content
+          generation, AI search visibility, and customer relationship management into a single
+          cohesive workspace.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
           <div className="rounded-xl bg-[#FFFFFF] border border-[#E5E0D6] p-4">
@@ -54,12 +56,22 @@ export const ResearchReport: React.FC = () => {
       >
         <div className="space-y-3">
           <p>
-            Led by founder <strong className="text-[#111111]">Bhavesh Tickoo</strong>, the company combines deep technical architecture expertise with B2B growth strategy.
+            Led by founder <strong className="text-[#111111]">Bhavesh Tickoo</strong>, the company
+            combines deep technical architecture expertise with B2B growth strategy.
           </p>
           <ul className="space-y-2 border-l-2 border-[#18181B] pl-4 py-1 text-xs md:text-sm text-[#18181B]">
-            <li><strong>Primary Focus:</strong> Building autonomous AI growth workflows for technical founders and B2B SaaS teams.</li>
-            <li><strong>Content Persona:</strong> Systemic thinker, analytical B2B strategist, and minimalist product architect.</li>
-            <li><strong>Distribution Channels:</strong> LinkedIn personal brand, technical Medium breakdowns, and targeted X threads.</li>
+            <li>
+              <strong>Primary Focus:</strong> Building autonomous AI growth workflows for technical
+              founders and B2B SaaS teams.
+            </li>
+            <li>
+              <strong>Content Persona:</strong> Systemic thinker, analytical B2B strategist, and
+              minimalist product architect.
+            </li>
+            <li>
+              <strong>Distribution Channels:</strong> LinkedIn personal brand, technical Medium
+              breakdowns, and targeted X threads.
+            </li>
           </ul>
         </div>
       </ResearchSection>
@@ -81,7 +93,8 @@ export const ResearchReport: React.FC = () => {
               B2B SaaS Founders ($1M–$10M ARR)
             </h4>
             <p className="text-xs text-[#716D64] leading-relaxed">
-              Founders spending 15+ hours weekly juggling 5+ disconnected marketing tools without a unified growth dashboard.
+              Founders spending 15+ hours weekly juggling 5+ disconnected marketing tools without a
+              unified growth dashboard.
             </p>
           </div>
 
@@ -93,7 +106,8 @@ export const ResearchReport: React.FC = () => {
               Growth Agencies & Fractional CMOs
             </h4>
             <p className="text-xs text-[#716D64] leading-relaxed">
-              Consultants needing standardized research reports and automated client content calendar workflows.
+              Consultants needing standardized research reports and automated client content
+              calendar workflows.
             </p>
           </div>
         </div>
@@ -114,7 +128,9 @@ export const ResearchReport: React.FC = () => {
             <span className="font-mono text-[10px] text-[#716D64]">POSITION: PREMIUM</span>
           </div>
           <p className="text-xs md:text-sm text-[#18181B] leading-relaxed">
-            Positioned as the intelligent calm alternative to noisy, bloated CRM tools. While competitors focus on complex feature matrices, Eminarc delivers an editorial, paper-on-grid experience tailored for daily founder decision-making.
+            Positioned as the intelligent calm alternative to noisy, bloated CRM tools. While
+            competitors focus on complex feature matrices, Eminarc delivers an editorial,
+            paper-on-grid experience tailored for daily founder decision-making.
           </p>
         </div>
       </ResearchSection>
@@ -129,19 +145,19 @@ export const ResearchReport: React.FC = () => {
         <div className="space-y-3">
           {[
             {
-              name: 'HubSpot',
-              type: 'Legacy Enterprise CRM',
-              contrast: 'Bloated, high monthly cost, steep learning curve.',
+              name: "HubSpot",
+              type: "Legacy Enterprise CRM",
+              contrast: "Bloated, high monthly cost, steep learning curve.",
             },
             {
-              name: 'Notion / Airtable',
-              type: 'Generic Workspaces',
-              contrast: 'Requires 100+ hours of manual formula and workflow building.',
+              name: "Notion / Airtable",
+              type: "Generic Workspaces",
+              contrast: "Requires 100+ hours of manual formula and workflow building.",
             },
             {
-              name: 'Clay.com',
-              type: 'Data Enrichment Platform',
-              contrast: 'Highly complex table setup focused purely on outbound data.',
+              name: "Clay.com",
+              type: "Data Enrichment Platform",
+              contrast: "Highly complex table setup focused purely on outbound data.",
             },
           ].map((comp, idx) => (
             <div
@@ -171,9 +187,9 @@ export const ResearchReport: React.FC = () => {
       >
         <div className="space-y-2.5">
           {[
-            'Over-emphasis on raw AI tools rather than tangible revenue & lead generation outcomes.',
-            'Need prominent customer proof points specifically demonstrating AI Search Visibility scores.',
-            'Clarity required on self-serve onboarding vs white-glove agency setup options.',
+            "Over-emphasis on raw AI tools rather than tangible revenue & lead generation outcomes.",
+            "Need prominent customer proof points specifically demonstrating AI Search Visibility scores.",
+            "Clarity required on self-serve onboarding vs white-glove agency setup options.",
           ].map((gap, idx) => (
             <div
               key={idx}
@@ -196,16 +212,16 @@ export const ResearchReport: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
           {[
             {
-              title: 'Free AI Audit Tool',
-              desc: 'Launch a 1-click URL scanner for instant viral lead acquisition.',
+              title: "Free AI Audit Tool",
+              desc: "Launch a 1-click URL scanner for instant viral lead acquisition.",
             },
             {
-              title: 'LinkedIn Authority',
-              desc: 'Execute a 30-day founder story series on growth system design.',
+              title: "LinkedIn Authority",
+              desc: "Execute a 30-day founder story series on growth system design.",
             },
             {
-              title: 'n8n Integrations',
-              desc: 'Partner with workflow automation communities for distribution.',
+              title: "n8n Integrations",
+              desc: "Partner with workflow automation communities for distribution.",
             },
           ].map((opp, idx) => (
             <div
@@ -234,18 +250,18 @@ export const ResearchReport: React.FC = () => {
           {[
             {
               action: 'Publish LinkedIn Carousel: "Growth OS vs Fragmented Marketing Tech Stack"',
-              eta: 'Today',
-              channel: 'LinkedIn',
+              eta: "Today",
+              channel: "LinkedIn",
             },
             {
-              action: 'Run AI Search Visibility Audit on Top 20 Target SaaS Accounts',
-              eta: 'Tomorrow',
-              channel: 'AI Scanner',
+              action: "Run AI Search Visibility Audit on Top 20 Target SaaS Accounts",
+              eta: "Tomorrow",
+              channel: "AI Scanner",
             },
             {
-              action: 'Configure Automated Lead Enrichment Sequences in Growth CRM',
-              eta: 'This Week',
-              channel: 'CRM',
+              action: "Configure Automated Lead Enrichment Sequences in Growth CRM",
+              eta: "This Week",
+              channel: "CRM",
             },
           ].map((act, idx) => (
             <div

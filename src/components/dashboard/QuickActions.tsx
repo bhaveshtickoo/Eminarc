@@ -1,37 +1,37 @@
-import React from 'react';
-import { SearchCode, Sparkles, Eye, UserPlus, FlaskConical } from 'lucide-react';
-import { cn } from '@/design-system/utils/cn';
+import React from "react";
+import { SearchCode, Sparkles, Eye, UserPlus, FlaskConical } from "lucide-react";
+import { cn } from "@/design-system/utils/cn";
 
 export const quickActionsList = [
   {
-    id: 'act-1',
-    label: 'Research Company',
+    id: "act-1",
+    label: "Research Company",
     icon: SearchCode,
-    badge: 'AGENTS',
+    badge: "AGENTS",
   },
   {
-    id: 'act-2',
-    label: 'Generate Content',
+    id: "act-2",
+    label: "Generate Content",
     icon: Sparkles,
-    badge: 'COPILOT',
+    badge: "COPILOT",
   },
   {
-    id: 'act-3',
-    label: 'Run AI Audit',
+    id: "act-3",
+    label: "Run AI Audit",
     icon: Eye,
-    badge: 'SCANNER',
+    badge: "SCANNER",
   },
   {
-    id: 'act-4',
-    label: 'Add Lead',
+    id: "act-4",
+    label: "Add Lead",
     icon: UserPlus,
-    badge: 'CRM',
+    badge: "CRM",
   },
   {
-    id: 'act-5',
-    label: 'New Experiment',
+    id: "act-5",
+    label: "New Experiment",
     icon: FlaskConical,
-    badge: 'LABS',
+    badge: "LABS",
   },
 ];
 
@@ -58,7 +58,7 @@ export const QuickActions: React.FC = () => {
               key={act.id}
               type="button"
               className={cn(
-                'group flex flex-col items-center justify-center rounded-2xl bg-[#FFFFFF] border border-[#E5E0D6] p-4 text-center transition-all duration-200 ease-out hover:-translate-y-[1px] hover:border-[#18181B] hover:bg-[#F7F4EE] shadow-[0_1px_2px_0_rgba(0,0,0,0.02)] active:scale-[0.98]'
+                "group flex flex-col items-center justify-center rounded-2xl bg-[#FFFFFF] border border-[#E5E0D6] p-4 text-center transition-all duration-200 ease-out hover:-translate-y-[1px] hover:border-[#18181B] hover:bg-[#F7F4EE] shadow-[0_1px_2px_0_rgba(0,0,0,0.02)] active:scale-[0.98]",
               )}
             >
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#000000] text-[#FFFFFF] shadow-sm mb-2.5 transition-transform group-hover:scale-105">

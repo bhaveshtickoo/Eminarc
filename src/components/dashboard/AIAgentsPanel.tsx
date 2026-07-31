@@ -1,49 +1,49 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { Bot } from 'lucide-react';
-import { useWorkspace } from '@/hooks/useWorkspace';
+import React from "react";
+import { Bot } from "lucide-react";
+import { useWorkspace } from "@/hooks/useWorkspace";
 
 export interface AIAgentItem {
   id: string;
   name: string;
   role: string;
-  status: 'Scanning' | 'Active' | 'Idle';
+  status: "Scanning" | "Active" | "Idle";
   lastRun: string;
   tasksCompleted: number;
 }
 
 export const aiAgentsList: AIAgentItem[] = [
   {
-    id: 'agent-1',
-    name: 'Search Visibility Radar',
-    role: 'LLM Citation Tracker',
-    status: 'Scanning',
-    lastRun: '2m ago',
+    id: "agent-1",
+    name: "Search Visibility Radar",
+    role: "LLM Citation Tracker",
+    status: "Scanning",
+    lastRun: "2m ago",
     tasksCompleted: 142,
   },
   {
-    id: 'agent-2',
-    name: 'Content Generation Engine',
-    role: 'Multi-Format Asset Creator',
-    status: 'Active',
-    lastRun: '15m ago',
+    id: "agent-2",
+    name: "Content Generation Engine",
+    role: "Multi-Format Asset Creator",
+    status: "Active",
+    lastRun: "15m ago",
     tasksCompleted: 88,
   },
   {
-    id: 'agent-3',
-    name: 'Lead Enrichment Agent',
-    role: 'ICP Account Scanner',
-    status: 'Active',
-    lastRun: '1h ago',
+    id: "agent-3",
+    name: "Lead Enrichment Agent",
+    role: "ICP Account Scanner",
+    status: "Active",
+    lastRun: "1h ago",
     tasksCompleted: 215,
   },
   {
-    id: 'agent-4',
-    name: 'Competitor Radar Agent',
-    role: 'Messaging Gap Monitor',
-    status: 'Idle',
-    lastRun: '3h ago',
+    id: "agent-4",
+    name: "Competitor Radar Agent",
+    role: "Messaging Gap Monitor",
+    status: "Idle",
+    lastRun: "3h ago",
     tasksCompleted: 64,
   },
 ];
@@ -89,9 +89,7 @@ export const AIAgentsPanel: React.FC = () => {
                 <h4 className="font-sans font-semibold text-[#111111] leading-snug">
                   {agent.name}
                 </h4>
-                <span className="font-mono text-[9px] text-[#716D64] block">
-                  {agent.role}
-                </span>
+                <span className="font-mono text-[9px] text-[#716D64] block">{agent.role}</span>
               </div>
             </div>
 
@@ -99,16 +97,16 @@ export const AIAgentsPanel: React.FC = () => {
               <span className="text-[#716D64] hidden sm:inline">{agent.tasksCompleted} tasks</span>
               <span
                 className={`inline-flex items-center space-x-1 px-2 py-0.5 rounded-full font-semibold ${
-                  agent.status === 'Scanning'
-                    ? 'bg-[#FEF3C7] text-[#78350F] border border-[#FDE68A]'
-                    : agent.status === 'Active'
-                    ? 'bg-[#EDF6F0] text-[#1E4620] border border-[#C8E4D0]'
-                    : 'bg-[#EFEAE1] text-[#716D64]'
+                  agent.status === "Scanning"
+                    ? "bg-[#FEF3C7] text-[#78350F] border border-[#FDE68A]"
+                    : agent.status === "Active"
+                      ? "bg-[#EDF6F0] text-[#1E4620] border border-[#C8E4D0]"
+                      : "bg-[#EFEAE1] text-[#716D64]"
                 }`}
               >
                 <span
                   className={`w-1.5 h-1.5 rounded-full ${
-                    agent.status === 'Idle' ? 'bg-[#716D64]' : 'bg-[#2D6A4F] animate-pulse'
+                    agent.status === "Idle" ? "bg-[#716D64]" : "bg-[#2D6A4F] animate-pulse"
                   }`}
                 />
                 <span>{agent.status}</span>

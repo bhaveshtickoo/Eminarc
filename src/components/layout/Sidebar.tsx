@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import React from 'react';
+import React from "react";
 import {
   LayoutGrid,
   Users,
@@ -16,9 +16,9 @@ import {
   Settings,
   X,
   ArrowRight,
-} from 'lucide-react';
-import { cn } from '@/design-system/utils/cn';
-import { WorkspaceSwitcher } from '../workspace/WorkspaceSwitcher';
+} from "lucide-react";
+import { cn } from "@/design-system/utils/cn";
+import { WorkspaceSwitcher } from "../workspace/WorkspaceSwitcher";
 
 export interface SidebarProps {
   isOpen?: boolean;
@@ -28,25 +28,25 @@ export interface SidebarProps {
 }
 
 export const mainNavItems = [
-  { id: 'dashboard', label: 'Overview', icon: LayoutGrid, href: '/' },
-  { id: 'research', label: 'Clients', icon: Users, href: '/research' },
-  { id: 'crm', label: 'Growth Pipeline', icon: GitMerge, href: '/crm' },
-  { id: 'content', label: 'Content Hub', icon: FileText, href: '/content' },
-  { id: 'visibility', label: 'Outreach', icon: Send, href: '/visibility' },
-  { id: 'leads', label: 'Leads & ICP', icon: Target, href: '/crm' },
-  { id: 'analytics', label: 'Analytics', icon: BarChart2, href: '/analytics' },
-  { id: 'reports', label: 'Reports', icon: FileSpreadsheet, href: '/reports' },
-  { id: 'agents', label: 'Agents (AI)', icon: Bot, href: '/agents' },
-  { id: 'tasks', label: 'Tasks', icon: ListCheck, href: '/tasks' },
-  { id: 'integrations', label: 'Integrations', icon: Layers, href: '#' },
-  { id: 'settings', label: 'Settings', icon: Settings, href: '#' },
+  { id: "dashboard", label: "Overview", icon: LayoutGrid, href: "/" },
+  { id: "research", label: "Clients", icon: Users, href: "/research" },
+  { id: "crm", label: "Growth Pipeline", icon: GitMerge, href: "/crm" },
+  { id: "content", label: "Content Hub", icon: FileText, href: "/content" },
+  { id: "visibility", label: "Outreach", icon: Send, href: "/visibility" },
+  { id: "leads", label: "Leads & ICP", icon: Target, href: "/crm" },
+  { id: "analytics", label: "Analytics", icon: BarChart2, href: "/analytics" },
+  { id: "reports", label: "Reports", icon: FileSpreadsheet, href: "/reports" },
+  { id: "agents", label: "Agents (AI)", icon: Bot, href: "/agents" },
+  { id: "tasks", label: "Tasks", icon: ListCheck, href: "/tasks" },
+  { id: "integrations", label: "Integrations", icon: Layers, href: "#" },
+  { id: "settings", label: "Settings", icon: Settings, href: "#" },
 ];
 
 export const Sidebar: React.FC<SidebarProps> = ({
   isOpen = false,
   onClose,
   className,
-  activeItem = 'dashboard',
+  activeItem = "dashboard",
 }) => {
   return (
     <>
@@ -62,9 +62,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
       {/* Sidebar Container */}
       <aside
         className={cn(
-          'fixed top-0 bottom-0 left-0 z-50 flex w-64 flex-col border-r border-[#E5E0D6] bg-[#FBF9F5] p-4 transition-transform duration-200 ease-out lg:static lg:translate-x-0 shrink-0 select-none overflow-y-auto',
-          isOpen ? 'translate-x-0 shadow-2xl' : '-translate-x-full lg:translate-x-0',
-          className
+          "fixed top-0 bottom-0 left-0 z-50 flex w-64 flex-col border-r border-[#E5E0D6] bg-[#FBF9F5] p-4 transition-transform duration-200 ease-out lg:static lg:translate-x-0 shrink-0 select-none overflow-y-auto",
+          isOpen ? "translate-x-0 shadow-2xl" : "-translate-x-full lg:translate-x-0",
+          className,
         )}
       >
         {/* Top Header: Workspace Switcher */}
@@ -89,24 +89,24 @@ export const Sidebar: React.FC<SidebarProps> = ({
               const Icon = item.icon;
               const isActive =
                 activeItem === item.id ||
-                (activeItem === 'ai-visibility' && item.id === 'visibility') ||
-                (activeItem === 'dashboard' && item.id === 'dashboard');
+                (activeItem === "ai-visibility" && item.id === "visibility") ||
+                (activeItem === "dashboard" && item.id === "dashboard");
 
               return (
                 <a
                   key={item.id}
                   href={item.href}
                   className={cn(
-                    'group flex items-center space-x-3 rounded-xl px-3 py-2 font-sans text-xs md:text-sm font-medium tracking-tight transition-all duration-150',
+                    "group flex items-center space-x-3 rounded-xl px-3 py-2 font-sans text-xs md:text-sm font-medium tracking-tight transition-all duration-150",
                     isActive
-                      ? 'bg-[#EFEAE1] text-[#111111] font-bold shadow-[0_1px_2px_0_rgba(0,0,0,0.02)]'
-                      : 'text-[#716D64] hover:bg-[#F0EBE1]/80 hover:text-[#111111]'
+                      ? "bg-[#EFEAE1] text-[#111111] font-bold shadow-[0_1px_2px_0_rgba(0,0,0,0.02)]"
+                      : "text-[#716D64] hover:bg-[#F0EBE1]/80 hover:text-[#111111]",
                   )}
                 >
                   <Icon
                     className={cn(
-                      'h-4 w-4 shrink-0 transition-colors',
-                      isActive ? 'text-[#111111]' : 'text-[#716D64] group-hover:text-[#111111]'
+                      "h-4 w-4 shrink-0 transition-colors",
+                      isActive ? "text-[#111111]" : "text-[#716D64] group-hover:text-[#111111]",
                     )}
                   />
                   <span>{item.label}</span>
@@ -123,9 +123,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             <span className="font-mono text-[9px] uppercase tracking-widest font-bold text-[#716D64] block">
               ACTIVE PLAN
             </span>
-            <h4 className="font-sans font-bold text-sm text-[#111111]">
-              Eminarc Pro
-            </h4>
+            <h4 className="font-sans font-bold text-sm text-[#111111]">Eminarc Pro</h4>
             <span className="font-mono text-[10px] text-[#716D64] block">
               Renews on Aug 24, 2026
             </span>
@@ -147,9 +145,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               <span className="font-mono text-[10px] font-bold text-[#111111] uppercase tracking-wider block leading-tight">
                 EMINARC OS
               </span>
-              <span className="font-mono text-[9px] text-[#716D64] block">
-                v1.0.0
-              </span>
+              <span className="font-mono text-[9px] text-[#716D64] block">v1.0.0</span>
             </div>
           </div>
 

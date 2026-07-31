@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { ChevronRight } from 'lucide-react';
-import { cn } from '@/design-system/utils/cn';
-import { useWorkspace } from '@/hooks/useWorkspace';
+import React from "react";
+import { ChevronRight } from "lucide-react";
+import { cn } from "@/design-system/utils/cn";
+import { useWorkspace } from "@/hooks/useWorkspace";
 
 export interface BreadcrumbsProps {
   moduleName?: string;
@@ -11,7 +11,7 @@ export interface BreadcrumbsProps {
 }
 
 export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
-  moduleName = 'Dashboard',
+  moduleName = "Dashboard",
   className,
 }) => {
   const { currentWorkspace } = useWorkspace();
@@ -19,8 +19,8 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
   return (
     <div
       className={cn(
-        'flex items-center space-x-2 font-mono text-xs text-[#716D64] select-none',
-        className
+        "flex items-center space-x-2 font-mono text-xs text-[#716D64] select-none",
+        className,
       )}
     >
       {/* Workspace Name */}

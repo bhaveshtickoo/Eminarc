@@ -1,17 +1,17 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { PenTool, Calendar, ShieldCheck } from 'lucide-react';
-import { cn } from '@/design-system/utils/cn';
-import { useWorkspace } from '@/hooks/useWorkspace';
+import React from "react";
+import { PenTool, Calendar, ShieldCheck } from "lucide-react";
+import { cn } from "@/design-system/utils/cn";
+import { useWorkspace } from "@/hooks/useWorkspace";
 
 export interface ContentHeaderProps {
-  activeTab?: 'editor' | 'calendar';
-  onTabChange?: (tab: 'editor' | 'calendar') => void;
+  activeTab?: "editor" | "calendar";
+  onTabChange?: (tab: "editor" | "calendar") => void;
 }
 
 export const ContentHeader: React.FC<ContentHeaderProps> = ({
-  activeTab = 'editor',
+  activeTab = "editor",
   onTabChange,
 }) => {
   const { currentWorkspace } = useWorkspace();
@@ -34,7 +34,8 @@ export const ContentHeader: React.FC<ContentHeaderProps> = ({
             Content Operating System
           </h1>
           <p className="font-sans font-medium text-xs md:text-sm text-[#52525B] mt-1">
-            &quot;Plan, write, refine, and repurpose distribution assets for {currentWorkspace.name}.&quot;
+            &quot;Plan, write, refine, and repurpose distribution assets for {currentWorkspace.name}
+            .&quot;
           </p>
         </div>
 
@@ -42,12 +43,12 @@ export const ContentHeader: React.FC<ContentHeaderProps> = ({
         <div className="flex items-center space-x-1 bg-[#FFFFFF] border border-[#E5E0D6] p-1 rounded-xl shrink-0 self-start sm:self-auto select-none">
           <button
             type="button"
-            onClick={() => onTabChange?.('editor')}
+            onClick={() => onTabChange?.("editor")}
             className={cn(
-              'flex items-center space-x-2 rounded-lg px-3.5 py-1.5 font-sans text-xs font-medium transition-all',
-              activeTab === 'editor'
-                ? 'bg-[#000000] text-[#FFFFFF] font-bold shadow-sm'
-                : 'text-[#716D64] hover:bg-[#F7F4EE] hover:text-[#111111]'
+              "flex items-center space-x-2 rounded-lg px-3.5 py-1.5 font-sans text-xs font-medium transition-all",
+              activeTab === "editor"
+                ? "bg-[#000000] text-[#FFFFFF] font-bold shadow-sm"
+                : "text-[#716D64] hover:bg-[#F7F4EE] hover:text-[#111111]",
             )}
           >
             <PenTool className="h-3.5 w-3.5" />
@@ -56,12 +57,12 @@ export const ContentHeader: React.FC<ContentHeaderProps> = ({
 
           <button
             type="button"
-            onClick={() => onTabChange?.('calendar')}
+            onClick={() => onTabChange?.("calendar")}
             className={cn(
-              'flex items-center space-x-2 rounded-lg px-3.5 py-1.5 font-sans text-xs font-medium transition-all',
-              activeTab === 'calendar'
-                ? 'bg-[#000000] text-[#FFFFFF] font-bold shadow-sm'
-                : 'text-[#716D64] hover:bg-[#F7F4EE] hover:text-[#111111]'
+              "flex items-center space-x-2 rounded-lg px-3.5 py-1.5 font-sans text-xs font-medium transition-all",
+              activeTab === "calendar"
+                ? "bg-[#000000] text-[#FFFFFF] font-bold shadow-sm"
+                : "text-[#716D64] hover:bg-[#F7F4EE] hover:text-[#111111]",
             )}
           >
             <Calendar className="h-3.5 w-3.5" />

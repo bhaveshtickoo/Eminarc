@@ -1,11 +1,11 @@
-import React from 'react';
-import { cn } from '@/design-system/utils/cn';
+import React from "react";
+import { cn } from "@/design-system/utils/cn";
 
 export interface KPICardProps {
   title: string;
   value: string;
-  badgeText?: string;
-  badgeVariant?: 'success' | 'warning' | 'neutral' | 'info';
+  badgeText?: string | undefined;
+  badgeVariant?: "success" | "warning" | "neutral" | "info";
   subtitle?: string;
   sparklineData?: number[]; // Values for SVG sparkline
   sparklineColor?: string;
@@ -17,10 +17,10 @@ export const KPICard: React.FC<KPICardProps> = ({
   title,
   value,
   badgeText,
-  badgeVariant = 'success',
+  badgeVariant = "success",
   subtitle,
   sparklineData = [12, 18, 14, 22, 19, 28, 24, 32],
-  sparklineColor = '#2D6A4F',
+  sparklineColor = "#2D6A4F",
   indexCode,
   icon,
 }) => {
@@ -37,13 +37,13 @@ export const KPICard: React.FC<KPICardProps> = ({
       const y = height - ((val - min) / range) * (height - 8) - 4;
       return `${x.toFixed(1)},${y.toFixed(1)}`;
     })
-    .join(' ');
+    .join(" ");
 
   const badgeStyles = {
-    success: 'bg-[#EDF6F0] text-[#1E4620] border-[#C8E4D0]',
-    warning: 'bg-[#FEF3C7] text-[#78350F] border-[#FDE68A]',
-    neutral: 'bg-[#F4F4F5] text-[#52525B] border-[#E4E4E7]',
-    info: 'bg-[#F1F5F9] text-[#1E293B] border-[#CBD5E1]',
+    success: "bg-[#EDF6F0] text-[#1E4620] border-[#C8E4D0]",
+    warning: "bg-[#FEF3C7] text-[#78350F] border-[#FDE68A]",
+    neutral: "bg-[#F4F4F5] text-[#52525B] border-[#E4E4E7]",
+    info: "bg-[#F1F5F9] text-[#1E293B] border-[#CBD5E1]",
   };
 
   return (
@@ -76,8 +76,8 @@ export const KPICard: React.FC<KPICardProps> = ({
           {badgeText && (
             <span
               className={cn(
-                'inline-flex items-center rounded-full px-2 py-0.5 font-mono text-[10px] font-medium border tracking-tight shrink-0',
-                badgeStyles[badgeVariant]
+                "inline-flex items-center rounded-full px-2 py-0.5 font-mono text-[10px] font-medium border tracking-tight shrink-0",
+                badgeStyles[badgeVariant],
               )}
             >
               {badgeText}
@@ -90,9 +90,7 @@ export const KPICard: React.FC<KPICardProps> = ({
       <div className="mt-4 pt-3 border-t border-[rgba(0,0,0,0.05)] flex items-end justify-between gap-3">
         <div>
           {subtitle && (
-            <p className="font-mono text-[11px] text-[#716D64] tracking-tight">
-              {subtitle}
-            </p>
+            <p className="font-mono text-[11px] text-[#716D64] tracking-tight">{subtitle}</p>
           )}
         </div>
 
@@ -108,19 +106,18 @@ export const KPICard: React.FC<KPICardProps> = ({
               points={points}
             />
             {/* End Point Glow Dot */}
-            {sparklineData.length > 0 && (
-              <circle
-                cx={width}
-                cy={
-                  height -
-                  ((sparklineData[sparklineData.length - 1] - min) / range) *
-                    (height - 8) -
-                  4
-                }
-                r="3"
-                fill={sparklineColor}
-              />
-            )}
+            {sparklineData.length > 0 &&
+              (() => {
+                const lastVal = sparklineData[sparklineData.length - 1] ?? min;
+                return (
+                  <circle
+                    cx={width}
+                    cy={height - ((lastVal - min) / range) * (height - 8) - 4}
+                    r="3"
+                    fill={sparklineColor}
+                  />
+                );
+              })()}
           </svg>
         </div>
       </div>
