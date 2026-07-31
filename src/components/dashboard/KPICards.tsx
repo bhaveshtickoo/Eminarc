@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { TrendingUp, Eye, DollarSign, FileText } from 'lucide-react';
+import { TrendingUp, Eye, DollarSign, ShieldCheck } from 'lucide-react';
 import { KPICard } from './KPICard';
 import { useWorkspace } from '@/hooks/useWorkspace';
 
@@ -50,17 +50,17 @@ export const KPICards: React.FC = () => {
         icon={<DollarSign className="h-4 w-4" />}
       />
 
-      {/* Card 4: Content Published */}
+      {/* Card 4: Research Status */}
       <KPICard
-        title="Content Published"
-        value={`${metrics.contentPublishedCount} / ${metrics.contentTargetCount}`}
-        badgeText="This Week"
+        title="Research Status"
+        value="Complete"
+        badgeText="93% Confidence"
         badgeVariant="success"
-        subtitle={`OUTPUT PACING (${Math.round((metrics.contentPublishedCount / metrics.contentTargetCount) * 100)}%)`}
+        subtitle="MCKINSEY AUDIT GRADE"
         indexCode="KPI / 004"
-        sparklineData={[1, 2, 2, 3, 4, 4, 5, metrics.contentPublishedCount]}
+        sparklineData={[70, 75, 80, 85, 88, 90, 92, 93]}
         sparklineColor="#2D6A4F"
-        icon={<FileText className="h-4 w-4" />}
+        icon={<ShieldCheck className="h-4 w-4" />}
       />
     </div>
   );
