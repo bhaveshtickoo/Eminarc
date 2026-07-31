@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import {
   LayoutDashboard,
@@ -14,7 +16,7 @@ import {
   X,
 } from 'lucide-react';
 import { cn } from '@/design-system/utils/cn';
-import { Logo } from '@/design-system/components/Navigation';
+import { WorkspaceSwitcher } from '../workspace/WorkspaceSwitcher';
 
 export interface SidebarProps {
   isOpen?: boolean;
@@ -24,8 +26,8 @@ export interface SidebarProps {
 }
 
 export const mainNavItems = [
-  { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard, href: '#' },
-  { id: 'research', label: 'Research', icon: SearchCode, href: '#' },
+  { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard, href: '/' },
+  { id: 'research', label: 'Research', icon: SearchCode, href: '/research' },
   { id: 'content', label: 'Content', icon: FileText, href: '#' },
   { id: 'ai-visibility', label: 'AI Visibility', icon: Eye, href: '#' },
   { id: 'distribution', label: 'Distribution', icon: Share2, href: '#' },
@@ -65,14 +67,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
           className
         )}
       >
-        {/* Sidebar Header with Logo & Mobile Close */}
-        <div className="flex items-center justify-between pb-6 pt-1 px-2 border-b border-[#E5E0D6]/60 mb-4">
-          <Logo subtitle="OS" />
+        {/* Workspace Switcher Header */}
+        <div className="flex items-center justify-between pb-5 border-b border-[#E5E0D6]/60 mb-5">
+          <WorkspaceSwitcher variant="sidebar" />
           {onClose && (
             <button
               type="button"
               onClick={onClose}
-              className="lg:hidden rounded-lg p-1.5 text-[#716D64] hover:bg-[#EFEAE1] hover:text-[#111111]"
+              className="lg:hidden rounded-lg p-1.5 text-[#716D64] hover:bg-[#EFEAE1] hover:text-[#111111] ml-2"
               aria-label="Close menu"
             >
               <X className="h-5 w-5" />

@@ -1,16 +1,23 @@
+'use client';
+
 import React from 'react';
 import { Bell, MessageSquare, Menu } from 'lucide-react';
 import { cn } from '@/design-system/utils/cn';
-import { WorkspaceSelector } from '../shared/WorkspaceSelector';
+import { Breadcrumbs } from '../workspace/Breadcrumbs';
 import { SearchBar } from '../shared/SearchBar';
 import { UserAvatar } from '../shared/UserAvatar';
 
 export interface NavbarProps {
   onMenuToggle?: () => void;
+  activeModule?: string;
   className?: string;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onMenuToggle, className }) => {
+export const Navbar: React.FC<NavbarProps> = ({
+  onMenuToggle,
+  activeModule = 'Dashboard',
+  className,
+}) => {
   return (
     <header
       className={cn(
@@ -18,7 +25,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onMenuToggle, className }) => {
         className
       )}
     >
-      {/* Left Section: Mobile Menu Toggle & Workspace Selector */}
+      {/* Left Section: Mobile Menu Toggle & Breadcrumbs */}
       <div className="flex items-center space-x-3 md:space-x-4">
         {onMenuToggle && (
           <button
@@ -30,7 +37,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onMenuToggle, className }) => {
             <Menu className="h-4 w-4" />
           </button>
         )}
-        <WorkspaceSelector />
+        <Breadcrumbs moduleName={activeModule} />
       </div>
 
       {/* Center Section: Search Bar */}

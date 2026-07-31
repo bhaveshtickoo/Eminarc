@@ -1,8 +1,13 @@
+'use client';
+
 import React from 'react';
 import { Target, Sparkles } from 'lucide-react';
 import { ProgressBar } from './ProgressBar';
+import { useWorkspace } from '../workspace/WorkspaceContextProvider';
 
 export const WelcomeHeader: React.FC = () => {
+  const { currentWorkspace } = useWorkspace();
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
       {/* Welcome Greeting Banner */}
@@ -10,11 +15,11 @@ export const WelcomeHeader: React.FC = () => {
         <div>
           <div className="flex items-center space-x-2.5 mb-3">
             <span className="font-mono text-[10px] uppercase tracking-[0.2em] font-semibold text-[#716D64] bg-[#EFEAE1] px-2.5 py-1 rounded-full">
-              GROWTH OS / SYSTEM
+              WORKSPACES / {currentWorkspace.name.toUpperCase()}
             </span>
             <span className="flex items-center text-xs font-mono text-[#2D6A4F] bg-[#EDF6F0] px-2.5 py-1 rounded-full font-medium border border-[#C8E4D0]">
               <span className="w-1.5 h-1.5 rounded-full bg-[#2D6A4F] mr-1.5 animate-pulse" />
-              SYSTEM OPTIMAL
+              {currentWorkspace.status.toUpperCase()}
             </span>
           </div>
 
@@ -23,16 +28,16 @@ export const WelcomeHeader: React.FC = () => {
           </h1>
 
           <p className="font-serif italic text-xl sm:text-2xl text-[#716D64] mt-2 font-normal">
-            &quot;Here&apos;s what&apos;s happening with your growth today.&quot;
+            &quot;Here&apos;s what&apos;s happening with {currentWorkspace.name} today.&quot;
           </p>
         </div>
 
         <div className="pt-6 mt-6 border-t border-[rgba(0,0,0,0.06)] flex flex-wrap items-center justify-between gap-4 text-xs font-mono text-[#716D64]">
           <div className="flex items-center space-x-2">
             <Sparkles className="h-3.5 w-3.5 text-[#B45309]" />
-            <span>AI Partner active — 3 growth suggestions ready</span>
+            <span>AI Partner active — {currentWorkspace.industry} engine online</span>
           </div>
-          <span className="hidden sm:inline">LAST SYNCED: 08:30 AM</span>
+          <span className="hidden sm:inline">PIPELINE: {currentWorkspace.pipelineValue}</span>
         </div>
       </div>
 
@@ -54,7 +59,7 @@ export const WelcomeHeader: React.FC = () => {
           </div>
 
           <h3 className="font-sans text-xs font-semibold uppercase tracking-wider text-[#716D64]">
-            Weekly Goal
+            Weekly Goal ({currentWorkspace.name})
           </h3>
           <p className="font-sans text-lg font-bold text-[#111111] tracking-tight mt-1">
             Generate 12 Qualified Leads
@@ -71,7 +76,7 @@ export const WelcomeHeader: React.FC = () => {
           </div>
           <ProgressBar progress={68} barColor="bg-[#000000]" heightClass="h-2.5" />
           <p className="font-mono text-[10px] text-[#716D64] pt-1">
-            ON TRACK — 4 LEADS TO TARGET
+            TARGET MARKET: {currentWorkspace.targetMarket}
           </p>
         </div>
       </div>

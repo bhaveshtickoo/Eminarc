@@ -22,11 +22,7 @@ export default function FounderResearchPage() {
 
         {/* Right Panel: Research Report & Tools (65% width -> 8 cols on 12-col grid) */}
         <div className="lg:col-span-8 space-y-6">
-          <ResearchHeader
-            companyName="Eminarc Growth OS"
-            website="https://eminarc.com"
-            founderLinkedIn="linkedin.com/in/bhaveshtickoo"
-          />
+          <ResearchHeader />
 
           {/* Action Toolbar */}
           <ResearchSidebar />

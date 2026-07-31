@@ -11,16 +11,31 @@ export interface DashboardShellProps {
   className?: string;
 }
 
+export const moduleNames: Record<string, string> = {
+  dashboard: 'Dashboard',
+  research: 'Founder Research',
+  content: 'Content Copilot',
+  'ai-visibility': 'AI Visibility',
+  distribution: 'Distribution',
+  crm: 'Growth CRM',
+  experiments: 'Experiments',
+  'weekly-review': 'Weekly Review',
+  settings: 'Settings',
+  team: 'Team',
+  billing: 'Billing',
+};
+
 export const DashboardShell: React.FC<DashboardShellProps> = ({
   children,
   activeNavId = 'dashboard',
   className,
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const activeModuleLabel = moduleNames[activeNavId] || 'Dashboard';
 
   return (
     <div className="flex min-h-screen w-full bg-[#F6F2EB]">
-      {/* Responsive Left Sidebar */}
+      {/* Left Sidebar with Workspace Switcher */}
       <Sidebar
         isOpen={mobileMenuOpen}
         onClose={() => setMobileMenuOpen(false)}
@@ -29,8 +44,11 @@ export const DashboardShell: React.FC<DashboardShellProps> = ({
 
       {/* Main Content Area */}
       <div className="flex flex-1 flex-col min-w-0 min-h-screen">
-        {/* Top Navbar */}
-        <Navbar onMenuToggle={() => setMobileMenuOpen(true)} />
+        {/* Top Navbar with Breadcrumbs */}
+        <Navbar
+          onMenuToggle={() => setMobileMenuOpen(true)}
+          activeModule={activeModuleLabel}
+        />
 
         {/* Dashboard Scrollable Body Container */}
         <main className={cn('flex-1 p-4 sm:p-6 md:p-8 space-y-6 md:space-y-8', className)}>

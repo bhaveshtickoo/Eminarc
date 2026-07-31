@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Plus_Jakarta_Sans, Instrument_Serif, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import { BackgroundGrid } from '@/design-system/components/BackgroundGrid';
+import { WorkspaceContextProvider } from '@/components/workspace/WorkspaceContextProvider';
 
 const sansFont = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -39,9 +40,11 @@ export default function RootLayout({
       className={`${sansFont.variable} ${serifFont.variable} ${monoFont.variable}`}
     >
       <body className="antialiased bg-[#F6F2EB] text-[#18181B]">
-        <BackgroundGrid>
-          {children}
-        </BackgroundGrid>
+        <WorkspaceContextProvider>
+          <BackgroundGrid>
+            {children}
+          </BackgroundGrid>
+        </WorkspaceContextProvider>
       </body>
     </html>
   );
