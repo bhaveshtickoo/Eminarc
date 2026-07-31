@@ -44,7 +44,7 @@ export const WorkspaceSwitcher: React.FC<WorkspaceSwitcherProps> = ({
       >
         <div className="flex items-center space-x-2.5 min-w-0">
           {/* Logo Badge Icon */}
-          <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#000000] font-serif italic text-sm font-bold text-[#FFFFFF] shrink-0 shadow-sm">
+          <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#000000] font-sans font-extrabold text-sm text-[#FFFFFF] shrink-0 shadow-sm">
             {currentWorkspace.logoLetter}
           </div>
 
@@ -104,7 +104,7 @@ export const WorkspaceSwitcher: React.FC<WorkspaceSwitcherProps> = ({
                   <div className="flex items-center space-x-2.5 min-w-0">
                     <div
                       className={cn(
-                        'flex h-6 w-6 items-center justify-center rounded-md font-serif italic text-xs font-bold shrink-0',
+                        'flex h-6 w-6 items-center justify-center rounded-md font-sans font-extrabold text-xs shrink-0',
                         isSelected
                           ? 'bg-[#000000] text-[#FFFFFF]'
                           : 'bg-[#EFEAE1] text-[#716D64] group-hover:text-[#18181B]'

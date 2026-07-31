@@ -68,7 +68,7 @@ export const ResearchForm: React.FC = () => {
         <h2 className="font-sans font-bold text-2xl tracking-tight text-[#111111]">
           Founder Research
         </h2>
-        <p className="font-serif italic text-base text-[#716D64] mt-1">
+        <p className="font-sans font-medium text-sm text-[#52525B] mt-1 leading-normal">
           &quot;Analyze a company and generate a strategic growth report.&quot;
         </p>
       </div>

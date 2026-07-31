@@ -71,7 +71,7 @@ export const CardTitle = React.forwardRef<
       >
         {children}
         {editorialItalic && (
-          <span className="font-serif italic font-normal ml-1.5 text-[#111111]">
+          <span className="font-sans font-medium ml-1.5 text-[#111111]">
             {editorialItalic}
           </span>
         )}

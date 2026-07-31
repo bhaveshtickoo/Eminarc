@@ -33,7 +33,7 @@ export const ContentHeader: React.FC<ContentHeaderProps> = ({
           <h1 className="font-sans font-bold text-2xl md:text-3xl tracking-tight text-[#111111]">
             Content Operating System
           </h1>
-          <p className="font-serif italic text-sm text-[#716D64] mt-0.5">
+          <p className="font-sans font-medium text-xs md:text-sm text-[#52525B] mt-1">
             &quot;Plan, write, refine, and repurpose distribution assets for {currentWorkspace.name}.&quot;
           </p>
         </div>

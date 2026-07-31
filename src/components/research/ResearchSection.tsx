@@ -46,7 +46,7 @@ export const ResearchSection: React.FC<ResearchSectionProps> = ({
           </h3>
 
           {subtitle && (
-            <p className="font-serif italic text-sm md:text-base text-[#716D64] mt-0.5 font-normal">
+            <p className="font-sans font-medium text-xs md:text-sm text-[#52525B] mt-1">
               {subtitle}
             </p>
           )}

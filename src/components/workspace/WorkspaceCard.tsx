@@ -20,7 +20,7 @@ export const WorkspaceCard: React.FC<WorkspaceCardProps> = ({ className }) => {
       )}
     >
       <div className="flex items-center space-x-3.5">
-        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#000000] font-serif italic text-lg font-bold text-[#FFFFFF] shadow-sm shrink-0">
+        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#000000] font-sans font-extrabold text-lg text-[#FFFFFF] shadow-sm shrink-0">
           {currentWorkspace.logoLetter}
         </div>
         <div>

@@ -40,7 +40,7 @@ export const WorkspaceHeader: React.FC<WorkspaceHeaderProps> = ({
             {currentWorkspace.name}
           </h2>
 
-          <p className="font-serif italic text-base text-[#716D64] mt-0.5 font-normal">
+          <p className="font-sans font-medium text-sm sm:text-base text-[#52525B] mt-1 leading-normal">
             &quot;{currentWorkspace.tagline}&quot;
           </p>
 

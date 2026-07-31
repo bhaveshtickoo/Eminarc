@@ -17,7 +17,7 @@ export const Logo: React.FC<LogoProps> = ({
     <div className={cn('inline-flex items-center space-x-3', className)}>
       {/* Icon Badge: Black rounded rectangle with white styled lowercase 'e' */}
       <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#000000] text-[#FFFFFF] shadow-sm shrink-0">
-        <span className="font-serif italic font-bold text-xl leading-none tracking-tight">
+        <span className="font-sans font-extrabold text-xl leading-none tracking-tight">
           e
         </span>
       </div>

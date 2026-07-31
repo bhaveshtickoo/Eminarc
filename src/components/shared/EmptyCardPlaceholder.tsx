@@ -67,7 +67,7 @@ export const EmptyCardPlaceholder: React.FC<EmptyCardPlaceholderProps> = ({
         {children || (
           <div className="space-y-1 py-4">
             <div className="w-8 h-8 mx-auto rounded-full bg-[#EFEAE1] flex items-center justify-center text-[#716D64]">
-              <span className="font-serif italic font-medium text-sm">+</span>
+              <span className="font-sans font-semibold text-sm">+</span>
             </div>
             <p className="font-mono text-[11px] uppercase tracking-wider text-[#9E988D] pt-1">
               Empty Module Shell

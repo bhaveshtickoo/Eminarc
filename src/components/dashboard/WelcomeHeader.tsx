@@ -28,7 +28,7 @@ export const WelcomeHeader: React.FC = () => {
             Good Morning, <span className="text-[#18181B]">{primaryMember}</span> 👋
           </h1>
 
-          <p className="font-serif italic text-xl sm:text-2xl text-[#716D64] mt-2 font-normal">
+          <p className="font-sans font-medium text-base sm:text-lg text-[#52525B] mt-1.5 leading-normal">
             &quot;Here&apos;s what&apos;s happening with {currentWorkspace.name} today.&quot;
           </p>
         </div>

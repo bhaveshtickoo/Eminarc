@@ -50,7 +50,7 @@ export const AICopilot: React.FC = () => {
         <h3 className="font-sans text-xl font-bold text-[#111111] tracking-tight">
           Content Intelligence
         </h3>
-        <p className="font-serif italic text-xs text-[#716D64] mt-0.5">
+        <p className="font-sans font-medium text-xs text-[#52525B] mt-1">
           &quot;Optimize post for {currentWorkspace.name} audience.&quot;
         </p>
       </div>

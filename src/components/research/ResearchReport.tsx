@@ -38,7 +38,7 @@ export const ResearchReport: React.FC = () => {
             <span className="font-mono text-[10px] uppercase tracking-wider text-[#716D64] block mb-1">
               CORE PHILOSOPHY
             </span>
-            <span className="font-serif italic text-sm text-[#111111]">
+            <span className="font-sans font-medium text-sm text-[#111111]">
               &quot;Growth as a System, Not a Campaign.&quot;
             </span>
           </div>
