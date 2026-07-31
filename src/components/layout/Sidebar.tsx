@@ -116,9 +116,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
           </nav>
         </div>
 
-        {/* Bottom Sidebar Cards Stack (Exact Match to Image Reference) */}
-        <div className="mt-6 pt-4 border-t border-[#E5E0D6] space-y-3">
-          {/* Card 1: Active Plan */}
+        {/* Left Bottom Side Stack: Active Plan, Version, and System Status */}
+        <div className="mt-6 pt-4 border-t border-[#E5E0D6] space-y-2.5">
+          {/* Card 1: Active Plan Card */}
           <div className="rounded-2xl bg-[#FCFAF7] border border-[rgba(0,0,0,0.08)] p-3.5 space-y-1 shadow-[0_1px_2px_0_rgba(0,0,0,0.02)]">
             <span className="font-mono text-[9px] uppercase tracking-widest font-bold text-[#716D64] block">
               ACTIVE PLAN
@@ -138,13 +138,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
             </a>
           </div>
 
-          {/* Card 2: Eminarc OS Version */}
-          <div className="flex items-center space-x-2.5 rounded-xl bg-[#FCFAF7] border border-[rgba(0,0,0,0.08)] p-2.5">
-            <div className="flex h-6 w-6 items-center justify-center rounded-lg bg-[#EFEAE1] text-[#111111] font-mono text-[10px] font-bold shrink-0">
+          {/* Card 2: Version Badge */}
+          <div className="flex items-center space-x-3 rounded-xl bg-[#FCFAF7] border border-[rgba(0,0,0,0.08)] p-2.5">
+            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#000000] text-[#FFFFFF] font-mono text-[11px] font-extrabold shrink-0 shadow-sm">
               e
             </div>
             <div>
-              <span className="font-mono text-[10px] font-bold text-[#111111] uppercase tracking-wider block">
+              <span className="font-mono text-[10px] font-bold text-[#111111] uppercase tracking-wider block leading-tight">
                 EMINARC OS
               </span>
               <span className="font-mono text-[9px] text-[#716D64] block">
