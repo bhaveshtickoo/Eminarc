@@ -9,7 +9,7 @@ export interface UserAvatarProps {
 
 export const UserAvatar: React.FC<UserAvatarProps> = ({
   className,
-  name = 'Bhavesh Tickoo',
+  name = 'Pratyush',
 }) => {
   const initials = name
     .split(' ')
@@ -26,7 +26,7 @@ export const UserAvatar: React.FC<UserAvatarProps> = ({
         className
       )}
     >
-      <div className="relative flex h-8 w-8 items-center justify-center rounded-full bg-[#18181B] font-mono text-xs font-semibold text-[#FFFFFF] shadow-sm">
+      <div className="relative flex h-8 w-8 items-center justify-center rounded-full bg-[#000000] font-mono text-xs font-semibold text-[#FFFFFF] shadow-sm">
         {initials}
         <span className="absolute bottom-0 right-0 h-2 w-2 rounded-full bg-[#2D6A4F] ring-2 ring-[#F6F2EB]" />
       </div>

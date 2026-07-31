@@ -1,5 +1,5 @@
 import React from 'react';
-import { Bell, Menu } from 'lucide-react';
+import { Bell, MessageSquare, Menu } from 'lucide-react';
 import { cn } from '@/design-system/utils/cn';
 import { WorkspaceSelector } from '../shared/WorkspaceSelector';
 import { SearchBar } from '../shared/SearchBar';
@@ -14,7 +14,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onMenuToggle, className }) => {
   return (
     <header
       className={cn(
-        'sticky top-0 z-30 flex h-16 w-full items-center justify-between border-b border-[#E5E0D6] bg-[#F6F2EB]/95 px-4 md:px-8 backdrop-none',
+        'sticky top-0 z-30 flex h-16 w-full items-center justify-between border-b border-[#E5E0D6] bg-[#F6F2EB]/95 px-4 sm:px-6 md:px-8 backdrop-none',
         className
       )}
     >
@@ -33,14 +33,24 @@ export const Navbar: React.FC<NavbarProps> = ({ onMenuToggle, className }) => {
         <WorkspaceSelector />
       </div>
 
-      {/* Center Section: Search Bar (Desktop) */}
+      {/* Center Section: Search Bar */}
       <div className="hidden md:flex flex-1 max-w-md mx-6">
         <SearchBar />
       </div>
 
-      {/* Right Section: Notifications & User Avatar */}
-      <div className="flex items-center space-x-2 md:space-x-3">
-        {/* Notification Bell */}
+      {/* Right Section: Messages, Notifications & User Avatar */}
+      <div className="flex items-center space-x-2.5 sm:space-x-3">
+        {/* Messages Icon Button */}
+        <button
+          type="button"
+          className="relative flex h-9 w-9 items-center justify-center rounded-full bg-[#FFFFFF] border border-[#E5E0D6] text-[#716D64] shadow-[0_1px_2px_0_rgba(0,0,0,0.02)] hover:bg-[#F7F4EE] hover:text-[#18181B] transition-all"
+          aria-label="Messages"
+        >
+          <MessageSquare className="h-4 w-4" />
+          <span className="absolute top-2 right-2 h-2 w-2 rounded-full bg-[#2563EB] ring-2 ring-[#FFFFFF]" />
+        </button>
+
+        {/* Notifications Bell Button */}
         <button
           type="button"
           className="relative flex h-9 w-9 items-center justify-center rounded-full bg-[#FFFFFF] border border-[#E5E0D6] text-[#716D64] shadow-[0_1px_2px_0_rgba(0,0,0,0.02)] hover:bg-[#F7F4EE] hover:text-[#18181B] transition-all"
@@ -53,7 +63,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onMenuToggle, className }) => {
         <div className="h-5 w-[1px] bg-[#E5E0D6] mx-1" />
 
         {/* User Profile Avatar */}
-        <UserAvatar name="Bhavesh Tickoo" />
+        <UserAvatar name="Pratyush" />
       </div>
     </header>
   );
