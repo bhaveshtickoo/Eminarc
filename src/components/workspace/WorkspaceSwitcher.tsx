@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { ChevronDown, Check, Plus } from 'lucide-react';
 import { cn } from '@/design-system/utils/cn';
-import { useWorkspace } from './WorkspaceContextProvider';
+import { useWorkspace } from '@/hooks/useWorkspace';
 
 export interface WorkspaceSwitcherProps {
   className?: string;
@@ -49,9 +49,14 @@ export const WorkspaceSwitcher: React.FC<WorkspaceSwitcherProps> = ({
           </div>
 
           <div className="text-left min-w-0">
-            <span className="block font-sans text-xs font-bold tracking-tight text-[#111111] truncate">
-              {currentWorkspace.name}
-            </span>
+            <div className="flex items-center space-x-1.5">
+              <span className="font-sans text-xs font-bold tracking-tight text-[#111111] truncate">
+                {currentWorkspace.name}
+              </span>
+              <span className="font-mono text-[9px] font-bold text-[#2D6A4F] bg-[#EDF6F0] px-1.5 py-0.2 rounded border border-[#C8E4D0]">
+                {currentWorkspace.metrics.growthScore}
+              </span>
+            </div>
             <span className="block font-mono text-[9px] uppercase tracking-wider text-[#716D64] truncate">
               {currentWorkspace.industry}
             </span>
@@ -60,7 +65,7 @@ export const WorkspaceSwitcher: React.FC<WorkspaceSwitcherProps> = ({
 
         <ChevronDown
           className={cn(
-            'h-3.5 w-3.5 text-[#716D64] shrink-0 transition-transform duration-200',
+            'h-3.5 w-3.5 text-[#716D64] shrink-0 transition-transform duration-200 ml-1',
             isOpen && 'transform rotate-180 text-[#18181B]'
           )}
         />
@@ -69,9 +74,12 @@ export const WorkspaceSwitcher: React.FC<WorkspaceSwitcherProps> = ({
       {/* Dropdown Menu */}
       {isOpen && (
         <div className="absolute left-0 top-full z-50 mt-1.5 w-full rounded-2xl bg-[#FFFFFF] border border-[#E5E0D6] p-2 shadow-[0_10px_25px_-5px_rgba(26,26,26,0.08)]">
-          <div className="px-2 py-1.5 border-b border-[#E5E0D6]/60 mb-1">
-            <span className="font-mono text-[9px] uppercase tracking-[0.18em] font-semibold text-[#716D64] block">
+          <div className="px-2 py-1.5 border-b border-[#E5E0D6]/60 mb-1 flex items-center justify-between">
+            <span className="font-mono text-[9px] uppercase tracking-[0.18em] font-semibold text-[#716D64]">
               WORKSPACES ({availableWorkspaces.length})
+            </span>
+            <span className="font-mono text-[9px] text-[#2D6A4F] font-bold">
+              SWITCH
             </span>
           </div>
 
@@ -109,18 +117,23 @@ export const WorkspaceSwitcher: React.FC<WorkspaceSwitcherProps> = ({
                         {ws.name}
                       </span>
                       <span className="block font-mono text-[9px] text-[#716D64] truncate">
-                        {ws.targetMarket}
+                        {ws.targetMarket.join(', ')}
                       </span>
                     </div>
                   </div>
 
-                  {isSelected && <Check className="h-3.5 w-3.5 text-[#2D6A4F] shrink-0 ml-2" />}
+                  <div className="flex items-center space-x-1.5 shrink-0 ml-2">
+                    <span className="font-mono text-[9px] font-bold text-[#111111] bg-[#EFEAE1] px-1.5 py-0.5 rounded">
+                      {ws.metrics.growthScore}
+                    </span>
+                    {isSelected && <Check className="h-3.5 w-3.5 text-[#2D6A4F]" />}
+                  </div>
                 </div>
               );
             })}
           </div>
 
-          {/* Add New Workspace Placeholder */}
+          {/* Add New Workspace Action */}
           <div className="pt-1.5 mt-1 border-t border-[#E5E0D6]/60">
             <button
               type="button"

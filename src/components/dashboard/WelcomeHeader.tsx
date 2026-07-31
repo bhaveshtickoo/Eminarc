@@ -1,12 +1,13 @@
 'use client';
 
 import React from 'react';
-import { Target, Sparkles } from 'lucide-react';
+import { Target, Sparkles, Users } from 'lucide-react';
 import { ProgressBar } from './ProgressBar';
-import { useWorkspace } from '../workspace/WorkspaceContextProvider';
+import { useWorkspace } from '@/hooks/useWorkspace';
 
 export const WelcomeHeader: React.FC = () => {
   const { currentWorkspace } = useWorkspace();
+  const primaryMember = currentWorkspace.teamMembers[0]?.name || 'Founder';
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
@@ -15,7 +16,7 @@ export const WelcomeHeader: React.FC = () => {
         <div>
           <div className="flex items-center space-x-2.5 mb-3">
             <span className="font-mono text-[10px] uppercase tracking-[0.2em] font-semibold text-[#716D64] bg-[#EFEAE1] px-2.5 py-1 rounded-full">
-              WORKSPACES / {currentWorkspace.name.toUpperCase()}
+              WORKSPACE / {currentWorkspace.name.toUpperCase()}
             </span>
             <span className="flex items-center text-xs font-mono text-[#2D6A4F] bg-[#EDF6F0] px-2.5 py-1 rounded-full font-medium border border-[#C8E4D0]">
               <span className="w-1.5 h-1.5 rounded-full bg-[#2D6A4F] mr-1.5 animate-pulse" />
@@ -24,7 +25,7 @@ export const WelcomeHeader: React.FC = () => {
           </div>
 
           <h1 className="font-sans font-bold text-3xl sm:text-4xl md:text-5xl tracking-tight text-[#111111] leading-[1.05]">
-            Good Morning, <span className="text-[#18181B]">Pratyush</span> 👋
+            Good Morning, <span className="text-[#18181B]">{primaryMember}</span> 👋
           </h1>
 
           <p className="font-serif italic text-xl sm:text-2xl text-[#716D64] mt-2 font-normal">
@@ -35,9 +36,12 @@ export const WelcomeHeader: React.FC = () => {
         <div className="pt-6 mt-6 border-t border-[rgba(0,0,0,0.06)] flex flex-wrap items-center justify-between gap-4 text-xs font-mono text-[#716D64]">
           <div className="flex items-center space-x-2">
             <Sparkles className="h-3.5 w-3.5 text-[#B45309]" />
-            <span>AI Partner active — {currentWorkspace.industry} engine online</span>
+            <span>Voice: {currentWorkspace.brandVoice.join(' • ')}</span>
           </div>
-          <span className="hidden sm:inline">PIPELINE: {currentWorkspace.pipelineValue}</span>
+          <div className="flex items-center space-x-2">
+            <Users className="h-3.5 w-3.5 text-[#18181B]" />
+            <span>Team: {currentWorkspace.teamMembers.map((m) => m.name).join(', ')}</span>
+          </div>
         </div>
       </div>
 
@@ -50,7 +54,7 @@ export const WelcomeHeader: React.FC = () => {
                 MILESTONE
               </span>
               <span className="font-mono text-[10px] uppercase tracking-wider text-[#B45309] bg-[#FEF3C7] px-2 py-0.5 rounded-full border border-[#FDE68A]">
-                WEEK 31
+                {currentWorkspace.weeklyGoal.timeframe}
               </span>
             </div>
             <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#000000] text-[#FFFFFF]">
@@ -62,21 +66,27 @@ export const WelcomeHeader: React.FC = () => {
             Weekly Goal ({currentWorkspace.name})
           </h3>
           <p className="font-sans text-lg font-bold text-[#111111] tracking-tight mt-1">
-            Generate 12 Qualified Leads
+            {currentWorkspace.weeklyGoal.title}
           </p>
         </div>
 
         {/* Goal Progress Bar */}
         <div className="mt-6 pt-4 border-t border-[rgba(0,0,0,0.06)] space-y-2">
           <div className="flex items-center justify-between text-xs font-mono">
-            <span className="text-[#716D64]">8 / 12 Leads Acquired</span>
+            <span className="text-[#716D64]">
+              {currentWorkspace.weeklyGoal.currentCount} / {currentWorkspace.weeklyGoal.targetCount} Leads Acquired
+            </span>
             <span className="font-bold text-[#2D6A4F] bg-[#EDF6F0] px-2 py-0.5 rounded-full border border-[#C8E4D0]">
-              68%
+              {currentWorkspace.weeklyGoal.percentage}%
             </span>
           </div>
-          <ProgressBar progress={68} barColor="bg-[#000000]" heightClass="h-2.5" />
+          <ProgressBar
+            progress={currentWorkspace.weeklyGoal.percentage}
+            barColor="bg-[#000000]"
+            heightClass="h-2.5"
+          />
           <p className="font-mono text-[10px] text-[#716D64] pt-1">
-            TARGET MARKET: {currentWorkspace.targetMarket}
+            MARKET: {currentWorkspace.targetMarket.join(' + ')}
           </p>
         </div>
       </div>

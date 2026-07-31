@@ -3,7 +3,7 @@
 import React from 'react';
 import { ChevronRight } from 'lucide-react';
 import { cn } from '@/design-system/utils/cn';
-import { useWorkspace } from './WorkspaceContextProvider';
+import { useWorkspace } from '@/hooks/useWorkspace';
 
 export interface BreadcrumbsProps {
   moduleName?: string;

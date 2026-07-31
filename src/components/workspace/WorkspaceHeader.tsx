@@ -3,7 +3,7 @@
 import React from 'react';
 import { Building2, Globe, Megaphone } from 'lucide-react';
 import { cn } from '@/design-system/utils/cn';
-import { useWorkspace } from './WorkspaceContextProvider';
+import { useWorkspace } from '@/hooks/useWorkspace';
 
 export interface WorkspaceHeaderProps {
   className?: string;
@@ -53,12 +53,12 @@ export const WorkspaceHeader: React.FC<WorkspaceHeaderProps> = ({
             <span>•</span>
             <div className="flex items-center space-x-1.5">
               <Globe className="h-3.5 w-3.5 text-[#18181B]" />
-              <span>{currentWorkspace.targetMarket}</span>
+              <span>{currentWorkspace.targetMarket.join(', ')}</span>
             </div>
             <span>•</span>
             <div className="flex items-center space-x-1.5">
               <Megaphone className="h-3.5 w-3.5 text-[#18181B]" />
-              <span>Voice: {currentWorkspace.brandVoice}</span>
+              <span>Voice: {currentWorkspace.brandVoice.join(', ')}</span>
             </div>
           </div>
         </div>
@@ -71,7 +71,7 @@ export const WorkspaceHeader: React.FC<WorkspaceHeaderProps> = ({
                 GROWTH SCORE
               </span>
               <span className="font-sans text-xl font-bold text-[#111111]">
-                {currentWorkspace.growthScore} / 100
+                {currentWorkspace.metrics.growthScore} / 100
               </span>
             </div>
 
@@ -80,7 +80,7 @@ export const WorkspaceHeader: React.FC<WorkspaceHeaderProps> = ({
                 AI VISIBILITY
               </span>
               <span className="font-sans text-xl font-bold text-[#B45309]">
-                {currentWorkspace.aiVisibility}%
+                {currentWorkspace.metrics.aiVisibility}%
               </span>
             </div>
           </div>

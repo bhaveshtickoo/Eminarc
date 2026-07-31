@@ -40,7 +40,7 @@ export const ResearchHeader: React.FC = () => {
 
         {/* Status Badge Group */}
         <div className="shrink-0">
-          <StatusBadge status="Completed" confidence={`${currentWorkspace.growthScore + 15}%`} timeAgo="2 minutes ago" />
+          <StatusBadge status="Completed" confidence={`${currentWorkspace.metrics.growthScore + 15}%`} timeAgo="2 minutes ago" />
         </div>
       </div>
     </div>

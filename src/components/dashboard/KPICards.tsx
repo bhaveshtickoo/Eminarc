@@ -1,19 +1,25 @@
+'use client';
+
 import React from 'react';
 import { TrendingUp, Eye, DollarSign, FileText } from 'lucide-react';
 import { KPICard } from './KPICard';
+import { useWorkspace } from '@/hooks/useWorkspace';
 
 export const KPICards: React.FC = () => {
+  const { currentWorkspace } = useWorkspace();
+  const { metrics } = currentWorkspace;
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
       {/* Card 1: Growth Score */}
       <KPICard
         title="Growth Score"
-        value="78 / 100"
-        badgeText="↑ +6 this week"
+        value={`${metrics.growthScore} / 100`}
+        badgeText={`↑ ${metrics.growthScoreChange}`}
         badgeVariant="success"
         subtitle="OVERALL VELOCITY RATING"
         indexCode="KPI / 001"
-        sparklineData={[62, 65, 64, 70, 68, 74, 72, 78]}
+        sparklineData={[62, 65, 64, 70, 68, 74, 72, metrics.growthScore]}
         sparklineColor="#2D6A4F"
         icon={<TrendingUp className="h-4 w-4" />}
       />
@@ -21,21 +27,21 @@ export const KPICards: React.FC = () => {
       {/* Card 2: AI Visibility */}
       <KPICard
         title="AI Visibility"
-        value="63%"
-        badgeText="Needs improvement"
-        badgeVariant="warning"
+        value={`${metrics.aiVisibility}%`}
+        badgeText={metrics.aiVisibilityStatus}
+        badgeVariant={metrics.aiVisibility >= 75 ? 'success' : 'warning'}
         subtitle="LLM CITATION COVERAGE"
         indexCode="KPI / 002"
-        sparklineData={[72, 70, 68, 65, 62, 60, 64, 63]}
-        sparklineColor="#B45309"
+        sparklineData={[50, 54, 58, 60, 59, 61, 62, metrics.aiVisibility]}
+        sparklineColor={metrics.aiVisibility >= 75 ? '#2D6A4F' : '#B45309'}
         icon={<Eye className="h-4 w-4" />}
       />
 
       {/* Card 3: Pipeline Value */}
       <KPICard
         title="Pipeline Value"
-        value="$12,400"
-        badgeText="14 Opportunities"
+        value={metrics.pipelineValue}
+        badgeText={`${metrics.opportunitiesCount} Opportunities`}
         badgeVariant="info"
         subtitle="QUALIFIED ACTIVE DEALS"
         indexCode="KPI / 003"
@@ -47,12 +53,12 @@ export const KPICards: React.FC = () => {
       {/* Card 4: Content Published */}
       <KPICard
         title="Content Published"
-        value="5 / 8"
+        value={`${metrics.contentPublishedCount} / ${metrics.contentTargetCount}`}
         badgeText="This Week"
         badgeVariant="success"
-        subtitle="OUTPUT PACING (62%)"
+        subtitle={`OUTPUT PACING (${Math.round((metrics.contentPublishedCount / metrics.contentTargetCount) * 100)}%)`}
         indexCode="KPI / 004"
-        sparklineData={[1, 2, 2, 3, 4, 4, 5, 5]}
+        sparklineData={[1, 2, 2, 3, 4, 4, 5, metrics.contentPublishedCount]}
         sparklineColor="#2D6A4F"
         icon={<FileText className="h-4 w-4" />}
       />

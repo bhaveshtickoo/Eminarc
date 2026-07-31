@@ -36,7 +36,7 @@ export const WorkspaceCard: React.FC<WorkspaceCardProps> = ({ className }) => {
       <div className="flex items-center space-x-3 font-mono text-xs">
         <div className="text-right">
           <span className="text-[10px] text-[#716D64] block">GROWTH SCORE</span>
-          <span className="font-bold text-[#111111]">{currentWorkspace.growthScore}</span>
+          <span className="font-bold text-[#111111]">{currentWorkspace.metrics.growthScore}</span>
         </div>
         <ArrowUpRight className="h-4 w-4 text-[#716D64] group-hover:text-[#18181B] transition-colors" />
       </div>
