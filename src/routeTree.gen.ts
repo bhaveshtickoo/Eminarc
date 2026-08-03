@@ -12,16 +12,26 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as DashboardRouteImport } from './routes/_dashboard'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as DashboardIndexRouteImport } from './routes/_dashboard.index'
+import { Route as DashboardAgentsRouteImport } from './routes/_dashboard.agents'
 import { Route as DashboardAnalyticsRouteImport } from './routes/_dashboard.analytics'
 import { Route as DashboardClientsRouteImport } from './routes/_dashboard.clients'
 import { Route as DashboardContentRouteImport } from './routes/_dashboard.content'
+import { Route as DashboardCrmRouteImport } from './routes/_dashboard.crm'
+import { Route as DashboardDistributionRouteImport } from './routes/_dashboard.distribution'
 import { Route as DashboardIntegrationsRouteImport } from './routes/_dashboard.integrations'
 import { Route as DashboardLeadsRouteImport } from './routes/_dashboard.leads'
 import { Route as DashboardLinkedinRouteImport } from './routes/_dashboard.linkedin'
+import { Route as DashboardNotificationsRouteImport } from './routes/_dashboard.notifications'
 import { Route as DashboardOutreachRouteImport } from './routes/_dashboard.outreach'
 import { Route as DashboardReportsRouteImport } from './routes/_dashboard.reports'
+import { Route as DashboardResearchRouteImport } from './routes/_dashboard.research'
 import { Route as DashboardSettingsRouteImport } from './routes/_dashboard.settings'
 import { Route as DashboardTasksRouteImport } from './routes/_dashboard.tasks'
+import { Route as DashboardVisibilityRouteImport } from './routes/_dashboard.visibility'
+import { Route as DashboardContentCalendarRouteImport } from './routes/_dashboard.content.calendar'
+import { Route as DashboardContentLibraryRouteImport } from './routes/_dashboard.content.library'
+import { Route as DashboardContentStrategyRouteImport } from './routes/_dashboard.content.strategy'
+import { Route as DashboardResearchHistoryRouteImport } from './routes/_dashboard.research.history'
 
 const DashboardRoute = DashboardRouteImport.update({
   id: '/_dashboard',
@@ -35,6 +45,11 @@ const LoginRoute = LoginRouteImport.update({
 const DashboardIndexRoute = DashboardIndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardAgentsRoute = DashboardAgentsRouteImport.update({
+  id: '/agents',
+  path: '/agents',
   getParentRoute: () => DashboardRoute,
 } as any)
 const DashboardAnalyticsRoute = DashboardAnalyticsRouteImport.update({
@@ -52,6 +67,16 @@ const DashboardContentRoute = DashboardContentRouteImport.update({
   path: '/content',
   getParentRoute: () => DashboardRoute,
 } as any)
+const DashboardCrmRoute = DashboardCrmRouteImport.update({
+  id: '/crm',
+  path: '/crm',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardDistributionRoute = DashboardDistributionRouteImport.update({
+  id: '/distribution',
+  path: '/distribution',
+  getParentRoute: () => DashboardRoute,
+} as any)
 const DashboardIntegrationsRoute = DashboardIntegrationsRouteImport.update({
   id: '/integrations',
   path: '/integrations',
@@ -67,6 +92,11 @@ const DashboardLinkedinRoute = DashboardLinkedinRouteImport.update({
   path: '/linkedin',
   getParentRoute: () => DashboardRoute,
 } as any)
+const DashboardNotificationsRoute = DashboardNotificationsRouteImport.update({
+  id: '/notifications',
+  path: '/notifications',
+  getParentRoute: () => DashboardRoute,
+} as any)
 const DashboardOutreachRoute = DashboardOutreachRouteImport.update({
   id: '/outreach',
   path: '/outreach',
@@ -75,6 +105,11 @@ const DashboardOutreachRoute = DashboardOutreachRouteImport.update({
 const DashboardReportsRoute = DashboardReportsRouteImport.update({
   id: '/reports',
   path: '/reports',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardResearchRoute = DashboardResearchRouteImport.update({
+  id: '/research',
+  path: '/research',
   getParentRoute: () => DashboardRoute,
 } as any)
 const DashboardSettingsRoute = DashboardSettingsRouteImport.update({
@@ -87,95 +122,183 @@ const DashboardTasksRoute = DashboardTasksRouteImport.update({
   path: '/tasks',
   getParentRoute: () => DashboardRoute,
 } as any)
+const DashboardVisibilityRoute = DashboardVisibilityRouteImport.update({
+  id: '/visibility',
+  path: '/visibility',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardContentCalendarRoute =
+  DashboardContentCalendarRouteImport.update({
+    id: '/calendar',
+    path: '/calendar',
+    getParentRoute: () => DashboardContentRoute,
+  } as any)
+const DashboardContentLibraryRoute = DashboardContentLibraryRouteImport.update({
+  id: '/library',
+  path: '/library',
+  getParentRoute: () => DashboardContentRoute,
+} as any)
+const DashboardContentStrategyRoute =
+  DashboardContentStrategyRouteImport.update({
+    id: '/strategy',
+    path: '/strategy',
+    getParentRoute: () => DashboardContentRoute,
+  } as any)
+const DashboardResearchHistoryRoute =
+  DashboardResearchHistoryRouteImport.update({
+    id: '/history',
+    path: '/history',
+    getParentRoute: () => DashboardResearchRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof DashboardIndexRoute
   '/login': typeof LoginRoute
+  '/agents': typeof DashboardAgentsRoute
   '/analytics': typeof DashboardAnalyticsRoute
   '/clients': typeof DashboardClientsRoute
-  '/content': typeof DashboardContentRoute
+  '/content': typeof DashboardContentRouteWithChildren
+  '/crm': typeof DashboardCrmRoute
+  '/distribution': typeof DashboardDistributionRoute
   '/integrations': typeof DashboardIntegrationsRoute
   '/leads': typeof DashboardLeadsRoute
   '/linkedin': typeof DashboardLinkedinRoute
+  '/notifications': typeof DashboardNotificationsRoute
   '/outreach': typeof DashboardOutreachRoute
   '/reports': typeof DashboardReportsRoute
+  '/research': typeof DashboardResearchRouteWithChildren
   '/settings': typeof DashboardSettingsRoute
   '/tasks': typeof DashboardTasksRoute
+  '/visibility': typeof DashboardVisibilityRoute
+  '/content/calendar': typeof DashboardContentCalendarRoute
+  '/content/library': typeof DashboardContentLibraryRoute
+  '/content/strategy': typeof DashboardContentStrategyRoute
+  '/research/history': typeof DashboardResearchHistoryRoute
 }
 export interface FileRoutesByTo {
   '/login': typeof LoginRoute
+  '/agents': typeof DashboardAgentsRoute
   '/analytics': typeof DashboardAnalyticsRoute
   '/clients': typeof DashboardClientsRoute
-  '/content': typeof DashboardContentRoute
+  '/content': typeof DashboardContentRouteWithChildren
+  '/crm': typeof DashboardCrmRoute
+  '/distribution': typeof DashboardDistributionRoute
   '/integrations': typeof DashboardIntegrationsRoute
   '/leads': typeof DashboardLeadsRoute
   '/linkedin': typeof DashboardLinkedinRoute
+  '/notifications': typeof DashboardNotificationsRoute
   '/outreach': typeof DashboardOutreachRoute
   '/reports': typeof DashboardReportsRoute
+  '/research': typeof DashboardResearchRouteWithChildren
   '/settings': typeof DashboardSettingsRoute
   '/tasks': typeof DashboardTasksRoute
+  '/visibility': typeof DashboardVisibilityRoute
   '/': typeof DashboardIndexRoute
+  '/content/calendar': typeof DashboardContentCalendarRoute
+  '/content/library': typeof DashboardContentLibraryRoute
+  '/content/strategy': typeof DashboardContentStrategyRoute
+  '/research/history': typeof DashboardResearchHistoryRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_dashboard': typeof DashboardRouteWithChildren
   '/login': typeof LoginRoute
+  '/_dashboard/agents': typeof DashboardAgentsRoute
   '/_dashboard/analytics': typeof DashboardAnalyticsRoute
   '/_dashboard/clients': typeof DashboardClientsRoute
-  '/_dashboard/content': typeof DashboardContentRoute
+  '/_dashboard/content': typeof DashboardContentRouteWithChildren
+  '/_dashboard/crm': typeof DashboardCrmRoute
+  '/_dashboard/distribution': typeof DashboardDistributionRoute
   '/_dashboard/integrations': typeof DashboardIntegrationsRoute
   '/_dashboard/leads': typeof DashboardLeadsRoute
   '/_dashboard/linkedin': typeof DashboardLinkedinRoute
+  '/_dashboard/notifications': typeof DashboardNotificationsRoute
   '/_dashboard/outreach': typeof DashboardOutreachRoute
   '/_dashboard/reports': typeof DashboardReportsRoute
+  '/_dashboard/research': typeof DashboardResearchRouteWithChildren
   '/_dashboard/settings': typeof DashboardSettingsRoute
   '/_dashboard/tasks': typeof DashboardTasksRoute
+  '/_dashboard/visibility': typeof DashboardVisibilityRoute
   '/_dashboard/': typeof DashboardIndexRoute
+  '/_dashboard/content/calendar': typeof DashboardContentCalendarRoute
+  '/_dashboard/content/library': typeof DashboardContentLibraryRoute
+  '/_dashboard/content/strategy': typeof DashboardContentStrategyRoute
+  '/_dashboard/research/history': typeof DashboardResearchHistoryRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/login'
+    | '/agents'
     | '/analytics'
     | '/clients'
     | '/content'
+    | '/crm'
+    | '/distribution'
     | '/integrations'
     | '/leads'
     | '/linkedin'
+    | '/notifications'
     | '/outreach'
     | '/reports'
+    | '/research'
     | '/settings'
     | '/tasks'
+    | '/visibility'
+    | '/content/calendar'
+    | '/content/library'
+    | '/content/strategy'
+    | '/research/history'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/login'
+    | '/agents'
     | '/analytics'
     | '/clients'
     | '/content'
+    | '/crm'
+    | '/distribution'
     | '/integrations'
     | '/leads'
     | '/linkedin'
+    | '/notifications'
     | '/outreach'
     | '/reports'
+    | '/research'
     | '/settings'
     | '/tasks'
+    | '/visibility'
     | '/'
+    | '/content/calendar'
+    | '/content/library'
+    | '/content/strategy'
+    | '/research/history'
   id:
     | '__root__'
     | '/_dashboard'
     | '/login'
+    | '/_dashboard/agents'
     | '/_dashboard/analytics'
     | '/_dashboard/clients'
     | '/_dashboard/content'
+    | '/_dashboard/crm'
+    | '/_dashboard/distribution'
     | '/_dashboard/integrations'
     | '/_dashboard/leads'
     | '/_dashboard/linkedin'
+    | '/_dashboard/notifications'
     | '/_dashboard/outreach'
     | '/_dashboard/reports'
+    | '/_dashboard/research'
     | '/_dashboard/settings'
     | '/_dashboard/tasks'
+    | '/_dashboard/visibility'
     | '/_dashboard/'
+    | '/_dashboard/content/calendar'
+    | '/_dashboard/content/library'
+    | '/_dashboard/content/strategy'
+    | '/_dashboard/research/history'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -206,6 +329,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardIndexRouteImport
       parentRoute: typeof DashboardRoute
     }
+    '/_dashboard/agents': {
+      id: '/_dashboard/agents'
+      path: '/agents'
+      fullPath: '/agents'
+      preLoaderRoute: typeof DashboardAgentsRouteImport
+      parentRoute: typeof DashboardRoute
+    }
     '/_dashboard/analytics': {
       id: '/_dashboard/analytics'
       path: '/analytics'
@@ -225,6 +355,20 @@ declare module '@tanstack/react-router' {
       path: '/content'
       fullPath: '/content'
       preLoaderRoute: typeof DashboardContentRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/_dashboard/crm': {
+      id: '/_dashboard/crm'
+      path: '/crm'
+      fullPath: '/crm'
+      preLoaderRoute: typeof DashboardCrmRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/_dashboard/distribution': {
+      id: '/_dashboard/distribution'
+      path: '/distribution'
+      fullPath: '/distribution'
+      preLoaderRoute: typeof DashboardDistributionRouteImport
       parentRoute: typeof DashboardRoute
     }
     '/_dashboard/integrations': {
@@ -248,6 +392,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardLinkedinRouteImport
       parentRoute: typeof DashboardRoute
     }
+    '/_dashboard/notifications': {
+      id: '/_dashboard/notifications'
+      path: '/notifications'
+      fullPath: '/notifications'
+      preLoaderRoute: typeof DashboardNotificationsRouteImport
+      parentRoute: typeof DashboardRoute
+    }
     '/_dashboard/outreach': {
       id: '/_dashboard/outreach'
       path: '/outreach'
@@ -260,6 +411,13 @@ declare module '@tanstack/react-router' {
       path: '/reports'
       fullPath: '/reports'
       preLoaderRoute: typeof DashboardReportsRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/_dashboard/research': {
+      id: '/_dashboard/research'
+      path: '/research'
+      fullPath: '/research'
+      preLoaderRoute: typeof DashboardResearchRouteImport
       parentRoute: typeof DashboardRoute
     }
     '/_dashboard/settings': {
@@ -276,34 +434,107 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardTasksRouteImport
       parentRoute: typeof DashboardRoute
     }
+    '/_dashboard/visibility': {
+      id: '/_dashboard/visibility'
+      path: '/visibility'
+      fullPath: '/visibility'
+      preLoaderRoute: typeof DashboardVisibilityRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/_dashboard/content/calendar': {
+      id: '/_dashboard/content/calendar'
+      path: '/calendar'
+      fullPath: '/content/calendar'
+      preLoaderRoute: typeof DashboardContentCalendarRouteImport
+      parentRoute: typeof DashboardContentRoute
+    }
+    '/_dashboard/content/library': {
+      id: '/_dashboard/content/library'
+      path: '/library'
+      fullPath: '/content/library'
+      preLoaderRoute: typeof DashboardContentLibraryRouteImport
+      parentRoute: typeof DashboardContentRoute
+    }
+    '/_dashboard/content/strategy': {
+      id: '/_dashboard/content/strategy'
+      path: '/strategy'
+      fullPath: '/content/strategy'
+      preLoaderRoute: typeof DashboardContentStrategyRouteImport
+      parentRoute: typeof DashboardContentRoute
+    }
+    '/_dashboard/research/history': {
+      id: '/_dashboard/research/history'
+      path: '/history'
+      fullPath: '/research/history'
+      preLoaderRoute: typeof DashboardResearchHistoryRouteImport
+      parentRoute: typeof DashboardResearchRoute
+    }
   }
 }
 
+interface DashboardContentRouteChildren {
+  DashboardContentCalendarRoute: typeof DashboardContentCalendarRoute
+  DashboardContentLibraryRoute: typeof DashboardContentLibraryRoute
+  DashboardContentStrategyRoute: typeof DashboardContentStrategyRoute
+}
+
+const DashboardContentRouteChildren: DashboardContentRouteChildren = {
+  DashboardContentCalendarRoute: DashboardContentCalendarRoute,
+  DashboardContentLibraryRoute: DashboardContentLibraryRoute,
+  DashboardContentStrategyRoute: DashboardContentStrategyRoute,
+}
+
+const DashboardContentRouteWithChildren =
+  DashboardContentRoute._addFileChildren(DashboardContentRouteChildren)
+
+interface DashboardResearchRouteChildren {
+  DashboardResearchHistoryRoute: typeof DashboardResearchHistoryRoute
+}
+
+const DashboardResearchRouteChildren: DashboardResearchRouteChildren = {
+  DashboardResearchHistoryRoute: DashboardResearchHistoryRoute,
+}
+
+const DashboardResearchRouteWithChildren =
+  DashboardResearchRoute._addFileChildren(DashboardResearchRouteChildren)
+
 interface DashboardRouteChildren {
+  DashboardAgentsRoute: typeof DashboardAgentsRoute
   DashboardAnalyticsRoute: typeof DashboardAnalyticsRoute
   DashboardClientsRoute: typeof DashboardClientsRoute
-  DashboardContentRoute: typeof DashboardContentRoute
+  DashboardContentRoute: typeof DashboardContentRouteWithChildren
+  DashboardCrmRoute: typeof DashboardCrmRoute
+  DashboardDistributionRoute: typeof DashboardDistributionRoute
   DashboardIntegrationsRoute: typeof DashboardIntegrationsRoute
   DashboardLeadsRoute: typeof DashboardLeadsRoute
   DashboardLinkedinRoute: typeof DashboardLinkedinRoute
+  DashboardNotificationsRoute: typeof DashboardNotificationsRoute
   DashboardOutreachRoute: typeof DashboardOutreachRoute
   DashboardReportsRoute: typeof DashboardReportsRoute
+  DashboardResearchRoute: typeof DashboardResearchRouteWithChildren
   DashboardSettingsRoute: typeof DashboardSettingsRoute
   DashboardTasksRoute: typeof DashboardTasksRoute
+  DashboardVisibilityRoute: typeof DashboardVisibilityRoute
   DashboardIndexRoute: typeof DashboardIndexRoute
 }
 
 const DashboardRouteChildren: DashboardRouteChildren = {
+  DashboardAgentsRoute: DashboardAgentsRoute,
   DashboardAnalyticsRoute: DashboardAnalyticsRoute,
   DashboardClientsRoute: DashboardClientsRoute,
-  DashboardContentRoute: DashboardContentRoute,
+  DashboardContentRoute: DashboardContentRouteWithChildren,
+  DashboardCrmRoute: DashboardCrmRoute,
+  DashboardDistributionRoute: DashboardDistributionRoute,
   DashboardIntegrationsRoute: DashboardIntegrationsRoute,
   DashboardLeadsRoute: DashboardLeadsRoute,
   DashboardLinkedinRoute: DashboardLinkedinRoute,
+  DashboardNotificationsRoute: DashboardNotificationsRoute,
   DashboardOutreachRoute: DashboardOutreachRoute,
   DashboardReportsRoute: DashboardReportsRoute,
+  DashboardResearchRoute: DashboardResearchRouteWithChildren,
   DashboardSettingsRoute: DashboardSettingsRoute,
   DashboardTasksRoute: DashboardTasksRoute,
+  DashboardVisibilityRoute: DashboardVisibilityRoute,
   DashboardIndexRoute: DashboardIndexRoute,
 }
 

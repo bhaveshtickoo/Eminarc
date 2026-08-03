@@ -106,9 +106,9 @@ function Panel({
   children: React.ReactNode;
 }) {
   return (
-    <section className={cn("rounded-2xl border bg-card p-5 card-glow", className)}>
+    <section className={cn("rounded-2xl border bg-card p-5 card-glow min-w-0 overflow-hidden", className)}>
       <div className="mb-4 flex items-center justify-between gap-3">
-        <h2 className="section-label">{title}</h2>
+        <h2 className="section-label truncate">{title}</h2>
         {action}
       </div>
       {children}
@@ -120,7 +120,7 @@ function ViewAll({ to }: { to: string }) {
   return (
     <Link
       to={to}
-      className="text-xs font-semibold text-muted-foreground transition-colors hover:text-foreground"
+      className="text-xs font-semibold text-muted-foreground transition-colors hover:text-foreground shrink-0"
     >
       View all
     </Link>
@@ -166,7 +166,7 @@ function Overview() {
   };
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-5 select-none">
       {/* Greeting */}
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
@@ -337,9 +337,9 @@ function Overview() {
                 <button
                   type="button"
                   onClick={() => navigate({ to: "/leads" })}
-                  className="flex w-full items-center gap-3 rounded-md text-left transition-opacity hover:opacity-80"
+                  className="flex w-full items-center gap-3 rounded-md text-left transition-opacity hover:opacity-80 min-w-0"
                 >
-                  <div className="h-8 flex-1 overflow-hidden rounded-md bg-secondary">
+                  <div className="h-8 flex-1 overflow-hidden rounded-md bg-secondary min-w-0">
                     <div
                       className="h-full rounded-md bg-primary"
                       style={{
@@ -348,7 +348,7 @@ function Overview() {
                       }}
                     />
                   </div>
-                  <span className="w-36 shrink-0 text-sm text-muted-foreground">{s.stage}</span>
+                  <span className="w-32 shrink-0 truncate text-sm text-muted-foreground">{s.stage}</span>
                   <span className="w-8 shrink-0 text-right text-sm font-semibold tabular-nums">
                     {s.value}
                   </span>
@@ -405,14 +405,14 @@ function Overview() {
                   key={e.id}
                   type="button"
                   onClick={() => toast(e.title, { description: e.detail })}
-                  className="flex w-full items-start gap-3 rounded-lg p-1 text-left transition-colors hover:bg-secondary/60"
+                  className="flex w-full items-start gap-3 rounded-lg p-1 text-left transition-colors hover:bg-secondary/60 min-w-0"
                 >
                   <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-secondary">
                     <Icon className="h-4 w-4" />
                   </div>
                   <div className="min-w-0 flex-1">
-                    <p className="text-sm">{e.title}</p>
-                    <p className="text-xs text-muted-foreground">{e.detail}</p>
+                    <p className="text-sm truncate">{e.title}</p>
+                    <p className="text-xs text-muted-foreground truncate">{e.detail}</p>
                   </div>
                   <span className="shrink-0 text-xs text-muted-foreground">{e.time}</span>
                 </button>
@@ -428,10 +428,10 @@ function Overview() {
               return (
                 <label
                   key={t.id}
-                  className="flex cursor-pointer items-center gap-3 rounded-lg p-1 transition-colors hover:bg-secondary/60"
+                  className="flex cursor-pointer items-center gap-3 rounded-lg p-1 transition-colors hover:bg-secondary/60 min-w-0"
                 >
                   <Checkbox
-                    className="rounded-[5px]"
+                    className="rounded-[5px] shrink-0"
                     checked={done}
                     onCheckedChange={(v) => {
                       const checked = v === true;
@@ -440,11 +440,11 @@ function Overview() {
                     }}
                   />
                   <span
-                    className={cn("flex-1 text-sm", done && "text-muted-foreground line-through")}
+                    className={cn("flex-1 text-sm truncate", done && "text-muted-foreground line-through")}
                   >
                     {t.title}
                   </span>
-                  <span className="text-xs text-muted-foreground">{t.when}</span>
+                  <span className="text-xs text-muted-foreground shrink-0">{t.when}</span>
                 </label>
               );
             })}

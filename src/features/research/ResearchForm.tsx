@@ -1,197 +1,351 @@
 "use client";
 
-import React, { useState } from "react";
-import { Building2, ChevronRight } from "lucide-react";
+import React from "react";
+import {
+  Globe,
+  Linkedin,
+  Building2,
+  Users,
+  CheckCircle2,
+  ChevronRight,
+  ChevronLeft,
+  Sparkles,
+  ArrowRight,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
-export interface RecentResearchItem {
-  id: string;
-  name: string;
+export interface ResearchFormData {
+  website: string;
+  linkedin: string;
   industry: string;
-  date: string;
-  active?: boolean;
+  targetMarket: string;
 }
 
-export const initialRecentResearch: RecentResearchItem[] = [
-  {
-    id: "r-1",
-    name: "Eminarc",
-    industry: "B2B Growth / AI SaaS",
-    date: "Today",
-    active: true,
-  },
-  {
-    id: "r-2",
-    name: "Acme Health",
-    industry: "Digital HealthTech",
-    date: "Yesterday",
-  },
-  {
-    id: "r-3",
-    name: "Alpha AI",
-    industry: "LLM Security Platform",
-    date: "3 days ago",
-  },
+export interface ResearchFormProps {
+  activeStep: number;
+  setActiveStep: (step: number) => void;
+  data: ResearchFormData;
+  setData: React.Dispatch<React.SetStateAction<ResearchFormData>>;
+}
+
+export const stepsList = [
+  { step: 1, title: "Company Website", icon: Globe, key: "website" },
+  { step: 2, title: "Founder LinkedIn", icon: Linkedin, key: "linkedin" },
+  { step: 3, title: "Industry", icon: Building2, key: "industry" },
+  { step: 4, title: "Target Market", icon: Users, key: "targetMarket" },
+  { step: 5, title: "Research Summary", icon: Sparkles, key: "summary" },
 ];
 
-export const ResearchForm: React.FC = () => {
-  const [website, setWebsite] = useState("https://eminarc.com");
-  const [linkedin, setLinkedin] = useState("linkedin.com/in/bhaveshtickoo");
-  const [industry, setIndustry] = useState("B2B Growth / AI SaaS");
-  const [targetMarket, setTargetMarket] = useState("Mid-Market B2B Founders & Agencies");
-  const [recentList, setRecentList] = useState(initialRecentResearch);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const handleSelectRecent = (id: string) => {
-    setRecentList((prev) => prev.map((item) => ({ ...item, active: item.id === id })));
+export const ResearchForm: React.FC<ResearchFormProps> = ({
+  activeStep,
+  setActiveStep,
+  data,
+  setData,
+}) => {
+  const handleNext = () => {
+    if (activeStep < 5) setActiveStep(activeStep + 1);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-    setTimeout(() => setIsLoading(false), 1500);
+  const handleBack = () => {
+    if (activeStep > 1) setActiveStep(activeStep - 1);
   };
 
-  const handleReset = () => {
-    setWebsite("");
-    setLinkedin("");
-    setIndustry("");
-    setTargetMarket("");
+  const updateField = (field: keyof ResearchFormData, val: string) => {
+    setData((prev) => ({ ...prev, [field]: val }));
   };
+
+  const progressPct = (activeStep / 5) * 100;
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="flex flex-col h-full rounded-[18px] bg-[#FCFAF7] border border-[rgba(0,0,0,0.08)] p-6 shadow-[0_1px_3px_0_rgba(0,0,0,0.025)]"
-    >
-      <div className="mb-5">
-        <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#716D64] bg-[#EFEAE1] px-2.5 py-0.5 rounded-full">
-          FOUNDER RESEARCH
-        </span>
-        <h3 className="font-sans font-bold text-xl text-[#111111] mt-2 tracking-tight">
-          Research Input Panel
-        </h3>
-        <p className="font-sans font-medium text-xs text-[#52525B] mt-1">
-          Analyze a company and generate a strategic growth report.
-        </p>
+    <div className="flex flex-col h-full rounded-[18px] bg-[#FCFAF7] border border-[rgba(0,0,0,0.08)] p-6 shadow-[0_1px_3px_0_rgba(0,0,0,0.025)] select-none">
+      {/* Step Progress Tracker */}
+      <div className="mb-6 pb-5 border-b border-[rgba(0,0,0,0.06)]">
+        <div className="flex items-center justify-between mb-3">
+          <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#716D64] bg-[#EFEAE1] px-2.5 py-0.5 rounded-full">
+            WORKFLOW STEP 0{activeStep} / 05
+          </span>
+          <span className="font-mono text-[10px] font-bold text-[#2D6A4F]">
+            {progressPct}% COMPLETE
+          </span>
+        </div>
+
+        {/* Progress Bar Track */}
+        <div className="h-1.5 w-full bg-[#E5E0D6] rounded-full overflow-hidden mb-4">
+          <div
+            className="h-full bg-[#18181B] rounded-full transition-all duration-300 ease-out"
+            style={{ width: `${progressPct}%` }}
+          />
+        </div>
+
+        {/* Step Nodes Grid */}
+        <div className="grid grid-cols-5 gap-1.5">
+          {stepsList.map((st) => {
+            const Icon = st.icon;
+            const isCurrent = activeStep === st.step;
+            const isDone = activeStep > st.step;
+
+            return (
+              <button
+                key={st.step}
+                type="button"
+                onClick={() => setActiveStep(st.step)}
+                className={cn(
+                  "flex flex-col items-center justify-center p-2 rounded-xl transition-all duration-150 border text-center cursor-pointer",
+                  isCurrent
+                    ? "bg-[#000000] text-[#FFFFFF] border-black shadow-sm"
+                    : isDone
+                      ? "bg-[#EDF6F0] text-[#1E4620] border-[#C8E4D0]"
+                      : "bg-[#FFFFFF] text-[#716D64] border-[#E5E0D6] hover:bg-[#F7F4EE]",
+                )}
+              >
+                {isDone ? (
+                  <CheckCircle2 className="h-4 w-4 text-[#2D6A4F]" />
+                ) : (
+                  <Icon className={cn("h-4 w-4", isCurrent ? "text-[#FFFFFF]" : "text-[#716D64]")} />
+                )}
+                <span
+                  className={cn(
+                    "font-mono text-[9px] uppercase tracking-wider font-bold mt-1.5 truncate max-w-full hidden sm:block",
+                    isCurrent ? "text-[#FFFFFF]" : isDone ? "text-[#1E4620]" : "text-[#716D64]",
+                  )}
+                >
+                  {st.title.split(" ")[0]}
+                </span>
+              </button>
+            );
+          })}
+        </div>
       </div>
 
-      {/* Input Fields */}
-      <div className="space-y-4 flex-1">
-        <div>
-          <Label>Company Website *</Label>
-          <Input
-            value={website}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setWebsite(e.target.value)}
-            placeholder="https://company.com"
-          />
-        </div>
+      {/* Dynamic Step Input Content */}
+      <div className="flex-1 flex flex-col justify-between">
+        {activeStep === 1 && (
+          <div className="space-y-4">
+            <div>
+              <span className="font-mono text-[10px] uppercase tracking-wider text-[#716D64] block mb-1">
+                STEP 01 OF 05
+              </span>
+              <h3 className="font-sans font-bold text-xl text-[#111111] tracking-tight">
+                Company Website Domain
+              </h3>
+              <p className="font-sans text-xs text-[#52525B] mt-1">
+                Enter the primary URL of the company to extract positioning and value propositions.
+              </p>
+            </div>
 
-        <div>
-          <Label>Founder LinkedIn *</Label>
-          <Input
-            value={linkedin}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setLinkedin(e.target.value)}
-            placeholder="linkedin.com/in/username"
-          />
-        </div>
+            <div className="space-y-2 pt-2">
+              <Label className="font-mono text-xs text-[#18181B]">Company Website URL *</Label>
+              <div className="relative">
+                <Globe className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-[#716D64]" />
+                <Input
+                  value={data.website}
+                  onChange={(e) => updateField("website", e.target.value)}
+                  placeholder="https://company.com"
+                  className="pl-10 h-10 font-mono text-xs bg-[#FFFFFF] border-[#E5E0D6]"
+                />
+              </div>
+            </div>
 
-        <div>
-          <Label>Industry</Label>
-          <Input
-            value={industry}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setIndustry(e.target.value)}
-            placeholder="e.g. HealthTech, B2B SaaS"
-          />
-        </div>
+            <div className="rounded-xl bg-[#FBF9F5] border border-[#E5E0D6] p-4 text-xs font-sans text-[#716D64] space-y-1.5">
+              <span className="font-mono text-[10px] uppercase font-bold text-[#18181B] block">
+                ANALYSIS FOCUS
+              </span>
+              <p>• Hero messaging & headline clarity</p>
+              <p>• Product architecture & feature categorization</p>
+              <p>• Pricing tier structures and target customer segments</p>
+            </div>
+          </div>
+        )}
 
-        <div>
-          <Label>Target Market</Label>
-          <Input
-            value={targetMarket}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTargetMarket(e.target.value)}
-            placeholder="e.g. Founders, Agencies, VP Sales"
-          />
-        </div>
+        {activeStep === 2 && (
+          <div className="space-y-4">
+            <div>
+              <span className="font-mono text-[10px] uppercase tracking-wider text-[#716D64] block mb-1">
+                STEP 02 OF 05
+              </span>
+              <h3 className="font-sans font-bold text-xl text-[#111111] tracking-tight">
+                Founder LinkedIn Profile
+              </h3>
+              <p className="font-sans text-xs text-[#52525B] mt-1">
+                Enter the founder or CEO LinkedIn URL to map personal branding and authority hooks.
+              </p>
+            </div>
 
-        {/* Action Buttons */}
-        <div className="pt-2 space-y-2.5">
-          <Button
-            type="submit"
-            disabled={isLoading}
-            className="w-full justify-center bg-[#000000] text-[#FFFFFF] hover:bg-[#222222]"
-          >
-            {isLoading ? "Analyzing..." : "Generate Research"}
-          </Button>
+            <div className="space-y-2 pt-2">
+              <Label className="font-mono text-xs text-[#18181B]">Founder LinkedIn URL *</Label>
+              <div className="relative">
+                <Linkedin className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-[#716D64]" />
+                <Input
+                  value={data.linkedin}
+                  onChange={(e) => updateField("linkedin", e.target.value)}
+                  placeholder="linkedin.com/in/username"
+                  className="pl-10 h-10 font-mono text-xs bg-[#FFFFFF] border-[#E5E0D6]"
+                />
+              </div>
+            </div>
 
+            <div className="rounded-xl bg-[#FBF9F5] border border-[#E5E0D6] p-4 text-xs font-sans text-[#716D64] space-y-1.5">
+              <span className="font-mono text-[10px] uppercase font-bold text-[#18181B] block">
+                FOUNDER AUTHORITY AUDIT
+              </span>
+              <p>• Founder experience narrative and domain authority</p>
+              <p>• Recent post topics, engagement velocity, and voice</p>
+              <p>• Strategic content opportunities for thought leadership</p>
+            </div>
+          </div>
+        )}
+
+        {activeStep === 3 && (
+          <div className="space-y-4">
+            <div>
+              <span className="font-mono text-[10px] uppercase tracking-wider text-[#716D64] block mb-1">
+                STEP 03 OF 05
+              </span>
+              <h3 className="font-sans font-bold text-xl text-[#111111] tracking-tight">
+                Industry & Category Definition
+              </h3>
+              <p className="font-sans text-xs text-[#52525B] mt-1">
+                Specify the primary market category and competitive vertical.
+              </p>
+            </div>
+
+            <div className="space-y-2 pt-2">
+              <Label className="font-mono text-xs text-[#18181B]">Industry / Sector *</Label>
+              <div className="relative">
+                <Building2 className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-[#716D64]" />
+                <Input
+                  value={data.industry}
+                  onChange={(e) => updateField("industry", e.target.value)}
+                  placeholder="e.g. B2B Growth SaaS, AI Developer Tools"
+                  className="pl-10 h-10 font-mono text-xs bg-[#FFFFFF] border-[#E5E0D6]"
+                />
+              </div>
+            </div>
+
+            <div className="rounded-xl bg-[#FBF9F5] border border-[#E5E0D6] p-4 text-xs font-sans text-[#716D64] space-y-1.5">
+              <span className="font-mono text-[10px] uppercase font-bold text-[#18181B] block">
+                CATEGORY MAPPING
+              </span>
+              <p>• Top 3 incumbent competitors & alternative solutions</p>
+              <p>• Market maturity, pricing standards, and positioning gaps</p>
+            </div>
+          </div>
+        )}
+
+        {activeStep === 4 && (
+          <div className="space-y-4">
+            <div>
+              <span className="font-mono text-[10px] uppercase tracking-wider text-[#716D64] block mb-1">
+                STEP 04 OF 05
+              </span>
+              <h3 className="font-sans font-bold text-xl text-[#111111] tracking-tight">
+                Target Market & ICP Persona
+              </h3>
+              <p className="font-sans text-xs text-[#52525B] mt-1">
+                Define the high-intent buyer personas and customer segments.
+              </p>
+            </div>
+
+            <div className="space-y-2 pt-2">
+              <Label className="font-mono text-xs text-[#18181B]">Target Customer Segment *</Label>
+              <div className="relative">
+                <Users className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-[#716D64]" />
+                <Input
+                  value={data.targetMarket}
+                  onChange={(e) => updateField("targetMarket", e.target.value)}
+                  placeholder="e.g. Mid-Market B2B Founders, VP Marketing"
+                  className="pl-10 h-10 font-mono text-xs bg-[#FFFFFF] border-[#E5E0D6]"
+                />
+              </div>
+            </div>
+
+            <div className="rounded-xl bg-[#FBF9F5] border border-[#E5E0D6] p-4 text-xs font-sans text-[#716D64] space-y-1.5">
+              <span className="font-mono text-[10px] uppercase font-bold text-[#18181B] block">
+                BUYER INSIGHT AUDIT
+              </span>
+              <p>• Core friction points, operational pain, and trigger events</p>
+              <p>• Value proposition alignment & high-converting messaging hooks</p>
+            </div>
+          </div>
+        )}
+
+        {activeStep === 5 && (
+          <div className="space-y-4">
+            <div>
+              <span className="font-mono text-[10px] uppercase tracking-wider text-[#2D6A4F] bg-[#EDF6F0] px-2.5 py-0.5 rounded border border-[#C8E4D0] font-bold">
+                WORKFLOW COMPLETE
+              </span>
+              <h3 className="font-sans font-bold text-xl text-[#111111] tracking-tight mt-2">
+                Executive Research Report Ready
+              </h3>
+              <p className="font-sans text-xs text-[#52525B] mt-1">
+                All 11 McKinsey/BCG consulting report sections generated for {data.website}.
+              </p>
+            </div>
+
+            <div className="space-y-2.5 font-mono text-xs rounded-xl bg-[#FFFFFF] border border-[#E5E0D6] p-4">
+              <div className="flex justify-between border-b border-[rgba(0,0,0,0.06)] pb-2">
+                <span className="text-[#716D64]">Company:</span>
+                <span className="font-bold text-[#111111]">{data.website}</span>
+              </div>
+              <div className="flex justify-between border-b border-[rgba(0,0,0,0.06)] pb-2">
+                <span className="text-[#716D64]">Founder:</span>
+                <span className="font-bold text-[#111111]">{data.linkedin}</span>
+              </div>
+              <div className="flex justify-between border-b border-[rgba(0,0,0,0.06)] pb-2">
+                <span className="text-[#716D64]">Industry:</span>
+                <span className="font-bold text-[#111111]">{data.industry}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-[#716D64]">Target Market:</span>
+                <span className="font-bold text-[#111111]">{data.targetMarket}</span>
+              </div>
+            </div>
+
+            <div className="p-4 rounded-xl bg-[#EDF6F0] border border-[#C8E4D0] text-xs font-sans text-[#1E4620]">
+              <span className="font-bold block mb-1">Intelligence Layer Activated</span>
+              Review the complete 11-section executive report on the right panel.
+            </div>
+          </div>
+        )}
+
+        {/* Step Navigation Controls */}
+        <div className="pt-6 mt-6 border-t border-[rgba(0,0,0,0.06)] flex items-center justify-between">
           <Button
             type="button"
             variant="outline"
-            onClick={handleReset}
-            className="w-full justify-center"
+            onClick={handleBack}
+            disabled={activeStep === 1}
+            className="flex items-center space-x-1 font-mono text-xs"
           >
-            Reset Form
+            <ChevronLeft className="h-3.5 w-3.5" />
+            <span>Previous</span>
           </Button>
-        </div>
 
-        {/* Recent Research Section */}
-        <div className="pt-6 mt-6 border-t border-[rgba(0,0,0,0.06)]">
-          <div className="flex items-center justify-between mb-3">
-            <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-[#716D64]">
-              Recent Research
-            </span>
-            <span className="font-mono text-[9px] text-[#716D64]">{recentList.length} REPORTS</span>
-          </div>
-
-          <div className="space-y-2">
-            {recentList.map((item) => (
-              <div
-                key={item.id}
-                onClick={() => handleSelectRecent(item.id)}
-                className={cn(
-                  "group flex items-center justify-between rounded-xl border p-3 text-xs transition-all duration-150 cursor-pointer select-none",
-                  item.active
-                    ? "bg-[#FFFFFF] border-[#18181B] shadow-[0_1px_3px_0_rgba(0,0,0,0.04)] font-semibold"
-                    : "bg-[#FFFFFF]/60 border-[#E5E0D6] hover:bg-[#FFFFFF] hover:border-[#D8D2C5]",
-                )}
-              >
-                <div className="flex items-center space-x-3 min-w-0">
-                  <div
-                    className={cn(
-                      "flex h-7 w-7 items-center justify-center rounded-lg border shrink-0",
-                      item.active
-                        ? "bg-[#000000] text-[#FFFFFF] border-transparent"
-                        : "bg-[#EFEAE1] text-[#716D64] border-[#E5E0D6]",
-                    )}
-                  >
-                    <Building2 className="h-3.5 w-3.5" />
-                  </div>
-
-                  <div className="min-w-0">
-                    <p className="font-sans font-medium text-[#18181B] truncate">{item.name}</p>
-                    <span className="font-mono text-[9px] text-[#716D64] truncate block">
-                      {item.industry}
-                    </span>
-                  </div>
-                </div>
-
-                <div className="flex items-center space-x-1 shrink-0 ml-2">
-                  <span className="font-mono text-[9px] text-[#716D64]">{item.date}</span>
-                  <ChevronRight
-                    className={cn(
-                      "h-3.5 w-3.5 text-[#716D64] transition-transform",
-                      item.active && "text-[#18181B] translate-x-0.5",
-                    )}
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
+          {activeStep < 5 ? (
+            <Button
+              type="button"
+              onClick={handleNext}
+              className="flex items-center space-x-1 bg-[#000000] text-[#FFFFFF] hover:bg-[#222222] font-mono text-xs"
+            >
+              <span>Next Step</span>
+              <ChevronRight className="h-3.5 w-3.5" />
+            </Button>
+          ) : (
+            <Button
+              type="button"
+              onClick={() => setActiveStep(1)}
+              className="flex items-center space-x-1.5 bg-[#2D6A4F] text-[#FFFFFF] hover:bg-[#1E4620] font-mono text-xs"
+            >
+              <Sparkles className="h-3.5 w-3.5" />
+              <span>Restart Workflow</span>
+            </Button>
+          )}
         </div>
       </div>
-    </form>
+    </div>
   );
 };

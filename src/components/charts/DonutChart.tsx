@@ -34,9 +34,9 @@ export const DonutChart: React.FC<DonutChartProps> = ({
   data,
   centerLabel = "TOTAL",
   centerValue,
-  size = 180,
-  innerRadius = 58,
-  outerRadius = 88,
+  size = 140,
+  innerRadius = 44,
+  outerRadius = 65,
   showLegend = true,
   showTooltip = false,
   className,
@@ -48,12 +48,15 @@ export const DonutChart: React.FC<DonutChartProps> = ({
 
   return (
     <div
-      className={cn("flex flex-col sm:flex-row items-center gap-6 select-none", className)}
+      className={cn(
+        "flex flex-col sm:flex-row items-center gap-3 select-none w-full min-w-0 overflow-hidden",
+        className,
+      )}
       role="img"
       aria-label={ariaLabel}
     >
       {/* Recharts Donut Canvas */}
-      <div className="relative shrink-0" style={{ width: size, height: size }}>
+      <div className="relative shrink-0 mx-auto sm:mx-0" style={{ width: size, height: size }}>
         <ResponsiveContainer width="100%" height="100%">
           <RechartsPieChart>
             {showTooltip && (
@@ -73,7 +76,7 @@ export const DonutChart: React.FC<DonutChartProps> = ({
               nameKey="name"
               innerRadius={innerRadius}
               outerRadius={outerRadius}
-              paddingAngle={1}
+              paddingAngle={1.5}
               isAnimationActive={false}
               stroke="#FCFAF7"
               strokeWidth={2}
@@ -87,11 +90,11 @@ export const DonutChart: React.FC<DonutChartProps> = ({
         </ResponsiveContainer>
 
         {/* Center Label Overlay */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-center pointer-events-none">
-          <span className="font-mono text-[9px] uppercase tracking-wider text-[#716D64]">
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-center pointer-events-none p-1">
+          <span className="font-mono text-[8px] uppercase tracking-wider text-[#716D64] truncate max-w-[90%]">
             {centerLabel}
           </span>
-          <span className="font-sans font-bold text-lg text-[#111111] leading-tight">
+          <span className="font-sans font-bold text-sm sm:text-base text-[#111111] leading-tight truncate max-w-[90%]">
             {displayCenterVal}
           </span>
         </div>
@@ -99,22 +102,24 @@ export const DonutChart: React.FC<DonutChartProps> = ({
 
       {/* Legend */}
       {showLegend && (
-        <div className="space-y-2 flex-1 w-full min-w-[160px]">
+        <div className="space-y-1.5 flex-1 w-full min-w-0 overflow-hidden">
           {chartData.map((seg, idx) => {
             const labelText = seg.label || seg.name || `Segment ${idx + 1}`;
             const pct = seg.share !== undefined ? seg.share : Math.round(((seg.value || 0) / (total || 1)) * 100);
             const color = seg.color || defaultDonutColors[idx % defaultDonutColors.length];
 
             return (
-              <div key={idx} className="flex items-center justify-between text-xs font-sans">
-                <div className="flex items-center space-x-2 truncate pr-2">
+              <div key={idx} className="flex items-center justify-between text-[11px] font-sans gap-1.5 min-w-0">
+                <div className="flex items-center space-x-1.5 min-w-0 flex-1">
                   <span
-                    className="w-2.5 h-2.5 rounded-full shrink-0"
+                    className="w-2 h-2 rounded-full shrink-0"
                     style={{ backgroundColor: color }}
                   />
-                  <span className="font-medium text-[#18181B] truncate">{labelText}</span>
+                  <span className="font-medium text-[#18181B] truncate" title={labelText}>
+                    {labelText}
+                  </span>
                 </div>
-                <div className="flex items-center space-x-2 font-mono text-[10px] shrink-0">
+                <div className="flex items-center space-x-1 font-mono text-[10px] shrink-0">
                   <span className="font-bold text-[#111111]">{seg.formattedValue || seg.value}</span>
                   <span className="text-[#716D64]">({pct}%)</span>
                 </div>

@@ -14,9 +14,9 @@ export function ChannelDonut() {
       }))}
       centerLabel="Total Leads"
       centerValue={total}
-      size={180}
-      innerRadius={58}
-      outerRadius={88}
+      size={135}
+      innerRadius={42}
+      outerRadius={62}
       showLegend={true}
       ariaLabel="Channel distribution donut chart"
     />

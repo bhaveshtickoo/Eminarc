@@ -12,6 +12,11 @@ import {
   Blocks,
   Settings,
   CircleDot,
+  Search,
+  Share2,
+  FolderKanban,
+  Eye,
+  Kanban,
 } from "lucide-react";
 
 import {
@@ -29,11 +34,16 @@ import { cn } from "@/lib/utils";
 
 const nav = [
   { title: "Overview", url: "/", icon: LayoutDashboard },
+  { title: "Founder Research", url: "/research", icon: Search },
+  { title: "AI Search Visibility", url: "/visibility", icon: Eye },
+  { title: "Growth CRM", url: "/crm", icon: Kanban },
+  { title: "Agents (AI Hub)", url: "/agents", icon: Bot },
+  { title: "Content Hub", url: "/content", icon: FileText },
+  { title: "Content Library", url: "/content/library", icon: FolderKanban },
+  { title: "Distribution Queue", url: "/distribution", icon: Share2 },
   { title: "Clients", url: "/clients", icon: Users },
   { title: "Leads & ICP", url: "/leads", icon: Target },
-  { title: "Content Hub", url: "/content", icon: FileText },
   { title: "Outreach", url: "/outreach", icon: Send },
-  { title: "Agents (AI)", url: "/linkedin", icon: Bot },
   { title: "Analytics", url: "/analytics", icon: BarChart3 },
   { title: "Reports", url: "/reports", icon: ClipboardList },
   { title: "Tasks", url: "/tasks", icon: ListTodo },

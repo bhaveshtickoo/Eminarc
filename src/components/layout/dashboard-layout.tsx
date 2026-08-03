@@ -1,10 +1,13 @@
 import { Outlet, useRouterState, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { toast } from "sonner";
-import { Search, Sparkles, Bell, ChevronDown, LogOut, User, Settings } from "lucide-react";
+import { Search, Sparkles, ChevronDown, LogOut, User, Settings } from "lucide-react";
 import { SidebarProvider, SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/layout/app-sidebar";
 import { AiChatPanel } from "@/components/layout/ai-chat-panel";
+import { GlobalCommandCenter } from "@/components/command/GlobalCommandCenter";
+import { CommandShortcut } from "@/components/command/CommandShortcut";
+import { NotificationDropdown, initialNotifications, NotificationItemData } from "@/features/notifications";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,30 +18,37 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 
 export function DashboardLayout() {
   const [chatOpen, setChatOpen] = useState(false);
-  const [search, setSearch] = useState("");
+  const [commandOpen, setCommandOpen] = useState(false);
+  const [notificationsList, setNotificationsList] = useState<NotificationItemData[]>(initialNotifications);
   const navigate = useNavigate();
   const currentPath = useRouterState({ select: (r) => r.location.pathname });
+
   const topNav = [
     { title: "Overview", url: "/" as const },
-    { title: "Clients", url: "/clients" as const },
-    { title: "Leads", url: "/leads" as const },
+    { title: "Research", url: "/research" as const },
+    { title: "AI Visibility", url: "/visibility" as const },
+    { title: "Growth CRM", url: "/crm" as const },
+    { title: "Agents Hub", url: "/agents" as const },
     { title: "Content", url: "/content" as const },
-    { title: "Outreach", url: "/outreach" as const },
+    { title: "Distribution", url: "/distribution" as const },
+    { title: "Clients", url: "/clients" as const },
     { title: "Analytics", url: "/analytics" as const },
-    { title: "Tasks", url: "/tasks" as const },
   ];
 
   const isActive = (path: string) =>
     path === "/" ? currentPath === "/" : currentPath === path || currentPath.startsWith(`${path}/`);
 
+  const handleMarkAllRead = () => {
+    setNotificationsList((prev) => prev.map((n) => ({ ...n, read: true })));
+  };
+
   return (
     <SidebarProvider>
-      <div className="flex h-screen w-full">
+      <div className="flex h-screen w-full select-none">
         <AppSidebar />
         <div className="flex flex-1 overflow-hidden">
           <SidebarInset className="flex flex-col">
@@ -53,7 +63,7 @@ export function DashboardLayout() {
                     className={cn(
                       "rounded-lg px-2.5 py-1.5 text-sm font-medium transition-colors",
                       isActive(item.url)
-                        ? "bg-primary text-primary-foreground"
+                        ? "bg-primary text-primary-foreground font-bold"
                         : "text-muted-foreground hover:bg-accent hover:text-foreground",
                     )}
                   >
@@ -61,24 +71,20 @@ export function DashboardLayout() {
                   </Link>
                 ))}
               </nav>
-              <form
-                className="relative ml-auto hidden w-64 sm:block"
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  const q = search.trim();
-                  if (!q) return;
-                  toast.success(`Searching leads for “${q}”`);
-                  navigate({ to: "/leads" });
-                }}
+
+              {/* Global Command Center Trigger Button (Cmd+K) */}
+              <button
+                type="button"
+                onClick={() => setCommandOpen(true)}
+                className="relative ml-auto hidden sm:flex items-center space-x-2 rounded-xl bg-[#FFFFFF] border border-[#E5E0D6] px-3 py-1.5 text-xs text-[#716D64] hover:border-[#18181B] hover:text-[#18181B] transition-all cursor-pointer shadow-sm w-56 justify-between"
               >
-                <Search className="pointer-events-none absolute left-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                <Input
-                  placeholder="Search…"
-                  className="h-9 pl-8"
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                />
-              </form>
+                <div className="flex items-center space-x-1.5">
+                  <Search className="h-3.5 w-3.5 text-[#716D64]" />
+                  <span>Search command...</span>
+                </div>
+                <CommandShortcut shortcut="⌘K" />
+              </button>
+
               <Button
                 variant="outline"
                 size="sm"
@@ -88,17 +94,13 @@ export function DashboardLayout() {
                 <Sparkles className="h-4 w-4" />
                 <span className="hidden sm:inline">Ask AI</span>
               </Button>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="h-9 w-9"
-                aria-label="Notifications"
-                onClick={() =>
-                  toast("No new notifications", { description: "You're all caught up." })
-                }
-              >
-                <Bell className="h-4 w-4" />
-              </Button>
+
+              {/* Navbar Notification Dropdown */}
+              <NotificationDropdown
+                notifications={notificationsList}
+                onMarkAllRead={handleMarkAllRead}
+              />
+
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <button className="flex items-center gap-2 rounded-full outline-none">
@@ -143,6 +145,9 @@ export function DashboardLayout() {
           )}
         </div>
       </div>
+
+      {/* Mount Global Command Center */}
+      <GlobalCommandCenter open={commandOpen} onOpenChange={setCommandOpen} />
     </SidebarProvider>
   );
 }

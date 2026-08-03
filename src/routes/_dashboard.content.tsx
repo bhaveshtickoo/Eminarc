@@ -1,166 +1,81 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
-import { toast } from "sonner";
-import { PageHeader } from "@/components/shared/page-header";
-import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { createFileRoute } from "@tanstack/react-router";
+import React, { useState } from "react";
+import { CampaignSidebar } from "@/features/content/components/CampaignSidebar";
+import { ContentEditor } from "@/features/content/components/ContentEditor";
+import { ContentAssistant } from "@/features/content/components/ContentAssistant";
+import { RepurposePanel } from "@/features/content/components/RepurposePanel";
+import { useWorkspace } from "@/hooks/useWorkspace";
 
 export const Route = createFileRoute("/_dashboard/content")({
   head: () => ({
     meta: [
-      { title: "Content Hub — Eminarc Growth OS" },
+      { title: "Content Operating System — Eminarc Growth OS" },
       {
         name: "description",
-        content: "Drafts, scheduled posts and published content across every client.",
+        content:
+          "The editorial workspace powered by your Research Knowledge Base — multi-channel content creation, AI assistant, and 1-click repurposing.",
       },
-      { property: "og:title", content: "Content Hub — Eminarc Growth OS" },
-      {
-        property: "og:description",
-        content: "Drafts, scheduled posts and published content across every client.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  component: ContentHub,
+  component: ContentOSPage,
 });
 
-type Status = "Draft" | "Scheduled" | "Published";
-
-const initial: Array<{
-  id: string;
-  title: string;
-  client: string;
-  channel: string;
-  status: Status;
-  when: string;
-}> = [
-  {
-    id: "p1",
-    title: "Founder POV: why campaigns die in 30 days",
-    client: "TrueLift.ai",
-    channel: "LinkedIn",
-    status: "Draft",
-    when: "Today",
-  },
-  {
-    id: "p2",
-    title: "Case study — 3x qualified pipeline in 60 days",
-    client: "Revix",
-    channel: "LinkedIn",
-    status: "Scheduled",
-    when: "Jul 27",
-  },
-  {
-    id: "p3",
-    title: "The B2B growth system teardown",
-    client: "Senpai",
-    channel: "Newsletter",
-    status: "Scheduled",
-    when: "Jul 29",
-  },
-  {
-    id: "p4",
-    title: "5 signals a lead is actually in-market",
-    client: "TrueLift.ai",
-    channel: "LinkedIn",
-    status: "Published",
-    when: "Jul 22",
-  },
-  {
-    id: "p5",
-    title: "Reddit AMA recap: growth without ad spend",
-    client: "Revix",
-    channel: "Reddit",
-    status: "Published",
-    when: "Jul 19",
-  },
-];
-
-const statusStyle: Record<Status, string> = {
-  Draft: "bg-muted text-muted-foreground",
-  Scheduled: "bg-chart-4/15 text-chart-4",
-  Published: "bg-success/15 text-success",
-};
-
-const filters = ["All", "Draft", "Scheduled", "Published"] as const;
-
-function ContentHub() {
-  const [items, setItems] = useState(initial);
-  const [filter, setFilter] = useState<(typeof filters)[number]>("All");
-
-  const visible = filter === "All" ? items : items.filter((i) => i.status === filter);
-
-  const advance = (id: string) => {
-    setItems((list) =>
-      list.map((i) =>
-        i.id === id
-          ? {
-              ...i,
-              status:
-                i.status === "Draft"
-                  ? "Scheduled"
-                  : i.status === "Scheduled"
-                    ? "Published"
-                    : "Published",
-            }
-          : i,
-      ),
-    );
-    toast.success("Content status updated");
-  };
+function ContentOSPage() {
+  const { currentWorkspace } = useWorkspace();
+  const [activeFilter, setActiveFilter] = useState("All");
 
   return (
-    <div className="space-y-6">
-      <PageHeader
-        title="Content Hub"
-        description="Drafts, scheduled posts and published content across every client."
-        actions={
-          <Button asChild size="sm" variant="outline">
-            <Link to="/linkedin">LinkedIn analytics</Link>
-          </Button>
-        }
-      />
+    <div className="space-y-6 pb-12">
+      {/* Workspace Header Bar */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 rounded-[18px] bg-[#FCFAF7] border border-[rgba(0,0,0,0.08)] shadow-[0_1px_3px_0_rgba(0,0,0,0.025)] select-none">
+        <div>
+          <div className="flex items-center space-x-2 mb-1">
+            <span className="font-mono text-[10px] uppercase tracking-[0.2em] font-semibold text-[#716D64] bg-[#EFEAE1] px-2.5 py-0.5 rounded-full">
+              CONTENT OPERATING SYSTEM / {currentWorkspace.name.toUpperCase()}
+            </span>
+            <span className="font-mono text-[10px] text-[#2D6A4F] bg-[#EDF6F0] px-2 py-0.5 rounded-full border border-[#C8E4D0] font-bold">
+              KNOWLEDGE BASE LINKED
+            </span>
+          </div>
+          <h1 className="font-sans font-bold text-2xl md:text-3xl text-[#111111] tracking-tight">
+            Editorial Workspace & Content Engine
+          </h1>
+          <p className="font-sans font-medium text-xs text-[#52525B] mt-0.5">
+            Knowledge-driven multi-channel content studio for {currentWorkspace.name}.
+          </p>
+        </div>
 
-      <div className="flex flex-wrap gap-2">
-        {filters.map((f) => (
-          <Button
-            key={f}
-            size="sm"
-            variant={filter === f ? "default" : "outline"}
-            onClick={() => setFilter(f)}
-          >
-            {f}
-          </Button>
-        ))}
+        <div className="flex items-center space-x-3 font-mono text-xs">
+          <div className="p-3 rounded-xl bg-[#FFFFFF] border border-[#E5E0D6]">
+            <span className="text-[#716D64] block text-[9px] uppercase">Active Plan</span>
+            <span className="font-bold text-[#111111]">Eminarc Pro (Aug 2026)</span>
+          </div>
+        </div>
       </div>
 
-      <Card className="divide-y p-0">
-        {visible.map((i) => (
-          <div key={i.id} className="flex flex-wrap items-center gap-3 p-4">
-            <div className="min-w-0 flex-1">
-              <p className="truncate text-sm font-semibold">{i.title}</p>
-              <p className="text-xs text-muted-foreground">
-                {i.client} • {i.channel} • {i.when}
-              </p>
-            </div>
-            <Badge className={cn("border-0", statusStyle[i.status])}>{i.status}</Badge>
-            <Button
-              size="sm"
-              variant="outline"
-              onClick={() => advance(i.id)}
-              disabled={i.status === "Published"}
-            >
-              {i.status === "Draft" ? "Schedule" : i.status === "Scheduled" ? "Publish" : "Done"}
-            </Button>
-          </div>
-        ))}
-        {visible.length === 0 && (
-          <p className="p-6 text-sm text-muted-foreground">Nothing here yet.</p>
-        )}
-      </Card>
+      {/* THREE-COLUMN LAYOUT (Left 3 cols, Center 6 cols, Right 3 cols) */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        {/* LEFT PANEL: Strategy & Campaigns (3 cols) */}
+        <div className="lg:col-span-3">
+          <CampaignSidebar
+            activeFilter={activeFilter}
+            onFilterChange={setActiveFilter}
+          />
+        </div>
+
+        {/* CENTER PANEL: Content Workspace (6 cols) */}
+        <div className="lg:col-span-6">
+          <ContentEditor />
+        </div>
+
+        {/* RIGHT PANEL: AI Assistant (3 cols) */}
+        <div className="lg:col-span-3">
+          <ContentAssistant />
+        </div>
+      </div>
+
+      {/* BOTTOM SECTION: 1-Click Multi-Channel Repurpose Engine */}
+      <RepurposePanel />
     </div>
   );
 }
