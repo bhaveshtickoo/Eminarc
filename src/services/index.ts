@@ -7,3 +7,5 @@ export * from "./analytics";
 export * from "./crm";
 export * from "./visibility";
 export * from "./agents";
+export * from "./tasks";
+export * from "./reports";

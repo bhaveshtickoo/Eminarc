@@ -13,6 +13,9 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Toaster } from "@/components/ui/sonner";
 import { WorkspaceProvider } from "@/context/WorkspaceContext";
+import { SupabaseProvider } from "@/context/SupabaseContext";
+import { AuthProvider } from "@/context/AuthContext";
+import { SessionManager } from "@/components/auth/SessionManager";
 
 function NotFoundComponent() {
   return (
@@ -130,10 +133,15 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <WorkspaceProvider>
-        <Outlet />
-        <Toaster richColors theme="light" position="bottom-right" />
-      </WorkspaceProvider>
+      <SupabaseProvider>
+        <AuthProvider>
+          <SessionManager />
+          <WorkspaceProvider>
+            <Outlet />
+            <Toaster richColors theme="light" position="bottom-right" />
+          </WorkspaceProvider>
+        </AuthProvider>
+      </SupabaseProvider>
     </QueryClientProvider>
   );
 }

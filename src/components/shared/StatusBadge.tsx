@@ -2,7 +2,7 @@ import React from "react";
 import { cn } from "@/lib/utils";
 
 export interface StatusBadgeProps {
-  status?: "Completed" | "Processing" | "Draft";
+  status?: "Completed" | "Processing" | "Draft" | string;
   confidence?: string;
   timeAgo?: string;
   className?: string;

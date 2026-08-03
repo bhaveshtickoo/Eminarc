@@ -26,20 +26,18 @@ export interface SettingsTabItem {
 }
 
 export const settingsTabsList: SettingsTabItem[] = [
-  { id: "tab-workspace", name: "Workspace", icon: Building2 },
-  { id: "tab-organization", name: "Organization", icon: Briefcase },
-  { id: "tab-members", name: "Members", icon: Users },
-  { id: "tab-roles", name: "Roles", icon: Shield },
-  { id: "tab-branding", name: "Branding", icon: Palette },
-  { id: "tab-notifications", name: "Notifications", icon: Bell },
-  { id: "tab-appearance", name: "Appearance", icon: Sun },
-  { id: "tab-billing", name: "Billing", icon: CreditCard },
-  { id: "tab-integrations", name: "Integrations", icon: Blocks },
-  { id: "tab-security", name: "Security", icon: Lock },
-  { id: "tab-apikeys", name: "API Keys", icon: Key },
-  { id: "tab-auditlogs", name: "Audit Logs", icon: FileText },
-  { id: "tab-history", name: "Activity History", icon: Clock },
-  { id: "tab-support", name: "Support", icon: HelpCircle },
+  { id: "workspace", name: "Workspace", icon: Building2 },
+  { id: "organization", name: "Organization", icon: Briefcase },
+  { id: "members", name: "Members", icon: Users },
+  { id: "roles", name: "Roles & Permissions", icon: Shield },
+  { id: "branding", name: "Branding", icon: Palette },
+  { id: "notifications", name: "Notifications", icon: Bell },
+  { id: "appearance", name: "Appearance", icon: Sun },
+  { id: "billing", name: "Billing", icon: CreditCard },
+  { id: "integrations", name: "Integrations", icon: Blocks },
+  { id: "apikeys", name: "API Keys", icon: Key },
+  { id: "security", name: "Security", icon: Lock },
+  { id: "auditlogs", name: "Audit Logs", icon: FileText },
 ];
 
 export interface SettingsTabsProps {
@@ -51,26 +49,35 @@ export const SettingsTabs: React.FC<SettingsTabsProps> = ({
   activeTabId,
   onSelectTab,
 }) => {
+  // Map any legacy "tab-foo" to "foo"
+  const normalizedActiveId = activeTabId.replace(/^tab-/, "");
+
   return (
-    <div className="flex items-center space-x-1.5 overflow-x-auto pb-1 select-none font-mono text-xs border-b border-[#E5E0D6]">
+    <div
+      role="tablist"
+      aria-label="Settings categories"
+      className="flex items-center space-x-1.5 overflow-x-auto pb-2 select-none font-mono text-xs border-b border-[#E5E0D6] scrollbar-none"
+    >
       {settingsTabsList.map((tab) => {
         const Icon = tab.icon;
-        const isSelected = activeTabId === tab.id;
+        const isSelected = normalizedActiveId === tab.id;
 
         return (
           <button
             key={tab.id}
             type="button"
+            role="tab"
+            aria-selected={isSelected}
             onClick={() => onSelectTab(tab.id)}
             className={cn(
-              "flex items-center space-x-2 px-3.5 py-2 rounded-xl border transition-all cursor-pointer shrink-0 font-medium",
+              "flex items-center space-x-2 px-3.5 py-2 rounded-xl border transition-all cursor-pointer shrink-0 font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
               isSelected
                 ? "bg-[#000000] text-[#FFFFFF] border-black font-bold shadow-sm"
                 : "bg-[#FFFFFF] text-[#716D64] border-[#E5E0D6] hover:bg-[#F7F4EE] hover:text-[#111111]",
             )}
           >
-            <Icon className="h-3.5 w-3.5" />
-            <span>{tab.name}</span>
+            <Icon className="h-3.5 w-3.5 shrink-0" />
+            <span className="whitespace-nowrap">{tab.name}</span>
           </button>
         );
       })}

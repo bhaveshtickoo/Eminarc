@@ -29,8 +29,8 @@ export interface TaskItemData {
 export interface TaskCardProps {
   task: TaskItemData;
   isSelected?: boolean;
-  onToggleSelect?: (id: string) => void;
-  onToggleComplete?: (id: string) => void;
+  onToggleSelect?: ((id: string) => void) | undefined;
+  onToggleComplete?: ((id: string) => void) | undefined;
 }
 
 export const priorityBadges: Record<string, string> = {

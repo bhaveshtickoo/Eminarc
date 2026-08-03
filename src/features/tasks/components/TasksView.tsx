@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   ListCheck,
   Calendar,
@@ -19,6 +19,9 @@ import { TaskKanbanView } from "./TaskKanbanView";
 import { TaskCalendarView } from "./TaskCalendarView";
 import { TaskCharts } from "./TaskCharts";
 import { EmptyState } from "@/components/shared/EmptyState";
+import { ErrorState } from "@/components/shared/ErrorState";
+import { CardSkeleton } from "@/components/shared/SkeletonLoader";
+import { getTasks } from "@/services/tasks";
 import { cn } from "@/lib/utils";
 
 export const initialTasks: TaskItemData[] = [
@@ -90,13 +93,43 @@ export const taskSections = [
 
 export const TasksView: React.FC = () => {
   const { currentWorkspace } = useWorkspace();
-  const [tasks, setTasks] = useState<TaskItemData[]>(initialTasks);
+  const [tasks, setTasks] = useState<TaskItemData[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [activeSection, setActiveSection] = useState<string>("Today's Tasks");
   const [search, setSearch] = useState("");
   const [priorityFilter, setPriorityFilter] = useState("All");
   const [statusFilter, setStatusFilter] = useState("All");
   const [sortBy, setSortBy] = useState("dueDate");
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
+
+  const loadTasksData = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const data = await getTasks(currentWorkspace?.id);
+      const mapped: TaskItemData[] = data.map((t) => ({
+        id: t.id,
+        title: t.title,
+        priority: t.priority,
+        owner: t.assignedTo || "Bhavesh Tickoo",
+        dueDate: t.dueDate || "Aug 05, 2026",
+        relatedCompany: currentWorkspace?.name || "Eminarc Growth OS",
+        relatedResearch: "Growth Audit",
+        relatedCampaign: "System Over Campaign Q3",
+        status: t.status === "Completed" ? "Done" : t.status === "In Progress" ? "In Progress" : "To Do",
+      }));
+      setTasks(mapped);
+    } catch (err) {
+      setError((err as Error).message || "Failed to load tasks from Supabase.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadTasksData();
+  }, [currentWorkspace?.id]);
 
   const handleToggleComplete = (id: string) => {
     setTasks((prev) =>
@@ -246,7 +279,20 @@ export const TasksView: React.FC = () => {
             <span>CLICK CHECKBOX TO COMPLETE TASK</span>
           </div>
 
-          {filteredTasks.length > 0 ? (
+          {loading ? (
+            <div className="space-y-3">
+              <CardSkeleton />
+              <CardSkeleton />
+            </div>
+          ) : error ? (
+            <ErrorState
+              categoryTag="TASKS FETCH ERROR"
+              title="Unable to load tasks backlog"
+              description="A database connection error occurred while querying tasks from Supabase."
+              errorMessage={error}
+              onRetry={loadTasksData}
+            />
+          ) : filteredTasks.length > 0 ? (
             <div className="space-y-2.5">
               {filteredTasks.map((task) => (
                 <TaskCard

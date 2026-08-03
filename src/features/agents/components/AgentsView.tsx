@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Bot,
   Search,
@@ -20,6 +20,9 @@ import { useWorkspace } from "@/hooks/useWorkspace";
 import { AgentCard, AgentCardData } from "./AgentCard";
 import { AgentDetailPanel } from "./AgentDetailPanel";
 import { AgentCharts } from "./AgentCharts";
+import { ErrorState } from "@/components/shared/ErrorState";
+import { CardSkeleton } from "@/components/shared/SkeletonLoader";
+import { getAgentsList } from "@/services/agents";
 
 export const initialAgents: AgentCardData[] = [
   {
@@ -125,7 +128,25 @@ export const initialAgents: AgentCardData[] = [
 export const AgentsView: React.FC = () => {
   const { currentWorkspace } = useWorkspace();
   const [agents, setAgents] = useState<AgentCardData[]>(initialAgents);
-  const [selectedAgent, setSelectedAgent] = useState<AgentCardData>(initialAgents[0]);
+  const [selectedAgent, setSelectedAgent] = useState<AgentCardData>(initialAgents[0]!);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const loadAgentsData = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      await getAgentsList(currentWorkspace?.id);
+    } catch (err) {
+      setError((err as Error).message || "Failed to load agent runs from Supabase.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadAgentsData();
+  }, [currentWorkspace?.id]);
 
   const handleTriggerRunAll = () => {
     toast.success("Orchestrating All 7 Agents", {
@@ -189,17 +210,34 @@ export const AgentsView: React.FC = () => {
           <span>SELECT AGENT CARD TO INSPECT</span>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {agents.map((agent) => (
-            <AgentCard
-              key={agent.id}
-              agent={agent}
-              isSelected={selectedAgent.id === agent.id}
-              onSelect={setSelectedAgent}
-              onTriggerRun={handleTriggerSingleRun}
-            />
-          ))}
-        </div>
+        {loading ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <CardSkeleton />
+            <CardSkeleton />
+            <CardSkeleton />
+            <CardSkeleton />
+          </div>
+        ) : error ? (
+          <ErrorState
+            categoryTag="AGENTS ORCHESTRATION ERROR"
+            title="Unable to query agent runs"
+            description="A database connection error occurred while fetching autonomous agent logs from Supabase."
+            errorMessage={error}
+            onRetry={loadAgentsData}
+          />
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {agents.map((agent) => (
+              <AgentCard
+                key={agent.id}
+                agent={agent}
+                isSelected={selectedAgent.id === agent.id}
+                onSelect={setSelectedAgent}
+                onTriggerRun={handleTriggerSingleRun}
+              />
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Agent Detail Inspection Panel */}

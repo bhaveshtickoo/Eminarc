@@ -1,11 +1,14 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ReportSelector, reportsList } from "./ReportSelector";
 import { ReportHeader } from "./ReportHeader";
 import { ExecutiveSummarySection, ConsultingReportData } from "./ExecutiveSummarySection";
 import { ReportCharts } from "./ReportCharts";
 import { useWorkspace } from "@/hooks/useWorkspace";
+import { ErrorState } from "@/components/shared/ErrorState";
+import { CardSkeleton } from "@/components/shared/SkeletonLoader";
+import { getReports } from "@/services/reports";
 
 export const mockReportData: Record<string, ConsultingReportData> = {
   "rep-weekly": {
@@ -206,9 +209,50 @@ export const mockReportData: Record<string, ConsultingReportData> = {
 export const ReportsView: React.FC = () => {
   const { currentWorkspace } = useWorkspace();
   const [selectedReportId, setSelectedReportId] = useState<string>("rep-weekly");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const currentReportOption = reportsList.find((r) => r.id === selectedReportId) || reportsList[0];
-  const currentReportData = mockReportData[selectedReportId] || mockReportData["rep-weekly"];
+  const loadReportsData = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      await getReports(currentWorkspace?.id);
+    } catch (err) {
+      setError((err as Error).message || "Failed to load consulting reports from Supabase.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadReportsData();
+  }, [currentWorkspace?.id]);
+
+  const currentReportOption = reportsList.find((r) => r.id === selectedReportId) || reportsList[0]!;
+  const currentReportData = mockReportData[selectedReportId] || mockReportData["rep-weekly"]!;
+
+  if (loading) {
+    return (
+      <div className="space-y-6 pb-12">
+        <CardSkeleton />
+        <CardSkeleton />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="py-8">
+        <ErrorState
+          categoryTag="EXECUTIVE REPORTS ERROR"
+          title="Unable to load consulting reports"
+          description="A database connection error occurred while querying report telemetry from Supabase."
+          errorMessage={error}
+          onRetry={loadReportsData}
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6 pb-12 select-none">

@@ -27,7 +27,7 @@ export interface DealCardData {
 
 export interface DealCardProps {
   deal: DealCardData;
-  onSelect?: (deal: DealCardData) => void;
+  onSelect?: ((deal: DealCardData) => void) | undefined;
 }
 
 export const priorityStyles: Record<string, string> = {

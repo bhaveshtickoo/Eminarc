@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Building2,
   Search,
@@ -26,6 +26,9 @@ import { useNavigate } from "@tanstack/react-router";
 import { cn } from "@/lib/utils";
 import { useWorkspace } from "@/hooks/useWorkspace";
 import { EmptyState } from "@/components/shared/EmptyState";
+import { ErrorState } from "@/components/shared/ErrorState";
+import { CardSkeleton } from "@/components/shared/SkeletonLoader";
+import { getContent } from "@/services/content";
 
 export interface LibraryItem {
   id: string;
@@ -126,11 +129,42 @@ export const statusBadges: Record<string, string> = {
 export const ContentLibraryView: React.FC = () => {
   const { currentWorkspace } = useWorkspace();
   const navigate = useNavigate();
-  const [library, setLibrary] = useState<LibraryItem[]>(initialLibraryItems);
+  const [library, setLibrary] = useState<LibraryItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
   const [platformFilter, setPlatformFilter] = useState("All");
   const [selectedTag, setSelectedTag] = useState("All");
+
+  const loadContentData = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const data = await getContent({ workspaceId: currentWorkspace?.id });
+      const mapped: LibraryItem[] = data.map((item) => ({
+        id: item.id,
+        title: item.title,
+        excerpt: item.excerpt,
+        platform: item.channel,
+        platformIcon: item.channel === "LinkedIn" ? Linkedin : item.channel === "Reddit" ? MessageSquare : FileText,
+        status: item.status as any,
+        campaign: "Growth OS Campaign",
+        tags: [item.channel, "Growth"],
+        lastUpdated: item.date,
+        author: "Bhavesh Tickoo",
+      }));
+      setLibrary(mapped);
+    } catch (err) {
+      setError((err as Error).message || "Failed to load content from Supabase.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadContentData();
+  }, [currentWorkspace?.id]);
 
   const allTags = Array.from(new Set(library.flatMap((item) => item.tags)));
 
@@ -273,8 +307,22 @@ export const ContentLibraryView: React.FC = () => {
         </div>
       </div>
 
-      {/* Content Library Cards Grid */}
-      {filteredItems.length > 0 ? (
+      {/* Loading & Error States */}
+      {loading ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <CardSkeleton />
+          <CardSkeleton />
+          <CardSkeleton />
+        </div>
+      ) : error ? (
+        <ErrorState
+          categoryTag="CONTENT LIBRARY ERROR"
+          title="Unable to load content assets"
+          description="A database connection error occurred while querying content library items from Supabase."
+          errorMessage={error}
+          onRetry={loadContentData}
+        />
+      ) : filteredItems.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {filteredItems.map((item) => {
             const Icon = item.platformIcon;

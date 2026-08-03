@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState } from "react";
 import { WorkspaceData, WorkspaceContextType, WorkspaceKnowledgeBase } from "../types/workspace";
+import { supabaseWorkspaceService } from "../lib/supabase/services/supabase-workspace-service";
 
 export const defaultKnowledgeBase: WorkspaceKnowledgeBase = {
   companyProfile: {
@@ -215,6 +216,18 @@ export const WorkspaceProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     setCurrentWorkspace((prev) => ({ ...prev, ...updates }));
   };
 
+  const createAndSetWorkspace = async (newWorkspaceData: Partial<WorkspaceData>): Promise<WorkspaceData> => {
+    const { data } = await supabaseWorkspaceService.createWorkspace(newWorkspaceData, "user-owner");
+    const created = data || {
+      ...defaultWorkspace,
+      ...newWorkspaceData,
+      id: `ws-${Date.now()}`,
+      name: newWorkspaceData.name || "My Workspace",
+    };
+    setCurrentWorkspace(created as WorkspaceData);
+    return created as WorkspaceData;
+  };
+
   const updateKnowledgeBase = (updates: Partial<WorkspaceKnowledgeBase>) => {
     setCurrentWorkspace((prev) => ({
       ...prev,
@@ -264,6 +277,7 @@ export const WorkspaceProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         availableWorkspaces,
         switchWorkspace,
         updateWorkspace,
+        createAndSetWorkspace,
         updateKnowledgeBase,
         populateKnowledgeBaseFromResearch,
       }}

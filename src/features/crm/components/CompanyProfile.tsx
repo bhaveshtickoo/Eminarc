@@ -81,7 +81,7 @@ export const CompanyProfile: React.FC<CompanyProfileProps> = ({
             02. Founder Research Summary
           </h4>
           <p className="font-sans text-xs text-[#18181B] leading-relaxed">
-            Founder: <strong>{kb.founderProfile.name}</strong> ({kb.founderProfile.background})
+            Founder: <strong>{kb.founderProfile.name}</strong> ({kb.founderProfile.background || kb.founderProfile.bio})
           </p>
           <p className="font-sans text-xs text-[#716D64]">
             Friction: {kb.painPoints[0]?.title} — {kb.painPoints[0]?.impact}

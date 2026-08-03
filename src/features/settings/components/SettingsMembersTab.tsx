@@ -30,7 +30,7 @@ export const SettingsMembersTab: React.FC = () => {
 
     const newMem: TeamMember = {
       id: `mem-${Date.now()}`,
-      name: inviteEmail.split("@")[0],
+      name: inviteEmail.split("@")[0]!,
       email: inviteEmail,
       role: inviteRole,
       status: "Pending",

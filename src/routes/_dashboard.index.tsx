@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import { toast } from "sonner";
 import {
   ArrowUpRight,
@@ -48,6 +48,10 @@ import {
   overviewKpis,
   upcomingTasks,
 } from "@/lib/overview-data";
+import { getDashboard } from "@/services/analytics";
+import { useWorkspace } from "@/hooks/useWorkspace";
+import { ErrorState } from "@/components/shared/ErrorState";
+import { CardSkeleton } from "@/components/shared/SkeletonLoader";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/_dashboard/")({
@@ -129,8 +133,11 @@ function ViewAll({ to }: { to: string }) {
 
 function Overview() {
   const navigate = useNavigate();
+  const { currentWorkspace } = useWorkspace();
   const funnelMax = leadFunnel[0]?.value ?? 1;
 
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [range, setRange] = useState(ranges[1]!);
   const [chartRange, setChartRange] = useState(ranges[1]!);
   const [clients, setClients] = useState(seedClients);
@@ -138,6 +145,22 @@ function Overview() {
   const [doneTasks, setDoneTasks] = useState<Record<string, boolean>>({});
   const [addOpen, setAddOpen] = useState(false);
   const [newClient, setNewClient] = useState({ name: "", program: "" });
+
+  const loadDashboardData = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      await getDashboard();
+    } catch (err) {
+      setError((err as Error).message || "Failed to load growth telemetry from Supabase.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadDashboardData();
+  }, [currentWorkspace?.id]);
 
   const remaining = useMemo(
     () => upcomingTasks.filter((t) => !doneTasks[t.id]).length,
@@ -234,7 +257,24 @@ function Overview() {
       </div>
 
       {/* KPIs */}
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+      {loading ? (
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+          <CardSkeleton />
+          <CardSkeleton />
+          <CardSkeleton />
+          <CardSkeleton />
+          <CardSkeleton />
+        </div>
+      ) : error ? (
+        <ErrorState
+          categoryTag="DASHBOARD TELEMETRY ERROR"
+          title="Unable to load growth metrics"
+          description="A database connection error occurred while querying workspace telemetry from Supabase."
+          errorMessage={error}
+          onRetry={loadDashboardData}
+        />
+      ) : (
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
         {overviewKpis.map((kpi) => {
           const Icon = kpiIcons[kpi.icon] ?? Target;
           return (
@@ -263,6 +303,7 @@ function Overview() {
           );
         })}
       </div>
+      )}
 
       {/* Growth + clients */}
       <div className="grid gap-5 xl:grid-cols-3">

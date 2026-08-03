@@ -486,6 +486,8 @@ let leadStore: Lead[] = [
   },
 ];
 
+export const leads: Lead[] = leadStore;
+
 export function getLeads(): Lead[] {
   return [...leadStore];
 }

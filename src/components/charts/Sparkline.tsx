@@ -41,7 +41,7 @@ export const Sparkline: React.FC<SparklineProps> = ({
     })
     .join(" ");
 
-  const lastVal = data[data.length - 1];
+  const lastVal = data[data.length - 1] ?? min;
   const lastX = svgWidth;
   const lastY = height - paddingY - ((lastVal - min) / range) * (height - 2 * paddingY);
 

@@ -38,7 +38,7 @@ export const ResearchReport: React.FC<ResearchReportProps> = ({ formData }) => {
   const targetMarkets =
     formData?.targetMarkets && formData.targetMarkets.length > 0
       ? formData.targetMarkets.join(", ")
-      : kb.targetMarket.regions.join(", ");
+      : kb.idealCustomerProfile.regions.join(", ");
 
   return (
     <div className="space-y-5">

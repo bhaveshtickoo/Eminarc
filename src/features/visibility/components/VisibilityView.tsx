@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Sparkles,
   ShieldCheck,
@@ -19,6 +19,9 @@ import { PlatformCard, PlatformCardData } from "./PlatformCard";
 import { VisibilityCharts } from "./VisibilityCharts";
 import { RecommendationsCard } from "./RecommendationsCard";
 import { CompetitorComparison } from "./CompetitorComparison";
+import { ErrorState } from "@/components/shared/ErrorState";
+import { CardSkeleton } from "@/components/shared/SkeletonLoader";
+import { getVisibilityAudit } from "@/services/visibility";
 
 export const platformList: PlatformCardData[] = [
   {
@@ -105,7 +108,28 @@ export const platformList: PlatformCardData[] = [
 
 export const VisibilityView: React.FC = () => {
   const { currentWorkspace } = useWorkspace();
-  const aiScore = currentWorkspace.metrics.aiVisibility;
+  const [aiScore, setAiScore] = useState<number>(
+    currentWorkspace.metrics.aiVisibilityScore || 78,
+  );
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const loadVisibilityData = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const data = await getVisibilityAudit(currentWorkspace?.id);
+      setAiScore(data.score);
+    } catch (err) {
+      setError((err as Error).message || "Failed to load visibility audit from Supabase.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadVisibilityData();
+  }, [currentWorkspace?.id]);
 
   const handleRunScan = () => {
     toast.success("AI Search Scan Triggered", {
@@ -175,11 +199,28 @@ export const VisibilityView: React.FC = () => {
           <span>120 CITATIONS INDEXED</span>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {platformList.map((platform) => (
-            <PlatformCard key={platform.id} platform={platform} />
-          ))}
-        </div>
+        {loading ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <CardSkeleton />
+            <CardSkeleton />
+            <CardSkeleton />
+            <CardSkeleton />
+          </div>
+        ) : error ? (
+          <ErrorState
+            categoryTag="VISIBILITY RADAR ERROR"
+            title="Unable to load AI Visibility Radar"
+            description="A database error occurred while querying visibility report telemetry from Supabase."
+            errorMessage={error}
+            onRetry={loadVisibilityData}
+          />
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {platformList.map((platform) => (
+              <PlatformCard key={platform.id} platform={platform} />
+            ))}
+          </div>
+        )}
       </div>
 
       {/* 4 Shared Recharts Charts */}

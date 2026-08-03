@@ -30,6 +30,12 @@ export interface WorkspaceItem {
   status?: string;
   tagline?: string;
   logoLetter?: string;
+  logoUrl?: string;
+  website?: string;
+  brand?: string;
+  country?: string;
+  timezone?: string;
+  targetMarkets?: string[];
 }
 
 export interface CompanyKnowledgeProfile {
@@ -47,6 +53,7 @@ export interface FounderKnowledgeProfile {
   title: string;
   linkedin: string;
   bio: string;
+  background?: string;
   contentPersona: string;
   primaryFocus: string;
   distributionChannels: string[];
@@ -129,11 +136,14 @@ export interface WorkspaceKnowledgeBase {
   founderProfile: FounderKnowledgeProfile;
   industry: string;
   targetMarkets: string[];
+  targetMarket?: string[];
   idealCustomerProfile: ICPKnowledge;
   productsAndServices: {
     products: ProductKnowledge[];
     services: ServiceKnowledge[];
   };
+  products?: ProductKnowledge[];
+  services?: ServiceKnowledge[];
   painPoints: PainPointKnowledge[];
   messaging: MessagingKnowledge;
   brandVoice: BrandVoiceKnowledge;
@@ -157,6 +167,7 @@ export interface WorkspaceContextType {
   availableWorkspaces?: WorkspaceData[];
   switchWorkspace: (id: string) => void;
   updateWorkspace: (updates: Partial<WorkspaceData>) => void;
+  createAndSetWorkspace: (newWorkspaceData: Partial<WorkspaceData>) => Promise<WorkspaceData>;
   updateKnowledgeBase: (updates: Partial<WorkspaceKnowledgeBase>) => void;
   populateKnowledgeBaseFromResearch: (researchData: {
     website: string;

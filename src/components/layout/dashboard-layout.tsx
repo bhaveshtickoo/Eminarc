@@ -1,5 +1,5 @@
 import { Outlet, useRouterState, Link, useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
+import React, { useState } from "react";
 import { toast } from "sonner";
 import { Search, Sparkles, ChevronDown, LogOut, User, Settings } from "lucide-react";
 import { SidebarProvider, SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
@@ -19,13 +19,73 @@ import {
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/hooks/useAuth";
+import { ErrorState } from "@/components/shared/ErrorState";
+
+// Defensive React Error Boundary Component
+class DashboardErrorBoundary extends React.Component<
+  { children: React.ReactNode },
+  { hasError: boolean; error: Error | null }
+> {
+  constructor(props: { children: React.ReactNode }) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+
+  static getDerivedStateFromError(error: Error) {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    console.error("[DashboardLayout] Uncaught component error:", error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="p-6">
+          <ErrorState
+            categoryTag="RUNTIME ERROR BOUNDARY"
+            title="Module Error Handled"
+            description="An unexpected error occurred while rendering this dashboard component. The rest of your workspace shell remains operational."
+            errorMessage={this.state.error?.message}
+            onRetry={() => this.setState({ hasError: false, error: null })}
+          />
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
 
 export function DashboardLayout() {
+  const navigate = useNavigate();
+  const routerState = useRouterState();
+  const currentPath = routerState.location.pathname;
+
+  const { user, profile, signOut } = useAuth();
   const [chatOpen, setChatOpen] = useState(false);
   const [commandOpen, setCommandOpen] = useState(false);
   const [notificationsList, setNotificationsList] = useState<NotificationItemData[]>(initialNotifications);
-  const navigate = useNavigate();
-  const currentPath = useRouterState({ select: (r) => r.location.pathname });
+
+  const displayEmail = profile?.email || user?.email || "jordan@eminarc.com";
+  const displayInitials = (profile?.fullName || user?.email || "Jordan")
+    .split("@")[0]
+    .split(" ")
+    .map((n) => n[0])
+    .join("")
+    .toUpperCase()
+    .slice(0, 2);
+
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+    } catch {
+      // Ignore signout errors
+    }
+    toast.success("Signed out successfully");
+    navigate({ to: "/login" });
+  };
 
   const topNav = [
     { title: "Overview", url: "/" as const },
@@ -64,7 +124,7 @@ export function DashboardLayout() {
                       "rounded-lg px-2.5 py-1.5 text-sm font-medium transition-colors",
                       isActive(item.url)
                         ? "bg-primary text-primary-foreground font-bold"
-                        : "text-muted-foreground hover:bg-accent hover:text-foreground",
+                        : "text-muted-foreground hover:bg-accent hover:text-foreground"
                     )}
                   >
                     {item.title}
@@ -106,14 +166,14 @@ export function DashboardLayout() {
                   <button className="flex items-center gap-2 rounded-full outline-none">
                     <Avatar className="h-8 w-8">
                       <AvatarFallback className="bg-primary text-xs font-semibold text-primary-foreground">
-                        JD
+                        {displayInitials}
                       </AvatarFallback>
                     </Avatar>
                     <ChevronDown className="h-3.5 w-3.5 text-muted-foreground" />
                   </button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-48">
-                  <DropdownMenuLabel>jordan@eminarc.com</DropdownMenuLabel>
+                  <DropdownMenuLabel className="truncate">{displayEmail}</DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem asChild>
                     <Link to="/settings">
@@ -126,7 +186,7 @@ export function DashboardLayout() {
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={() => navigate({ to: "/login" })}>
+                  <DropdownMenuItem onClick={handleSignOut}>
                     <LogOut className="mr-2 h-4 w-4" /> Sign out
                   </DropdownMenuItem>
                 </DropdownMenuContent>
@@ -134,7 +194,9 @@ export function DashboardLayout() {
             </header>
 
             <main className="flex-1 overflow-y-auto p-4 sm:p-6">
-              <Outlet />
+              <DashboardErrorBoundary>
+                <Outlet />
+              </DashboardErrorBoundary>
             </main>
           </SidebarInset>
 

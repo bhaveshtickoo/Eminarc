@@ -10,7 +10,12 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as DashboardRouteImport } from './routes/_dashboard'
+import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as OnboardingRouteImport } from './routes/onboarding'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
+import { Route as SignupRouteImport } from './routes/signup'
+import { Route as VerifyEmailRouteImport } from './routes/verify-email'
 import { Route as DashboardIndexRouteImport } from './routes/_dashboard.index'
 import { Route as DashboardAgentsRouteImport } from './routes/_dashboard.agents'
 import { Route as DashboardAnalyticsRouteImport } from './routes/_dashboard.analytics'
@@ -28,6 +33,8 @@ import { Route as DashboardResearchRouteImport } from './routes/_dashboard.resea
 import { Route as DashboardSettingsRouteImport } from './routes/_dashboard.settings'
 import { Route as DashboardTasksRouteImport } from './routes/_dashboard.tasks'
 import { Route as DashboardVisibilityRouteImport } from './routes/_dashboard.visibility'
+import { Route as AuthCallbackRouteImport } from './routes/auth.callback'
+import { Route as DebugSupabaseRouteImport } from './routes/debug.supabase'
 import { Route as DashboardContentCalendarRouteImport } from './routes/_dashboard.content.calendar'
 import { Route as DashboardContentLibraryRouteImport } from './routes/_dashboard.content.library'
 import { Route as DashboardContentStrategyRouteImport } from './routes/_dashboard.content.strategy'
@@ -37,9 +44,34 @@ const DashboardRoute = DashboardRouteImport.update({
   id: '/_dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
+  id: '/forgot-password',
+  path: '/forgot-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OnboardingRoute = OnboardingRouteImport.update({
+  id: '/onboarding',
+  path: '/onboarding',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SignupRoute = SignupRouteImport.update({
+  id: '/signup',
+  path: '/signup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VerifyEmailRoute = VerifyEmailRouteImport.update({
+  id: '/verify-email',
+  path: '/verify-email',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardIndexRoute = DashboardIndexRouteImport.update({
@@ -127,6 +159,16 @@ const DashboardVisibilityRoute = DashboardVisibilityRouteImport.update({
   path: '/visibility',
   getParentRoute: () => DashboardRoute,
 } as any)
+const AuthCallbackRoute = AuthCallbackRouteImport.update({
+  id: '/auth/callback',
+  path: '/auth/callback',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DebugSupabaseRoute = DebugSupabaseRouteImport.update({
+  id: '/debug/supabase',
+  path: '/debug/supabase',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DashboardContentCalendarRoute =
   DashboardContentCalendarRouteImport.update({
     id: '/calendar',
@@ -153,7 +195,12 @@ const DashboardResearchHistoryRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof DashboardIndexRoute
+  '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
+  '/onboarding': typeof OnboardingRoute
+  '/reset-password': typeof ResetPasswordRoute
+  '/signup': typeof SignupRoute
+  '/verify-email': typeof VerifyEmailRoute
   '/agents': typeof DashboardAgentsRoute
   '/analytics': typeof DashboardAnalyticsRoute
   '/clients': typeof DashboardClientsRoute
@@ -170,13 +217,20 @@ export interface FileRoutesByFullPath {
   '/settings': typeof DashboardSettingsRoute
   '/tasks': typeof DashboardTasksRoute
   '/visibility': typeof DashboardVisibilityRoute
+  '/auth/callback': typeof AuthCallbackRoute
+  '/debug/supabase': typeof DebugSupabaseRoute
   '/content/calendar': typeof DashboardContentCalendarRoute
   '/content/library': typeof DashboardContentLibraryRoute
   '/content/strategy': typeof DashboardContentStrategyRoute
   '/research/history': typeof DashboardResearchHistoryRoute
 }
 export interface FileRoutesByTo {
+  '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
+  '/onboarding': typeof OnboardingRoute
+  '/reset-password': typeof ResetPasswordRoute
+  '/signup': typeof SignupRoute
+  '/verify-email': typeof VerifyEmailRoute
   '/agents': typeof DashboardAgentsRoute
   '/analytics': typeof DashboardAnalyticsRoute
   '/clients': typeof DashboardClientsRoute
@@ -193,6 +247,8 @@ export interface FileRoutesByTo {
   '/settings': typeof DashboardSettingsRoute
   '/tasks': typeof DashboardTasksRoute
   '/visibility': typeof DashboardVisibilityRoute
+  '/auth/callback': typeof AuthCallbackRoute
+  '/debug/supabase': typeof DebugSupabaseRoute
   '/': typeof DashboardIndexRoute
   '/content/calendar': typeof DashboardContentCalendarRoute
   '/content/library': typeof DashboardContentLibraryRoute
@@ -202,7 +258,12 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_dashboard': typeof DashboardRouteWithChildren
+  '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
+  '/onboarding': typeof OnboardingRoute
+  '/reset-password': typeof ResetPasswordRoute
+  '/signup': typeof SignupRoute
+  '/verify-email': typeof VerifyEmailRoute
   '/_dashboard/agents': typeof DashboardAgentsRoute
   '/_dashboard/analytics': typeof DashboardAnalyticsRoute
   '/_dashboard/clients': typeof DashboardClientsRoute
@@ -219,6 +280,8 @@ export interface FileRoutesById {
   '/_dashboard/settings': typeof DashboardSettingsRoute
   '/_dashboard/tasks': typeof DashboardTasksRoute
   '/_dashboard/visibility': typeof DashboardVisibilityRoute
+  '/auth/callback': typeof AuthCallbackRoute
+  '/debug/supabase': typeof DebugSupabaseRoute
   '/_dashboard/': typeof DashboardIndexRoute
   '/_dashboard/content/calendar': typeof DashboardContentCalendarRoute
   '/_dashboard/content/library': typeof DashboardContentLibraryRoute
@@ -229,7 +292,12 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/forgot-password'
     | '/login'
+    | '/onboarding'
+    | '/reset-password'
+    | '/signup'
+    | '/verify-email'
     | '/agents'
     | '/analytics'
     | '/clients'
@@ -246,13 +314,20 @@ export interface FileRouteTypes {
     | '/settings'
     | '/tasks'
     | '/visibility'
+    | '/auth/callback'
+    | '/debug/supabase'
     | '/content/calendar'
     | '/content/library'
     | '/content/strategy'
     | '/research/history'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/forgot-password'
     | '/login'
+    | '/onboarding'
+    | '/reset-password'
+    | '/signup'
+    | '/verify-email'
     | '/agents'
     | '/analytics'
     | '/clients'
@@ -269,6 +344,8 @@ export interface FileRouteTypes {
     | '/settings'
     | '/tasks'
     | '/visibility'
+    | '/auth/callback'
+    | '/debug/supabase'
     | '/'
     | '/content/calendar'
     | '/content/library'
@@ -277,7 +354,12 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/_dashboard'
+    | '/forgot-password'
     | '/login'
+    | '/onboarding'
+    | '/reset-password'
+    | '/signup'
+    | '/verify-email'
     | '/_dashboard/agents'
     | '/_dashboard/analytics'
     | '/_dashboard/clients'
@@ -294,6 +376,8 @@ export interface FileRouteTypes {
     | '/_dashboard/settings'
     | '/_dashboard/tasks'
     | '/_dashboard/visibility'
+    | '/auth/callback'
+    | '/debug/supabase'
     | '/_dashboard/'
     | '/_dashboard/content/calendar'
     | '/_dashboard/content/library'
@@ -303,7 +387,14 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   DashboardRoute: typeof DashboardRouteWithChildren
+  ForgotPasswordRoute: typeof ForgotPasswordRoute
   LoginRoute: typeof LoginRoute
+  OnboardingRoute: typeof OnboardingRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
+  SignupRoute: typeof SignupRoute
+  VerifyEmailRoute: typeof VerifyEmailRoute
+  AuthCallbackRoute: typeof AuthCallbackRoute
+  DebugSupabaseRoute: typeof DebugSupabaseRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -315,11 +406,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/forgot-password': {
+      id: '/forgot-password'
+      path: '/forgot-password'
+      fullPath: '/forgot-password'
+      preLoaderRoute: typeof ForgotPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/login': {
       id: '/login'
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/onboarding': {
+      id: '/onboarding'
+      path: '/onboarding'
+      fullPath: '/onboarding'
+      preLoaderRoute: typeof OnboardingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/signup': {
+      id: '/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof SignupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/verify-email': {
+      id: '/verify-email'
+      path: '/verify-email'
+      fullPath: '/verify-email'
+      preLoaderRoute: typeof VerifyEmailRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_dashboard/': {
@@ -441,6 +567,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardVisibilityRouteImport
       parentRoute: typeof DashboardRoute
     }
+    '/auth/callback': {
+      id: '/auth/callback'
+      path: '/auth/callback'
+      fullPath: '/auth/callback'
+      preLoaderRoute: typeof AuthCallbackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/debug/supabase': {
+      id: '/debug/supabase'
+      path: '/debug/supabase'
+      fullPath: '/debug/supabase'
+      preLoaderRoute: typeof DebugSupabaseRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_dashboard/content/calendar': {
       id: '/_dashboard/content/calendar'
       path: '/calendar'
@@ -544,7 +684,14 @@ const DashboardRouteWithChildren = DashboardRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   DashboardRoute: DashboardRouteWithChildren,
+  ForgotPasswordRoute: ForgotPasswordRoute,
   LoginRoute: LoginRoute,
+  OnboardingRoute: OnboardingRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
+  SignupRoute: SignupRoute,
+  VerifyEmailRoute: VerifyEmailRoute,
+  AuthCallbackRoute: AuthCallbackRoute,
+  DebugSupabaseRoute: DebugSupabaseRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

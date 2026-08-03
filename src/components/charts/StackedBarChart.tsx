@@ -124,7 +124,7 @@ export const StackedBarChart: React.FC<StackedBarChartProps> = ({
 
   // Recharts Object Data Format
   const objectData = data as Array<Record<string, any>>;
-  const seriesConfig =
+  const seriesConfig: StackedBarSeriesConfig[] =
     series ||
     (objectData[0]
       ? Object.keys(objectData[0])

@@ -80,14 +80,14 @@ export const BarChart: React.FC<BarChartProps> = ({
           >
             {showGrid && <CartesianGrid stroke="#E5E0D6" strokeDasharray="3 3" vertical={false} />}
             <XAxis
-              dataKey={layout === "horizontal" ? xAxisKey : undefined}
+              {...(layout === "horizontal" && xAxisKey ? { dataKey: xAxisKey } : {})}
               type={layout === "horizontal" ? "category" : "number"}
               tickLine={false}
               axisLine={false}
               tick={{ fill: "#716D64", fontSize: 11, fontFamily: "monospace" }}
             />
             <YAxis
-              dataKey={layout === "vertical" ? xAxisKey : undefined}
+              {...(layout === "vertical" && xAxisKey ? { dataKey: xAxisKey } : {})}
               type={layout === "vertical" ? "category" : "number"}
               tickLine={false}
               axisLine={false}

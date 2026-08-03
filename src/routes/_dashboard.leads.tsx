@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { toast } from "sonner";
 import { PageHeader } from "@/components/shared/page-header";
 import { Button } from "@/components/ui/button";
@@ -48,7 +48,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import {
-  getLeads,
   createLead,
   updateLead,
   deleteLead,
@@ -56,7 +55,12 @@ import {
   type LeadStatus,
   type Plan,
 } from "@/lib/mock-data";
-import { Plus, Search, MoreHorizontal, Pencil, Trash2 } from "lucide-react";
+import { getLeads as fetchLeadsFromSupabase } from "@/services/crm";
+import { useWorkspace } from "@/hooks/useWorkspace";
+import { EmptyState } from "@/components/shared/EmptyState";
+import { ErrorState } from "@/components/shared/ErrorState";
+import { CardSkeleton } from "@/components/shared/SkeletonLoader";
+import { Plus, Search, MoreHorizontal, Pencil, Trash2, Users } from "lucide-react";
 
 export const Route = createFileRoute("/_dashboard/leads")({
   head: () => ({
@@ -93,11 +97,31 @@ function emptyLead(): Omit<Lead, "id"> {
 }
 
 function Leads() {
-  const [leads, setLeads] = useState<Lead[]>(getLeads);
+  const { currentWorkspace } = useWorkspace();
+  const [leads, setLeads] = useState<Lead[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState(false);
   const [editing, setEditing] = useState<Lead | null>(null);
   const [form, setForm] = useState<Omit<Lead, "id">>(emptyLead());
+
+  const loadLeadsData = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const data = await fetchLeadsFromSupabase({ workspaceId: currentWorkspace?.id });
+      setLeads(data);
+    } catch (err) {
+      setError((err as Error).message || "Failed to load leads from Supabase.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadLeadsData();
+  }, [currentWorkspace?.id]);
 
   const filtered = leads.filter(
     (l) =>
@@ -165,105 +189,142 @@ function Leads() {
           />
         </div>
 
-        <div className="overflow-x-auto">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Name</TableHead>
-                <TableHead className="hidden md:table-cell">Company</TableHead>
-                <TableHead>Plan</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead className="hidden sm:table-cell">Score</TableHead>
-                <TableHead className="hidden lg:table-cell">Source</TableHead>
-                <TableHead className="hidden lg:table-cell">MRR</TableHead>
-                <TableHead className="w-10" />
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {filtered.map((l) => (
-                <TableRow key={l.id}>
-                  <TableCell>
-                    <div className="flex items-center gap-2">
-                      <div className="flex h-8 w-8 items-center justify-center rounded-full bg-muted text-xs font-semibold">
-                        {l.name
-                          .split(" ")
-                          .map((n) => n[0])
-                          .join("")}
-                      </div>
-                      <div>
-                        <p className="text-sm font-medium">{l.name}</p>
-                        <p className="text-xs text-muted-foreground">{l.email}</p>
-                      </div>
-                    </div>
-                  </TableCell>
-                  <TableCell className="hidden md:table-cell">
-                    <div>
-                      <p className="text-sm">{l.company}</p>
-                      <p className="text-xs text-muted-foreground">{l.title}</p>
-                    </div>
-                  </TableCell>
-                  <TableCell>
-                    <Badge variant="outline">{l.plan}</Badge>
-                  </TableCell>
-                  <TableCell>
-                    <Badge className={statusColors[l.status]}>{l.status}</Badge>
-                  </TableCell>
-                  <TableCell className="hidden sm:table-cell">
-                    <span className={l.score > 85 ? "font-semibold text-success" : ""}>
-                      {l.score}
-                    </span>
-                  </TableCell>
-                  <TableCell className="hidden lg:table-cell text-sm text-muted-foreground">
-                    {l.source}
-                  </TableCell>
-                  <TableCell className="hidden lg:table-cell text-sm">
-                    {l.mrr > 0 ? `$${l.mrr}/mo` : "—"}
-                  </TableCell>
-                  <TableCell>
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" size="icon" className="h-8 w-8">
-                          <MoreHorizontal className="h-4 w-4" />
-                        </Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end">
-                        <DropdownMenuItem onClick={() => openEdit(l)}>
-                          <Pencil className="mr-2 h-4 w-4" /> Edit
-                        </DropdownMenuItem>
-                        <AlertDialog>
-                          <AlertDialogTrigger asChild>
-                            <DropdownMenuItem
-                              onSelect={(e) => e.preventDefault()}
-                              className="text-destructive"
-                            >
-                              <Trash2 className="mr-2 h-4 w-4" /> Delete
-                            </DropdownMenuItem>
-                          </AlertDialogTrigger>
-                          <AlertDialogContent>
-                            <AlertDialogHeader>
-                              <AlertDialogTitle>Delete {l.name}?</AlertDialogTitle>
-                              <AlertDialogDescription>
-                                This removes the lead from your pipeline. This can't be undone.
-                              </AlertDialogDescription>
-                            </AlertDialogHeader>
-                            <AlertDialogFooter>
-                              <AlertDialogCancel>Cancel</AlertDialogCancel>
-                              <AlertDialogAction onClick={() => remove(l.id)}>
-                                Delete
-                              </AlertDialogAction>
-                            </AlertDialogFooter>
-                          </AlertDialogContent>
-                        </AlertDialog>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  </TableCell>
+        {loading ? (
+          <div className="p-4 space-y-3">
+            <CardSkeleton />
+            <CardSkeleton />
+          </div>
+        ) : error ? (
+          <div className="p-4">
+            <ErrorState
+              categoryTag="CRM LEADS ERROR"
+              title="Unable to load CRM leads"
+              description="A database connection error occurred while querying leads from Supabase."
+              errorMessage={error}
+              onRetry={loadLeadsData}
+            />
+          </div>
+        ) : filtered.length === 0 ? (
+          <div className="p-4">
+            <EmptyState
+              categoryTag="CRM PIPELINE"
+              icon={Users}
+              title="No Leads Found in Workspace"
+              description="Start building your B2B sales pipeline by adding new high-intent leads or importing prospects."
+              nextActionText="Add New Lead"
+              onNextAction={openAdd}
+            />
+          </div>
+        ) : (
+          <div className="overflow-x-auto">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Name</TableHead>
+                  <TableHead className="hidden md:table-cell">Company</TableHead>
+                  <TableHead>Plan</TableHead>
+                  <TableHead>Status</TableHead>
+                  <TableHead className="hidden sm:table-cell">Score</TableHead>
+                  <TableHead className="hidden lg:table-cell">Source</TableHead>
+                  <TableHead className="hidden lg:table-cell">MRR</TableHead>
+                  <TableHead className="w-10" />
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
-        {filtered.length === 0 && (
-          <p className="py-8 text-center text-sm text-muted-foreground">No leads found.</p>
+              </TableHeader>
+              <TableBody>
+                {filtered.map((l) => (
+                  <TableRow key={l.id}>
+                    <TableCell>
+                      <div className="flex items-center gap-2">
+                        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-muted text-xs font-semibold">
+                          {l.name
+                            .split(" ")
+                            .map((n) => n[0])
+                            .join("")}
+                        </div>
+                        <div>
+                          <p className="text-sm font-medium">{l.name}</p>
+                          <p className="text-xs text-muted-foreground">{l.email}</p>
+                        </div>
+                      </div>
+                    </TableCell>
+                    <TableCell className="hidden md:table-cell">
+                      <p className="text-sm font-medium">{l.company}</p>
+                      <p className="text-xs text-muted-foreground">{l.title}</p>
+                    </TableCell>
+                    <TableCell>
+                      <Badge variant="outline" className="font-normal">
+                        {l.plan}
+                      </Badge>
+                    </TableCell>
+                    <TableCell>
+                      <span
+                        className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${
+                          statusColors[l.status]
+                        }`}
+                      >
+                        {l.status}
+                      </span>
+                    </TableCell>
+                    <TableCell className="hidden sm:table-cell">
+                      <div className="flex items-center gap-1.5">
+                        <div className="h-1.5 w-12 rounded-full bg-muted overflow-hidden">
+                          <div
+                            className="h-full bg-primary rounded-full"
+                            style={{ width: `${l.score}%` }}
+                          />
+                        </div>
+                        <span className="text-xs font-medium">{l.score}</span>
+                      </div>
+                    </TableCell>
+                    <TableCell className="hidden lg:table-cell text-sm text-muted-foreground">
+                      {l.source}
+                    </TableCell>
+                    <TableCell className="hidden lg:table-cell text-sm">
+                      {l.mrr > 0 ? `$${l.mrr}/mo` : "—"}
+                    </TableCell>
+                    <TableCell>
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button variant="ghost" size="icon" className="h-8 w-8">
+                            <MoreHorizontal className="h-4 w-4" />
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                          <DropdownMenuItem onClick={() => openEdit(l)}>
+                            <Pencil className="mr-2 h-4 w-4" /> Edit
+                          </DropdownMenuItem>
+                          <AlertDialog>
+                            <AlertDialogTrigger asChild>
+                              <DropdownMenuItem
+                                onSelect={(e) => e.preventDefault()}
+                                className="text-destructive"
+                              >
+                                <Trash2 className="mr-2 h-4 w-4" /> Delete
+                              </DropdownMenuItem>
+                            </AlertDialogTrigger>
+                            <AlertDialogContent>
+                              <AlertDialogHeader>
+                                <AlertDialogTitle>Delete {l.name}?</AlertDialogTitle>
+                                <AlertDialogDescription>
+                                  This removes the lead from your pipeline. This can't be undone.
+                                </AlertDialogDescription>
+                              </AlertDialogHeader>
+                              <AlertDialogFooter>
+                                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                <AlertDialogAction onClick={() => remove(l.id)}>
+                                  Delete
+                                </AlertDialogAction>
+                              </AlertDialogFooter>
+                            </AlertDialogContent>
+                          </AlertDialog>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
         )}
       </Card>
 
