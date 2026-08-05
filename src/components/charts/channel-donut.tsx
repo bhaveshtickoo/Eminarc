@@ -1,5 +1,11 @@
 import { DonutChart } from "./DonutChart";
-import { channelMix } from "@/data/overview-data";
+
+const channelMix = [
+  { name: "LinkedIn", value: 45, color: "#0A66C2", share: "45%" },
+  { name: "Organic Search & LLM", value: 30, color: "#10B981", share: "30%" },
+  { name: "Cold Email Outreach", value: 15, color: "#F59E0B", share: "15%" },
+  { name: "Direct Referral", value: 10, color: "#6366F1", share: "10%" },
+];
 
 export function ChannelDonut() {
   const total = channelMix.reduce((sum, c) => sum + c.value, 0);

@@ -9,3 +9,5 @@ export * from "./visibility";
 export * from "./agents";
 export * from "./tasks";
 export * from "./reports";
+export * from "./ai/provider";
+export * from "./ai/founder-agent";

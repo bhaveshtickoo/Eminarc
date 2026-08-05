@@ -47,17 +47,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  createLead,
-  updateLead,
-  deleteLead,
-  type Lead,
-  type LeadStatus,
-  type Plan,
-} from "@/lib/mock-data";
-import { getLeads as fetchLeadsFromSupabase } from "@/services/crm";
+import { getLeads, addLead, Lead } from "@/services/crm";
 import { useWorkspace } from "@/hooks/useWorkspace";
 import { EmptyState } from "@/components/shared/EmptyState";
+
+export type LeadStatus = "New" | "Engaged" | "Qualified" | "Won" | "Lost";
+export type Plan = "Free" | "Starter" | "Pro" | "Enterprise";
+
 import { ErrorState } from "@/components/shared/ErrorState";
 import { CardSkeleton } from "@/components/shared/SkeletonLoader";
 import { Plus, Search, MoreHorizontal, Pencil, Trash2, Users } from "lucide-react";
@@ -110,7 +106,7 @@ function Leads() {
     setLoading(true);
     setError(null);
     try {
-      const data = await fetchLeadsFromSupabase({ workspaceId: currentWorkspace?.id });
+      const data = await getLeads({ workspaceId: currentWorkspace?.id });
       setLeads(data);
     } catch (err) {
       setError((err as Error).message || "Failed to load leads from Supabase.");
@@ -143,26 +139,24 @@ function Leads() {
     setOpen(true);
   };
 
-  const save = () => {
+  const save = async () => {
     if (!form.name || !form.email) {
       toast.error("Name and email are required");
       return;
     }
     if (editing) {
-      updateLead(editing.id, form);
-      setLeads(getLeads());
+      setLeads((prev) => prev.map((l) => (l.id === editing.id ? { ...l, ...form } : l)));
       toast.success("Lead updated");
     } else {
-      createLead(form);
-      setLeads(getLeads());
+      const created = await addLead(form, currentWorkspace?.id);
+      setLeads((prev) => [created, ...prev]);
       toast.success("Lead added");
     }
     setOpen(false);
   };
 
   const remove = (id: string) => {
-    deleteLead(id);
-    setLeads(getLeads());
+    setLeads((prev) => prev.filter((l) => l.id !== id));
     toast.success("Lead removed");
   };
 

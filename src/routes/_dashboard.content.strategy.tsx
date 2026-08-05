@@ -1,15 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
 import React from "react";
-import { ContentStrategyView } from "@/features/content/components/ContentStrategyView";
+import { StrategyDashboardView } from "@/features/strategy/components/StrategyDashboardView";
 
 export const Route = createFileRoute("/_dashboard/content/strategy")({
   head: () => ({
     meta: [
-      { title: "Content Strategy Blueprint — Eminarc Growth OS" },
+      { title: "Strategy Dashboard — Eminarc Growth OS" },
       {
         name: "description",
         content:
-          "Knowledge-driven content strategy blueprint — editorial mission, audience, messaging pillars, brand voice, and priority topics.",
+          "Autonomous Growth Strategy Playbook — Executive Summary, ICP, Personas, Messaging, Positioning, Channels, Roadmap, KPIs, and Regeneration.",
       },
     ],
   }),
@@ -19,7 +19,7 @@ export const Route = createFileRoute("/_dashboard/content/strategy")({
 function ContentStrategyPage() {
   return (
     <div className="pb-12">
-      <ContentStrategyView />
+      <StrategyDashboardView />
     </div>
   );
 }

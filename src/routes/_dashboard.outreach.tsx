@@ -4,7 +4,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { getLeads } from "@/lib/mock-data";
+import { useState, useEffect } from "react";
+import { getLeads, Lead } from "@/services/crm";
 import { Send, Mail, Linkedin, MessageSquare, Sparkles, CheckCircle2 } from "lucide-react";
 
 export const Route = createFileRoute("/_dashboard/outreach")({
@@ -34,8 +35,8 @@ const sequences = [
     id: "s3",
     name: "Reddit high-intent responders",
     channel: "Reddit",
-    leads: 18,
-    replies: 6,
+    leads: 19,
+    replies: 7,
     sent: 12,
   },
   {
@@ -64,9 +65,13 @@ const drafts = [
 ];
 
 function Outreach() {
-  const qualified = getLeads()
-    .filter((l) => l.score > 80)
-    .slice(0, 6);
+  const [leadsList, setLeadsList] = useState<Lead[]>([]);
+
+  useEffect(() => {
+    getLeads().then((data) => setLeadsList(data));
+  }, []);
+
+  const qualified = leadsList.filter((l) => l.score > 70).slice(0, 6);
 
   return (
     <div className="space-y-6">

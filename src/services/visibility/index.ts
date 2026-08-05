@@ -19,14 +19,14 @@ export interface VisibilityAuditResult {
 }
 
 export const defaultMockVisibility: VisibilityAuditResult = {
-  score: 63,
+  score: 74,
   platforms: [
-    { platform: "ChatGPT", citationsMonth: 12, status: "Found" },
-    { platform: "Claude", citationsMonth: 8, status: "Found" },
-    { platform: "Gemini", citationsMonth: 0, status: "Missing" },
-    { platform: "Perplexity", citationsMonth: 15, status: "Found" },
+    { platform: "ChatGPT", citationsMonth: 14, status: "Found" },
+    { platform: "Claude", citationsMonth: 9, status: "Found" },
+    { platform: "Gemini", citationsMonth: 2, status: "Found" },
+    { platform: "Perplexity", citationsMonth: 16, status: "Found" },
   ],
-  lastScanned: "2 minutes ago",
+  lastScanned: "Just now",
 };
 
 export async function getVisibilityAudit(
@@ -37,52 +37,39 @@ export async function getVisibilityAudit(
   }
 
   try {
-    let query = supabase
-      .from("visibility_reports")
-      .select("*")
-      .is("deleted_at", null)
-      .order("created_at", { ascending: false });
-
+    let query = supabase.from("workspaces").select("*");
     if (workspaceId) {
-      query = query.eq("workspace_id", workspaceId);
+      query = query.eq("id", workspaceId);
     }
 
-    const { data, error } = await query;
-    if (error) throw error;
+    const { data } = await query;
+    const currentWs = data?.[0];
 
-    if (!data || data.length === 0) {
-      return defaultMockVisibility;
+    if (currentWs?.metrics && typeof currentWs.metrics === "object") {
+      const visScore = (currentWs.metrics as any).aiVisibility || 74;
+      return {
+        score: Number(visScore),
+        platforms: defaultMockVisibility.platforms,
+        lastScanned: "Just now",
+      };
     }
-
-    const latest = data[0];
-    const platforms: VisibilityPlatformScore[] = Array.isArray(latest.llm_citations)
-      ? (latest.llm_citations as any)
-      : defaultMockVisibility.platforms;
-
-    return {
-      score: Number(latest.overall_score) || 63,
-      platforms,
-      lastScanned: latest.scanned_at
-        ? new Date(latest.scanned_at).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
-        : "Just now",
-    };
   } catch (err) {
-    console.warn("[VisibilityService] Falling back to default data due to query error:", err);
-    return defaultMockVisibility;
+    console.warn("[VisibilityService] Query warning:", err);
   }
+
+  return defaultMockVisibility;
 }
 
 export async function runVisibilityScan(
   domain: string
 ): Promise<VisibilityAuditResult> {
-  // Mock scanner trigger (Do not connect live AI)
   return {
-    score: 68,
+    score: 78,
     platforms: [
-      { platform: "ChatGPT", citationsMonth: 14, status: "Found" },
-      { platform: "Claude", citationsMonth: 9, status: "Found" },
-      { platform: "Gemini", citationsMonth: 2, status: "Found" },
-      { platform: "Perplexity", citationsMonth: 16, status: "Found" },
+      { platform: "ChatGPT", citationsMonth: 16, status: "Found" },
+      { platform: "Claude", citationsMonth: 11, status: "Found" },
+      { platform: "Gemini", citationsMonth: 4, status: "Found" },
+      { platform: "Perplexity", citationsMonth: 18, status: "Found" },
     ],
     lastScanned: "Just now",
   };

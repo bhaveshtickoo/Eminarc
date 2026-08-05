@@ -6,6 +6,7 @@ import { SidebarProvider, SidebarInset, SidebarTrigger } from "@/components/ui/s
 import { AppSidebar } from "@/components/layout/app-sidebar";
 import { AiChatPanel } from "@/components/layout/ai-chat-panel";
 import { GlobalCommandCenter } from "@/components/command/GlobalCommandCenter";
+import { EminarcCommandBar } from "@/components/command/EminarcCommandBar";
 import { CommandShortcut } from "@/components/command/CommandShortcut";
 import { NotificationDropdown, initialNotifications, NotificationItemData } from "@/features/notifications";
 import {
@@ -208,8 +209,8 @@ export function DashboardLayout() {
         </div>
       </div>
 
-      {/* Mount Global Command Center */}
-      <GlobalCommandCenter open={commandOpen} onOpenChange={setCommandOpen} />
+      {/* Mount Global Command Center & Eminarc Command Bar */}
+      <EminarcCommandBar open={commandOpen} onOpenChange={setCommandOpen} />
     </SidebarProvider>
   );
 }

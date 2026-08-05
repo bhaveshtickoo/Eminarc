@@ -9,18 +9,23 @@ interface ProtectedRouteProps {
 }
 
 export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
-  const { isAuthenticated, isLoading, isConfigured } = useAuth();
+  const { isAuthenticated, isLoading, isConfigured, profile } = useAuth();
   const navigate = useNavigate();
   const currentLocation = useRouterState({ select: (s) => s.location.pathname });
 
   useEffect(() => {
     // If Supabase is configured and authentication check is complete
-    if (!isLoading && isConfigured && !isAuthenticated) {
-      const redirectPath = currentLocation && currentLocation !== "/" ? currentLocation : "";
-      const searchParams = redirectPath ? `?redirect=${encodeURIComponent(redirectPath)}` : "";
-      navigate({ to: `/login${searchParams}` });
+    if (!isLoading && isConfigured) {
+      if (!isAuthenticated) {
+        const redirectPath = currentLocation && currentLocation !== "/" ? currentLocation : "";
+        const searchParams = redirectPath ? `?redirect=${encodeURIComponent(redirectPath)}` : "";
+        navigate({ to: `/login${searchParams}` });
+      } else if (profile && !profile.onboarding_completed && currentLocation !== "/onboarding") {
+        // First-time user detection: profile exists but onboarding is incomplete -> redirect to /onboarding
+        navigate({ to: "/onboarding" });
+      }
     }
-  }, [isAuthenticated, isLoading, isConfigured, currentLocation, navigate]);
+  }, [isAuthenticated, isLoading, isConfigured, profile, currentLocation, navigate]);
 
   if (isLoading) {
     return (
@@ -35,7 +40,7 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
     );
   }
 
-  // If Supabase is configured but user is not authenticated, render loading/empty while redirecting
+  // If Supabase is configured but user is not authenticated, render empty while redirecting
   if (isConfigured && !isAuthenticated) {
     return null;
   }

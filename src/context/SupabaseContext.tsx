@@ -2,13 +2,16 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import type { User, Session, AuthError } from "@supabase/supabase-js";
 import { supabase } from "../lib/supabase/client";
 import { isSupabaseConfigured } from "../lib/supabase/config";
-import type { UserProfile } from "../lib/supabase/types";
+import { profileService, formatProfileData, type ProfileData } from "../lib/supabase/services/profile-service";
+import { workspaceService } from "../lib/supabase/services/workspace-service";
 
 export interface SupabaseContextType {
   supabase: typeof supabase;
   user: User | null;
   session: Session | null;
-  profile: UserProfile | null;
+  profile: ProfileData | null;
+  setProfile: React.Dispatch<React.SetStateAction<ProfileData | null>>;
+  refreshProfile: () => Promise<ProfileData | null>;
   loading: boolean;
   error: AuthError | Error | null;
   isConfigured: boolean;
@@ -21,43 +24,21 @@ const SupabaseContext = createContext<SupabaseContextType | undefined>(undefined
 export const SupabaseProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [session, setSession] = useState<Session | null>(null);
   const [user, setUser] = useState<User | null>(null);
-  const [profile, setProfile] = useState<UserProfile | null>(null);
+  const [profile, setProfile] = useState<ProfileData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<AuthError | Error | null>(null);
   const isConfigured = isSupabaseConfigured();
 
-  const fetchProfile = async (currentUser: User) => {
-    try {
-      const { data, error: profileErr } = await supabase
-        .from("profiles")
-        .select("*")
-        .eq("id", currentUser.id)
-        .single();
-
-      if (profileErr) {
-        const metadata = currentUser.user_metadata || {};
-        setProfile({
-          id: currentUser.id,
-          email: currentUser.email || "",
-          fullName: (metadata["full_name"] as string) || null,
-          avatarUrl: (metadata["avatar_url"] as string) || null,
-          role: (metadata["role"] as string) || "user",
-        });
-        return;
-      }
-
-      if (data) {
-        setProfile({
-          id: data.id,
-          email: data.email,
-          fullName: data.full_name,
-          avatarUrl: data.avatar_url,
-          role: data.role,
-        });
-      }
-    } catch (err) {
-      console.warn("[SupabaseContext] Profile fetch warning:", err);
+  const refreshProfile = async (): Promise<ProfileData | null> => {
+    if (!user) {
+      setProfile(null);
+      return null;
     }
+    const { data: userProfile } = await profileService.ensureProfile(user);
+    await workspaceService.ensureWorkspace(user.id);
+    const formatted = userProfile ? formatProfileData(userProfile) : null;
+    setProfile(formatted);
+    return formatted;
   };
 
   useEffect(() => {
@@ -68,26 +49,37 @@ export const SupabaseProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
     let mounted = true;
 
-    // Fetch active session on mount
-    supabase.auth
-      .getSession()
-      .then(({ data: { session: initialSession }, error: sessionErr }) => {
+    // Fetch active session, ensure profile, and ensure workspace on mount
+    const loadSessionAndProfile = async () => {
+      try {
+        const { data: { session: initialSession }, error: sessionErr } = await supabase.auth.getSession();
         if (!mounted) return;
         if (sessionErr) {
           setError(sessionErr);
         }
         setSession(initialSession);
-        setUser(initialSession?.user ?? null);
-        if (initialSession?.user) {
-          fetchProfile(initialSession.user);
+        const currentUser = initialSession?.user ?? null;
+        setUser(currentUser);
+
+        if (currentUser) {
+          const { data: userProfile } = await profileService.ensureProfile(currentUser);
+          await workspaceService.ensureWorkspace(currentUser.id);
+          if (mounted) {
+            setProfile(userProfile ? formatProfileData(userProfile) : null);
+          }
+        } else {
+          if (mounted) {
+            setProfile(null);
+          }
         }
-      })
-      .catch((err) => {
+      } catch (err) {
         if (mounted) setError(err as Error);
-      })
-      .finally(() => {
+      } finally {
         if (mounted) setLoading(false);
-      });
+      }
+    };
+
+    loadSessionAndProfile();
 
     // Listen to authentication state changes
     const {
@@ -95,14 +87,23 @@ export const SupabaseProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     } = supabase.auth.onAuthStateChange(async (_event, newSession) => {
       if (!mounted) return;
       setSession(newSession);
-      setUser(newSession?.user ?? null);
+      const currentUser = newSession?.user ?? null;
+      setUser(currentUser);
 
-      if (newSession?.user) {
-        await fetchProfile(newSession.user);
+      if (currentUser) {
+        const { data: userProfile } = await profileService.ensureProfile(currentUser);
+        await workspaceService.ensureWorkspace(currentUser.id);
+        if (mounted) {
+          setProfile(userProfile ? formatProfileData(userProfile) : null);
+        }
       } else {
-        setProfile(null);
+        if (mounted) {
+          setProfile(null);
+        }
       }
-      setLoading(false);
+      if (mounted) {
+        setLoading(false);
+      }
     });
 
     return () => {
@@ -133,6 +134,10 @@ export const SupabaseProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     } else {
       setSession(data.session);
       setUser(data.user);
+      if (data.user) {
+        const { data: userProfile } = await profileService.ensureProfile(data.user);
+        setProfile(userProfile ? formatProfileData(userProfile) : null);
+      }
     }
   };
 
@@ -143,6 +148,8 @@ export const SupabaseProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         user,
         session,
         profile,
+        setProfile,
+        refreshProfile,
         loading,
         error,
         isConfigured,

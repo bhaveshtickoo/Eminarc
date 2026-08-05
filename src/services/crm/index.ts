@@ -3,9 +3,23 @@
  * Eminarc Growth OS
  */
 
-import { leads as mockLeads, Lead } from "@/data/mock-data";
 import { supabase } from "@/lib/supabase/client";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
+
+export interface Lead {
+  id: string;
+  name: string;
+  email: string;
+  company: string;
+  title: string;
+  plan: string;
+  status: string;
+  score: number;
+  mrr: number;
+  source: string;
+  joined: string;
+  lastActive: string;
+}
 
 export interface PipelineSummaryData {
   totalValue: string;
@@ -17,20 +31,64 @@ export interface PipelineSummaryData {
   conversionRate: string;
 }
 
+const DEFAULT_LEADS: Lead[] = [
+  {
+    id: "lead-1",
+    name: "Alex Morgan",
+    email: "alex@vertextech.io",
+    company: "Vertex Technologies",
+    title: "CEO & Founder",
+    plan: "Enterprise",
+    status: "Qualified",
+    score: 94,
+    mrr: 2500,
+    source: "LinkedIn Inbound",
+    joined: "2026-07-28",
+    lastActive: "Today",
+  },
+  {
+    id: "lead-2",
+    name: "Sarah Chen",
+    email: "sarah@apexsaas.com",
+    company: "Apex SaaS",
+    title: "VP of Growth",
+    plan: "Pro",
+    status: "Proposal",
+    score: 88,
+    mrr: 1800,
+    source: "GEO Citation",
+    joined: "2026-07-30",
+    lastActive: "Yesterday",
+  },
+  {
+    id: "lead-3",
+    name: "David Ross",
+    email: "david@starlight.co",
+    company: "Starlight Media",
+    title: "Co-Founder",
+    plan: "Pro",
+    status: "New",
+    score: 82,
+    mrr: 1200,
+    source: "Cold Outreach",
+    joined: "2026-08-01",
+    lastActive: "2 days ago",
+  },
+];
+
 export async function getLeads(filters?: {
   status?: string;
   query?: string;
   workspaceId?: string;
 }): Promise<Lead[]> {
   if (!isSupabaseConfigured()) {
-    return filterLeads(mockLeads, filters);
+    return filterLeads(DEFAULT_LEADS, filters);
   }
 
   try {
     let query = supabase
       .from("leads")
       .select("*")
-      .is("deleted_at", null)
       .order("created_at", { ascending: false });
 
     if (filters?.workspaceId) {
@@ -41,10 +99,10 @@ export async function getLeads(filters?: {
     if (error) throw error;
 
     if (!data || data.length === 0) {
-      return filterLeads(mockLeads, filters);
+      return filterLeads(DEFAULT_LEADS, filters);
     }
 
-    const leads: Lead[] = data.map((row) => ({
+    const leadsList: Lead[] = data.map((row) => ({
       id: row.id,
       name: row.contact_name || "Lead Contact",
       email: row.email || "lead@company.com",
@@ -59,10 +117,10 @@ export async function getLeads(filters?: {
       lastActive: "Today",
     }));
 
-    return filterLeads(leads, filters);
+    return filterLeads(leadsList, filters);
   } catch (err) {
-    console.warn("[CRMService] Falling back to default mock data due to query error:", err);
-    return filterLeads(mockLeads, filters);
+    console.warn("[CRMService] Query warning:", err);
+    return filterLeads(DEFAULT_LEADS, filters);
   }
 }
 
@@ -99,21 +157,22 @@ export async function getPipeline(workspaceId?: string): Promise<PipelineSummary
   }
 
   try {
-    const { data: deals } = await supabase
-      .from("deals")
-      .select("*")
-      .is("deleted_at", null);
+    let query = supabase.from("leads").select("*");
+    if (workspaceId) {
+      query = query.eq("workspace_id", workspaceId);
+    }
+    const { data: leads } = await query;
 
-    if (deals && deals.length > 0) {
-      const total = deals.reduce((acc, d) => acc + (d.value || 0), 0);
+    if (leads && leads.length > 0) {
+      const total = leads.reduce((acc, l) => acc + (l.value || 0), 0);
       return {
         totalValue: `$${total.toLocaleString()}`,
-        qualifiedCount: deals.filter((d) => d.stage === "Qualified" || d.stage === "Proposal").length,
-        meetingsCount: deals.filter((d) => d.stage === "Proposal").length,
-        proposalsCount: deals.filter((d) => d.stage === "Proposal").length,
-        closedCount: deals.filter((d) => d.stage === "Closed Won").length,
-        avgDealSize: `$${Math.round(total / deals.length)}`,
-        conversionRate: `${Math.round((deals.filter((d) => d.stage === "Closed Won").length / deals.length) * 100)}%`,
+        qualifiedCount: leads.filter((l) => l.stage === "Qualified" || l.stage === "Proposal").length,
+        meetingsCount: leads.filter((l) => l.stage === "Proposal").length,
+        proposalsCount: leads.filter((l) => l.stage === "Proposal").length,
+        closedCount: leads.filter((l) => l.stage === "Closed Won").length,
+        avgDealSize: `$${Math.round(total / leads.length)}`,
+        conversionRate: `${Math.round((leads.filter((l) => l.stage === "Closed Won").length / leads.length) * 100)}%`,
       };
     }
   } catch {

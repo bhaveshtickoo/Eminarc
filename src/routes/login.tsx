@@ -31,7 +31,7 @@ function Login() {
   const search = useSearch({ from: "/login" });
   const redirectUrl = search.redirect || "/";
 
-  const { isAuthenticated, signInWithPassword, signInWithGoogle, signInWithGitHub, isConfigured } =
+  const { isAuthenticated, profile, refreshProfile, signInWithPassword, signInWithGoogle, signInWithGitHub, isConfigured } =
     useAuth();
 
   const [email, setEmail] = useState("jordan@eminarc.com");
@@ -41,9 +41,13 @@ function Login() {
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate({ to: redirectUrl });
+      if (profile && !profile.onboarding_completed) {
+        navigate({ to: "/onboarding" });
+      } else {
+        navigate({ to: redirectUrl });
+      }
     }
-  }, [isAuthenticated, redirectUrl, navigate]);
+  }, [isAuthenticated, profile, redirectUrl, navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -52,7 +56,11 @@ function Login() {
     if (!isConfigured) {
       setTimeout(() => {
         toast.success("Welcome back to Eminarc Growth OS (Demo Mode)");
-        navigate({ to: redirectUrl });
+        if (profile && !profile.onboarding_completed) {
+          navigate({ to: "/onboarding" });
+        } else {
+          navigate({ to: redirectUrl });
+        }
         setLoading(false);
       }, 600);
       return;
@@ -65,7 +73,12 @@ function Login() {
       toast.error(error.message || "Invalid login credentials.");
     } else if (data?.user) {
       toast.success("Welcome back to Eminarc Growth OS");
-      navigate({ to: redirectUrl });
+      const updatedProfile = await refreshProfile();
+      if (updatedProfile && !updatedProfile.onboarding_completed) {
+        navigate({ to: "/onboarding" });
+      } else {
+        navigate({ to: redirectUrl });
+      }
     }
   };
 

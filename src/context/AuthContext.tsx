@@ -2,12 +2,15 @@ import React, { createContext, useContext } from "react";
 import { useSupabaseContext } from "./SupabaseContext";
 import { authService } from "../lib/supabase/services/auth-service";
 import type { User, Session, AuthError } from "@supabase/supabase-js";
-import type { UserProfile, ServiceResult } from "../lib/supabase/types";
+import type { ServiceResult } from "../lib/supabase/types";
+import type { ProfileData } from "../lib/supabase/services/profile-service";
 
 export interface AuthContextType {
   user: User | null;
   session: Session | null;
-  profile: UserProfile | null;
+  profile: ProfileData | null;
+  setProfile: React.Dispatch<React.SetStateAction<ProfileData | null>>;
+  refreshProfile: () => Promise<ProfileData | null>;
   isAuthenticated: boolean;
   isLoading: boolean;
   error: AuthError | Error | null;
@@ -37,6 +40,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     user: supabaseCtx.user,
     session: supabaseCtx.session,
     profile: supabaseCtx.profile,
+    setProfile: supabaseCtx.setProfile,
+    refreshProfile: supabaseCtx.refreshProfile,
     isAuthenticated: Boolean(supabaseCtx.user && supabaseCtx.session),
     isLoading: supabaseCtx.loading,
     error: supabaseCtx.error,

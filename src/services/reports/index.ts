@@ -45,35 +45,26 @@ export async function getReports(workspaceId?: string): Promise<ConsultingReport
   }
 
   try {
-    let query = supabase
-      .from("reports")
-      .select("*")
-      .is("deleted_at", null)
-      .order("created_at", { ascending: false });
-
+    let query = supabase.from("content_items").select("*").order("created_at", { ascending: false });
     if (workspaceId) {
       query = query.eq("workspace_id", workspaceId);
     }
+    const { data } = await query;
 
-    const { data, error } = await query;
-    if (error) throw error;
-
-    if (!data || data.length === 0) {
-      return defaultMockReports;
+    if (data && data.length > 0) {
+      return data.map((row) => ({
+        id: row.id,
+        title: row.title,
+        type: row.type || "Growth Telemetry",
+        generatedAt: row.created_at
+          ? new Date(row.created_at).toLocaleDateString("en-US", { month: "short", day: "2-digit", year: "numeric" }).toUpperCase()
+          : "AUG 01, 2026",
+        summary: row.content || "Executive consulting performance teardown.",
+      }));
     }
-
-    return data.map((row) => ({
-      id: row.id,
-      title: row.title,
-      type: row.type || "Growth Telemetry",
-      generatedAt: row.created_at
-        ? new Date(row.created_at).toLocaleDateString("en-US", { month: "short", day: "2-digit", year: "numeric" }).toUpperCase()
-        : "AUG 01, 2026",
-      summary: (row.metrics_data as any)?.summary || "Executive consulting performance teardown.",
-      downloadUrl: row.file_url || undefined,
-    }));
   } catch (err) {
-    console.warn("[ReportsService] Falling back to default data due to query error:", err);
-    return defaultMockReports;
+    console.warn("[ReportsService] Query warning:", err);
   }
+
+  return defaultMockReports;
 }

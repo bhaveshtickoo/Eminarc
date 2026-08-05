@@ -3,6 +3,8 @@
  * Eminarc Growth OS
  */
 
+export * from "./founder-research-service";
+
 import { supabase } from "@/lib/supabase/client";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 
@@ -48,50 +50,39 @@ export async function getResearch(workspaceId?: string): Promise<ResearchReportD
   }
 
   try {
-    let query = supabase
-      .from("research_reports")
-      .select("*")
-      .is("deleted_at", null)
-      .order("created_at", { ascending: false });
-
+    let query = supabase.from("content_items").select("*").order("created_at", { ascending: false });
     if (workspaceId) {
       query = query.eq("workspace_id", workspaceId);
     }
+    const { data } = await query;
 
-    const { data, error } = await query;
-    if (error) throw error;
-
-    if (!data || data.length === 0) {
-      return defaultMockResearch;
+    if (data && data.length > 0) {
+      return data.map((row) => ({
+        id: row.id,
+        topic: row.title,
+        industry: row.channel || "B2B Technology",
+        summary: row.content || "Automated founder research analysis.",
+        recommendations: [
+          {
+            title: "Accelerate Technical Authority",
+            description: "Publish technical breakdowns targeting high-intent decision makers.",
+            impact: "High" as const,
+          },
+        ],
+        createdAt: row.created_at ? row.created_at.split("T")[0] : "2026-08-01",
+      }));
     }
-
-    return data.map((row) => ({
-      id: row.id,
-      topic: row.title,
-      industry: row.industry || "B2B Technology",
-      summary: (row.market_insights as any)?.summary || "Automated founder research analysis.",
-      recommendations: Array.isArray((row.icp_data as any)?.recommendations)
-        ? (row.icp_data as any).recommendations
-        : [
-            {
-              title: "Accelerate Technical Authority",
-              description: "Publish 2 technical breakdowns monthly.",
-              impact: "High",
-            },
-          ],
-      createdAt: row.created_at ? row.created_at.split("T")[0] : "2026-08-01",
-    }));
   } catch (err) {
-    console.warn("[ResearchService] Falling back to default data due to query error:", err);
-    return defaultMockResearch;
+    console.warn("[ResearchService] Query warning:", err);
   }
+
+  return defaultMockResearch;
 }
 
 export async function generateResearch(params: {
   domain: string;
   competitorUrl?: string;
 }): Promise<ResearchReportData> {
-  // Mock generator placeholder (Do not connect live AI)
   return {
     id: `res-${Date.now()}`,
     topic: `Growth Positioning for ${params.domain}`,

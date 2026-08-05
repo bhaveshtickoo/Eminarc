@@ -1,6 +1,7 @@
 import { createFileRoute, useNavigate, useSearch } from "@tanstack/react-router";
 import { useEffect } from "react";
 import { supabase } from "@/lib/supabase/client";
+import { profileService } from "@/lib/supabase/services/profile-service";
 import { Sparkles } from "lucide-react";
 import { toast } from "sonner";
 
@@ -25,13 +26,18 @@ function AuthCallback() {
   useEffect(() => {
     supabase.auth
       .getSession()
-      .then(({ data, error }) => {
+      .then(async ({ data, error }) => {
         if (error) {
           toast.error("Authentication failed: " + error.message);
           navigate({ to: "/login" });
         } else if (data.session) {
           toast.success("Successfully authenticated!");
-          navigate({ to: redirectUrl });
+          const { data: userProfile } = await profileService.ensureProfile(data.session.user);
+          if (userProfile && !userProfile.onboarding_completed) {
+            navigate({ to: "/onboarding" });
+          } else {
+            navigate({ to: redirectUrl });
+          }
         } else {
           // Check session again after brief delay in case hash params are processing
           setTimeout(() => {
