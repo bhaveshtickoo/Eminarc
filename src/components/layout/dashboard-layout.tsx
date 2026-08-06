@@ -148,10 +148,10 @@ export function DashboardLayout() {
               <button
                 type="button"
                 onClick={() => setCommandOpen(true)}
-                className="relative ml-auto hidden sm:flex items-center space-x-2 rounded-xl bg-[#FFFFFF] border border-[#E5E0D6] px-3 py-1.5 text-xs text-[#716D64] hover:border-[#18181B] hover:text-[#18181B] transition-all cursor-pointer shadow-sm w-56 justify-between"
+                className="relative ml-auto hidden sm:flex items-center space-x-2 rounded-xl bg-card border border-border px-3 py-1.5 text-xs text-muted-foreground hover:border-foreground/40 hover:text-foreground transition-all cursor-pointer shadow-sm w-56 justify-between"
               >
                 <div className="flex items-center space-x-1.5">
-                  <Search className="h-3.5 w-3.5 text-[#716D64]" />
+                  <Search className="h-3.5 w-3.5 text-muted-foreground" />
                   <span>Search command...</span>
                 </div>
                 <CommandShortcut shortcut="⌘K" />

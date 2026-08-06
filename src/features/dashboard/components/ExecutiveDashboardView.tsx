@@ -125,14 +125,14 @@ export const ExecutiveDashboardView: React.FC = () => {
   return (
     <div className="space-y-8 select-none max-w-7xl mx-auto pb-16">
       {/* Top Banner Header */}
-      <div className="rounded-[22px] bg-[#FCFAF7] border border-[#E5E0D6] p-6 md:p-8 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="rounded-[22px] bg-card border border-border p-6 md:p-8 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center space-x-2 mb-2">
-            <span className="font-mono text-[10px] uppercase tracking-[0.2em] font-semibold text-[#716D64] bg-[#EFEAE1] px-2.5 py-1 rounded-full">
+            <span className="font-mono text-[10px] uppercase tracking-[0.2em] font-semibold text-muted-foreground bg-muted px-2.5 py-1 rounded-full">
               AI-FIRST EXECUTIVE DASHBOARD / {currentWorkspace.name.toUpperCase()}
             </span>
-            <span className="inline-flex items-center space-x-1 font-mono text-[10px] text-[#1E4620] bg-[#EDF6F0] px-2.5 py-1 rounded-full border border-[#C8E4D0]">
-              <ShieldCheck className="h-3 w-3 text-[#2D6A4F]" />
+            <span className="inline-flex items-center space-x-1 font-mono text-[10px] text-emerald-700 dark:text-emerald-300 bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/20">
+              <ShieldCheck className="h-3 w-3 text-emerald-600 dark:text-emerald-400" />
               <span>LIVE SUPABASE DATA</span>
             </span>
           </div>
@@ -149,7 +149,7 @@ export const ExecutiveDashboardView: React.FC = () => {
             onClick={loadExecutiveData}
             disabled={isLoading}
             variant="outline"
-            className="h-10 px-4 rounded-xl font-mono text-xs border-[#E5E0D6] gap-2"
+            className="h-10 px-4 rounded-xl font-mono text-xs border-border gap-2"
           >
             <RefreshCw className={`h-3.5 w-3.5 ${isLoading ? "animate-spin" : ""}`} />
             <span>Sync Supabase</span>
@@ -157,9 +157,9 @@ export const ExecutiveDashboardView: React.FC = () => {
 
           <Button
             onClick={() => navigate({ to: "/research" as any })}
-            className="h-10 px-5 rounded-xl font-bold bg-[#000000] text-[#FFFFFF] hover:bg-[#222222] transition-colors gap-2 cursor-pointer shadow-md"
+            className="h-10 px-5 rounded-xl font-bold bg-primary text-primary-foreground hover:bg-primary/90 transition-colors gap-2 cursor-pointer shadow-md"
           >
-            <Sparkles className="h-4 w-4 text-amber-300" />
+            <Sparkles className="h-4 w-4 text-amber-400" />
             <span>Run Founder Research</span>
           </Button>
         </div>
