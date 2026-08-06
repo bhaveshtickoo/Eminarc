@@ -17,11 +17,7 @@ export class SupabaseMemoryStore {
     }
 
     try {
-      const { data, error } = await supabase
-        .from("ai_memories")
-        .insert(entry)
-        .select()
-        .single();
+      const { data, error } = await supabase.from("ai_memories").insert(entry).select().single();
 
       if (error) throw error;
       return data;
@@ -29,6 +25,26 @@ export class SupabaseMemoryStore {
       console.warn("[SupabaseMemoryStore.saveMemory] Warning:", err);
       return null;
     }
+  }
+
+  /**
+   * Save a memory item with key, content, tags
+   */
+  static async saveMemoryItem(params: {
+    workspace_id: string;
+    memory_type: string;
+    key: string;
+    content: string;
+    tags?: string[];
+  }): Promise<boolean> {
+    const res = await this.saveMemory({
+      workspace_id: params.workspace_id,
+      memory_type: params.memory_type as any,
+      key: params.key,
+      content: params.content,
+      metadata: { tags: params.tags || [] },
+    });
+    return res !== null;
   }
 
   /**
@@ -71,7 +87,11 @@ export class SupabaseMemoryStore {
   /**
    * Simple text-match search fallback (simulates future pgvector semantic search)
    */
-  static async searchSimilar(queryText: string, workspaceId: string, limit = 5): Promise<AIMemoryRow[]> {
+  static async searchSimilar(
+    queryText: string,
+    workspaceId: string,
+    limit = 5,
+  ): Promise<AIMemoryRow[]> {
     if (!isSupabaseConfigured()) {
       return [];
     }

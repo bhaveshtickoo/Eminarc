@@ -5,13 +5,19 @@
 
 export type CopilotIntent =
   | "Research"
+  | "Strategy"
+  | "Planning"
+  | "Campaign"
+  | "Task generation"
+  | "Dashboard insights"
+  | "KPI explanation"
+  | "Report generation"
+  | "Workspace navigation"
+  | "General chat"
   | "CRM"
   | "Content"
   | "Visibility"
   | "Distribution"
-  | "Reports"
-  | "Tasks"
-  | "Strategy"
   | "Unknown";
 
 export interface ExtractedEntities {
@@ -20,6 +26,8 @@ export interface ExtractedEntities {
   channel?: string;
   topic?: string;
   timeframe?: string;
+  navigationTarget?: string;
+  actionPayload?: Record<string, any>;
   rawKeywords?: string[];
 }
 

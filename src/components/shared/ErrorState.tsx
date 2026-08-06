@@ -25,7 +25,7 @@ export const ErrorState: React.FC<ErrorStateProps> = ({
     <div
       className={cn(
         "p-8 md:p-12 rounded-[18px] bg-red-500/5 border border-red-500/20 flex flex-col items-center text-center space-y-4 select-none shadow-sm transition-all",
-        className
+        className,
       )}
     >
       <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-red-500/10 text-red-600 font-mono text-sm">

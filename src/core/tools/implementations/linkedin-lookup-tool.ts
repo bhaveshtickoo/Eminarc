@@ -23,7 +23,8 @@ export interface LinkedInLookupResultData {
 export class LinkedInLookupTool implements AITool<LinkedInLookupParams, LinkedInLookupResultData> {
   definition: AIToolDefinition = {
     name: "linkedin_lookup",
-    description: "Placeholder tool for enriching founder LinkedIn profiles, headlines, and content personas.",
+    description:
+      "Placeholder tool for enriching founder LinkedIn profiles, headlines, and content personas.",
     parameters: {
       type: "object",
       properties: {
@@ -46,7 +47,8 @@ export class LinkedInLookupTool implements AITool<LinkedInLookupParams, LinkedIn
   };
 
   async execute(params: LinkedInLookupParams): Promise<AIToolResult<LinkedInLookupResultData>> {
-    const handle = params.linkedinUrl || `linkedin.com/in/${params.name.toLowerCase().replace(/\s+/g, "")}`;
+    const handle =
+      params.linkedinUrl || `linkedin.com/in/${params.name.toLowerCase().replace(/\s+/g, "")}`;
     const company = params.companyName || "Growth Target";
 
     const data: LinkedInLookupResultData = {

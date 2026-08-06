@@ -25,6 +25,9 @@ import {
   Clock,
   Command,
   X,
+  Sun,
+  Moon,
+  Laptop,
 } from "lucide-react";
 
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
@@ -32,6 +35,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useWorkspace } from "@/hooks/useWorkspace";
+import { useTheme } from "@/components/theme/ThemeProvider";
 import { growthCopilot } from "@/core/copilot/copilot";
 import { FounderResearchService } from "@/services/research/founder-research-service";
 import { createTask } from "@/services/tasks";
@@ -57,6 +61,7 @@ export const EminarcCommandBar: React.FC<EminarcCommandBarProps> = ({
   onOpenChange: externalOnOpenChange,
 }) => {
   const { currentWorkspace } = useWorkspace();
+  const { theme, setTheme } = useTheme();
   const navigate = useNavigate();
 
   const [internalOpen, setInternalOpen] = useState(false);
@@ -114,7 +119,7 @@ export const EminarcCommandBar: React.FC<EminarcCommandBarProps> = ({
     setOpen(false);
   };
 
-  // Run AI Copilot Prompt from Command Bar
+  // Run AI Copilot Prompt from Command Bar routed through Intent Router
   const handleRunAICopilot = async (prompt?: string) => {
     const userQuery = (prompt || query).trim();
     if (!userQuery) return;
@@ -125,13 +130,24 @@ export const EminarcCommandBar: React.FC<EminarcCommandBarProps> = ({
     toast.info(`Growth Copilot processing "${userQuery}"...`);
 
     try {
+      const routingDecision = await globalIntentRouter.route(userQuery);
+
       const res = await growthCopilot.processMessage({
         workspaceId: currentWorkspace.id,
         userPrompt: userQuery,
       });
 
-      setAiResponse(res.content);
-      toast.success("AI Copilot execution complete!");
+      setAiResponse(
+        `[INTENT: ${routingDecision.intent} | AGENT: ${routingDecision.agentId}]\n\n${res.content}`,
+      );
+      toast.success(`Copilot intent resolved: ${routingDecision.intent}`);
+
+      if (routingDecision.entities.navigationTarget) {
+        setTimeout(() => {
+          navigate({ to: routingDecision.entities.navigationTarget as any });
+          setOpen(false);
+        }, 1500);
+      }
     } catch (err) {
       toast.error("AI Copilot execution failed.");
     } finally {
@@ -143,7 +159,10 @@ export const EminarcCommandBar: React.FC<EminarcCommandBarProps> = ({
   const handleResearchCompany = async () => {
     const name = prompt("Enter target Company Name:", "HubSpot");
     if (!name) return;
-    const website = prompt("Enter Company Website:", `https://${name.toLowerCase().replace(/\s+/g, "")}.com`);
+    const website = prompt(
+      "Enter Company Website:",
+      `https://${name.toLowerCase().replace(/\s+/g, "")}.com`,
+    );
     if (!website) return;
 
     toast.info(`Starting research job for ${name}...`);
@@ -176,9 +195,9 @@ export const EminarcCommandBar: React.FC<EminarcCommandBarProps> = ({
           description: "Created via Eminarc Command Bar (Cmd + K)",
           category: "Outreach",
           priority: "High",
-          dueDate: new Date().toISOString().split("T")[0],
+          dueDate: new Date().toISOString().split("T")[0] || new Date().toISOString().slice(0, 10),
         },
-        currentWorkspace.id
+        currentWorkspace.id,
       );
       toast.success(`Task "${title}" created!`);
       setOpen(false);
@@ -195,7 +214,9 @@ export const EminarcCommandBar: React.FC<EminarcCommandBarProps> = ({
     try {
       const engine = new RecommendationEngine();
       const recs = await engine.generateRecommendations({ workspaceId: currentWorkspace.id });
-      setAiResponse(`🚀 HIGHEST PRIORITY ACTION: ${recs.highestPriorityAction.title}\nImpact: ${recs.highestPriorityAction.expectedImpact}\n\n💡 BIGGEST OPPORTUNITY: ${recs.biggestOpportunity.title}\nRevenue Potential: ${recs.biggestOpportunity.potentialRevenue}`);
+      setAiResponse(
+        `🚀 HIGHEST PRIORITY ACTION: ${recs.highestPriorityAction.title}\nImpact: ${recs.highestPriorityAction.expectedImpact}\n\n💡 BIGGEST OPPORTUNITY: ${recs.biggestOpportunity.title}\nRevenue Potential: ${recs.biggestOpportunity.potentialRevenue}`,
+      );
       toast.success("Growth directives compiled!");
     } catch {
       toast.error("Failed to generate recommendations.");
@@ -334,6 +355,56 @@ export const EminarcCommandBar: React.FC<EminarcCommandBarProps> = ({
       icon: Settings,
       action: () => executeNav("/settings", "Settings"),
     },
+    {
+      id: "action-theme-cycle",
+      title: "Cycle Theme Mode",
+      description: "Toggle between Light ☀, Dark 🌙, and System 🖥 theme modes",
+      category: "Action",
+      icon: Sun,
+      shortcut: "⇧T",
+      action: () => {
+        const nextTheme = theme === "light" ? "dark" : theme === "dark" ? "system" : "light";
+        setTheme(nextTheme);
+        toast.success(`Theme mode updated to ${nextTheme}`);
+        setOpen(false);
+      },
+    },
+    {
+      id: "action-theme-light",
+      title: "Switch Theme to Light Mode ☀",
+      description: "Set interface theme to Light Mode",
+      category: "Action",
+      icon: Sun,
+      action: () => {
+        setTheme("light");
+        toast.success("Theme set to Light ☀");
+        setOpen(false);
+      },
+    },
+    {
+      id: "action-theme-dark",
+      title: "Switch Theme to Dark Mode 🌙",
+      description: "Set interface theme to Dark Onyx",
+      category: "Action",
+      icon: Moon,
+      action: () => {
+        setTheme("dark");
+        toast.success("Theme set to Dark 🌙");
+        setOpen(false);
+      },
+    },
+    {
+      id: "action-theme-system",
+      title: "Switch Theme to System Match 🖥",
+      description: "Sync interface theme with operating system preference",
+      category: "Action",
+      icon: Laptop,
+      action: () => {
+        setTheme("system");
+        toast.success("Theme set to System 🖥");
+        setOpen(false);
+      },
+    },
   ];
 
   // Filter commands by query string
@@ -341,7 +412,7 @@ export const EminarcCommandBar: React.FC<EminarcCommandBarProps> = ({
     (item) =>
       item.title.toLowerCase().includes(query.toLowerCase()) ||
       item.description.toLowerCase().includes(query.toLowerCase()) ||
-      item.category.toLowerCase().includes(query.toLowerCase())
+      item.category.toLowerCase().includes(query.toLowerCase()),
   );
 
   return (
@@ -349,7 +420,8 @@ export const EminarcCommandBar: React.FC<EminarcCommandBarProps> = ({
       <DialogContent className="max-w-2xl p-0 gap-0 overflow-hidden border-[#E5E0D6] bg-[#FCFAF7] shadow-2xl rounded-[22px]">
         <DialogTitle className="sr-only">Eminarc Command Bar</DialogTitle>
         <DialogDescription className="sr-only">
-          Search everything, run AI copilot, navigate pages, create tasks, and generate growth strategy.
+          Search everything, run AI copilot, navigate pages, create tasks, and generate growth
+          strategy.
         </DialogDescription>
 
         {/* Input Bar */}
@@ -373,7 +445,11 @@ export const EminarcCommandBar: React.FC<EminarcCommandBarProps> = ({
               disabled={isExecutingAI}
               className="h-8 px-3 rounded-lg font-bold text-xs bg-[#000000] text-[#FFFFFF] hover:bg-[#222222] gap-1 shrink-0 ml-2"
             >
-              {isExecutingAI ? <RefreshCw className="h-3.5 w-3.5 animate-spin" /> : <Sparkles className="h-3.5 w-3.5 text-amber-300" />}
+              {isExecutingAI ? (
+                <RefreshCw className="h-3.5 w-3.5 animate-spin" />
+              ) : (
+                <Sparkles className="h-3.5 w-3.5 text-amber-300" />
+              )}
               <span>Run AI</span>
             </Button>
           )}
@@ -386,11 +462,16 @@ export const EminarcCommandBar: React.FC<EminarcCommandBarProps> = ({
               <span className="flex items-center gap-1">
                 <Sparkles className="h-3 w-3" /> Growth Copilot Result
               </span>
-              <button onClick={() => setAiResponse(null)} className="text-muted-foreground hover:text-foreground">
+              <button
+                onClick={() => setAiResponse(null)}
+                className="text-muted-foreground hover:text-foreground"
+              >
                 <X className="h-3.5 w-3.5" />
               </button>
             </div>
-            <p className="text-xs text-foreground whitespace-pre-wrap leading-relaxed">{aiResponse}</p>
+            <p className="text-xs text-foreground whitespace-pre-wrap leading-relaxed">
+              {aiResponse}
+            </p>
           </div>
         )}
 
@@ -416,7 +497,9 @@ export const EminarcCommandBar: React.FC<EminarcCommandBarProps> = ({
                       </div>
                       <div className="min-w-0 flex-1">
                         <p className="font-bold text-xs text-foreground truncate">{item.title}</p>
-                        <p className="text-[10px] text-muted-foreground truncate">{item.description}</p>
+                        <p className="text-[10px] text-muted-foreground truncate">
+                          {item.description}
+                        </p>
                       </div>
                     </button>
                   );
@@ -433,9 +516,14 @@ export const EminarcCommandBar: React.FC<EminarcCommandBarProps> = ({
               </span>
               <div className="space-y-0.5 pt-1">
                 {recentHistory.map((item, idx) => (
-                  <div key={idx} className="px-3 py-1.5 text-xs text-muted-foreground flex items-center justify-between rounded-lg hover:bg-secondary/60">
+                  <div
+                    key={idx}
+                    className="px-3 py-1.5 text-xs text-muted-foreground flex items-center justify-between rounded-lg hover:bg-secondary/60"
+                  >
                     <span className="font-mono text-[11px] truncate">{item}</span>
-                    <Badge variant="outline" className="font-mono text-[9px] py-0 px-1.5">History</Badge>
+                    <Badge variant="outline" className="font-mono text-[9px] py-0 px-1.5">
+                      History
+                    </Badge>
                   </div>
                 ))}
               </div>
@@ -462,7 +550,9 @@ export const EminarcCommandBar: React.FC<EminarcCommandBarProps> = ({
                       </div>
                       <div className="min-w-0">
                         <p className="font-bold text-xs text-foreground truncate">{item.title}</p>
-                        <p className="text-[10px] text-muted-foreground truncate">{item.description}</p>
+                        <p className="text-[10px] text-muted-foreground truncate">
+                          {item.description}
+                        </p>
                       </div>
                     </div>
 
@@ -477,7 +567,9 @@ export const EminarcCommandBar: React.FC<EminarcCommandBarProps> = ({
 
               {filteredCommands.length === 0 && (
                 <div className="py-8 text-center space-y-2">
-                  <p className="text-xs font-bold text-foreground">No matching command found for &quot;{query}&quot;</p>
+                  <p className="text-xs font-bold text-foreground">
+                    No matching command found for &quot;{query}&quot;
+                  </p>
                   <Button
                     onClick={() => handleRunAICopilot(query)}
                     disabled={isExecutingAI}
@@ -496,10 +588,16 @@ export const EminarcCommandBar: React.FC<EminarcCommandBarProps> = ({
         <div className="p-3 border-t border-[#E5E0D6] bg-background flex items-center justify-between text-[11px] font-mono text-muted-foreground">
           <div className="flex items-center gap-3">
             <span className="flex items-center gap-1">
-              <kbd className="bg-secondary px-1.5 py-0.5 rounded border border-[#E5E0D6] text-[10px] font-bold">↵</kbd> Select / Run
+              <kbd className="bg-secondary px-1.5 py-0.5 rounded border border-[#E5E0D6] text-[10px] font-bold">
+                ↵
+              </kbd>{" "}
+              Select / Run
             </span>
             <span className="flex items-center gap-1">
-              <kbd className="bg-secondary px-1.5 py-0.5 rounded border border-[#E5E0D6] text-[10px] font-bold">ESC</kbd> Close
+              <kbd className="bg-secondary px-1.5 py-0.5 rounded border border-[#E5E0D6] text-[10px] font-bold">
+                ESC
+              </kbd>{" "}
+              Close
             </span>
           </div>
           <span className="font-bold text-primary flex items-center gap-1">

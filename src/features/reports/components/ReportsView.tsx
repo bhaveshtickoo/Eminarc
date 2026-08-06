@@ -33,7 +33,11 @@ export const mockReportData: Record<string, ConsultingReportData> = {
     ],
     opportunities: [
       { title: "ChatGPT FAQ Schema Integration", impact: "+18% Citations", effort: "Low (2 hrs)" },
-      { title: "LinkedIn Founder Carousel Expansion", impact: "+24% Engagement", effort: "Medium (4 hrs)" },
+      {
+        title: "LinkedIn Founder Carousel Expansion",
+        impact: "+24% Engagement",
+        effort: "Medium (4 hrs)",
+      },
     ],
     recommendations: [
       {
@@ -169,10 +173,7 @@ export const mockReportData: Record<string, ConsultingReportData> = {
         action: "Ensure JSON-LD markup is active on research and CRM pages.",
       },
     ],
-    nextWeekPriorities: [
-      "Run daily LLM citation radar scans.",
-      "Review competitor citation rank.",
-    ],
+    nextWeekPriorities: ["Run daily LLM citation radar scans.", "Review competitor citation rank."],
   },
 
   "rep-competitor": {
@@ -257,10 +258,7 @@ export const ReportsView: React.FC = () => {
   return (
     <div className="space-y-6 pb-12 select-none">
       {/* 6 Report Selector Switcher */}
-      <ReportSelector
-        selectedReportId={selectedReportId}
-        onSelectReport={setSelectedReportId}
-      />
+      <ReportSelector selectedReportId={selectedReportId} onSelectReport={setSelectedReportId} />
 
       {/* Consulting Brief Header & Action Toolbar */}
       <ReportHeader

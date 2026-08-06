@@ -8,6 +8,7 @@ import { isSupabaseConfigured } from "@/lib/supabase/config";
 import { ServiceResult } from "@/lib/supabase/types";
 import { CampaignSpec, CampaignStatus, CampaignType, GrowthCampaignRow } from "./types";
 import { createTask } from "@/services/tasks";
+import { aiMemoryManager } from "../memory/memory-manager";
 
 export class CampaignService {
   /**
@@ -16,7 +17,7 @@ export class CampaignService {
   static async saveCampaign(
     workspaceId: string,
     spec: CampaignSpec,
-    operatingPlanId?: string
+    operatingPlanId?: string,
   ): Promise<ServiceResult<GrowthCampaignRow>> {
     if (!isSupabaseConfigured()) {
       return {
@@ -61,10 +62,19 @@ export class CampaignService {
               priority: "High",
               dueDate: t.dueDate,
             },
-            workspaceId
+            workspaceId,
           );
         }
       }
+
+      // Ingest Campaign context into Workspace Memory
+      await aiMemoryManager.saveMemoryItem({
+        workspaceId,
+        memoryType: "campaign",
+        key: `campaign-${data.id}`,
+        content: `Growth Campaign (${spec.type} — ${spec.title}): Goal=${spec.goal}, Audience=${spec.audience}, Messaging=${spec.messaging}.`,
+        tags: ["growth-campaign", spec.type.toLowerCase(), "outreach"],
+      });
 
       return { data, error: null };
     } catch (err) {
@@ -81,7 +91,7 @@ export class CampaignService {
    */
   static async getWorkspaceCampaigns(
     workspaceId: string,
-    typeFilter?: CampaignType
+    typeFilter?: CampaignType,
   ): Promise<ServiceResult<GrowthCampaignRow[]>> {
     if (!isSupabaseConfigured()) {
       return { data: [], error: null };
@@ -116,7 +126,7 @@ export class CampaignService {
    */
   static async updateCampaignStatus(
     campaignId: string,
-    status: CampaignStatus
+    status: CampaignStatus,
   ): Promise<ServiceResult<GrowthCampaignRow>> {
     if (!isSupabaseConfigured()) {
       return { data: null, error: new Error("Supabase is unconfigured.") };

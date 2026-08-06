@@ -57,8 +57,7 @@ export const StackedBarChart: React.FC<StackedBarChartProps> = ({
   ariaLabel = "Stacked bar chart visualization",
 }) => {
   // Check if data is using legacy format: Array<{ label, values: [{ name, value, color }] }>
-  const isLegacyFormat =
-    Array.isArray(data) && data.length > 0 && "values" in (data[0] as any);
+  const isLegacyFormat = Array.isArray(data) && data.length > 0 && "values" in (data[0] as any);
 
   if (isLegacyFormat) {
     const legacyData = data as LegacyStackedBarItem[];
@@ -68,7 +67,11 @@ export const StackedBarChart: React.FC<StackedBarChartProps> = ({
     );
 
     return (
-      <div className={cn("w-full space-y-4 select-none", className)} role="img" aria-label={ariaLabel}>
+      <div
+        className={cn("w-full space-y-4 select-none", className)}
+        role="img"
+        aria-label={ariaLabel}
+      >
         {showLegend && (
           <div className="flex flex-wrap items-center gap-4 text-xs font-mono">
             {legendItems.map((item, idx) => (
@@ -132,20 +135,27 @@ export const StackedBarChart: React.FC<StackedBarChartProps> = ({
           .map((key, idx) => ({
             key,
             name: key.toUpperCase(),
-            color: defaultStackedColors[idx % defaultStackedColors.length],
+            color: defaultStackedColors[idx % defaultStackedColors.length] || "#18181B",
             stackId: "a",
           }))
       : []);
 
   return (
-    <div className={cn("w-full space-y-3 select-none", className)} role="img" aria-label={ariaLabel}>
+    <div
+      className={cn("w-full space-y-3 select-none", className)}
+      role="img"
+      aria-label={ariaLabel}
+    >
       {showLegend && (
         <div className="flex flex-wrap items-center gap-4 text-xs font-mono">
           {seriesConfig.map((s, idx) => (
             <div key={s.key} className="flex items-center space-x-2">
               <span
                 className="h-2.5 w-2.5 rounded"
-                style={{ backgroundColor: s.color || defaultStackedColors[idx % defaultStackedColors.length] }}
+                style={{
+                  backgroundColor:
+                    s.color || defaultStackedColors[idx % defaultStackedColors.length],
+                }}
               />
               <span className="font-medium text-[#18181B]">{s.name || s.key}</span>
             </div>

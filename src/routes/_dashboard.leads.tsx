@@ -253,7 +253,7 @@ function Leads() {
                     <TableCell>
                       <span
                         className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${
-                          statusColors[l.status]
+                          statusColors[(l.status as LeadStatus) || "New"]
                         }`}
                       >
                         {l.status}

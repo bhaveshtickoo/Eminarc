@@ -79,9 +79,7 @@ export const Timeline: React.FC = () => {
                 </span>
               </div>
 
-              <p className="font-sans text-xs text-[#52525B] leading-relaxed">
-                {evt.description}
-              </p>
+              <p className="font-sans text-xs text-[#52525B] leading-relaxed">{evt.description}</p>
 
               <div className="font-mono text-[9px] text-[#716D64] pt-1 border-t border-[rgba(0,0,0,0.05)]">
                 Logged by: <strong className="text-[#18181B]">{evt.actor}</strong>

@@ -114,10 +114,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   errorComponent: ErrorComponent,
 });
 
+import { ThemeProvider } from "@/components/theme/ThemeProvider";
+
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem("eminarc-theme");var dark=t==="dark"||(!t||t==="system")&&window.matchMedia("(prefers-color-scheme: dark)").matches;if(dark){document.documentElement.classList.add("dark");document.documentElement.style.colorScheme="dark";}else{document.documentElement.classList.remove("dark");document.documentElement.style.colorScheme="light";}}catch(e){}})()`,
+          }}
+        />
         <HeadContent />
       </head>
       <body>
@@ -135,11 +142,13 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <SupabaseProvider>
         <AuthProvider>
-          <SessionManager />
-          <WorkspaceProvider>
-            <Outlet />
-            <Toaster richColors theme="light" position="bottom-right" />
-          </WorkspaceProvider>
+          <ThemeProvider>
+            <SessionManager />
+            <WorkspaceProvider>
+              <Outlet />
+              <Toaster richColors position="bottom-right" />
+            </WorkspaceProvider>
+          </ThemeProvider>
         </AuthProvider>
       </SupabaseProvider>
     </QueryClientProvider>

@@ -18,7 +18,7 @@ export class AIMemoryManager {
    */
   async loadFullMemoryContext(
     workspaceId: string,
-    options?: { companyId?: string; sessionId?: string; campaignId?: string }
+    options?: { companyId?: string; sessionId?: string; campaignId?: string },
   ): Promise<FullAgentMemoryContext> {
     const [workspace, company, founder, conversation, campaign, research] = await Promise.all([
       WorkspaceMemoryLayer.load(workspaceId),
@@ -57,31 +57,31 @@ export class AIMemoryManager {
 
     if (memories.workspace) {
       sections.push(
-        `[WORKSPACE MEMORY]\nName: ${memories.workspace.name}\nIndustry: ${memories.workspace.industry || "B2B SaaS"}\nTagline: ${memories.workspace.tagline || "N/A"}\nBrand Voice: ${memories.workspace.brandVoice?.join(", ") || "Strategic, Founder-first"}`
+        `[WORKSPACE MEMORY]\nName: ${memories.workspace.name}\nIndustry: ${memories.workspace.industry || "B2B SaaS"}\nTagline: ${memories.workspace.tagline || "N/A"}\nBrand Voice: ${memories.workspace.brandVoice?.join(", ") || "Strategic, Founder-first"}`,
       );
     }
 
     if (memories.company) {
       sections.push(
-        `[COMPANY MEMORY]\nTarget Company: ${memories.company.name}\nWebsite: ${memories.company.website || "N/A"}\nSize: ${memories.company.companySize || "N/A"}\nDescription: ${memories.company.description || "N/A"}`
+        `[COMPANY MEMORY]\nTarget Company: ${memories.company.name}\nWebsite: ${memories.company.website || "N/A"}\nSize: ${memories.company.companySize || "N/A"}\nDescription: ${memories.company.description || "N/A"}`,
       );
     }
 
     if (memories.founder) {
       sections.push(
-        `[FOUNDER MEMORY]\nFounder: ${memories.founder.fullName}\nTitle: ${memories.founder.title || "CEO"}\nBio: ${memories.founder.bio || "N/A"}`
+        `[FOUNDER MEMORY]\nFounder: ${memories.founder.fullName}\nTitle: ${memories.founder.title || "CEO"}\nBio: ${memories.founder.bio || "N/A"}`,
       );
     }
 
     if (memories.research) {
       sections.push(
-        `[RESEARCH MEMORY]\nICP Fit: ${memories.research.icpSummary}\nPain Points: ${memories.research.painPoints.join("; ")}\nBuying Signals: ${memories.research.buyingSignals.join("; ")}\nTech Stack: ${memories.research.techStack.join(", ")}\nOpportunity Score: ${memories.research.opportunityScore}/100`
+        `[RESEARCH MEMORY]\nICP Fit: ${memories.research.icpSummary}\nPain Points: ${memories.research.painPoints.join("; ")}\nBuying Signals: ${memories.research.buyingSignals.join("; ")}\nTech Stack: ${memories.research.techStack.join(", ")}\nOpportunity Score: ${memories.research.opportunityScore}/100`,
       );
     }
 
     if (memories.campaign) {
       sections.push(
-        `[CAMPAIGN MEMORY]\nActive Campaign: ${memories.campaign.name} (${memories.campaign.channel})\nTarget Leads: ${memories.campaign.targetLeadsCount}\nSequence: ${memories.campaign.activeSequence}`
+        `[CAMPAIGN MEMORY]\nActive Campaign: ${memories.campaign.name} (${memories.campaign.channel})\nTarget Leads: ${memories.campaign.targetLeadsCount}\nSequence: ${memories.campaign.activeSequence}`,
       );
     }
 
@@ -95,6 +95,25 @@ export class AIMemoryManager {
 
     sections.push("================================");
     return sections.join("\n\n");
+  }
+
+  /**
+   * Save an item into Supabase Memory Store
+   */
+  async saveMemoryItem(params: {
+    workspaceId: string;
+    memoryType: string;
+    key: string;
+    content: string;
+    tags?: string[];
+  }): Promise<boolean> {
+    return SupabaseMemoryStore.saveMemoryItem({
+      workspace_id: params.workspaceId,
+      memory_type: params.memoryType,
+      key: params.key,
+      content: params.content,
+      tags: params.tags,
+    });
   }
 
   /**

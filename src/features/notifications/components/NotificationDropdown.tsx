@@ -47,10 +47,7 @@ export const NotificationDropdown: React.FC<NotificationDropdownProps> = ({
       {/* Dropdown Menu Window */}
       {isOpen && (
         <>
-          <div
-            className="fixed inset-0 z-40"
-            onClick={() => setIsOpen(false)}
-          />
+          <div className="fixed inset-0 z-40" onClick={() => setIsOpen(false)} />
 
           <div className="absolute right-0 top-11 z-50 w-80 sm:w-96 rounded-[18px] bg-[#FCFAF7] border border-[rgba(0,0,0,0.12)] shadow-[0_12px_32px_-4px_rgba(0,0,0,0.15)] p-4 space-y-3 animate-in fade-in-0 zoom-in-95 duration-150">
             {/* Dropdown Header */}

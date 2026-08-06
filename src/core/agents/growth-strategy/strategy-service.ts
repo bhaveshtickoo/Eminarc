@@ -7,6 +7,7 @@ import { supabase } from "@/lib/supabase/client";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 import { ServiceResult } from "@/lib/supabase/types";
 import { GrowthStrategyOutput, GrowthStrategyRow } from "./types";
+import { aiMemoryManager } from "../../memory/memory-manager";
 
 export class GrowthStrategyService {
   /**
@@ -16,7 +17,7 @@ export class GrowthStrategyService {
     workspaceId: string,
     output: GrowthStrategyOutput,
     companyId?: string,
-    researchReportId?: string
+    researchReportId?: string,
   ): Promise<ServiceResult<GrowthStrategyRow>> {
     if (!isSupabaseConfigured()) {
       return {
@@ -55,12 +56,23 @@ export class GrowthStrategyService {
         .single();
 
       if (error) throw error;
+
+      // Ingest Strategy context into Workspace Memory
+      await aiMemoryManager.saveMemoryItem({
+        workspaceId,
+        memoryType: "strategy",
+        key: `growth-strategy-${data.id}`,
+        content: `Growth Strategy Playbook (${output.title}): Positioning=${output.positioning.tagline}, Focus=${output.positioning.categoryName}, Outcome=${output.valueProposition.primaryOutcome}.`,
+        tags: ["growth-strategy", "playbook", "okrs", "positioning"],
+      });
+
       return { data, error: null };
     } catch (err) {
       console.error("[GrowthStrategyService.saveStrategy] Error:", err);
       return {
         data: null,
-        error: err instanceof Error ? err : new Error("Failed to save Growth Strategy in Supabase."),
+        error:
+          err instanceof Error ? err : new Error("Failed to save Growth Strategy in Supabase."),
       };
     }
   }
@@ -70,7 +82,7 @@ export class GrowthStrategyService {
    */
   static async getStrategy(
     workspaceId: string,
-    companyId?: string
+    companyId?: string,
   ): Promise<ServiceResult<GrowthStrategyRow>> {
     if (!isSupabaseConfigured()) {
       return { data: null, error: new Error("Supabase is unconfigured.") };
@@ -107,7 +119,7 @@ export class GrowthStrategyService {
   static async updateStrategyVersion(
     strategyId: string,
     newOutput: GrowthStrategyOutput,
-    currentVersion: number
+    currentVersion: number,
   ): Promise<ServiceResult<GrowthStrategyRow>> {
     if (!isSupabaseConfigured()) {
       return { data: null, error: new Error("Supabase is unconfigured.") };

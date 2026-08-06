@@ -31,12 +31,14 @@ export const defaultMockResearch: ResearchReportData[] = [
     recommendations: [
       {
         title: "Publish Technical Deep Dives",
-        description: "Author 2 architecture teardowns monthly to capture high-intent developer search traffic.",
+        description:
+          "Author 2 architecture teardowns monthly to capture high-intent developer search traffic.",
         impact: "High",
       },
       {
         title: "Optimize LLM Entity Association",
-        description: "Structured schema markup and Reddit case studies to boost Claude & ChatGPT recommendation rank.",
+        description:
+          "Structured schema markup and Reddit case studies to boost Claude & ChatGPT recommendation rank.",
         impact: "High",
       },
     ],
@@ -50,7 +52,10 @@ export async function getResearch(workspaceId?: string): Promise<ResearchReportD
   }
 
   try {
-    let query = supabase.from("content_items").select("*").order("created_at", { ascending: false });
+    let query = supabase
+      .from("content_items")
+      .select("*")
+      .order("created_at", { ascending: false });
     if (workspaceId) {
       query = query.eq("workspace_id", workspaceId);
     }
@@ -69,7 +74,7 @@ export async function getResearch(workspaceId?: string): Promise<ResearchReportD
             impact: "High" as const,
           },
         ],
-        createdAt: row.created_at ? row.created_at.split("T")[0] : "2026-08-01",
+        createdAt: row.created_at ? row.created_at.split("T")[0] || "2026-08-01" : "2026-08-01",
       }));
     }
   } catch (err) {

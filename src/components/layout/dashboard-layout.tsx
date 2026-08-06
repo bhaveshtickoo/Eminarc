@@ -8,7 +8,11 @@ import { AiChatPanel } from "@/components/layout/ai-chat-panel";
 import { GlobalCommandCenter } from "@/components/command/GlobalCommandCenter";
 import { EminarcCommandBar } from "@/components/command/EminarcCommandBar";
 import { CommandShortcut } from "@/components/command/CommandShortcut";
-import { NotificationDropdown, initialNotifications, NotificationItemData } from "@/features/notifications";
+import {
+  NotificationDropdown,
+  initialNotifications,
+  NotificationItemData,
+} from "@/features/notifications";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -22,6 +26,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/hooks/useAuth";
 import { ErrorState } from "@/components/shared/ErrorState";
+import { ThemeToggle } from "@/components/theme/ThemeToggle";
 
 // Defensive React Error Boundary Component
 class DashboardErrorBoundary extends React.Component<
@@ -49,7 +54,7 @@ class DashboardErrorBoundary extends React.Component<
             categoryTag="RUNTIME ERROR BOUNDARY"
             title="Module Error Handled"
             description="An unexpected error occurred while rendering this dashboard component. The rest of your workspace shell remains operational."
-            errorMessage={this.state.error?.message}
+            {...(this.state.error?.message ? { errorMessage: this.state.error.message } : {})}
             onRetry={() => this.setState({ hasError: false, error: null })}
           />
         </div>
@@ -67,7 +72,8 @@ export function DashboardLayout() {
   const { user, profile, signOut } = useAuth();
   const [chatOpen, setChatOpen] = useState(false);
   const [commandOpen, setCommandOpen] = useState(false);
-  const [notificationsList, setNotificationsList] = useState<NotificationItemData[]>(initialNotifications);
+  const [notificationsList, setNotificationsList] =
+    useState<NotificationItemData[]>(initialNotifications);
 
   const displayEmail = profile?.email || user?.email || "jordan@eminarc.com";
   const displayInitials = (profile?.fullName || user?.email || "Jordan")
@@ -88,20 +94,32 @@ export function DashboardLayout() {
     navigate({ to: "/login" });
   };
 
-  const topNav = [
-    { title: "Overview", url: "/" as const },
-    { title: "Research", url: "/research" as const },
-    { title: "AI Visibility", url: "/visibility" as const },
-    { title: "Growth CRM", url: "/crm" as const },
-    { title: "Agents Hub", url: "/agents" as const },
-    { title: "Content", url: "/content" as const },
-    { title: "Distribution", url: "/distribution" as const },
-    { title: "Clients", url: "/clients" as const },
-    { title: "Analytics", url: "/analytics" as const },
-  ];
+  const routeTitles: Record<string, string> = {
+    "/": "Overview",
+    "/research": "Founder Research",
+    "/execution": "Execution Planner",
+    "/campaigns": "Campaign Engine",
+    "/visibility": "AI Search Visibility",
+    "/crm": "Growth CRM",
+    "/agents": "Agents (AI Hub)",
+    "/content": "Content Hub",
+    "/content/library": "Content Library",
+    "/distribution": "Distribution Queue",
+    "/clients": "Clients",
+    "/leads": "Leads & ICP",
+    "/outreach": "Outreach",
+    "/analytics": "Analytics",
+    "/reports": "Executive Reports",
+    "/tasks": "Tasks",
+    "/integrations": "Integrations",
+    "/settings": "Settings",
+  };
 
-  const isActive = (path: string) =>
-    path === "/" ? currentPath === "/" : currentPath === path || currentPath.startsWith(`${path}/`);
+  const getPageTitle = () => {
+    if (routeTitles[currentPath]) return routeTitles[currentPath];
+    const match = Object.keys(routeTitles).find((key) => key !== "/" && currentPath.startsWith(key));
+    return match ? routeTitles[match] : "Dashboard";
+  };
 
   const handleMarkAllRead = () => {
     setNotificationsList((prev) => prev.map((n) => ({ ...n, read: true })));
@@ -113,25 +131,18 @@ export function DashboardLayout() {
         <AppSidebar />
         <div className="flex flex-1 overflow-hidden">
           <SidebarInset className="flex flex-col">
-            <header className="flex h-14 shrink-0 items-center gap-3 border-b px-4">
-              <SidebarTrigger className="-ml-1" />
-              <nav className="hidden items-center gap-1 md:flex">
-                {topNav.map((item) => (
-                  <Link
-                    key={item.url}
-                    to={item.url}
-                    aria-current={isActive(item.url) ? "page" : undefined}
-                    className={cn(
-                      "rounded-lg px-2.5 py-1.5 text-sm font-medium transition-colors",
-                      isActive(item.url)
-                        ? "bg-primary text-primary-foreground font-bold"
-                        : "text-muted-foreground hover:bg-accent hover:text-foreground"
-                    )}
-                  >
-                    {item.title}
-                  </Link>
-                ))}
-              </nav>
+            <header className="flex h-14 shrink-0 items-center justify-between border-b px-4 bg-background/80 backdrop-blur-md">
+              <div className="flex items-center gap-3">
+                <SidebarTrigger className="-ml-1" />
+                <div className="h-4 w-[1px] bg-border/60 hidden sm:block" />
+                <div className="hidden sm:flex items-center gap-2 text-sm font-medium">
+                  <span className="text-muted-foreground font-mono text-[11px] font-semibold uppercase tracking-wider">Eminarc OS</span>
+                  <span className="text-muted-foreground/40 font-mono text-xs">/</span>
+                  <span className="font-semibold text-foreground font-display text-sm">{getPageTitle()}</span>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2 sm:gap-3">
 
               {/* Global Command Center Trigger Button (Cmd+K) */}
               <button
@@ -162,6 +173,9 @@ export function DashboardLayout() {
                 onMarkAllRead={handleMarkAllRead}
               />
 
+              {/* Reusable Theme Switcher */}
+              <ThemeToggle align="end" variant="ghost" size="icon" />
+
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <button className="flex items-center gap-2 rounded-full outline-none">
@@ -173,7 +187,7 @@ export function DashboardLayout() {
                     <ChevronDown className="h-3.5 w-3.5 text-muted-foreground" />
                   </button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-48">
+                <DropdownMenuContent align="end" className="w-52">
                   <DropdownMenuLabel className="truncate">{displayEmail}</DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem asChild>
@@ -192,6 +206,7 @@ export function DashboardLayout() {
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
+              </div>
             </header>
 
             <main className="flex-1 overflow-y-auto p-4 sm:p-6">

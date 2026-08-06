@@ -34,7 +34,8 @@ function VerifyEmail() {
           </div>
           <h1 className="font-display text-2xl font-bold">Check your email</h1>
           <p className="mt-1 text-sm text-muted-foreground">
-            We sent a verification link to <span className="font-medium text-foreground">{email}</span>
+            We sent a verification link to{" "}
+            <span className="font-medium text-foreground">{email}</span>
           </p>
         </div>
 
@@ -43,7 +44,8 @@ function VerifyEmail() {
             <Mail className="h-6 w-6" />
           </div>
           <p className="text-xs text-muted-foreground leading-relaxed">
-            Click the link in the verification email to complete your registration and log in to your Eminarc workspace.
+            Click the link in the verification email to complete your registration and log in to
+            your Eminarc workspace.
           </p>
           <div className="pt-2">
             <Button asChild variant="outline" className="w-full gap-2">

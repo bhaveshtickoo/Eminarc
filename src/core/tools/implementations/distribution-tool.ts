@@ -13,7 +13,8 @@ export interface DistributionToolParams {
 export class DistributionTool implements AITool<DistributionToolParams, any> {
   definition: AIToolDefinition = {
     name: "distribution_tool",
-    description: "Manages multi-channel post schedules, email sequences, and community distribution.",
+    description:
+      "Manages multi-channel post schedules, email sequences, and community distribution.",
     parameters: {
       type: "object",
       properties: {
@@ -37,9 +38,30 @@ export class DistributionTool implements AITool<DistributionToolParams, any> {
       return {
         success: true,
         data: [
-          { id: "s1", name: "Founder Funding Signals", channel: "Email", leads: 47, replies: 9, sent: 32 },
-          { id: "s2", name: "LinkedIn warm intro batch", channel: "LinkedIn", leads: 28, replies: 14, sent: 28 },
-          { id: "s3", name: "Reddit high-intent responders", channel: "Reddit", leads: 19, replies: 7, sent: 12 },
+          {
+            id: "s1",
+            name: "Founder Funding Signals",
+            channel: "Email",
+            leads: 47,
+            replies: 9,
+            sent: 32,
+          },
+          {
+            id: "s2",
+            name: "LinkedIn warm intro batch",
+            channel: "LinkedIn",
+            leads: 28,
+            replies: 14,
+            sent: 28,
+          },
+          {
+            id: "s3",
+            name: "Reddit high-intent responders",
+            channel: "Reddit",
+            leads: 19,
+            replies: 7,
+            sent: 12,
+          },
         ],
       };
     }

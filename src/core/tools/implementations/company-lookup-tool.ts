@@ -15,7 +15,8 @@ export interface CompanyLookupParams {
 export class CompanyLookupTool implements AITool<CompanyLookupParams, any> {
   definition: AIToolDefinition = {
     name: "company_lookup",
-    description: "Queries company record intelligence from Supabase database by name or website domain.",
+    description:
+      "Queries company record intelligence from Supabase database by name or website domain.",
     parameters: {
       type: "object",
       properties: {

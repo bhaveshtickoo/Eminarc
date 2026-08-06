@@ -17,7 +17,7 @@ export class ExecutionService {
     workspaceId: string,
     plan: StructuredOperatingPlan,
     strategyId?: string,
-    reportId?: string
+    reportId?: string,
   ): Promise<ServiceResult<OperatingPlanRow>> {
     if (!isSupabaseConfigured()) {
       return {
@@ -67,7 +67,7 @@ export class ExecutionService {
    */
   static async getOperatingPlan(
     workspaceId: string,
-    strategyId?: string
+    strategyId?: string,
   ): Promise<ServiceResult<OperatingPlanRow>> {
     if (!isSupabaseConfigured()) {
       return { data: null, error: new Error("Supabase is unconfigured.") };
@@ -103,7 +103,7 @@ export class ExecutionService {
    */
   static async syncTasksToSupabase(
     workspaceId: string,
-    tasks: StructuredOperatingPlan["tasks"]
+    tasks: StructuredOperatingPlan["tasks"],
   ): Promise<void> {
     try {
       for (const t of tasks) {
@@ -111,11 +111,13 @@ export class ExecutionService {
           {
             title: t.title,
             description: `${t.description}\nExpected Impact: ${t.expectedImpact}\nAssigned Owner: ${t.owner}\nDependencies: ${t.dependencies.length > 0 ? t.dependencies.join(", ") : "None"}`,
-            category: (t.priority === "Critical" || t.priority === "High" ? "Outreach" : "Content") as any,
+            category: (t.priority === "Critical" || t.priority === "High"
+              ? "Outreach"
+              : "Content") as any,
             priority: t.priority === "Critical" ? "High" : t.priority,
             dueDate: new Date().toISOString().split("T")[0],
           },
-          workspaceId
+          workspaceId,
         );
       }
     } catch (err) {

@@ -121,9 +121,7 @@ export const PipelineBoard: React.FC<PipelineBoardProps> = ({ onSelectDeal }) =>
 
   const handleDropOnStage = (stage: (typeof pipelineStages)[number]) => {
     if (!draggedDealId) return;
-    setDeals((prev) =>
-      prev.map((d) => (d.id === draggedDealId ? { ...d, stage } : d)),
-    );
+    setDeals((prev) => prev.map((d) => (d.id === draggedDealId ? { ...d, stage } : d)));
     toast.success(`Moved deal to "${stage}" stage`);
     setDraggedDealId(null);
   };
@@ -173,11 +171,7 @@ export const PipelineBoard: React.FC<PipelineBoardProps> = ({ onSelectDeal }) =>
               {/* Cards in Column */}
               <div className="space-y-2 min-h-[260px]">
                 {stageDeals.map((deal) => (
-                  <div
-                    key={deal.id}
-                    draggable
-                    onDragStart={() => handleDragStart(deal.id)}
-                  >
+                  <div key={deal.id} draggable onDragStart={() => handleDragStart(deal.id)}>
                     <DealCard deal={deal} onSelect={onSelectDeal} />
                   </div>
                 ))}

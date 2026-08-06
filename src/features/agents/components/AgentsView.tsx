@@ -23,6 +23,8 @@ import { AgentCharts } from "./AgentCharts";
 import { ErrorState } from "@/components/shared/ErrorState";
 import { CardSkeleton } from "@/components/shared/SkeletonLoader";
 import { getAgentsList } from "@/services/agents";
+import { GrowthCopilotChat } from "@/components/copilot/GrowthCopilotChat";
+import { aiOrchestrator } from "@/core/ai/orchestrator";
 
 export const initialAgents: AgentCardData[] = [
   {
@@ -37,7 +39,8 @@ export const initialAgents: AgentCardData[] = [
     lastRun: "10 mins ago",
     nextScheduledRun: "In 2 hours",
     confidenceScore: 98,
-    purpose: "Scrapes domain headers, parses founder LinkedIn, and populates 13 Workspace Knowledge Base entities.",
+    purpose:
+      "Scrapes domain headers, parses founder LinkedIn, and populates 13 Workspace Knowledge Base entities.",
   },
   {
     id: "ag-content",
@@ -51,7 +54,8 @@ export const initialAgents: AgentCardData[] = [
     lastRun: "Running now",
     nextScheduledRun: "Continuous",
     confidenceScore: 96,
-    purpose: "Transforms core research breakdowns into 8 multi-channel assets (LinkedIn, Medium, X, Newsletter, etc.).",
+    purpose:
+      "Transforms core research breakdowns into 8 multi-channel assets (LinkedIn, Medium, X, Newsletter, etc.).",
   },
   {
     id: "ag-visibility",
@@ -65,7 +69,8 @@ export const initialAgents: AgentCardData[] = [
     lastRun: "45 mins ago",
     nextScheduledRun: "In 1 hour",
     confidenceScore: 97,
-    purpose: "Audits ChatGPT, Claude, and Perplexity brand citation indexing and outputs structured schema fixes.",
+    purpose:
+      "Audits ChatGPT, Claude, and Perplexity brand citation indexing and outputs structured schema fixes.",
   },
   {
     id: "ag-crm",
@@ -79,7 +84,8 @@ export const initialAgents: AgentCardData[] = [
     lastRun: "1 hour ago",
     nextScheduledRun: "In 3 hours",
     confidenceScore: 95,
-    purpose: "Qualifies inbound founder prospects, calculates AI fit scores, and moves Kanban deals automatically.",
+    purpose:
+      "Qualifies inbound founder prospects, calculates AI fit scores, and moves Kanban deals automatically.",
   },
   {
     id: "ag-distribution",
@@ -107,7 +113,8 @@ export const initialAgents: AgentCardData[] = [
     lastRun: "3 hours ago",
     nextScheduledRun: "In 6 hours",
     confidenceScore: 99,
-    purpose: "Aggregates cross-channel engagement metrics, impressions, and CAC conversion velocity.",
+    purpose:
+      "Aggregates cross-channel engagement metrics, impressions, and CAC conversion velocity.",
   },
   {
     id: "ag-weekly-review",
@@ -121,7 +128,8 @@ export const initialAgents: AgentCardData[] = [
     lastRun: "2 days ago",
     nextScheduledRun: "Sunday 09:00 AM",
     confidenceScore: 96,
-    purpose: "Synthesizes weekly growth OS telemetry into an executive board briefing for founders.",
+    purpose:
+      "Synthesizes weekly growth OS telemetry into an executive board briefing for founders.",
   },
 ];
 
@@ -148,21 +156,54 @@ export const AgentsView: React.FC = () => {
     loadAgentsData();
   }, [currentWorkspace?.id]);
 
-  const handleTriggerRunAll = () => {
-    toast.success("Orchestrating All 7 Agents", {
-      description: "Triggered sequential background workflow across Eminarc AI Agent suite.",
+  const [isPipelineRunning, setIsPipelineRunning] = useState(false);
+  const [pipelineProgress, setPipelineProgress] = useState<{
+    step: string;
+    message: string;
+  } | null>(null);
+
+  const handleTriggerRunAll = async () => {
+    if (isPipelineRunning) return;
+    setIsPipelineRunning(true);
+
+    toast.info("Starting 8-Step Autonomous Growth Pipeline", {
+      description:
+        "Executing Founder Research → Market Research → Growth Strategy → Planning → Campaign → Task Generator → Execution Planner → Reporting.",
     });
+
+    const unsubscribe = aiOrchestrator.subscribeWorkflow((event) => {
+      if (event.type === "progress" || event.type === "handoff") {
+        setPipelineProgress({
+          step: event.stepId,
+          message: event.message || `Executing step ${event.stepId}...`,
+        });
+      }
+    });
+
+    try {
+      const result = await aiOrchestrator.runGrowthPipeline({
+        workspaceId: currentWorkspace.id,
+      });
+
+      toast.success("Autonomous Growth Pipeline Complete!", {
+        description: `Executed 8 steps in ${(result.totalLatencyMs / 1000).toFixed(1)}s. Strategy, 8 campaigns & operating plan saved to Supabase.`,
+      });
+    } catch (err) {
+      toast.error("Growth Pipeline execution failed.", {
+        description: (err as Error).message,
+      });
+    } finally {
+      unsubscribe();
+      setIsPipelineRunning(false);
+      setPipelineProgress(null);
+    }
   };
 
   const handleTriggerSingleRun = (id: string, name: string) => {
-    setAgents((prev) =>
-      prev.map((a) => (a.id === id ? { ...a, status: "Running" } : a)),
-    );
+    setAgents((prev) => prev.map((a) => (a.id === id ? { ...a, status: "Running" } : a)));
     toast.success(`Triggered ${name}`);
     setTimeout(() => {
-      setAgents((prev) =>
-        prev.map((a) => (a.id === id ? { ...a, status: "Completed" } : a)),
-      );
+      setAgents((prev) => prev.map((a) => (a.id === id ? { ...a, status: "Completed" } : a)));
     }, 2500);
   };
 
@@ -176,8 +217,7 @@ export const AgentsView: React.FC = () => {
               ORCHESTRATION CENTER / {currentWorkspace.name.toUpperCase()}
             </span>
             <span className="font-mono text-[10px] text-[#2D6A4F] bg-[#EDF6F0] px-2.5 py-1 rounded-full border border-[#C8E4D0] font-bold flex items-center">
-              <ShieldCheck className="h-3 w-3 mr-1 text-[#2D6A4F]" />
-              7 AGENTS OPERATIONAL
+              <ShieldCheck className="h-3 w-3 mr-1 text-[#2D6A4F]" />7 AGENTS OPERATIONAL
             </span>
           </div>
 
@@ -186,7 +226,8 @@ export const AgentsView: React.FC = () => {
           </h1>
 
           <p className="font-sans text-xs md:text-sm text-[#52525B] mt-1">
-            Autonomous growth agents powering research, content generation, GEO visibility, and CRM intelligence for {currentWorkspace.name}.
+            Autonomous growth agents powering research, content generation, GEO visibility, and CRM
+            intelligence for {currentWorkspace.name}.
           </p>
         </div>
 
@@ -201,6 +242,11 @@ export const AgentsView: React.FC = () => {
             <span>Run All 7 Agents</span>
           </button>
         </div>
+      </div>
+
+      {/* Growth Copilot AI Chat Orchestrator */}
+      <div className="my-6">
+        <GrowthCopilotChat />
       </div>
 
       {/* 7 Agent Cards Grid */}

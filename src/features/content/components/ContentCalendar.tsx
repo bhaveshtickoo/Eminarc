@@ -43,9 +43,7 @@ export const ContentCalendar: React.FC = () => {
           <CalendarIcon className="h-3.5 w-3.5 mr-1.5 text-[#18181B]" />
           MINI CONTENT CALENDAR
         </span>
-        <span className="font-mono text-[9px] text-[#2D6A4F] font-bold">
-          3 DEADLINES UPCOMING
-        </span>
+        <span className="font-mono text-[9px] text-[#2D6A4F] font-bold">3 DEADLINES UPCOMING</span>
       </div>
 
       {/* Deadlines List */}

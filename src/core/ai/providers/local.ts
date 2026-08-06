@@ -16,7 +16,7 @@ export class LocalLLMProvider implements LLMProvider {
 
   async complete<T = any>(
     prompt: string,
-    options: LLMRequestOptions = {}
+    options: LLMRequestOptions = {},
   ): Promise<LLMResponse<T>> {
     const startTime = Date.now();
     const model = options.model || "llama3.2";

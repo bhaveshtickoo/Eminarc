@@ -9,11 +9,7 @@ export interface CommandDialogProps {
   children: React.ReactNode;
 }
 
-export const CommandDialog: React.FC<CommandDialogProps> = ({
-  open,
-  onOpenChange,
-  children,
-}) => {
+export const CommandDialog: React.FC<CommandDialogProps> = ({ open, onOpenChange, children }) => {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape" && open) {

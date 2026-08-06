@@ -23,7 +23,7 @@ export class OpenAIProvider implements LLMProvider {
 
   async complete<T = any>(
     prompt: string,
-    options: LLMRequestOptions = {}
+    options: LLMRequestOptions = {},
   ): Promise<LLMResponse<T>> {
     const startTime = Date.now();
     const apiKey = options.apiKey || this.defaultApiKey;
@@ -41,7 +41,12 @@ export class OpenAIProvider implements LLMProvider {
       return {
         content: `[OpenAI Offline Fallback] Analysis generated for model ${model}`,
         data: parsedData as T,
-        usage: { promptTokens: 50, completionTokens: 100, totalTokens: 150, estimatedCostUsd: 0.0001 },
+        usage: {
+          promptTokens: 50,
+          completionTokens: 100,
+          totalTokens: 150,
+          estimatedCostUsd: 0.0001,
+        },
         model,
         providerName: this.name,
         latencyMs,
@@ -113,7 +118,7 @@ export class OpenAIProvider implements LLMProvider {
   async completeStream(
     prompt: string,
     onChunk: (chunk: string) => void,
-    options: LLMRequestOptions = {}
+    options: LLMRequestOptions = {},
   ): Promise<LLMResponse<string>> {
     const res = await this.complete<string>(prompt, options);
     onChunk(res.content);

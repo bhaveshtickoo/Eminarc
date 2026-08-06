@@ -2,15 +2,7 @@
 
 import React from "react";
 import { cn } from "@/lib/utils";
-import {
-  Linkedin,
-  Twitter,
-  Mail,
-  FileText,
-  MessageSquare,
-  Video,
-  Send,
-} from "lucide-react";
+import { Linkedin, Twitter, Mail, FileText, MessageSquare, Video, Send } from "lucide-react";
 
 export interface PlatformOption {
   id: string;

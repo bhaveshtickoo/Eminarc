@@ -33,13 +33,10 @@ export interface LLMResponse<T = any> {
 export interface LLMProvider {
   name: string;
   supportsStreaming: boolean;
-  complete<T = any>(
-    prompt: string,
-    options?: LLMRequestOptions
-  ): Promise<LLMResponse<T>>;
+  complete<T = any>(prompt: string, options?: LLMRequestOptions): Promise<LLMResponse<T>>;
   completeStream?(
     prompt: string,
     onChunk: (chunk: string) => void,
-    options?: LLMRequestOptions
+    options?: LLMRequestOptions,
   ): Promise<LLMResponse<string>>;
 }

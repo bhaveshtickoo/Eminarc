@@ -2,7 +2,7 @@
 
 **Date**: August 1, 2026  
 **Status**: Completed & Production Ready  
-**Framework**: React 19 + Vite + TanStack Router + Tailwind CSS v4 + shadcn/ui + Recharts  
+**Framework**: React 19 + Vite + TanStack Router + Tailwind CSS v4 + shadcn/ui + Recharts
 
 ---
 

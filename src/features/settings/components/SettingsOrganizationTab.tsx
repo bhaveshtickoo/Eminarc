@@ -31,21 +31,29 @@ export const SettingsOrganizationTab: React.FC = () => {
               Organization Identity & Structure
             </h3>
             <p className="text-xs text-[#52525B] mt-0.5">
-              Manage parent entity attributes, legal registration, domain authority, and billing contact points.
+              Manage parent entity attributes, legal registration, domain authority, and billing
+              contact points.
             </p>
           </div>
           <button
             type="submit"
             className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#000000] text-[#FFFFFF] font-mono text-xs font-bold hover:bg-[#222222] transition-colors cursor-pointer"
           >
-            {isSaved ? <Check className="h-3.5 w-3.5 text-emerald-400" /> : <Save className="h-3.5 w-3.5" />}
+            {isSaved ? (
+              <Check className="h-3.5 w-3.5 text-emerald-400" />
+            ) : (
+              <Save className="h-3.5 w-3.5" />
+            )}
             <span>{isSaved ? "Saved" : "Save Changes"}</span>
           </button>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-1.5">
-            <label htmlFor="org-name" className="text-xs font-semibold text-[#18181B] flex items-center gap-1.5">
+            <label
+              htmlFor="org-name"
+              className="text-xs font-semibold text-[#18181B] flex items-center gap-1.5"
+            >
               <Building className="h-3.5 w-3.5 text-[#716D64]" /> Display Name
             </label>
             <input
@@ -71,7 +79,10 @@ export const SettingsOrganizationTab: React.FC = () => {
           </div>
 
           <div className="space-y-1.5">
-            <label htmlFor="org-domain" className="text-xs font-semibold text-[#18181B] flex items-center gap-1.5">
+            <label
+              htmlFor="org-domain"
+              className="text-xs font-semibold text-[#18181B] flex items-center gap-1.5"
+            >
               <Globe className="h-3.5 w-3.5 text-[#716D64]" /> Corporate Domain
             </label>
             <input
@@ -84,7 +95,10 @@ export const SettingsOrganizationTab: React.FC = () => {
           </div>
 
           <div className="space-y-1.5">
-            <label htmlFor="org-tax" className="text-xs font-semibold text-[#18181B] flex items-center gap-1.5">
+            <label
+              htmlFor="org-tax"
+              className="text-xs font-semibold text-[#18181B] flex items-center gap-1.5"
+            >
               <ShieldCheck className="h-3.5 w-3.5 text-[#716D64]" /> Tax / VAT ID
             </label>
             <input
@@ -97,7 +111,10 @@ export const SettingsOrganizationTab: React.FC = () => {
           </div>
 
           <div className="space-y-1.5">
-            <label htmlFor="org-email" className="text-xs font-semibold text-[#18181B] flex items-center gap-1.5">
+            <label
+              htmlFor="org-email"
+              className="text-xs font-semibold text-[#18181B] flex items-center gap-1.5"
+            >
               <Mail className="h-3.5 w-3.5 text-[#716D64]" /> Primary Contact Email
             </label>
             <input
@@ -110,7 +127,10 @@ export const SettingsOrganizationTab: React.FC = () => {
           </div>
 
           <div className="space-y-1.5">
-            <label htmlFor="org-location" className="text-xs font-semibold text-[#18181B] flex items-center gap-1.5">
+            <label
+              htmlFor="org-location"
+              className="text-xs font-semibold text-[#18181B] flex items-center gap-1.5"
+            >
               <MapPin className="h-3.5 w-3.5 text-[#716D64]" /> Headquarter Location
             </label>
             <input

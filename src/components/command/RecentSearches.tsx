@@ -14,7 +14,12 @@ export interface RecentItem {
 
 export const recentSearchesList: RecentItem[] = [
   { id: "rec-1", title: "TrueLift.ai Founder Profile", category: "Company", url: "/crm" },
-  { id: "rec-2", title: "Generative Engine Optimization (GEO)", category: "Research", url: "/visibility" },
+  {
+    id: "rec-2",
+    title: "Generative Engine Optimization (GEO)",
+    category: "Research",
+    url: "/visibility",
+  },
   { id: "rec-3", title: "System Over Campaign Q3 Breakdown", category: "Content", url: "/content" },
 ];
 

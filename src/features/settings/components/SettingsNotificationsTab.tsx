@@ -29,7 +29,8 @@ export const SettingsNotificationsTab: React.FC = () => {
             Notification Channels & Rules
           </h3>
           <p className="text-xs text-[#52525B] mt-0.5">
-            Configure how and when your workspace team receives growth reports, AI completion digests, and security alerts.
+            Configure how and when your workspace team receives growth reports, AI completion
+            digests, and security alerts.
           </p>
         </div>
 

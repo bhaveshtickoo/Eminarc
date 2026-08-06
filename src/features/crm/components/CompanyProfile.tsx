@@ -19,9 +19,7 @@ export interface CompanyProfileProps {
   companyName?: string;
 }
 
-export const CompanyProfile: React.FC<CompanyProfileProps> = ({
-  companyName = "TrueLift.ai",
-}) => {
+export const CompanyProfile: React.FC<CompanyProfileProps> = ({ companyName = "TrueLift.ai" }) => {
   const { currentWorkspace } = useWorkspace();
   const kb = currentWorkspace.knowledgeBase;
 
@@ -81,7 +79,8 @@ export const CompanyProfile: React.FC<CompanyProfileProps> = ({
             02. Founder Research Summary
           </h4>
           <p className="font-sans text-xs text-[#18181B] leading-relaxed">
-            Founder: <strong>{kb.founderProfile.name}</strong> ({kb.founderProfile.background || kb.founderProfile.bio})
+            Founder: <strong>{kb.founderProfile.name}</strong> (
+            {kb.founderProfile.background || kb.founderProfile.bio})
           </p>
           <p className="font-sans text-xs text-[#716D64]">
             Friction: {kb.painPoints[0]?.title} — {kb.painPoints[0]?.impact}
@@ -99,7 +98,9 @@ export const CompanyProfile: React.FC<CompanyProfileProps> = ({
               <span>Growth OS Annual Contract</span>
               <span className="text-[#2D6A4F]">$24,000</span>
             </div>
-            <p className="font-mono text-[10px] text-[#716D64]">Stage: Negotiation (96% AI Qualification)</p>
+            <p className="font-mono text-[10px] text-[#716D64]">
+              Stage: Negotiation (96% AI Qualification)
+            </p>
           </div>
         </div>
 

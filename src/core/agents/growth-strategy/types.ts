@@ -78,6 +78,67 @@ export interface MetricKPI {
   measurementFrequency: string;
 }
 
+export interface ContentStrategySpec {
+  editorialThemes: string[];
+  publishingCadence: string;
+  coreFormats: string[];
+  repurposingWorkflow: string;
+}
+
+export interface OutboundStrategySpec {
+  sequenceFocus: string;
+  targetPersonas: string[];
+  dailyVolume: string;
+  expectedReplyRate: string;
+}
+
+export interface InboundStrategySpec {
+  leadMagnetTitle: string;
+  funnelStages: string[];
+  targetConversionRate: string;
+}
+
+export interface DemandGenSpec {
+  primaryCampaignType: string;
+  adChannels: string[];
+  webinarCadence: string;
+}
+
+export interface LeadGenSpec {
+  qualificationCriteria: string[];
+  leadScoringThreshold: number;
+  dealStageFlow: string[];
+}
+
+export interface SEOStrategySpec {
+  primaryKeywords: string[];
+  geoCitationTactics: string[];
+  backlinkPlan: string;
+}
+
+export interface PartnershipStrategySpec {
+  coMarketingPartners: string[];
+  integrationEcosystem: string[];
+  affiliateTier: string;
+}
+
+export interface CommunityStrategySpec {
+  communityType: string;
+  engagementHooks: string[];
+  advisoryBoardSize: string;
+}
+
+export interface BudgetItem {
+  category: string;
+  allocatedUsd: number;
+  percentageOfTotal: number;
+}
+
+export interface OKRGoal {
+  objective: string;
+  keyResults: string[];
+}
+
 export interface GrowthStrategyOutput {
   title: string;
   executiveSummary: string;
@@ -89,7 +150,17 @@ export interface GrowthStrategyOutput {
   marketOpportunities: MarketOpportunity[];
   competitorPositioning: CompetitorAnalysis[];
   channelStrategy: ChannelStrategyItem[];
+  contentStrategy: ContentStrategySpec;
+  outboundStrategy: OutboundStrategySpec;
+  inboundStrategy: InboundStrategySpec;
+  demandGenStrategy: DemandGenSpec;
+  leadGenStrategy: LeadGenSpec;
+  seoStrategy: SEOStrategySpec;
+  partnershipStrategy: PartnershipStrategySpec;
+  communityStrategy: CommunityStrategySpec;
+  budgetAllocation: BudgetItem[];
   growthRoadmap: GrowthMilestone[];
   plan306090: Plan306090;
   successMetrics: MetricKPI[];
+  okrs: OKRGoal[];
 }

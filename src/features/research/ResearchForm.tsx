@@ -104,7 +104,9 @@ export const ResearchForm: React.FC<ResearchFormProps> = ({
                 {isDone ? (
                   <CheckCircle2 className="h-4 w-4 text-[#2D6A4F]" />
                 ) : (
-                  <Icon className={cn("h-4 w-4", isCurrent ? "text-[#FFFFFF]" : "text-[#716D64]")} />
+                  <Icon
+                    className={cn("h-4 w-4", isCurrent ? "text-[#FFFFFF]" : "text-[#716D64]")}
+                  />
                 )}
                 <span
                   className={cn(

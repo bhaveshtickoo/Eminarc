@@ -58,8 +58,10 @@ export const ResearchReport: React.FC<ResearchReportProps> = ({ formData }) => {
       >
         <div className="p-4 rounded-xl bg-[#FFFFFF] border border-[#E5E0D6] space-y-2">
           <p className="font-medium text-[#111111] leading-relaxed">
-            <strong>{companyName}</strong> ({domain}) represents a category-defining AI Growth Operating System designed for high-velocity B2B teams.
-            The company addresses critical market friction: tool sprawl, manual content repurposing overhead, and missing citations in generative AI search engines.
+            <strong>{companyName}</strong> ({domain}) represents a category-defining AI Growth
+            Operating System designed for high-velocity B2B teams. The company addresses critical
+            market friction: tool sprawl, manual content repurposing overhead, and missing citations
+            in generative AI search engines.
           </p>
           <div className="pt-2 flex flex-wrap gap-2 text-xs font-mono">
             <span className="bg-[#EDF6F0] text-[#1E4620] px-2.5 py-0.5 rounded border border-[#C8E4D0] font-bold">
@@ -112,12 +114,20 @@ export const ResearchReport: React.FC<ResearchReportProps> = ({ formData }) => {
       >
         <div className="space-y-3">
           <p>
-            Founder <strong>{kb.founderProfile.name}</strong> ({kb.founderProfile.title}, {founderHandle}). {kb.founderProfile.bio}
+            Founder <strong>{kb.founderProfile.name}</strong> ({kb.founderProfile.title},{" "}
+            {founderHandle}). {kb.founderProfile.bio}
           </p>
           <ul className="space-y-1.5 border-l-2 border-[#18181B] pl-4 py-1 text-xs text-[#18181B]">
-            <li><strong>Primary Focus:</strong> {kb.founderProfile.primaryFocus}</li>
-            <li><strong>Content Persona:</strong> {kb.founderProfile.contentPersona}</li>
-            <li><strong>Distribution Channels:</strong> {kb.founderProfile.distributionChannels.join(", ")}</li>
+            <li>
+              <strong>Primary Focus:</strong> {kb.founderProfile.primaryFocus}
+            </li>
+            <li>
+              <strong>Content Persona:</strong> {kb.founderProfile.contentPersona}
+            </li>
+            <li>
+              <strong>Distribution Channels:</strong>{" "}
+              {kb.founderProfile.distributionChannels.join(", ")}
+            </li>
           </ul>
         </div>
       </ResearchSection>
@@ -131,7 +141,10 @@ export const ResearchReport: React.FC<ResearchReportProps> = ({ formData }) => {
       >
         <div className="space-y-3">
           {kb.products.map((prod, idx) => (
-            <div key={idx} className="p-3.5 rounded-xl bg-[#FFFFFF] border border-[#E5E0D6] space-y-1.5">
+            <div
+              key={idx}
+              className="p-3.5 rounded-xl bg-[#FFFFFF] border border-[#E5E0D6] space-y-1.5"
+            >
               <div className="flex items-center justify-between">
                 <h4 className="font-sans font-bold text-xs text-[#111111]">{prod.name}</h4>
                 <span className="font-mono text-[9px] font-bold text-[#0369A1] bg-[#E0F2FE] px-2 py-0.5 rounded border border-[#BAE6FD]">
@@ -168,7 +181,8 @@ export const ResearchReport: React.FC<ResearchReportProps> = ({ formData }) => {
               {kb.targetMarket.primaryICP}
             </h4>
             <p className="text-xs text-[#716D64]">
-              Regions: {targetMarkets}. Decision Makers: {kb.targetMarket.decisionMakers.join(", ")}.
+              Regions: {targetMarkets}. Decision Makers: {kb.targetMarket.decisionMakers.join(", ")}
+              .
             </p>
           </div>
 
@@ -197,8 +211,13 @@ export const ResearchReport: React.FC<ResearchReportProps> = ({ formData }) => {
       >
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
           {kb.challenges.map((ch, idx) => (
-            <div key={idx} className="rounded-xl bg-[#FFFFFF] border border-[#E5E0D6] p-3 space-y-1">
-              <span className="font-mono text-[9px] font-bold text-[#B45309]">0{idx + 1}. FRICTION</span>
+            <div
+              key={idx}
+              className="rounded-xl bg-[#FFFFFF] border border-[#E5E0D6] p-3 space-y-1"
+            >
+              <span className="font-mono text-[9px] font-bold text-[#B45309]">
+                0{idx + 1}. FRICTION
+              </span>
               <h5 className="font-sans font-bold text-xs text-[#111111]">{ch.title}</h5>
               <p className="text-[11px] text-[#716D64]">{ch.impact}</p>
             </div>
@@ -219,7 +238,8 @@ export const ResearchReport: React.FC<ResearchReportProps> = ({ formData }) => {
             <span className="font-bold text-[#111111]">{industry}</span>
           </div>
           <p className="text-xs text-[#18181B] leading-relaxed">
-            Positioned as the premier <strong>AI Growth OS</strong> — operating above single-point social tools and legacy enterprise CRMs.
+            Positioned as the premier <strong>AI Growth OS</strong> — operating above single-point
+            social tools and legacy enterprise CRMs.
           </p>
         </div>
       </ResearchSection>
@@ -264,8 +284,13 @@ export const ResearchReport: React.FC<ResearchReportProps> = ({ formData }) => {
       >
         <div className="space-y-2.5">
           {kb.messaging.pillars.map((pil, idx) => (
-            <div key={idx} className="p-3.5 rounded-xl bg-[#FFFFFF] border border-[#E5E0D6] space-y-1">
-              <span className="font-mono text-[10px] font-bold text-[#2D6A4F]">HOOK 0{idx + 1} • {pil.title.toUpperCase()}</span>
+            <div
+              key={idx}
+              className="p-3.5 rounded-xl bg-[#FFFFFF] border border-[#E5E0D6] space-y-1"
+            >
+              <span className="font-mono text-[10px] font-bold text-[#2D6A4F]">
+                HOOK 0{idx + 1} • {pil.title.toUpperCase()}
+              </span>
               <p className="text-xs font-medium text-[#111111]">&quot;{pil.hook}&quot;</p>
             </div>
           ))}
@@ -281,7 +306,10 @@ export const ResearchReport: React.FC<ResearchReportProps> = ({ formData }) => {
       >
         <div className="flex flex-wrap gap-2 mb-2">
           {kb.brandVoice.toneTags.map((voice, i) => (
-            <span key={i} className="font-mono text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#18181B] text-[#FFFFFF]">
+            <span
+              key={i}
+              className="font-mono text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#18181B] text-[#FFFFFF]"
+            >
               {voice}
             </span>
           ))}
@@ -302,13 +330,21 @@ export const ResearchReport: React.FC<ResearchReportProps> = ({ formData }) => {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div className="p-3.5 rounded-xl bg-[#FFFFFF] border border-[#E5E0D6] space-y-1">
             <span className="font-mono text-[10px] font-bold text-[#0369A1]">OPPORTUNITY 01</span>
-            <h5 className="font-sans font-bold text-xs text-[#111111]">Founder Content Amplification</h5>
-            <p className="text-[11px] text-[#716D64]">Scale founder's LinkedIn posts to drive zero-CAC inbound traffic.</p>
+            <h5 className="font-sans font-bold text-xs text-[#111111]">
+              Founder Content Amplification
+            </h5>
+            <p className="text-[11px] text-[#716D64]">
+              Scale founder's LinkedIn posts to drive zero-CAC inbound traffic.
+            </p>
           </div>
           <div className="p-3.5 rounded-xl bg-[#FFFFFF] border border-[#E5E0D6] space-y-1">
             <span className="font-mono text-[10px] font-bold text-[#0369A1]">OPPORTUNITY 02</span>
-            <h5 className="font-sans font-bold text-xs text-[#111111]">Generative AI Citation Optimization</h5>
-            <p className="text-[11px] text-[#716D64]">Publish structured markdown teardowns to capture ChatGPT/Perplexity search rank.</p>
+            <h5 className="font-sans font-bold text-xs text-[#111111]">
+              Generative AI Citation Optimization
+            </h5>
+            <p className="text-[11px] text-[#716D64]">
+              Publish structured markdown teardowns to capture ChatGPT/Perplexity search rank.
+            </p>
           </div>
         </div>
       </ResearchSection>
@@ -323,7 +359,10 @@ export const ResearchReport: React.FC<ResearchReportProps> = ({ formData }) => {
       >
         <div className="space-y-2">
           {kb.goals.map((g, idx) => (
-            <div key={idx} className="flex items-center justify-between p-3 rounded-xl bg-[#FFFFFF] border border-[#E5E0D6] font-mono text-xs">
+            <div
+              key={idx}
+              className="flex items-center justify-between p-3 rounded-xl bg-[#FFFFFF] border border-[#E5E0D6] font-mono text-xs"
+            >
               <span className="font-bold text-[#111111]">{g.title}</span>
               <span className="text-[#2D6A4F] font-bold bg-[#EDF6F0] px-2 py-0.5 rounded border border-[#C8E4D0]">
                 {g.target} ({g.timeframe})

@@ -47,11 +47,7 @@ export const TaskCharts: React.FC = () => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 select-none">
       {/* 1. Task Completion (Bar) */}
-      <ChartCard
-        indexCode="CHART 01"
-        title="Task Completion"
-        subtitle="Completed vs total tasks."
-      >
+      <ChartCard indexCode="CHART 01" title="Task Completion" subtitle="Completed vs total tasks.">
         <BarChart
           data={taskCompletionData}
           xAxisKey="category"

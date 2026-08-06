@@ -63,10 +63,7 @@ export const CRMView: React.FC = () => {
   return (
     <div className="space-y-6 pb-12 select-none">
       {/* Top Header & 9 Section Tabs */}
-      <CRMHeader
-        activeSection={activeSection}
-        onSectionChange={setActiveSection}
-      />
+      <CRMHeader activeSection={activeSection} onSectionChange={setActiveSection} />
 
       {/* Filter Bar */}
       <CRMFilters
@@ -94,11 +91,7 @@ export const CRMView: React.FC = () => {
             />
           </ChartCard>
 
-          <ChartCard
-            indexCode="CHART 02"
-            title="Lead Sources"
-            subtitle="Channel acquisition."
-          >
+          <ChartCard indexCode="CHART 02" title="Lead Sources" subtitle="Channel acquisition.">
             <DonutChart
               data={leadSourcesData}
               centerLabel="TOTAL LEADS"
@@ -154,7 +147,9 @@ export const CRMView: React.FC = () => {
       {activeSection === "Opportunities" && (
         <div className="rounded-[18px] bg-[#FCFAF7] border border-[rgba(0,0,0,0.08)] p-6 shadow-[0_1px_3px_0_rgba(0,0,0,0.025)] space-y-4">
           <h3 className="font-sans font-bold text-xl text-[#111111]">Open Revenue Opportunities</h3>
-          <p className="font-sans text-xs text-[#716D64]">14 deals worth $142,000 in active negotiations.</p>
+          <p className="font-sans text-xs text-[#716D64]">
+            14 deals worth $142,000 in active negotiations.
+          </p>
           <PipelineBoard onSelectDeal={(deal) => setInspectedDeal(deal)} />
         </div>
       )}

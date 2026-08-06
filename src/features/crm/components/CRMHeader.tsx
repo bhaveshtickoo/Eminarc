@@ -22,10 +22,7 @@ export const crmSections = [
   "Emails",
 ] as const;
 
-export const CRMHeader: React.FC<CRMHeaderProps> = ({
-  activeSection,
-  onSectionChange,
-}) => {
+export const CRMHeader: React.FC<CRMHeaderProps> = ({ activeSection, onSectionChange }) => {
   const { currentWorkspace } = useWorkspace();
 
   return (

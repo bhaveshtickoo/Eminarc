@@ -186,9 +186,7 @@ export const ReportCharts: React.FC = () => {
         <BarChart
           data={contentPerfData}
           xAxisKey="asset"
-          series={[
-            { key: "conversions", name: "Conversions", color: "#2D6A4F" },
-          ]}
+          series={[{ key: "conversions", name: "Conversions", color: "#2D6A4F" }]}
           height={200}
         />
       </ChartCard>

@@ -24,8 +24,12 @@ export const SettingsWorkspaceTab: React.FC = () => {
       <div className="p-6 rounded-[18px] bg-[#FCFAF7] border border-[rgba(0,0,0,0.08)] shadow-[0_1px_3px_0_rgba(0,0,0,0.025)] space-y-4">
         <div className="flex items-center justify-between border-b border-[rgba(0,0,0,0.06)] pb-3">
           <div>
-            <h3 className="font-sans font-bold text-base text-[#111111]">General Workspace Profile</h3>
-            <p className="font-sans text-xs text-[#52525B]">Manage workspace name, slug, and regional settings.</p>
+            <h3 className="font-sans font-bold text-base text-[#111111]">
+              General Workspace Profile
+            </h3>
+            <p className="font-sans text-xs text-[#52525B]">
+              Manage workspace name, slug, and regional settings.
+            </p>
           </div>
           <span className="font-mono text-[9px] bg-[#EDF6F0] text-[#1E4620] px-2 py-0.5 rounded font-bold border border-[#C8E4D0]">
             ACTIVE WORKSPACE

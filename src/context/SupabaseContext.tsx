@@ -2,7 +2,11 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import type { User, Session, AuthError } from "@supabase/supabase-js";
 import { supabase } from "../lib/supabase/client";
 import { isSupabaseConfigured } from "../lib/supabase/config";
-import { profileService, formatProfileData, type ProfileData } from "../lib/supabase/services/profile-service";
+import {
+  profileService,
+  formatProfileData,
+  type ProfileData,
+} from "../lib/supabase/services/profile-service";
 import { workspaceService } from "../lib/supabase/services/workspace-service";
 
 export interface SupabaseContextType {
@@ -52,7 +56,10 @@ export const SupabaseProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     // Fetch active session, ensure profile, and ensure workspace on mount
     const loadSessionAndProfile = async () => {
       try {
-        const { data: { session: initialSession }, error: sessionErr } = await supabase.auth.getSession();
+        const {
+          data: { session: initialSession },
+          error: sessionErr,
+        } = await supabase.auth.getSession();
         if (!mounted) return;
         if (sessionErr) {
           setError(sessionErr);

@@ -21,13 +21,20 @@ export class RecommendationEngine {
   /**
    * Synthesizes Research, Strategy, Workspace Context, and History into 7 real-time directives with confidence scoring.
    */
-  async generateRecommendations(params: GenerateRecommendationParams): Promise<RecommendationOutput> {
+  async generateRecommendations(
+    params: GenerateRecommendationParams,
+  ): Promise<RecommendationOutput> {
     // 1. Fetch Research Report from Supabase
-    const reportRes = params.companyId ? await FounderResearchService.getReport(params.companyId) : { data: null };
+    const reportRes = params.companyId
+      ? await FounderResearchService.getReport(params.companyId)
+      : { data: null };
     const researchData = reportRes.data?.raw_json || {};
 
     // 2. Fetch Growth Strategy from Supabase
-    const strategyRes = await GrowthStrategyService.getStrategy(params.workspaceId, params.companyId);
+    const strategyRes = await GrowthStrategyService.getStrategy(
+      params.workspaceId,
+      params.companyId,
+    );
     const strategyData = strategyRes.data?.raw_json || {};
 
     // 3. Load Workspace Memory & History
@@ -94,7 +101,8 @@ Return ONLY valid JSON matching this exact structure:
   "confidenceScore": ${confidenceScore}
 }`;
 
-    const systemPrompt = "You are the Principal AI Growth Advisor for Eminarc Growth OS. Output strictly valid JSON matching the schema.";
+    const systemPrompt =
+      "You are the Principal AI Growth Advisor for Eminarc Growth OS. Output strictly valid JSON matching the schema.";
 
     const provider = getLLMProvider();
 
@@ -103,26 +111,33 @@ Return ONLY valid JSON matching this exact structure:
       result = await provider.completeJSON<RecommendationOutput>(prompt, systemPrompt);
       result.confidenceScore = confidenceScore;
     } catch (err) {
-      console.warn("[RecommendationEngine.generateRecommendations] LLM provider warning, using fallback synthesis:", err);
+      console.warn(
+        "[RecommendationEngine.generateRecommendations] LLM provider warning, using fallback synthesis:",
+        err,
+      );
       result = {
         title: "Real-Time Growth Directives & Recommendations",
         highestPriorityAction: {
           title: "Launch Generative Engine Optimization (GEO) Radar",
-          description: "Optimize brand citations on ChatGPT and Perplexity for target keywords before launching outbound sequence.",
+          description:
+            "Optimize brand citations on ChatGPT and Perplexity for target keywords before launching outbound sequence.",
           expectedImpact: "4.2x increase in organic LLM discovery and inbound demo requests",
           assignedAgent: "Visibility Analyst Agent",
           deadline: "Within 48 Hours",
         },
         biggestOpportunity: {
           title: "Uncapped TAM in Founders with Recent Seed/Series A Funding",
-          marketGap: "Competitors ignore automated persona enrichment, leaving outbound sequences generic.",
+          marketGap:
+            "Competitors ignore automated persona enrichment, leaving outbound sequences generic.",
           potentialRevenue: "$180,000 ARR Pipeline Potential",
           easeOfExecution: "High",
         },
         highestRisk: {
           title: "Cold Outreach SDR Fatigue & Spam Filter Flagging",
-          riskFactor: "Sending generic bulk emails damages domain reputation and lowers deliverability.",
-          mitigationStrategy: "Deploy 1-click founder thought leadership content across LinkedIn prior to cold email sequence.",
+          riskFactor:
+            "Sending generic bulk emails damages domain reputation and lowers deliverability.",
+          mitigationStrategy:
+            "Deploy 1-click founder thought leadership content across LinkedIn prior to cold email sequence.",
           severity: "Critical",
         },
         quickWins: [
@@ -156,7 +171,7 @@ Return ONLY valid JSON matching this exact structure:
       params.workspaceId,
       result,
       params.companyId,
-      params.strategyId || strategyRes.data?.id
+      params.strategyId || strategyRes.data?.id,
     );
 
     return result;

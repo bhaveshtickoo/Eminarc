@@ -20,8 +20,12 @@ export const SettingsBrandingTab: React.FC = () => {
     <form onSubmit={handleSave} className="space-y-6 select-none max-w-4xl">
       <div className="p-6 rounded-[18px] bg-[#FCFAF7] border border-[rgba(0,0,0,0.08)] shadow-[0_1px_3px_0_rgba(0,0,0,0.025)] space-y-4">
         <div className="border-b border-[rgba(0,0,0,0.06)] pb-3">
-          <h3 className="font-sans font-bold text-base text-[#111111]">Brand Identity & Custom Styling</h3>
-          <p className="font-sans text-xs text-[#52525B]">Customize brand palette, logos, and white-label consulting reports.</p>
+          <h3 className="font-sans font-bold text-base text-[#111111]">
+            Brand Identity & Custom Styling
+          </h3>
+          <p className="font-sans text-xs text-[#52525B]">
+            Customize brand palette, logos, and white-label consulting reports.
+          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 font-sans text-xs">

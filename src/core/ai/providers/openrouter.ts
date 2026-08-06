@@ -23,7 +23,7 @@ export class OpenRouterProvider implements LLMProvider {
 
   async complete<T = any>(
     prompt: string,
-    options: LLMRequestOptions = {}
+    options: LLMRequestOptions = {},
   ): Promise<LLMResponse<T>> {
     const startTime = Date.now();
     const apiKey = options.apiKey || this.defaultApiKey;
@@ -105,7 +105,7 @@ export class OpenRouterProvider implements LLMProvider {
   async completeStream(
     prompt: string,
     onChunk: (chunk: string) => void,
-    options: LLMRequestOptions = {}
+    options: LLMRequestOptions = {},
   ): Promise<LLMResponse<string>> {
     const res = await this.complete<string>(prompt, options);
     onChunk(res.content);

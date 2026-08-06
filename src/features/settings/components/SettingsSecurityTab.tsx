@@ -20,7 +20,8 @@ export const SettingsSecurityTab: React.FC = () => {
             Security Policies & Authentication
           </h3>
           <p className="text-xs text-[#52525B] mt-0.5">
-            Manage multi-factor authentication, active user sessions, IP allowlisting, and SSO options.
+            Manage multi-factor authentication, active user sessions, IP allowlisting, and SSO
+            options.
           </p>
         </div>
 
@@ -38,7 +39,8 @@ export const SettingsSecurityTab: React.FC = () => {
                   </span>
                 </h4>
                 <p className="text-xs text-[#52525B] mt-0.5">
-                  Require TOTP authentication apps (Google Authenticator, 1Password) for all workspace sign-ins.
+                  Require TOTP authentication apps (Google Authenticator, 1Password) for all
+                  workspace sign-ins.
                 </p>
               </div>
             </div>
@@ -76,7 +78,8 @@ export const SettingsSecurityTab: React.FC = () => {
               </button>
             </div>
             <p className="text-xs text-[#52525B]">
-              Currently logged in from <strong>San Francisco, USA (Chrome 128 / macOS)</strong>. 2 other sessions active.
+              Currently logged in from <strong>San Francisco, USA (Chrome 128 / macOS)</strong>. 2
+              other sessions active.
             </p>
           </div>
 

@@ -55,19 +55,19 @@ src/
 
 Each feature directory in `src/features/*` operates as a self-contained domain module containing its specific components, state hooks, and helper logic:
 
-| Feature Domain | Primary Responsibility | Key Components |
-| :--- | :--- | :--- |
-| `features/dashboard` | Main Command Center Overview & KPI telemetry | `WelcomeHeader`, `KPICards`, `GrowthFunnel`, `RecentActivityFeed`, `QuickActions`, `TrafficSourcesCard`, `ExperimentCard`, `NotificationList` |
-| `features/research` | Deep founder & company research generation | `ResearchForm`, `ResearchHeader`, `ResearchReport`, `ResearchSection`, `ResearchSidebar` |
-| `features/content` | Content creation, AI copilot & multi-channel repurposing | `ContentHeader`, `ContentEditor`, `ContentToolbar`, `AICopilot`, `CampaignSidebar`, `ContentCalendar`, `ContentCard`, `ContentQueueCard`, `RepurposePanel` |
-| `features/distribution` | Campaign sequencing & channel delivery | Distribution channels, email & LinkedIn outreach dispatchers |
-| `features/visibility` | LLM Citation Radar & AI Search Audits | `AIVisibilityAuditorCards` across ChatGPT, Claude, Perplexity & Gemini |
-| `features/analytics` | Acquisition velocity & channel analytics | `AnalyticsChart`, time-series trend visualizers |
-| `features/crm` | Lead scoring, pipeline velocity & account management | `LeadIntelligenceTable`, `CRMAnalytics`, `PipelineCard` |
-| `features/agents` | Autonomous agent execution monitoring | `AIAgentsPanel`, `CopilotCard` |
-| `features/reports` | Executive summary generation & PDF exports | Client progress reports, export widgets |
-| `features/tasks` | Workload prioritization & daily checklists | `TaskList`, `CalendarCard` |
-| `features/settings` | Plan configuration, billing & profile settings | Workspace management, plan tier selectors, invoice history |
+| Feature Domain          | Primary Responsibility                                   | Key Components                                                                                                                                             |
+| :---------------------- | :------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `features/dashboard`    | Main Command Center Overview & KPI telemetry             | `WelcomeHeader`, `KPICards`, `GrowthFunnel`, `RecentActivityFeed`, `QuickActions`, `TrafficSourcesCard`, `ExperimentCard`, `NotificationList`              |
+| `features/research`     | Deep founder & company research generation               | `ResearchForm`, `ResearchHeader`, `ResearchReport`, `ResearchSection`, `ResearchSidebar`                                                                   |
+| `features/content`      | Content creation, AI copilot & multi-channel repurposing | `ContentHeader`, `ContentEditor`, `ContentToolbar`, `AICopilot`, `CampaignSidebar`, `ContentCalendar`, `ContentCard`, `ContentQueueCard`, `RepurposePanel` |
+| `features/distribution` | Campaign sequencing & channel delivery                   | Distribution channels, email & LinkedIn outreach dispatchers                                                                                               |
+| `features/visibility`   | LLM Citation Radar & AI Search Audits                    | `AIVisibilityAuditorCards` across ChatGPT, Claude, Perplexity & Gemini                                                                                     |
+| `features/analytics`    | Acquisition velocity & channel analytics                 | `AnalyticsChart`, time-series trend visualizers                                                                                                            |
+| `features/crm`          | Lead scoring, pipeline velocity & account management     | `LeadIntelligenceTable`, `CRMAnalytics`, `PipelineCard`                                                                                                    |
+| `features/agents`       | Autonomous agent execution monitoring                    | `AIAgentsPanel`, `CopilotCard`                                                                                                                             |
+| `features/reports`      | Executive summary generation & PDF exports               | Client progress reports, export widgets                                                                                                                    |
+| `features/tasks`        | Workload prioritization & daily checklists               | `TaskList`, `CalendarCard`                                                                                                                                 |
+| `features/settings`     | Plan configuration, billing & profile settings           | Workspace management, plan tier selectors, invoice history                                                                                                 |
 
 ---
 

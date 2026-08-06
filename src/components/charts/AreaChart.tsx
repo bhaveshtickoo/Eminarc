@@ -60,7 +60,9 @@ export const AreaChart: React.FC<AreaChartProps> = ({
             <div key={s.key} className="flex items-center space-x-2">
               <span
                 className="h-2.5 w-2.5 rounded-full"
-                style={{ backgroundColor: s.color || defaultAreaColors[idx % defaultAreaColors.length] }}
+                style={{
+                  backgroundColor: s.color || defaultAreaColors[idx % defaultAreaColors.length],
+                }}
               />
               <span className="font-medium text-[#18181B]">{s.name || s.key}</span>
             </div>

@@ -35,9 +35,7 @@ export const PlatformCard: React.FC<PlatformCardProps> = ({ platform }) => {
             <h3 className="font-sans font-bold text-sm text-[#111111] leading-tight">
               {platform.name}
             </h3>
-            <span className="font-mono text-[9px] text-[#716D64] block">
-              {platform.category}
-            </span>
+            <span className="font-mono text-[9px] text-[#716D64] block">{platform.category}</span>
           </div>
         </div>
 

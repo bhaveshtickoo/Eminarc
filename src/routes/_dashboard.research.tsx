@@ -28,9 +28,7 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { useWorkspace } from "@/hooks/useWorkspace";
-import {
-  FounderResearchService,
-} from "@/services/research/founder-research-service";
+import { FounderResearchService } from "@/services/research/founder-research-service";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/_dashboard/research")({
@@ -134,7 +132,7 @@ function FounderResearchPage() {
       // 2. Queue Research Job in Supabase
       const jobRes = await FounderResearchService.startResearch(
         currentWorkspace.id,
-        savedCompany.id
+        savedCompany.id,
       );
 
       if (jobRes.error || !jobRes.data) {
@@ -151,7 +149,7 @@ function FounderResearchPage() {
         currentWorkspace.id,
         savedCompany.id,
         name,
-        website
+        website,
       );
 
       toast.info(`Research job queued for ${name}! Polling status every 3s...`);
@@ -181,7 +179,9 @@ function FounderResearchPage() {
         if (currentStatus === "queued") {
           setStatusMessage("Queued — Waiting for background AI worker pickup...");
         } else if (currentStatus === "running") {
-          setStatusMessage(`Running — Extracting persona, ICP & pain points (${currentProgress}%)...`);
+          setStatusMessage(
+            `Running — Extracting persona, ICP & pain points (${currentProgress}%)...`,
+          );
         } else if (currentStatus === "completed") {
           setStatusMessage("Completed — Persisted to Supabase `research_reports`!");
           setIsResearching(false);
@@ -211,25 +211,37 @@ function FounderResearchPage() {
     switch (status) {
       case "queued":
         return (
-          <Badge variant="outline" className="bg-amber-500/10 text-amber-600 border-amber-500/20 font-mono text-xs gap-1">
+          <Badge
+            variant="outline"
+            className="bg-amber-500/10 text-amber-600 border-amber-500/20 font-mono text-xs gap-1"
+          >
             <Clock className="h-3 w-3 animate-pulse" /> Queued
           </Badge>
         );
       case "running":
         return (
-          <Badge variant="outline" className="bg-blue-500/10 text-blue-600 border-blue-500/20 font-mono text-xs gap-1">
+          <Badge
+            variant="outline"
+            className="bg-blue-500/10 text-blue-600 border-blue-500/20 font-mono text-xs gap-1"
+          >
             <RefreshCw className="h-3 w-3 animate-spin" /> Running
           </Badge>
         );
       case "completed":
         return (
-          <Badge variant="outline" className="bg-emerald-500/10 text-emerald-600 border-emerald-500/20 font-mono text-xs gap-1">
+          <Badge
+            variant="outline"
+            className="bg-emerald-500/10 text-emerald-600 border-emerald-500/20 font-mono text-xs gap-1"
+          >
             <CheckCircle2 className="h-3 w-3" /> Completed
           </Badge>
         );
       case "failed":
         return (
-          <Badge variant="outline" className="bg-destructive/10 text-destructive border-destructive/20 font-mono text-xs gap-1">
+          <Badge
+            variant="outline"
+            className="bg-destructive/10 text-destructive border-destructive/20 font-mono text-xs gap-1"
+          >
             <XCircle className="h-3 w-3" /> Failed
           </Badge>
         );
@@ -257,10 +269,14 @@ function FounderResearchPage() {
               Asynchronous Founder Research Workspace
             </h1>
             <p className="mt-1 text-sm text-[#52525B]">
-              Input target company details to trigger an asynchronous background research job persisted in Supabase.
+              Input target company details to trigger an asynchronous background research job
+              persisted in Supabase.
             </p>
           </div>
-          <Badge variant="secondary" className="font-mono text-xs px-3 py-1.5 self-start md:self-auto">
+          <Badge
+            variant="secondary"
+            className="font-mono text-xs px-3 py-1.5 self-start md:self-auto"
+          >
             Supabase `research_jobs` Active
           </Badge>
         </div>
@@ -272,7 +288,10 @@ function FounderResearchPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Company Name Input */}
             <div className="space-y-2">
-              <Label htmlFor="company-name" className="font-bold text-sm text-foreground flex items-center gap-2">
+              <Label
+                htmlFor="company-name"
+                className="font-bold text-sm text-foreground flex items-center gap-2"
+              >
                 <Building2 className="h-4 w-4 text-primary" />
                 Company Name <span className="text-destructive">*</span>
               </Label>
@@ -289,7 +308,10 @@ function FounderResearchPage() {
 
             {/* Company Website Input */}
             <div className="space-y-2">
-              <Label htmlFor="company-website" className="font-bold text-sm text-foreground flex items-center gap-2">
+              <Label
+                htmlFor="company-website"
+                className="font-bold text-sm text-foreground flex items-center gap-2"
+              >
                 <Globe className="h-4 w-4 text-primary" />
                 Company Website <span className="text-destructive">*</span>
               </Label>
@@ -355,7 +377,10 @@ function FounderResearchPage() {
               <FileText className="h-5 w-5 text-primary" />
               Generated Intelligence Report: {reportData.company.name}
             </h2>
-            <Badge variant="outline" className="font-mono text-xs bg-emerald-500/10 text-emerald-600 border-emerald-500/20">
+            <Badge
+              variant="outline"
+              className="font-mono text-xs bg-emerald-500/10 text-emerald-600 border-emerald-500/20"
+            >
               <CheckCircle2 className="h-3.5 w-3.5 mr-1" /> Auto-Fetched from Supabase
             </Badge>
           </div>
@@ -367,8 +392,12 @@ function FounderResearchPage() {
                 <Building2 className="h-4 w-4" />
                 01. COMPANY SUMMARY
               </div>
-              <h3 className="font-display font-bold text-lg text-foreground">{reportData.company.name}</h3>
-              <p className="text-xs text-muted-foreground leading-relaxed">{reportData.company.description}</p>
+              <h3 className="font-display font-bold text-lg text-foreground">
+                {reportData.company.name}
+              </h3>
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                {reportData.company.description}
+              </p>
               <div className="pt-2 text-xs font-mono text-muted-foreground border-t border-[#E5E0D6]/60 flex justify-between">
                 <span>Domain: {reportData.company.website}</span>
                 <span>Size: {reportData.company.companySize}</span>
@@ -381,9 +410,13 @@ function FounderResearchPage() {
                 <User className="h-4 w-4" />
                 02. FOUNDER PERSONA
               </div>
-              <h3 className="font-display font-bold text-lg text-foreground">{reportData.founder.fullName}</h3>
+              <h3 className="font-display font-bold text-lg text-foreground">
+                {reportData.founder.fullName}
+              </h3>
               <p className="text-xs font-semibold text-primary">{reportData.founder.title}</p>
-              <p className="text-xs text-muted-foreground leading-relaxed line-clamp-3">{reportData.founder.bio}</p>
+              <p className="text-xs text-muted-foreground leading-relaxed line-clamp-3">
+                {reportData.founder.bio}
+              </p>
               <div className="pt-2 text-xs font-mono text-muted-foreground border-t border-[#E5E0D6]/60">
                 <a
                   href={`https://${reportData.founder.linkedinUrl}`}
@@ -402,13 +435,20 @@ function FounderResearchPage() {
                 <Globe className="h-4 w-4" />
                 03. INDUSTRY CLASSIFICATION
               </div>
-              <h3 className="font-display font-bold text-lg text-foreground">{reportData.industry}</h3>
+              <h3 className="font-display font-bold text-lg text-foreground">
+                {reportData.industry}
+              </h3>
               <p className="text-xs text-muted-foreground leading-relaxed">
-                High growth sector with expanding generative AI search query volume and B2B SaaS adoption.
+                High growth sector with expanding generative AI search query volume and B2B SaaS
+                adoption.
               </p>
               <div className="pt-2 flex flex-wrap gap-1.5">
-                <span className="bg-secondary px-2.5 py-1 rounded text-[11px] font-mono font-medium">B2B SaaS</span>
-                <span className="bg-secondary px-2.5 py-1 rounded text-[11px] font-mono font-medium">AI OS</span>
+                <span className="bg-secondary px-2.5 py-1 rounded text-[11px] font-mono font-medium">
+                  B2B SaaS
+                </span>
+                <span className="bg-secondary px-2.5 py-1 rounded text-[11px] font-mono font-medium">
+                  AI OS
+                </span>
               </div>
             </Card>
 
@@ -418,10 +458,19 @@ function FounderResearchPage() {
                 <Target className="h-4 w-4" />
                 04. IDEAL CUSTOMER PROFILE (ICP)
               </div>
-              <h3 className="font-display font-bold text-sm text-foreground">{reportData.icp.primaryTarget}</h3>
+              <h3 className="font-display font-bold text-sm text-foreground">
+                {reportData.icp.primaryTarget}
+              </h3>
               <div className="space-y-1.5 text-xs text-muted-foreground">
-                <p><strong>Decision Makers:</strong> {reportData.icp.decisionMakers.join(", ")}</p>
-                <p><strong>Geographies:</strong> {reportData.icp.geographies ? reportData.icp.geographies.join(", ") : "USA, MENA, Europe"}</p>
+                <p>
+                  <strong>Decision Makers:</strong> {reportData.icp.decisionMakers.join(", ")}
+                </p>
+                <p>
+                  <strong>Geographies:</strong>{" "}
+                  {reportData.icp.geographies
+                    ? reportData.icp.geographies.join(", ")
+                    : "USA, MENA, Europe"}
+                </p>
               </div>
             </Card>
 
@@ -433,7 +482,10 @@ function FounderResearchPage() {
               </div>
               <ul className="space-y-2">
                 {reportData.painPoints.map((p, i) => (
-                  <li key={i} className="text-xs space-y-0.5 border-b border-[#E5E0D6]/40 pb-2 last:border-0">
+                  <li
+                    key={i}
+                    className="text-xs space-y-0.5 border-b border-[#E5E0D6]/40 pb-2 last:border-0"
+                  >
                     <div className="flex items-center justify-between font-bold text-foreground">
                       <span>{p.title}</span>
                       <span className="text-[10px] font-mono bg-destructive/10 text-destructive px-1.5 py-0.5 rounded">
@@ -458,7 +510,9 @@ function FounderResearchPage() {
                     <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 shrink-0 mt-0.5" />
                     <div>
                       <p className="font-semibold text-foreground">{s.signal}</p>
-                      <span className="text-[10px] font-mono text-muted-foreground">{s.source}</span>
+                      <span className="text-[10px] font-mono text-muted-foreground">
+                        {s.source}
+                      </span>
                     </div>
                   </li>
                 ))}
@@ -511,7 +565,9 @@ function FounderResearchPage() {
                     {reportData.opportunityScore}
                   </span>
                   <span className="font-mono text-lg text-muted-foreground">/100</span>
-                  <p className="text-xs font-mono text-emerald-600 font-bold mt-1">HIGH OPPORTUNITY MATCH</p>
+                  <p className="text-xs font-mono text-emerald-600 font-bold mt-1">
+                    HIGH OPPORTUNITY MATCH
+                  </p>
                 </div>
               </div>
               <div className="pt-3 border-t border-[#E5E0D6] text-center text-xs text-muted-foreground font-mono">

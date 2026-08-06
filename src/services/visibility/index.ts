@@ -29,9 +29,7 @@ export const defaultMockVisibility: VisibilityAuditResult = {
   lastScanned: "Just now",
 };
 
-export async function getVisibilityAudit(
-  workspaceId?: string
-): Promise<VisibilityAuditResult> {
+export async function getVisibilityAudit(workspaceId?: string): Promise<VisibilityAuditResult> {
   if (!isSupabaseConfigured()) {
     return defaultMockVisibility;
   }
@@ -60,9 +58,7 @@ export async function getVisibilityAudit(
   return defaultMockVisibility;
 }
 
-export async function runVisibilityScan(
-  domain: string
-): Promise<VisibilityAuditResult> {
+export async function runVisibilityScan(domain: string): Promise<VisibilityAuditResult> {
   return {
     score: 78,
     platforms: [

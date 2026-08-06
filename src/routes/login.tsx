@@ -31,8 +31,15 @@ function Login() {
   const search = useSearch({ from: "/login" });
   const redirectUrl = search.redirect || "/";
 
-  const { isAuthenticated, profile, refreshProfile, signInWithPassword, signInWithGoogle, signInWithGitHub, isConfigured } =
-    useAuth();
+  const {
+    isAuthenticated,
+    profile,
+    refreshProfile,
+    signInWithPassword,
+    signInWithGoogle,
+    signInWithGitHub,
+    isConfigured,
+  } = useAuth();
 
   const [email, setEmail] = useState("jordan@eminarc.com");
   const [password, setPassword] = useState("demo1234");
@@ -199,7 +206,11 @@ function Login() {
                 />
               </div>
             </div>
-            <Button type="submit" className="w-full gap-2" disabled={loading || Boolean(oauthLoading)}>
+            <Button
+              type="submit"
+              className="w-full gap-2"
+              disabled={loading || Boolean(oauthLoading)}
+            >
               {loading ? "Signing in…" : "Sign in"}
               {!loading && <ArrowRight className="h-4 w-4" />}
             </Button>

@@ -16,6 +16,7 @@ export interface ProfileData extends Profile {
   fullName?: string | null;
   avatarUrl?: string | null;
   onboardingCompleted?: boolean;
+  theme?: string | null;
 }
 
 export const formatProfileData = (profile: Profile): ProfileData => ({
@@ -23,6 +24,7 @@ export const formatProfileData = (profile: Profile): ProfileData => ({
   fullName: profile.full_name,
   avatarUrl: profile.avatar_url,
   onboardingCompleted: profile.onboarding_completed ?? false,
+  theme: profile.theme ?? null,
 });
 
 /**
@@ -38,6 +40,7 @@ export type UserInput =
       avatar_url?: string | null;
       role?: string | null;
       onboarding_completed?: boolean;
+      theme?: string | null;
       user_metadata?: Record<string, any>;
       [key: string]: any;
     };
@@ -172,7 +175,10 @@ export const profileService = {
    */
   async updateProfile(
     userId: string,
-    updates: Partial<ProfileUpdate> | Partial<UserProfile> | { onboardingCompleted?: boolean; [key: string]: any }
+    updates:
+      | Partial<ProfileUpdate>
+      | Partial<UserProfile>
+      | { onboardingCompleted?: boolean; [key: string]: any },
   ): Promise<ServiceResult<Profile>> {
     try {
       if (!userId) {
@@ -188,11 +194,13 @@ export const profileService = {
       };
 
       if ("email" in updates && updates.email !== undefined) payload.email = updates.email;
-      if ("full_name" in updates && updates.full_name !== undefined) payload.full_name = updates.full_name;
+      if ("full_name" in updates && updates.full_name !== undefined)
+        payload.full_name = updates.full_name;
       if ("fullName" in updates && (updates as UserProfile).fullName !== undefined) {
         payload.full_name = (updates as UserProfile).fullName;
       }
-      if ("avatar_url" in updates && updates.avatar_url !== undefined) payload.avatar_url = updates.avatar_url;
+      if ("avatar_url" in updates && updates.avatar_url !== undefined)
+        payload.avatar_url = updates.avatar_url;
       if ("avatarUrl" in updates && (updates as UserProfile).avatarUrl !== undefined) {
         payload.avatar_url = (updates as UserProfile).avatarUrl;
       }

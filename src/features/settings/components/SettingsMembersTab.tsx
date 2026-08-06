@@ -13,10 +13,28 @@ export interface TeamMember {
 }
 
 export const initialMembers: TeamMember[] = [
-  { id: "mem-1", name: "Bhavesh Tickoo", email: "bhavesh@eminarc.com", role: "Workspace Owner", status: "Active" },
+  {
+    id: "mem-1",
+    name: "Bhavesh Tickoo",
+    email: "bhavesh@eminarc.com",
+    role: "Workspace Owner",
+    status: "Active",
+  },
   { id: "mem-2", name: "Pratyush", email: "pratyush@eminarc.com", role: "Admin", status: "Active" },
-  { id: "mem-3", name: "Aditya", email: "aditya@eminarc.com", role: "Growth Lead", status: "Active" },
-  { id: "mem-4", name: "Jordan Davis", email: "jordan@eminarc.com", role: "Editor", status: "Pending" },
+  {
+    id: "mem-3",
+    name: "Aditya",
+    email: "aditya@eminarc.com",
+    role: "Growth Lead",
+    status: "Active",
+  },
+  {
+    id: "mem-4",
+    name: "Jordan Davis",
+    email: "jordan@eminarc.com",
+    role: "Editor",
+    status: "Pending",
+  },
 ];
 
 export const SettingsMembersTab: React.FC = () => {
@@ -51,7 +69,10 @@ export const SettingsMembersTab: React.FC = () => {
   return (
     <div className="space-y-6 select-none max-w-4xl">
       {/* Invite Box */}
-      <form onSubmit={handleInvite} className="p-5 rounded-[18px] bg-[#FCFAF7] border border-[rgba(0,0,0,0.08)] shadow-[0_1px_3px_0_rgba(0,0,0,0.025)] space-y-3">
+      <form
+        onSubmit={handleInvite}
+        className="p-5 rounded-[18px] bg-[#FCFAF7] border border-[rgba(0,0,0,0.08)] shadow-[0_1px_3px_0_rgba(0,0,0,0.025)] space-y-3"
+      >
         <h3 className="font-sans font-bold text-sm text-[#111111] flex items-center">
           <UserPlus className="h-4 w-4 mr-2 text-[#2D6A4F]" />
           Invite Team Member
@@ -89,13 +110,18 @@ export const SettingsMembersTab: React.FC = () => {
       {/* Members Table */}
       <div className="rounded-[18px] bg-[#FCFAF7] border border-[rgba(0,0,0,0.08)] p-5 shadow-[0_1px_3px_0_rgba(0,0,0,0.025)] space-y-3">
         <div className="flex items-center justify-between border-b border-[rgba(0,0,0,0.06)] pb-2.5 font-mono text-xs">
-          <span className="font-bold text-[#111111]">ACTIVE MEMBERS ({members.length}/10 SEATS)</span>
+          <span className="font-bold text-[#111111]">
+            ACTIVE MEMBERS ({members.length}/10 SEATS)
+          </span>
           <span className="text-[#2D6A4F] font-bold">EMINARC PRO SEATS</span>
         </div>
 
         <div className="space-y-2">
           {members.map((mem) => (
-            <div key={mem.id} className="flex items-center justify-between p-3 rounded-xl bg-[#FFFFFF] border border-[#E5E0D6] text-xs">
+            <div
+              key={mem.id}
+              className="flex items-center justify-between p-3 rounded-xl bg-[#FFFFFF] border border-[#E5E0D6] text-xs"
+            >
               <div className="flex items-center space-x-3 min-w-0">
                 <div className="flex h-7 w-7 items-center justify-center rounded-full bg-[#18181B] text-[#FFFFFF] font-bold text-[10px]">
                   {mem.name.charAt(0)}

@@ -49,9 +49,12 @@ export async function getDashboard(workspaceId?: string) {
       {
         key: "growthScore",
         label: "AI Growth Score",
-        value: currentWs?.metrics && typeof currentWs.metrics === "object" && (currentWs.metrics as any).growthScore
-          ? `${(currentWs.metrics as any).growthScore}/100`
-          : "85/100",
+        value:
+          currentWs?.metrics &&
+          typeof currentWs.metrics === "object" &&
+          (currentWs.metrics as any).growthScore
+            ? `${(currentWs.metrics as any).growthScore}/100`
+            : "85/100",
         delta: "+12.4%",
         up: true,
         sub: "vs previous 30 days",
@@ -60,9 +63,12 @@ export async function getDashboard(workspaceId?: string) {
       {
         key: "aiVisibility",
         label: "AI Visibility Score",
-        value: currentWs?.metrics && typeof currentWs.metrics === "object" && (currentWs.metrics as any).aiVisibility
-          ? `${(currentWs.metrics as any).aiVisibility}%`
-          : "74%",
+        value:
+          currentWs?.metrics &&
+          typeof currentWs.metrics === "object" &&
+          (currentWs.metrics as any).aiVisibility
+            ? `${(currentWs.metrics as any).aiVisibility}%`
+            : "74%",
         delta: "+8.1%",
         up: true,
         sub: "ChatGPT, Perplexity & Claude",
@@ -106,9 +112,33 @@ export async function getDashboard(workspaceId?: string) {
         { name: "Direct Referral", value: 10, color: "#6366F1" },
       ],
       clientProgress: [
-        { id: "c1", initials: "AC", name: "Acme Corp", program: "Enterprise B2B Growth", progress: 85, status: "Active", mrr: "$2,500" },
-        { id: "c2", initials: "SM", name: "Starlight Media", program: "GEO & Content Engine", progress: 62, status: "Onboarding", mrr: "$1,800" },
-        { id: "c3", initials: "AS", name: "Apex SaaS", program: "Pipeline Automation", progress: 94, status: "Active", mrr: "$4,200" },
+        {
+          id: "c1",
+          initials: "AC",
+          name: "Acme Corp",
+          program: "Enterprise B2B Growth",
+          progress: 85,
+          status: "Active",
+          mrr: "$2,500",
+        },
+        {
+          id: "c2",
+          initials: "SM",
+          name: "Starlight Media",
+          program: "GEO & Content Engine",
+          progress: 62,
+          status: "Onboarding",
+          mrr: "$1,800",
+        },
+        {
+          id: "c3",
+          initials: "AS",
+          name: "Apex SaaS",
+          program: "Pipeline Automation",
+          progress: 94,
+          status: "Active",
+          mrr: "$4,200",
+        },
       ],
       metrics: {
         totalLeads: leadCount || 42,
@@ -178,9 +208,33 @@ function getDefaultDashboardData() {
       { name: "Direct Referral", value: 10, color: "#6366F1" },
     ],
     clientProgress: [
-      { id: "c1", initials: "AC", name: "Acme Corp", program: "Enterprise B2B Growth", progress: 85, status: "Active", mrr: "$2,500" },
-      { id: "c2", initials: "SM", name: "Starlight Media", program: "GEO & Content Engine", progress: 62, status: "Onboarding", mrr: "$1,800" },
-      { id: "c3", initials: "AS", name: "Apex SaaS", program: "Pipeline Automation", progress: 94, status: "Active", mrr: "$4,200" },
+      {
+        id: "c1",
+        initials: "AC",
+        name: "Acme Corp",
+        program: "Enterprise B2B Growth",
+        progress: 85,
+        status: "Active",
+        mrr: "$2,500",
+      },
+      {
+        id: "c2",
+        initials: "SM",
+        name: "Starlight Media",
+        program: "GEO & Content Engine",
+        progress: 62,
+        status: "Onboarding",
+        mrr: "$1,800",
+      },
+      {
+        id: "c3",
+        initials: "AS",
+        name: "Apex SaaS",
+        program: "Pipeline Automation",
+        progress: 94,
+        status: "Active",
+        mrr: "$4,200",
+      },
     ],
     metrics: {
       totalLeads: 42,

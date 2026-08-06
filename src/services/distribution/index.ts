@@ -70,6 +70,9 @@ export const dispatchNow = async (id: string): Promise<{ success: boolean; messa
   return { success: true, message: `Dispatched item ${id} to social provider API.` };
 };
 
-export const rescheduleItem = async (id: string, newDate: string): Promise<{ success: boolean }> => {
+export const rescheduleItem = async (
+  id: string,
+  newDate: string,
+): Promise<{ success: boolean }> => {
   return { success: true };
 };

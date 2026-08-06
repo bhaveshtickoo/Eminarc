@@ -8,10 +8,7 @@ export interface CommandShortcutProps {
   className?: string;
 }
 
-export const CommandShortcut: React.FC<CommandShortcutProps> = ({
-  shortcut,
-  className,
-}) => {
+export const CommandShortcut: React.FC<CommandShortcutProps> = ({ shortcut, className }) => {
   return (
     <kbd
       className={cn(

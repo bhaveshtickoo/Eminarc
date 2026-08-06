@@ -132,13 +132,17 @@ export const StrategyDashboardView: React.FC = () => {
             Strategic Growth Playbook
           </h1>
           <p className="mt-1 text-sm text-[#52525B]">
-            Ingests Founder Research, Company Profile, and Workspace Memory to synthesize positioning and execution roadmaps.
+            Ingests Founder Research, Company Profile, and Workspace Memory to synthesize
+            positioning and execution roadmaps.
           </p>
         </div>
 
         <div className="flex items-center gap-3">
           {strategyRow && (
-            <Badge variant="outline" className="font-mono text-xs px-3 py-1.5 bg-background border-[#E5E0D6]">
+            <Badge
+              variant="outline"
+              className="font-mono text-xs px-3 py-1.5 bg-background border-[#E5E0D6]"
+            >
               Version v{strategyRow.version}
             </Badge>
           )}
@@ -167,9 +171,12 @@ export const StrategyDashboardView: React.FC = () => {
       {isLoading && (
         <Card className="p-12 border-[#E5E0D6] bg-card text-center space-y-4">
           <RefreshCw className="h-8 w-8 animate-spin text-primary mx-auto" />
-          <h3 className="font-display font-bold text-lg text-foreground">Loading Growth Strategy Database...</h3>
+          <h3 className="font-display font-bold text-lg text-foreground">
+            Loading Growth Strategy Database...
+          </h3>
           <p className="text-xs text-muted-foreground max-w-md mx-auto">
-            Retrieving persisted strategy playbooks, buyer personas, positioning, and 30/60/90 plans from Supabase.
+            Retrieving persisted strategy playbooks, buyer personas, positioning, and 30/60/90 plans
+            from Supabase.
           </p>
         </Card>
       )}
@@ -178,9 +185,15 @@ export const StrategyDashboardView: React.FC = () => {
       {error && !isLoading && (
         <Card className="p-8 border-destructive/20 bg-destructive/5 text-center space-y-4">
           <AlertCircle className="h-8 w-8 text-destructive mx-auto" />
-          <h3 className="font-display font-bold text-lg text-foreground">Strategy Database Connection Issue</h3>
+          <h3 className="font-display font-bold text-lg text-foreground">
+            Strategy Database Connection Issue
+          </h3>
           <p className="text-xs text-destructive max-w-md mx-auto">{error}</p>
-          <Button onClick={loadStrategy} variant="outline" className="h-10 px-6 rounded-xl font-mono text-xs">
+          <Button
+            onClick={loadStrategy}
+            variant="outline"
+            className="h-10 px-6 rounded-xl font-mono text-xs"
+          >
             Retry Connection
           </Button>
         </Card>
@@ -193,9 +206,12 @@ export const StrategyDashboardView: React.FC = () => {
             <Layers className="h-8 w-8" />
           </div>
           <div className="space-y-2 max-w-md mx-auto">
-            <h3 className="font-display font-bold text-xl text-foreground">No Active Growth Strategy Found</h3>
+            <h3 className="font-display font-bold text-xl text-foreground">
+              No Active Growth Strategy Found
+            </h3>
             <p className="text-xs text-muted-foreground leading-relaxed">
-              Trigger the Growth Strategy Agent to analyze your company research report and workspace context to build a complete 12-section strategic playbook.
+              Trigger the Growth Strategy Agent to analyze your company research report and
+              workspace context to build a complete 12-section strategic playbook.
             </p>
           </div>
           <Button
@@ -239,26 +255,43 @@ export const StrategyDashboardView: React.FC = () => {
                 <Target className="h-4 w-4 text-primary" />
                 02. IDEAL CUSTOMER PROFILE (ICP)
               </span>
-              <Badge variant="outline" className="font-mono text-[10px] bg-emerald-500/10 text-emerald-600 border-emerald-500/20">
+              <Badge
+                variant="outline"
+                className="font-mono text-[10px] bg-emerald-500/10 text-emerald-600 border-emerald-500/20"
+              >
                 Target Lock
               </Badge>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               <div className="p-4 rounded-xl bg-secondary/50 border border-[#E5E0D6] space-y-1">
-                <span className="font-mono text-[10px] text-muted-foreground uppercase font-bold">PRIMARY TARGET</span>
-                <p className="font-bold text-xs text-foreground">{strategyData.icp.primaryTarget}</p>
+                <span className="font-mono text-[10px] text-muted-foreground uppercase font-bold">
+                  PRIMARY TARGET
+                </span>
+                <p className="font-bold text-xs text-foreground">
+                  {strategyData.icp.primaryTarget}
+                </p>
               </div>
               <div className="p-4 rounded-xl bg-secondary/50 border border-[#E5E0D6] space-y-1">
-                <span className="font-mono text-[10px] text-muted-foreground uppercase font-bold">COMPANY SIZE TIER</span>
-                <p className="font-bold text-xs text-foreground">{strategyData.icp.companySizeTier}</p>
+                <span className="font-mono text-[10px] text-muted-foreground uppercase font-bold">
+                  COMPANY SIZE TIER
+                </span>
+                <p className="font-bold text-xs text-foreground">
+                  {strategyData.icp.companySizeTier}
+                </p>
               </div>
               <div className="p-4 rounded-xl bg-secondary/50 border border-[#E5E0D6] space-y-1">
-                <span className="font-mono text-[10px] text-muted-foreground uppercase font-bold">REVENUE TIER</span>
+                <span className="font-mono text-[10px] text-muted-foreground uppercase font-bold">
+                  REVENUE TIER
+                </span>
                 <p className="font-bold text-xs text-foreground">{strategyData.icp.revenueTier}</p>
               </div>
               <div className="p-4 rounded-xl bg-secondary/50 border border-[#E5E0D6] space-y-1">
-                <span className="font-mono text-[10px] text-muted-foreground uppercase font-bold">DECISION MAKERS</span>
-                <p className="font-bold text-xs text-foreground">{strategyData.icp.decisionMakerTitles.join(", ")}</p>
+                <span className="font-mono text-[10px] text-muted-foreground uppercase font-bold">
+                  DECISION MAKERS
+                </span>
+                <p className="font-bold text-xs text-foreground">
+                  {strategyData.icp.decisionMakerTitles.join(", ")}
+                </p>
               </div>
             </div>
           </Card>
@@ -276,19 +309,30 @@ export const StrategyDashboardView: React.FC = () => {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {strategyData.buyerPersonas.map((persona, index) => (
-                <div key={index} className="p-5 rounded-2xl border border-[#E5E0D6] bg-background space-y-3">
-                  <h3 className="font-display font-bold text-base text-foreground">{persona.roleTitle}</h3>
+                <div
+                  key={index}
+                  className="p-5 rounded-2xl border border-[#E5E0D6] bg-background space-y-3"
+                >
+                  <h3 className="font-display font-bold text-base text-foreground">
+                    {persona.roleTitle}
+                  </h3>
                   <div className="space-y-2 text-xs">
                     <div>
-                      <strong className="text-primary font-mono text-[11px] block">KEY MOTIVATIONS:</strong>
+                      <strong className="text-primary font-mono text-[11px] block">
+                        KEY MOTIVATIONS:
+                      </strong>
                       <p className="text-muted-foreground">{persona.keyMotivations.join(", ")}</p>
                     </div>
                     <div>
-                      <strong className="text-emerald-600 font-mono text-[11px] block">BUYING TRIGGERS:</strong>
+                      <strong className="text-emerald-600 font-mono text-[11px] block">
+                        BUYING TRIGGERS:
+                      </strong>
                       <p className="text-muted-foreground">{persona.buyingTriggers.join(", ")}</p>
                     </div>
                     <div>
-                      <strong className="text-destructive font-mono text-[11px] block">OBJECTIONS:</strong>
+                      <strong className="text-destructive font-mono text-[11px] block">
+                        OBJECTIONS:
+                      </strong>
                       <p className="text-muted-foreground">{persona.objections.join(", ")}</p>
                     </div>
                   </div>
@@ -309,18 +353,31 @@ export const StrategyDashboardView: React.FC = () => {
               </Badge>
             </div>
             <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/20 space-y-1">
-              <span className="font-mono text-[10px] text-amber-700 uppercase font-bold">PRIMARY VALUE PROPOSITION</span>
-              <h4 className="font-display font-bold text-base text-foreground">{strategyData.valueProposition.headline}</h4>
-              <p className="text-xs text-muted-foreground">{strategyData.valueProposition.primaryOutcome} ({strategyData.valueProposition.roiEstimate})</p>
+              <span className="font-mono text-[10px] text-amber-700 uppercase font-bold">
+                PRIMARY VALUE PROPOSITION
+              </span>
+              <h4 className="font-display font-bold text-base text-foreground">
+                {strategyData.valueProposition.headline}
+              </h4>
+              <p className="text-xs text-muted-foreground">
+                {strategyData.valueProposition.primaryOutcome} (
+                {strategyData.valueProposition.roiEstimate})
+              </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {strategyData.messagingPillars.map((pillar, index) => (
-                <div key={index} className="p-4 rounded-xl border border-[#E5E0D6] bg-background space-y-2">
+                <div
+                  key={index}
+                  className="p-4 rounded-xl border border-[#E5E0D6] bg-background space-y-2"
+                >
                   <h4 className="font-bold text-sm text-foreground">{pillar.pillarName}</h4>
                   <p className="text-xs text-muted-foreground">{pillar.coreMessage}</p>
                   <div className="pt-2 flex flex-wrap gap-1">
                     {pillar.proofPoints.map((proof, i) => (
-                      <span key={i} className="text-[10px] font-mono bg-secondary px-2 py-0.5 rounded text-foreground">
+                      <span
+                        key={i}
+                        className="text-[10px] font-mono bg-secondary px-2 py-0.5 rounded text-foreground"
+                      >
                         ✓ {proof}
                       </span>
                     ))}
@@ -344,26 +401,47 @@ export const StrategyDashboardView: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-3">
                 <div className="space-y-1">
-                  <span className="font-mono text-[10px] text-muted-foreground font-bold uppercase">CATEGORY NAME</span>
-                  <h4 className="font-display font-bold text-lg text-foreground">{strategyData.positioning.categoryName}</h4>
+                  <span className="font-mono text-[10px] text-muted-foreground font-bold uppercase">
+                    CATEGORY NAME
+                  </span>
+                  <h4 className="font-display font-bold text-lg text-foreground">
+                    {strategyData.positioning.categoryName}
+                  </h4>
                 </div>
                 <div className="space-y-1">
-                  <span className="font-mono text-[10px] text-muted-foreground font-bold uppercase">TAGLINE</span>
-                  <p className="font-semibold text-xs text-primary font-mono">&quot;{strategyData.positioning.tagline}&quot;</p>
+                  <span className="font-mono text-[10px] text-muted-foreground font-bold uppercase">
+                    TAGLINE
+                  </span>
+                  <p className="font-semibold text-xs text-primary font-mono">
+                    &quot;{strategyData.positioning.tagline}&quot;
+                  </p>
                 </div>
                 <div className="space-y-1">
-                  <span className="font-mono text-[10px] text-muted-foreground font-bold uppercase">CORE DIFFERENTIATION</span>
-                  <p className="text-xs text-muted-foreground">{strategyData.positioning.coreDifferentiation}</p>
+                  <span className="font-mono text-[10px] text-muted-foreground font-bold uppercase">
+                    CORE DIFFERENTIATION
+                  </span>
+                  <p className="text-xs text-muted-foreground">
+                    {strategyData.positioning.coreDifferentiation}
+                  </p>
                 </div>
               </div>
 
               <div className="space-y-2">
-                <span className="font-mono text-[10px] text-muted-foreground font-bold uppercase">COMPETITOR POSITIONING GAPS</span>
+                <span className="font-mono text-[10px] text-muted-foreground font-bold uppercase">
+                  COMPETITOR POSITIONING GAPS
+                </span>
                 {strategyData.competitorPositioning.map((comp, index) => (
-                  <div key={index} className="p-3 rounded-xl border border-[#E5E0D6] bg-background text-xs space-y-1">
+                  <div
+                    key={index}
+                    className="p-3 rounded-xl border border-[#E5E0D6] bg-background text-xs space-y-1"
+                  >
                     <p className="font-bold text-foreground">{comp.competitorName}</p>
-                    <p className="text-muted-foreground text-[11px]"><strong>Their Position:</strong> {comp.theirPositioning}</p>
-                    <p className="text-emerald-600 font-semibold text-[11px]"><strong>Our Advantage:</strong> {comp.ourAdvantage}</p>
+                    <p className="text-muted-foreground text-[11px]">
+                      <strong>Their Position:</strong> {comp.theirPositioning}
+                    </p>
+                    <p className="text-emerald-600 font-semibold text-[11px]">
+                      <strong>Our Advantage:</strong> {comp.ourAdvantage}
+                    </p>
                   </div>
                 ))}
               </div>
@@ -383,14 +461,19 @@ export const StrategyDashboardView: React.FC = () => {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {strategyData.channelStrategy.map((item, index) => (
-                <div key={index} className="p-4 rounded-xl border border-[#E5E0D6] bg-background space-y-2">
+                <div
+                  key={index}
+                  className="p-4 rounded-xl border border-[#E5E0D6] bg-background space-y-2"
+                >
                   <div className="flex items-center justify-between">
                     <h4 className="font-bold text-xs text-foreground">{item.channelName}</h4>
                     <span className="font-mono text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded font-bold">
                       {item.priority} Priority
                     </span>
                   </div>
-                  <p className="text-xs text-muted-foreground"><strong>Target Metrics:</strong> {item.targetMetrics}</p>
+                  <p className="text-xs text-muted-foreground">
+                    <strong>Target Metrics:</strong> {item.targetMetrics}
+                  </p>
                 </div>
               ))}
             </div>
@@ -411,7 +494,9 @@ export const StrategyDashboardView: React.FC = () => {
               <div className="p-5 rounded-2xl border border-[#E5E0D6] bg-background space-y-3">
                 <div className="flex items-center justify-between border-b border-[#E5E0D6] pb-2">
                   <span className="font-mono text-xs font-bold text-primary">DAYS 1 – 30</span>
-                  <Badge variant="outline" className="font-mono text-[10px]">FOUNDATION</Badge>
+                  <Badge variant="outline" className="font-mono text-[10px]">
+                    FOUNDATION
+                  </Badge>
                 </div>
                 <ul className="space-y-1.5 text-xs text-muted-foreground">
                   {strategyData.plan306090.days30.map((item, i) => (
@@ -426,7 +511,9 @@ export const StrategyDashboardView: React.FC = () => {
               <div className="p-5 rounded-2xl border border-[#E5E0D6] bg-background space-y-3">
                 <div className="flex items-center justify-between border-b border-[#E5E0D6] pb-2">
                   <span className="font-mono text-xs font-bold text-emerald-600">DAYS 31 – 60</span>
-                  <Badge variant="outline" className="font-mono text-[10px]">OPTIMIZATION</Badge>
+                  <Badge variant="outline" className="font-mono text-[10px]">
+                    OPTIMIZATION
+                  </Badge>
                 </div>
                 <ul className="space-y-1.5 text-xs text-muted-foreground">
                   {strategyData.plan306090.days60.map((item, i) => (
@@ -441,7 +528,9 @@ export const StrategyDashboardView: React.FC = () => {
               <div className="p-5 rounded-2xl border border-[#E5E0D6] bg-background space-y-3">
                 <div className="flex items-center justify-between border-b border-[#E5E0D6] pb-2">
                   <span className="font-mono text-xs font-bold text-amber-600">DAYS 61 – 90</span>
-                  <Badge variant="outline" className="font-mono text-[10px]">SCALE</Badge>
+                  <Badge variant="outline" className="font-mono text-[10px]">
+                    SCALE
+                  </Badge>
                 </div>
                 <ul className="space-y-1.5 text-xs text-muted-foreground">
                   {strategyData.plan306090.days90.map((item, i) => (
@@ -468,10 +557,19 @@ export const StrategyDashboardView: React.FC = () => {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {strategyData.successMetrics.map((kpi, index) => (
-                <div key={index} className="p-4 rounded-xl border border-[#E5E0D6] bg-background space-y-1">
-                  <span className="font-mono text-[10px] text-muted-foreground uppercase font-bold">{kpi.metricName}</span>
-                  <p className="font-display font-bold text-lg text-foreground">{kpi.targetBenchmark}</p>
-                  <span className="text-[10px] font-mono text-emerald-600 font-semibold block">Frequency: {kpi.measurementFrequency}</span>
+                <div
+                  key={index}
+                  className="p-4 rounded-xl border border-[#E5E0D6] bg-background space-y-1"
+                >
+                  <span className="font-mono text-[10px] text-muted-foreground uppercase font-bold">
+                    {kpi.metricName}
+                  </span>
+                  <p className="font-display font-bold text-lg text-foreground">
+                    {kpi.targetBenchmark}
+                  </p>
+                  <span className="text-[10px] font-mono text-emerald-600 font-semibold block">
+                    Frequency: {kpi.measurementFrequency}
+                  </span>
                 </div>
               ))}
             </div>
@@ -485,7 +583,8 @@ export const StrategyDashboardView: React.FC = () => {
                 09. REGENERATE STRATEGY PLAYBOOK
               </h4>
               <p className="text-xs text-muted-foreground">
-                Re-run intelligence synthesis against updated research reports and fresh workspace context.
+                Re-run intelligence synthesis against updated research reports and fresh workspace
+                context.
               </p>
             </div>
             <Button

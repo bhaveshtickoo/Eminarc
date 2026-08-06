@@ -21,21 +21,24 @@ export const defaultMockReports: ConsultingReportData[] = [
     title: "Weekly Founder Growth Performance Audit",
     type: "Growth Telemetry",
     generatedAt: "AUG 02, 2026",
-    summary: "Comprehensive weekly growth score telemetry, pipeline velocity, and LLM visibility delta.",
+    summary:
+      "Comprehensive weekly growth score telemetry, pipeline velocity, and LLM visibility delta.",
   },
   {
     id: "rep-2",
     title: "Monthly AI Search Visibility & GEO Citation Teardown",
     type: "AI Visibility",
     generatedAt: "JUL 31, 2026",
-    summary: "Audit of ChatGPT, Claude, and Perplexity citation share across 4 target SaaS categories.",
+    summary:
+      "Audit of ChatGPT, Claude, and Perplexity citation share across 4 target SaaS categories.",
   },
   {
     id: "rep-3",
     title: "B2B CRM Pipeline & High-Intent Opportunity Report",
     type: "CRM Pipeline",
     generatedAt: "JUL 28, 2026",
-    summary: "Pipeline conversion telemetry, lead distribution by channel, and forecasted ARR delta.",
+    summary:
+      "Pipeline conversion telemetry, lead distribution by channel, and forecasted ARR delta.",
   },
 ];
 
@@ -45,7 +48,10 @@ export async function getReports(workspaceId?: string): Promise<ConsultingReport
   }
 
   try {
-    let query = supabase.from("content_items").select("*").order("created_at", { ascending: false });
+    let query = supabase
+      .from("content_items")
+      .select("*")
+      .order("created_at", { ascending: false });
     if (workspaceId) {
       query = query.eq("workspace_id", workspaceId);
     }
@@ -57,7 +63,9 @@ export async function getReports(workspaceId?: string): Promise<ConsultingReport
         title: row.title,
         type: row.type || "Growth Telemetry",
         generatedAt: row.created_at
-          ? new Date(row.created_at).toLocaleDateString("en-US", { month: "short", day: "2-digit", year: "numeric" }).toUpperCase()
+          ? new Date(row.created_at)
+              .toLocaleDateString("en-US", { month: "short", day: "2-digit", year: "numeric" })
+              .toUpperCase()
           : "AUG 01, 2026",
         summary: row.content || "Executive consulting performance teardown.",
       }));

@@ -70,20 +70,20 @@ nexus-shine-pane-main/
 
 ## 2. Route Map
 
-| Path | File | Description | Active Status |
-| :--- | :--- | :--- | :--- |
-| `/login` | `src/routes/login.tsx` | Mock user login & authentication view | Production Ready |
-| `/` | `src/routes/_dashboard.index.tsx` | Growth Command Center Overview & KPIs | Active |
-| `/clients` | `src/routes/_dashboard.clients.tsx` | Client program progress & onboarding | Active |
-| `/leads` | `src/routes/_dashboard.leads.tsx` | Lead Intelligence table with scoring | Active |
-| `/content` | `src/routes/_dashboard.content.tsx` | Content Operating System workspace | Active |
-| `/outreach` | `src/routes/_dashboard.outreach.tsx` | Multi-channel outreach campaign manager | Active |
-| `/linkedin` | `src/routes/_dashboard.linkedin.tsx` | AI Agents command & LinkedIn Copilot | Active |
-| `/analytics` | `src/routes/_dashboard.analytics.tsx` | Unified Analytics & AI Visibility Auditor | Active |
-| `/reports` | `src/routes/_dashboard.reports.tsx` | Executive Growth Reports & Audits | Active |
-| `/tasks` | `src/routes/_dashboard.tasks.tsx` | Task management & priority checklist | Active |
-| `/integrations`| `src/routes/_dashboard.integrations.tsx`| CRM, LinkedIn, & Email integrations | Active |
-| `/settings` | `src/routes/_dashboard.settings.tsx` | Workspace, billing, & profile settings | Active |
+| Path            | File                                     | Description                               | Active Status    |
+| :-------------- | :--------------------------------------- | :---------------------------------------- | :--------------- |
+| `/login`        | `src/routes/login.tsx`                   | Mock user login & authentication view     | Production Ready |
+| `/`             | `src/routes/_dashboard.index.tsx`        | Growth Command Center Overview & KPIs     | Active           |
+| `/clients`      | `src/routes/_dashboard.clients.tsx`      | Client program progress & onboarding      | Active           |
+| `/leads`        | `src/routes/_dashboard.leads.tsx`        | Lead Intelligence table with scoring      | Active           |
+| `/content`      | `src/routes/_dashboard.content.tsx`      | Content Operating System workspace        | Active           |
+| `/outreach`     | `src/routes/_dashboard.outreach.tsx`     | Multi-channel outreach campaign manager   | Active           |
+| `/linkedin`     | `src/routes/_dashboard.linkedin.tsx`     | AI Agents command & LinkedIn Copilot      | Active           |
+| `/analytics`    | `src/routes/_dashboard.analytics.tsx`    | Unified Analytics & AI Visibility Auditor | Active           |
+| `/reports`      | `src/routes/_dashboard.reports.tsx`      | Executive Growth Reports & Audits         | Active           |
+| `/tasks`        | `src/routes/_dashboard.tasks.tsx`        | Task management & priority checklist      | Active           |
+| `/integrations` | `src/routes/_dashboard.integrations.tsx` | CRM, LinkedIn, & Email integrations       | Active           |
+| `/settings`     | `src/routes/_dashboard.settings.tsx`     | Workspace, billing, & profile settings    | Active           |
 
 ---
 
@@ -255,10 +255,10 @@ src/
 
 1. **Founder Research Workspace (`/research`)**:
    - Currently absent in the Lovable codebase (mapped only to basic `/clients`).
-   - *Required*: McKinsey-grade 2-column research input panel & strategic growth report generator.
+   - _Required_: McKinsey-grade 2-column research input panel & strategic growth report generator.
 2. **AI Visibility Scanner Auditor (`/visibility`)**:
    - Currently represented as static text cards inside Analytics.
-   - *Required*: Dedicated 9-platform citation radar tracking ChatGPT, Claude, Gemini, Perplexity, Google AI Overviews, Reddit, LinkedIn, Medium.
+   - _Required_: Dedicated 9-platform citation radar tracking ChatGPT, Claude, Gemini, Perplexity, Google AI Overviews, Reddit, LinkedIn, Medium.
 3. **Global Workspace Context Engine**:
    - Top header & sidebar currently render static text ("Eminarc") instead of reading from a shared `WorkspaceContext`.
 4. **Content OS 3-Column Editorial Layout**:
@@ -267,7 +267,9 @@ src/
 ---
 
 ### Conclusion & Next Steps
+
 The codebase provides a solid, highly polished React + Vite + TanStack Router foundation. To productionize it into **Eminarc Growth OS**:
+
 1. Implement `WorkspaceContext` for shared company state.
 2. Build the missing `/research` and `/visibility` routes.
 3. Upgrade `/content` into the 3-column editorial workspace.

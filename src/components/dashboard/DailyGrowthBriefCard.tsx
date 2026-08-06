@@ -85,7 +85,12 @@ export const DailyGrowthBriefCard: React.FC = () => {
         <div>
           <div className="flex items-center space-x-2 mb-1">
             <span className="font-mono text-[10px] uppercase tracking-[0.2em] font-semibold text-[#716D64] bg-[#EFEAE1] px-2.5 py-0.5 rounded-full">
-              DAILY GROWTH BRIEF / {new Date().toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" })}
+              DAILY GROWTH BRIEF /{" "}
+              {new Date().toLocaleDateString(undefined, {
+                weekday: "short",
+                month: "short",
+                day: "numeric",
+              })}
             </span>
             <span className="inline-flex items-center space-x-1 font-mono text-[10px] text-[#1E4620] bg-[#EDF6F0] px-2 py-0.5 rounded-full border border-[#C8E4D0]">
               <ShieldCheck className="h-3 w-3 text-[#2D6A4F]" />
@@ -113,7 +118,9 @@ export const DailyGrowthBriefCard: React.FC = () => {
         <span className="font-mono text-[10px] text-amber-300 uppercase tracking-widest font-bold flex items-center gap-1.5">
           <Zap className="h-3.5 w-3.5" /> TODAY&apos;S NORTH STAR FOCUS
         </span>
-        <h3 className="font-sans font-bold text-base md:text-lg leading-snug">{brief.todaysFocus}</h3>
+        <h3 className="font-sans font-bold text-base md:text-lg leading-snug">
+          {brief.todaysFocus}
+        </h3>
       </div>
 
       {/* 2 & 3: Opportunities & Risks */}
@@ -125,14 +132,19 @@ export const DailyGrowthBriefCard: React.FC = () => {
               <Target className="h-4 w-4 text-emerald-600" />
               TOP OPPORTUNITIES
             </span>
-            <Badge variant="outline" className="font-mono text-[9px] bg-emerald-500/10 text-emerald-700 border-emerald-500/20">
+            <Badge
+              variant="outline"
+              className="font-mono text-[9px] bg-emerald-500/10 text-emerald-700 border-emerald-500/20"
+            >
               High Leverage
             </Badge>
           </div>
           <ul className="space-y-2 text-xs text-muted-foreground">
             {brief.topOpportunities.map((op, idx) => (
               <li key={idx} className="flex items-start gap-2">
-                <span className="font-mono text-[10px] text-emerald-600 font-bold shrink-0 mt-0.5">0{idx + 1}.</span>
+                <span className="font-mono text-[10px] text-emerald-600 font-bold shrink-0 mt-0.5">
+                  0{idx + 1}.
+                </span>
                 <span>{op}</span>
               </li>
             ))}
@@ -146,14 +158,19 @@ export const DailyGrowthBriefCard: React.FC = () => {
               <AlertTriangle className="h-4 w-4 text-amber-600" />
               RISKS & FRICTION VECTORS
             </span>
-            <Badge variant="outline" className="font-mono text-[9px] bg-amber-500/10 text-amber-700 border-amber-500/20">
+            <Badge
+              variant="outline"
+              className="font-mono text-[9px] bg-amber-500/10 text-amber-700 border-amber-500/20"
+            >
               Active Warning
             </Badge>
           </div>
           <ul className="space-y-2 text-xs text-muted-foreground">
             {brief.risks.map((rk, idx) => (
               <li key={idx} className="flex items-start gap-2">
-                <span className="font-mono text-[10px] text-amber-600 font-bold shrink-0 mt-0.5">!</span>
+                <span className="font-mono text-[10px] text-amber-600 font-bold shrink-0 mt-0.5">
+                  !
+                </span>
                 <span>{rk}</span>
               </li>
             ))}
@@ -170,12 +187,19 @@ export const DailyGrowthBriefCard: React.FC = () => {
               <CheckSquare className="h-4 w-4 text-primary" />
               TASKS DUE TODAY
             </span>
-            <Badge variant="secondary" className="font-mono text-[9px]">{brief.tasksDue.length} Items</Badge>
+            <Badge variant="secondary" className="font-mono text-[9px]">
+              {brief.tasksDue.length} Items
+            </Badge>
           </div>
           <ul className="space-y-2 text-xs text-muted-foreground">
             {brief.tasksDue.map((tsk, idx) => (
               <li key={idx} className="flex items-center gap-2">
-                <input type="checkbox" readOnly checked className="h-3.5 w-3.5 rounded border-[#E5E0D6] text-primary" />
+                <input
+                  type="checkbox"
+                  readOnly
+                  checked
+                  className="h-3.5 w-3.5 rounded border-[#E5E0D6] text-primary"
+                />
                 <span className="truncate">{tsk}</span>
               </li>
             ))}
@@ -189,7 +213,9 @@ export const DailyGrowthBriefCard: React.FC = () => {
               <FileSearch className="h-4 w-4 text-primary" />
               RESEARCH COMPLETED
             </span>
-            <Badge variant="secondary" className="font-mono text-[9px]">Verified Reports</Badge>
+            <Badge variant="secondary" className="font-mono text-[9px]">
+              Verified Reports
+            </Badge>
           </div>
           <ul className="space-y-2 text-xs text-muted-foreground">
             {brief.researchCompleted.map((rs, idx) => (
@@ -210,16 +236,28 @@ export const DailyGrowthBriefCard: React.FC = () => {
         </span>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-1">
           <div className="p-3 rounded-xl bg-background border border-[#E5E0D6] space-y-0.5">
-            <span className="font-mono text-[10px] text-muted-foreground font-bold uppercase">OUTBOUND CTR</span>
-            <p className="font-display font-bold text-base text-foreground">{brief.campaignPerformance.clickThroughRate}</p>
+            <span className="font-mono text-[10px] text-muted-foreground font-bold uppercase">
+              OUTBOUND CTR
+            </span>
+            <p className="font-display font-bold text-base text-foreground">
+              {brief.campaignPerformance.clickThroughRate}
+            </p>
           </div>
           <div className="p-3 rounded-xl bg-background border border-[#E5E0D6] space-y-0.5">
-            <span className="font-mono text-[10px] text-muted-foreground font-bold uppercase">LEADS GENERATED</span>
-            <p className="font-display font-bold text-base text-emerald-600">+{brief.campaignPerformance.leadsGenerated}</p>
+            <span className="font-mono text-[10px] text-muted-foreground font-bold uppercase">
+              LEADS GENERATED
+            </span>
+            <p className="font-display font-bold text-base text-emerald-600">
+              +{brief.campaignPerformance.leadsGenerated}
+            </p>
           </div>
           <div className="p-3 rounded-xl bg-background border border-[#E5E0D6] space-y-0.5">
-            <span className="font-mono text-[10px] text-muted-foreground font-bold uppercase">PIPELINE ADDED</span>
-            <p className="font-display font-bold text-base text-foreground">{brief.campaignPerformance.pipelineAdded}</p>
+            <span className="font-mono text-[10px] text-muted-foreground font-bold uppercase">
+              PIPELINE ADDED
+            </span>
+            <p className="font-display font-bold text-base text-foreground">
+              {brief.campaignPerformance.pipelineAdded}
+            </p>
           </div>
         </div>
       </div>
@@ -232,7 +270,10 @@ export const DailyGrowthBriefCard: React.FC = () => {
         </span>
         <div className="space-y-2">
           {brief.recommendedActions.map((act, idx) => (
-            <div key={idx} className="p-3 rounded-xl border border-[#E5E0D6] bg-secondary/30 flex items-center justify-between text-xs">
+            <div
+              key={idx}
+              className="p-3 rounded-xl border border-[#E5E0D6] bg-secondary/30 flex items-center justify-between text-xs"
+            >
               <span className="font-medium text-foreground">{act}</span>
               <ArrowRight className="h-3.5 w-3.5 text-primary shrink-0 ml-2" />
             </div>

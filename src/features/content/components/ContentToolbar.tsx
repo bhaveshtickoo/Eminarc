@@ -1,17 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import {
-  Save,
-  Copy,
-  Archive,
-  Bold,
-  Italic,
-  List,
-  Code,
-  Check,
-  ChevronDown,
-} from "lucide-react";
+import { Save, Copy, Archive, Bold, Italic, List, Code, Check, ChevronDown } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 

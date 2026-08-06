@@ -13,9 +13,27 @@ export interface ApiKeyItem {
 }
 
 export const initialApiKeys: ApiKeyItem[] = [
-  { id: "key-1", name: "OpenRouter LLM Pipeline", keyMasked: "em_live_pk_••••••••••••9482", createdAt: "Jul 15, 2026", lastUsed: "10 mins ago" },
-  { id: "key-2", name: "Supabase Vector DB Sync", keyMasked: "em_live_sk_••••••••••••1048", createdAt: "Jul 20, 2026", lastUsed: "2 hours ago" },
-  { id: "key-3", name: "HubSpot CRM Webhook", keyMasked: "em_live_wh_••••••••••••5819", createdAt: "Aug 01, 2026", lastUsed: "Yesterday" },
+  {
+    id: "key-1",
+    name: "OpenRouter LLM Pipeline",
+    keyMasked: "em_live_pk_••••••••••••9482",
+    createdAt: "Jul 15, 2026",
+    lastUsed: "10 mins ago",
+  },
+  {
+    id: "key-2",
+    name: "Supabase Vector DB Sync",
+    keyMasked: "em_live_sk_••••••••••••1048",
+    createdAt: "Jul 20, 2026",
+    lastUsed: "2 hours ago",
+  },
+  {
+    id: "key-3",
+    name: "HubSpot CRM Webhook",
+    keyMasked: "em_live_wh_••••••••••••5819",
+    createdAt: "Aug 01, 2026",
+    lastUsed: "Yesterday",
+  },
 ];
 
 export const SettingsApiKeysTab: React.FC = () => {
@@ -54,8 +72,12 @@ export const SettingsApiKeysTab: React.FC = () => {
                 API KEYS & WEBHOOKS (UI ONLY)
               </span>
             </div>
-            <h3 className="font-sans font-bold text-lg text-[#111111] mt-1">Secret API Key Management</h3>
-            <p className="font-sans text-xs text-[#52525B]">Manage secret API keys for automated programmatic integration with Eminarc Growth OS.</p>
+            <h3 className="font-sans font-bold text-lg text-[#111111] mt-1">
+              Secret API Key Management
+            </h3>
+            <p className="font-sans text-xs text-[#52525B]">
+              Manage secret API keys for automated programmatic integration with Eminarc Growth OS.
+            </p>
           </div>
 
           <button
@@ -70,7 +92,10 @@ export const SettingsApiKeysTab: React.FC = () => {
 
         <div className="space-y-2">
           {keys.map((key) => (
-            <div key={key.id} className="flex flex-col sm:flex-row sm:items-center justify-between p-3.5 rounded-xl bg-[#FFFFFF] border border-[#E5E0D6] gap-3 text-xs">
+            <div
+              key={key.id}
+              className="flex flex-col sm:flex-row sm:items-center justify-between p-3.5 rounded-xl bg-[#FFFFFF] border border-[#E5E0D6] gap-3 text-xs"
+            >
               <div className="space-y-0.5">
                 <h4 className="font-bold text-[#111111]">{key.name}</h4>
                 <p className="font-mono text-xs text-[#18181B] bg-[#FCFAF7] px-2 py-0.5 rounded border border-[#E5E0D6] inline-block">

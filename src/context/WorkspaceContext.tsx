@@ -49,12 +49,20 @@ export const defaultKnowledgeBase: WorkspaceKnowledgeBase = {
       {
         name: "Founder Brand Building",
         scope: "Ghostwriting & personal brand positioning for tech founders",
-        deliverables: ["Weekly LinkedIn posts", "Technical Medium breakdowns", "X Thread carousels"],
+        deliverables: [
+          "Weekly LinkedIn posts",
+          "Technical Medium breakdowns",
+          "X Thread carousels",
+        ],
       },
       {
         name: "Generative Engine Optimization (GEO)",
         scope: "Optimizing digital footprint for AI search engine citations",
-        deliverables: ["ChatGPT/Claude citation audit", "Structured schema deployment", "Reddit community strategy"],
+        deliverables: [
+          "ChatGPT/Claude citation audit",
+          "Structured schema deployment",
+          "Reddit community strategy",
+        ],
       },
     ],
   },
@@ -65,11 +73,13 @@ export const defaultKnowledgeBase: WorkspaceKnowledgeBase = {
     },
     {
       title: "LLM Search Invisibility",
-      impact: "Missing out on buyers consulting ChatGPT, Perplexity, and Claude for software recommendations.",
+      impact:
+        "Missing out on buyers consulting ChatGPT, Perplexity, and Claude for software recommendations.",
     },
     {
       title: "Content Repurposing Friction",
-      impact: "Manual translation of long-form articles into social carousels eats 10+ founder hours weekly.",
+      impact:
+        "Manual translation of long-form articles into social carousels eats 10+ founder hours weekly.",
     },
   ],
   brandVoice: {
@@ -127,7 +137,8 @@ export const defaultKnowledgeBase: WorkspaceKnowledgeBase = {
     },
     {
       title: "Generative AI Citation Optimization (GEO)",
-      description: "Publish structured markdown teardowns on Medium & Reddit to capture LLM search rank.",
+      description:
+        "Publish structured markdown teardowns on Medium & Reddit to capture LLM search rank.",
     },
   ],
   goals: [
@@ -216,7 +227,9 @@ export const WorkspaceProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     setCurrentWorkspace((prev) => ({ ...prev, ...updates }));
   };
 
-  const createAndSetWorkspace = async (newWorkspaceData: Partial<WorkspaceData>): Promise<WorkspaceData> => {
+  const createAndSetWorkspace = async (
+    newWorkspaceData: Partial<WorkspaceData>,
+  ): Promise<WorkspaceData> => {
     const { data } = await supabaseWorkspaceService.createWorkspace(newWorkspaceData, "user-owner");
     const created = data || {
       ...defaultWorkspace,
@@ -248,11 +261,15 @@ export const WorkspaceProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       ...prev,
       domain: researchData.website || prev.domain,
       industry: researchData.industry || prev.industry,
-      targetMarket: researchData.targetMarkets.length > 0 ? researchData.targetMarkets : prev.targetMarket,
+      targetMarket:
+        researchData.targetMarkets.length > 0 ? researchData.targetMarkets : prev.targetMarket,
       knowledgeBase: {
         ...prev.knowledgeBase,
         industry: researchData.industry || prev.knowledgeBase.industry,
-        targetMarkets: researchData.targetMarkets.length > 0 ? researchData.targetMarkets : prev.knowledgeBase.targetMarkets,
+        targetMarkets:
+          researchData.targetMarkets.length > 0
+            ? researchData.targetMarkets
+            : prev.knowledgeBase.targetMarkets,
         companyProfile: {
           ...prev.knowledgeBase.companyProfile,
           domain: researchData.website || prev.knowledgeBase.companyProfile.domain,
@@ -264,7 +281,10 @@ export const WorkspaceProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         },
         idealCustomerProfile: {
           ...prev.knowledgeBase.idealCustomerProfile,
-          regions: researchData.targetMarkets.length > 0 ? researchData.targetMarkets : prev.knowledgeBase.idealCustomerProfile.regions,
+          regions:
+            researchData.targetMarkets.length > 0
+              ? researchData.targetMarkets
+              : prev.knowledgeBase.idealCustomerProfile.regions,
         },
       },
     }));

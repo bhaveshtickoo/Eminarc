@@ -19,20 +19,16 @@ export interface CookieHandler {
  */
 export function createServerClient(cookieHandler?: CookieHandler): SupabaseClient<Database> {
   if (cookieHandler) {
-    return createSSRServerClient<Database>(
-      supabaseConfig.url,
-      supabaseConfig.anonKey,
-      {
-        cookies: {
-          getAll() {
-            return [];
-          },
-          setAll() {
-            // no-op default or custom handler
-          },
+    return createSSRServerClient<Database>(supabaseConfig.url, supabaseConfig.anonKey, {
+      cookies: {
+        getAll() {
+          return [];
         },
-      }
-    );
+        setAll() {
+          // no-op default or custom handler
+        },
+      },
+    });
   }
 
   return createClient<Database>(supabaseConfig.url, supabaseConfig.anonKey, {

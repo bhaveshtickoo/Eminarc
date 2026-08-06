@@ -47,9 +47,7 @@ export const DealCard: React.FC<DealCardProps> = ({ deal, onSelect }) => {
         <div className="flex items-center space-x-1.5 min-w-0">
           <GripVertical className="h-3.5 w-3.5 text-[#A19B8E] shrink-0" />
           <Building2 className="h-3.5 w-3.5 text-[#18181B] shrink-0" />
-          <h4 className="font-sans font-bold text-xs text-[#111111] truncate">
-            {deal.company}
-          </h4>
+          <h4 className="font-sans font-bold text-xs text-[#111111] truncate">{deal.company}</h4>
         </div>
 
         <span
@@ -83,7 +81,9 @@ export const DealCard: React.FC<DealCardProps> = ({ deal, onSelect }) => {
 
       {/* Next Action & Owner */}
       <div className="pt-2 border-t border-[rgba(0,0,0,0.05)] font-mono text-[9px] text-[#716D64] flex items-center justify-between">
-        <span className="truncate pr-1">Next: <strong className="text-[#18181B]">{deal.nextAction}</strong></span>
+        <span className="truncate pr-1">
+          Next: <strong className="text-[#18181B]">{deal.nextAction}</strong>
+        </span>
         <span className="bg-[#EFEAE1] px-1.5 py-0.5 rounded text-[#18181B] font-bold shrink-0">
           {deal.owner.split(" ")[0]}
         </span>

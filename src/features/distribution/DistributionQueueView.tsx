@@ -40,7 +40,8 @@ export const initialQueueItems: QueueItem[] = [
   {
     id: "dist-1",
     title: "System Over Campaign Breakdown",
-    excerpt: "Why B2B SaaS founders must transition from one-off marketing sprints to an operating system.",
+    excerpt:
+      "Why B2B SaaS founders must transition from one-off marketing sprints to an operating system.",
     platform: "LinkedIn",
     platformIcon: Linkedin,
     accountHandle: "Bhavesh Tickoo (Personal Profile)",
@@ -51,7 +52,8 @@ export const initialQueueItems: QueueItem[] = [
   {
     id: "dist-2",
     title: "GEO AI Search Citation Playbook",
-    excerpt: "How to structure technical markdown breakdowns to rank in ChatGPT, Perplexity, and Claude search queries.",
+    excerpt:
+      "How to structure technical markdown breakdowns to rank in ChatGPT, Perplexity, and Claude search queries.",
     platform: "Medium",
     platformIcon: FileText,
     accountHandle: "Eminarc Engineering Team",

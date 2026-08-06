@@ -31,7 +31,9 @@ By systematizing your brand narrative, your CAC drops while your AI search visib
   const [title, setTitle] = useState(initialTitle);
   const [content, setContent] = useState(initialContent);
   const [selectedPlatform, setSelectedPlatform] = useState("linkedin-post");
-  const [status, setStatus] = useState<"Draft" | "Review" | "Approved" | "Scheduled" | "Published">("Draft");
+  const [status, setStatus] = useState<"Draft" | "Review" | "Approved" | "Scheduled" | "Published">(
+    "Draft",
+  );
 
   const handleFormatText = (format: string) => {
     if (format === "bold") setContent((prev) => prev + " **bold text**");
@@ -71,11 +73,7 @@ By systematizing your brand narrative, your CAC drops while your AI search visib
       </div>
 
       {/* Toolbar & Status Bar */}
-      <ContentToolbar
-        status={status}
-        onStatusChange={setStatus}
-        onFormat={handleFormatText}
-      />
+      <ContentToolbar status={status} onStatusChange={setStatus} onFormat={handleFormatText} />
 
       {/* Main Writing Canvas */}
       <div className="flex-1 min-h-[320px] flex flex-col">

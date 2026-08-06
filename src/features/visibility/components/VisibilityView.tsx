@@ -108,9 +108,7 @@ export const platformList: PlatformCardData[] = [
 
 export const VisibilityView: React.FC = () => {
   const { currentWorkspace } = useWorkspace();
-  const [aiScore, setAiScore] = useState<number>(
-    currentWorkspace.metrics.aiVisibilityScore || 78,
-  );
+  const [aiScore, setAiScore] = useState<number>(currentWorkspace.metrics.aiVisibility || 78);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -157,7 +155,8 @@ export const VisibilityView: React.FC = () => {
           </h1>
 
           <p className="font-sans text-xs md:text-sm text-[#52525B] mt-1">
-            Real-time citation tracking across LLMs, generative search, and professional graphs for {currentWorkspace.name}.
+            Real-time citation tracking across LLMs, generative search, and professional graphs for{" "}
+            {currentWorkspace.name}.
           </p>
         </div>
 

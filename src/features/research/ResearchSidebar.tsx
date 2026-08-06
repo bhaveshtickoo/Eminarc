@@ -71,7 +71,9 @@ export const ResearchSidebar: React.FC = () => {
             <span className="block font-sans font-bold text-xs leading-tight text-[#18181B]">
               Export PDF
             </span>
-            <span className="block font-mono text-[9px] text-[#716D64] mt-0.5">McKinsey Format</span>
+            <span className="block font-mono text-[9px] text-[#716D64] mt-0.5">
+              McKinsey Format
+            </span>
           </div>
         </button>
 
@@ -117,9 +119,7 @@ export const ResearchSidebar: React.FC = () => {
             </span>
           </div>
           <div>
-            <span className="block font-sans font-bold text-xs leading-tight">
-              Save Workspace
-            </span>
+            <span className="block font-sans font-bold text-xs leading-tight">Save Workspace</span>
             <span className="block font-mono text-[9px] text-[#716D64] mt-0.5">
               {saved ? "Stored!" : "Context Store"}
             </span>
@@ -168,9 +168,7 @@ export const ResearchSidebar: React.FC = () => {
             </span>
           </div>
           <div>
-            <span className="block font-sans font-bold text-xs leading-tight">
-              Copy Report
-            </span>
+            <span className="block font-sans font-bold text-xs leading-tight">Copy Report</span>
             <span className="block font-mono text-[9px] text-[#716D64] mt-0.5">
               {copied ? "Copied!" : "Markdown"}
             </span>

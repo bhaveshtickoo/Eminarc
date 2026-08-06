@@ -279,8 +279,7 @@ export const GlobalCommandCenter: React.FC<GlobalCommandCenterProps> = ({
       category: "AI Action",
       icon: Sparkles,
       isAiPlaceholder: true,
-      onSelect: () =>
-        executePlaceholderAI("Ask AI Assistant", "Query workspace knowledge base"),
+      onSelect: () => executePlaceholderAI("Ask AI Assistant", "Query workspace knowledge base"),
     },
     {
       id: "ai-summarize",
@@ -309,8 +308,7 @@ export const GlobalCommandCenter: React.FC<GlobalCommandCenterProps> = ({
       category: "AI Action",
       icon: Sparkles,
       isAiPlaceholder: true,
-      onSelect: () =>
-        executePlaceholderAI("Run Research Agent", "Triggers Founder Research Agent"),
+      onSelect: () => executePlaceholderAI("Run Research Agent", "Triggers Founder Research Agent"),
     },
     {
       id: "ai-run-content",

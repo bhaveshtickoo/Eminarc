@@ -19,10 +19,12 @@ import { Route as VerifyEmailRouteImport } from './routes/verify-email'
 import { Route as DashboardIndexRouteImport } from './routes/_dashboard.index'
 import { Route as DashboardAgentsRouteImport } from './routes/_dashboard.agents'
 import { Route as DashboardAnalyticsRouteImport } from './routes/_dashboard.analytics'
+import { Route as DashboardCampaignsRouteImport } from './routes/_dashboard.campaigns'
 import { Route as DashboardClientsRouteImport } from './routes/_dashboard.clients'
 import { Route as DashboardContentRouteImport } from './routes/_dashboard.content'
 import { Route as DashboardCrmRouteImport } from './routes/_dashboard.crm'
 import { Route as DashboardDistributionRouteImport } from './routes/_dashboard.distribution'
+import { Route as DashboardExecutionRouteImport } from './routes/_dashboard.execution'
 import { Route as DashboardIntegrationsRouteImport } from './routes/_dashboard.integrations'
 import { Route as DashboardLeadsRouteImport } from './routes/_dashboard.leads'
 import { Route as DashboardLinkedinRouteImport } from './routes/_dashboard.linkedin'
@@ -89,6 +91,11 @@ const DashboardAnalyticsRoute = DashboardAnalyticsRouteImport.update({
   path: '/analytics',
   getParentRoute: () => DashboardRoute,
 } as any)
+const DashboardCampaignsRoute = DashboardCampaignsRouteImport.update({
+  id: '/campaigns',
+  path: '/campaigns',
+  getParentRoute: () => DashboardRoute,
+} as any)
 const DashboardClientsRoute = DashboardClientsRouteImport.update({
   id: '/clients',
   path: '/clients',
@@ -107,6 +114,11 @@ const DashboardCrmRoute = DashboardCrmRouteImport.update({
 const DashboardDistributionRoute = DashboardDistributionRouteImport.update({
   id: '/distribution',
   path: '/distribution',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardExecutionRoute = DashboardExecutionRouteImport.update({
+  id: '/execution',
+  path: '/execution',
   getParentRoute: () => DashboardRoute,
 } as any)
 const DashboardIntegrationsRoute = DashboardIntegrationsRouteImport.update({
@@ -203,10 +215,12 @@ export interface FileRoutesByFullPath {
   '/verify-email': typeof VerifyEmailRoute
   '/agents': typeof DashboardAgentsRoute
   '/analytics': typeof DashboardAnalyticsRoute
+  '/campaigns': typeof DashboardCampaignsRoute
   '/clients': typeof DashboardClientsRoute
   '/content': typeof DashboardContentRouteWithChildren
   '/crm': typeof DashboardCrmRoute
   '/distribution': typeof DashboardDistributionRoute
+  '/execution': typeof DashboardExecutionRoute
   '/integrations': typeof DashboardIntegrationsRoute
   '/leads': typeof DashboardLeadsRoute
   '/linkedin': typeof DashboardLinkedinRoute
@@ -233,10 +247,12 @@ export interface FileRoutesByTo {
   '/verify-email': typeof VerifyEmailRoute
   '/agents': typeof DashboardAgentsRoute
   '/analytics': typeof DashboardAnalyticsRoute
+  '/campaigns': typeof DashboardCampaignsRoute
   '/clients': typeof DashboardClientsRoute
   '/content': typeof DashboardContentRouteWithChildren
   '/crm': typeof DashboardCrmRoute
   '/distribution': typeof DashboardDistributionRoute
+  '/execution': typeof DashboardExecutionRoute
   '/integrations': typeof DashboardIntegrationsRoute
   '/leads': typeof DashboardLeadsRoute
   '/linkedin': typeof DashboardLinkedinRoute
@@ -266,10 +282,12 @@ export interface FileRoutesById {
   '/verify-email': typeof VerifyEmailRoute
   '/_dashboard/agents': typeof DashboardAgentsRoute
   '/_dashboard/analytics': typeof DashboardAnalyticsRoute
+  '/_dashboard/campaigns': typeof DashboardCampaignsRoute
   '/_dashboard/clients': typeof DashboardClientsRoute
   '/_dashboard/content': typeof DashboardContentRouteWithChildren
   '/_dashboard/crm': typeof DashboardCrmRoute
   '/_dashboard/distribution': typeof DashboardDistributionRoute
+  '/_dashboard/execution': typeof DashboardExecutionRoute
   '/_dashboard/integrations': typeof DashboardIntegrationsRoute
   '/_dashboard/leads': typeof DashboardLeadsRoute
   '/_dashboard/linkedin': typeof DashboardLinkedinRoute
@@ -300,10 +318,12 @@ export interface FileRouteTypes {
     | '/verify-email'
     | '/agents'
     | '/analytics'
+    | '/campaigns'
     | '/clients'
     | '/content'
     | '/crm'
     | '/distribution'
+    | '/execution'
     | '/integrations'
     | '/leads'
     | '/linkedin'
@@ -330,10 +350,12 @@ export interface FileRouteTypes {
     | '/verify-email'
     | '/agents'
     | '/analytics'
+    | '/campaigns'
     | '/clients'
     | '/content'
     | '/crm'
     | '/distribution'
+    | '/execution'
     | '/integrations'
     | '/leads'
     | '/linkedin'
@@ -362,10 +384,12 @@ export interface FileRouteTypes {
     | '/verify-email'
     | '/_dashboard/agents'
     | '/_dashboard/analytics'
+    | '/_dashboard/campaigns'
     | '/_dashboard/clients'
     | '/_dashboard/content'
     | '/_dashboard/crm'
     | '/_dashboard/distribution'
+    | '/_dashboard/execution'
     | '/_dashboard/integrations'
     | '/_dashboard/leads'
     | '/_dashboard/linkedin'
@@ -469,6 +493,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardAnalyticsRouteImport
       parentRoute: typeof DashboardRoute
     }
+    '/_dashboard/campaigns': {
+      id: '/_dashboard/campaigns'
+      path: '/campaigns'
+      fullPath: '/campaigns'
+      preLoaderRoute: typeof DashboardCampaignsRouteImport
+      parentRoute: typeof DashboardRoute
+    }
     '/_dashboard/clients': {
       id: '/_dashboard/clients'
       path: '/clients'
@@ -495,6 +526,13 @@ declare module '@tanstack/react-router' {
       path: '/distribution'
       fullPath: '/distribution'
       preLoaderRoute: typeof DashboardDistributionRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/_dashboard/execution': {
+      id: '/_dashboard/execution'
+      path: '/execution'
+      fullPath: '/execution'
+      preLoaderRoute: typeof DashboardExecutionRouteImport
       parentRoute: typeof DashboardRoute
     }
     '/_dashboard/integrations': {
@@ -641,10 +679,12 @@ const DashboardResearchRouteWithChildren =
 interface DashboardRouteChildren {
   DashboardAgentsRoute: typeof DashboardAgentsRoute
   DashboardAnalyticsRoute: typeof DashboardAnalyticsRoute
+  DashboardCampaignsRoute: typeof DashboardCampaignsRoute
   DashboardClientsRoute: typeof DashboardClientsRoute
   DashboardContentRoute: typeof DashboardContentRouteWithChildren
   DashboardCrmRoute: typeof DashboardCrmRoute
   DashboardDistributionRoute: typeof DashboardDistributionRoute
+  DashboardExecutionRoute: typeof DashboardExecutionRoute
   DashboardIntegrationsRoute: typeof DashboardIntegrationsRoute
   DashboardLeadsRoute: typeof DashboardLeadsRoute
   DashboardLinkedinRoute: typeof DashboardLinkedinRoute
@@ -661,10 +701,12 @@ interface DashboardRouteChildren {
 const DashboardRouteChildren: DashboardRouteChildren = {
   DashboardAgentsRoute: DashboardAgentsRoute,
   DashboardAnalyticsRoute: DashboardAnalyticsRoute,
+  DashboardCampaignsRoute: DashboardCampaignsRoute,
   DashboardClientsRoute: DashboardClientsRoute,
   DashboardContentRoute: DashboardContentRouteWithChildren,
   DashboardCrmRoute: DashboardCrmRoute,
   DashboardDistributionRoute: DashboardDistributionRoute,
+  DashboardExecutionRoute: DashboardExecutionRoute,
   DashboardIntegrationsRoute: DashboardIntegrationsRoute,
   DashboardLeadsRoute: DashboardLeadsRoute,
   DashboardLinkedinRoute: DashboardLinkedinRoute,

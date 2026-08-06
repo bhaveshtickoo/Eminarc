@@ -1,15 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import {
-  Layers,
-  Target,
-  CheckSquare,
-  Filter,
-  Flame,
-  Globe,
-  Sparkles,
-} from "lucide-react";
+import { Layers, Target, CheckSquare, Filter, Flame, Globe, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useWorkspace } from "@/hooks/useWorkspace";
 import { BrandVoiceCard } from "./BrandVoiceCard";
@@ -53,9 +45,7 @@ export const CampaignSidebar: React.FC<CampaignSidebarProps> = ({
           </span>
           <span className="font-mono text-[9px] text-[#716D64]">Q3 2026</span>
         </div>
-        <h4 className="font-sans font-bold text-sm text-[#111111]">
-          System Over Campaign Scale
-        </h4>
+        <h4 className="font-sans font-bold text-sm text-[#111111]">System Over Campaign Scale</h4>
         <p className="font-sans text-xs text-[#716D64]">
           Positioning {currentWorkspace.name} as the premier AI Growth Operating System.
         </p>
@@ -94,9 +84,7 @@ export const CampaignSidebar: React.FC<CampaignSidebarProps> = ({
           TARGET AUDIENCE
         </span>
         <p className="font-bold text-[#111111]">{kb.idealCustomerProfile.primaryICP}</p>
-        <p className="text-[#716D64] text-[11px]">
-          Regions: {kb.targetMarkets.join(", ")}
-        </p>
+        <p className="text-[#716D64] text-[11px]">Regions: {kb.targetMarkets.join(", ")}</p>
       </div>
 
       {/* 5. Weekly Publishing Target */}

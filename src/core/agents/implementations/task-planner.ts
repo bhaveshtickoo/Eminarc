@@ -5,14 +5,15 @@
 
 import { GrowthAgent, AgentExecuteParams } from "../base";
 import { MemoryType } from "../../memory/types";
-import { LLMResponse } from "../../providers/base";
+import { LLMResponse } from "../../ai/providers/base";
 import { aiMemoryManager } from "../../memory/memory-manager";
 import { getLLMProvider } from "@/services/ai/provider";
 
 export class TaskPlannerAgent implements GrowthAgent {
   id = "task-planner";
   name = "Task Planner Agent";
-  description = "Generates autonomous daily execution task lists and milestone priorities for Growth OS.";
+  description =
+    "Generates autonomous daily execution task lists and milestone priorities for Growth OS.";
   capabilities = [
     "Autonomous Task Breakdown",
     "Sprint Priority Scoring",
@@ -23,9 +24,10 @@ export class TaskPlannerAgent implements GrowthAgent {
   requiredMemory: MemoryType[] = ["workspace", "campaign"];
 
   async execute(params: AgentExecuteParams): Promise<LLMResponse<any>> {
-    const memoryContext = await aiMemoryManager.loadFullMemoryContext(params.workspaceId, {
-      campaignId: params.campaignId,
-    });
+    const memoryContext = await aiMemoryManager.loadFullMemoryContext(
+      params.workspaceId,
+      params.campaignId ? { campaignId: params.campaignId } : undefined,
+    );
 
     const systemPrompt = `${memoryContext.formattedSystemContext}\n\nYou are the Task Planner Agent for Eminarc Growth OS. Tools available: ${this.requiredTools.join(", ")}.`;
 

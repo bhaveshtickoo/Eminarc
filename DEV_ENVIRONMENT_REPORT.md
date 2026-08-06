@@ -4,7 +4,7 @@
 **Node.js Version**: v24.16.0  
 **npm Version**: 11.13.0  
 **Vite Version**: 8.2.0  
-**Status**: Root Cause Identified & Audit Complete  
+**Status**: Root Cause Identified & Audit Complete
 
 ---
 
@@ -30,7 +30,9 @@ The memory allocation crash (`memory allocation of XXXXX bytes failed` / `JavaSc
 ## 2. Recommended Fixes
 
 ### Fix 1: Allocate Higher V8 Heap Size for Production Builds (Immediate Fix)
+
 Update `package.json` build scripts to explicitly supply `--max-old-space-size=4096` to Node.js, providing V8 with 4GB of heap space during build execution:
+
 ```json
 {
   "scripts": {
@@ -42,40 +44,42 @@ Update `package.json` build scripts to explicitly supply `--max-old-space-size=4
 ```
 
 ### Fix 2: Optimize Vite Config Path Resolution (Vite 8 Optimization)
+
 Update `vite.config.ts` to rely on Vite 8 native path resolution, eliminating redundant memory cache allocation from `vite-tsconfig-paths`.
 
 ### Fix 3: Pure SPA Static Build (Alternative Option)
+
 If Eminarc Growth OS is deployed as a Single Page Application (SPA) to Vercel/Netlify without server-side rendering, disable Nitro SSR server compilation in `vite.config.ts` to eliminate Nitro server bundle overhead entirely.
 
 ---
 
 ## 3. Commands Executed & Results
 
-| Command | Status | Result / Output |
-| :--- | :--- | :--- |
-| `node -v` | PASSED | `v24.16.0` (Node 24 LTS) |
-| `npm -v` | PASSED | `11.13.0` |
-| `npx tsc --noEmit` | PASSED | 0 TypeScript compilation errors |
-| `npx eslint .` | PASSED | 0 linting errors |
-| `npm run dev` | PASSED | Ready in 1907 ms on `http://localhost:8080/` |
-| `npm run build` | HEAP SPIKE | Client build succeeded (2607 modules, 1.62s). Nitro SSR build triggered memory ceiling under default 2GB allocation. |
-| `npm run preview` | PASSED | Production preview server ready |
+| Command            | Status     | Result / Output                                                                                                      |
+| :----------------- | :--------- | :------------------------------------------------------------------------------------------------------------------- |
+| `node -v`          | PASSED     | `v24.16.0` (Node 24 LTS)                                                                                             |
+| `npm -v`           | PASSED     | `11.13.0`                                                                                                            |
+| `npx tsc --noEmit` | PASSED     | 0 TypeScript compilation errors                                                                                      |
+| `npx eslint .`     | PASSED     | 0 linting errors                                                                                                     |
+| `npm run dev`      | PASSED     | Ready in 1907 ms on `http://localhost:8080/`                                                                         |
+| `npm run build`    | HEAP SPIKE | Client build succeeded (2607 modules, 1.62s). Nitro SSR build triggered memory ceiling under default 2GB allocation. |
+| `npm run preview`  | PASSED     | Production preview server ready                                                                                      |
 
 ---
 
 ## 4. Dependencies Audited
 
-| Dependency | Version | Status / Notes |
-| :--- | :--- | :--- |
-| **Vite** | `v8.1.5` / `v8.2.0` | Compatible. Vite 8 native path resolution recommended. |
-| **React & React DOM** | `^19.2.0` | Compatible. React 19 ESM verified. |
-| **Tailwind CSS** | `^4.2.1` | Compatible. Native Rust Oxide engine active. |
-| **TanStack Router** | `^1.170.18` | Compatible. `routeTree.gen.ts` generated cleanly. |
-| **TanStack Start** | `^1.168.32` | Compatible. Triggers Nitro SSR server bundling. |
-| **Nitro** | `3.0.260603-beta` | High memory footprint during SSR bundling phase. |
-| **Recharts** | `^2.15.4` | Compatible. Clean SVG chart rendering. |
-| **shadcn/ui** | Radix 1.2+ | 42 primitives verified and functional. |
-| **package-lock.json** | 424 audited | 0 security vulnerabilities. |
+| Dependency            | Version             | Status / Notes                                         |
+| :-------------------- | :------------------ | :----------------------------------------------------- |
+| **Vite**              | `v8.1.5` / `v8.2.0` | Compatible. Vite 8 native path resolution recommended. |
+| **React & React DOM** | `^19.2.0`           | Compatible. React 19 ESM verified.                     |
+| **Tailwind CSS**      | `^4.2.1`            | Compatible. Native Rust Oxide engine active.           |
+| **TanStack Router**   | `^1.170.18`         | Compatible. `routeTree.gen.ts` generated cleanly.      |
+| **TanStack Start**    | `^1.168.32`         | Compatible. Triggers Nitro SSR server bundling.        |
+| **Nitro**             | `3.0.260603-beta`   | High memory footprint during SSR bundling phase.       |
+| **Recharts**          | `^2.15.4`           | Compatible. Clean SVG chart rendering.                 |
+| **shadcn/ui**         | Radix 1.2+          | 42 primitives verified and functional.                 |
+| **package-lock.json** | 424 audited         | 0 security vulnerabilities.                            |
 
 ---
 

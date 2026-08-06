@@ -60,7 +60,7 @@ export class ToolRegistry {
   async execute<TParams = any, TResult = any>(
     name: string,
     params: TParams,
-    context?: any
+    context?: any,
   ): Promise<AIToolResult<TResult>> {
     const tool = this.get(name);
     if (!tool) {

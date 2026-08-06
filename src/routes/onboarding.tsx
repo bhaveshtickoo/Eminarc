@@ -150,7 +150,10 @@ function OnboardingWizard() {
       }
 
       // 2. Update Workspace
-      const wsResult = await workspaceService.ensureWorkspace(user.id, companyName.trim() || "My Workspace");
+      const wsResult = await workspaceService.ensureWorkspace(
+        user.id,
+        companyName.trim() || "My Workspace",
+      );
       if (wsResult.data) {
         const logoLetter = companyName.trim() ? companyName.trim()[0].toUpperCase() : "E";
         const formattedDomain = website.trim()
@@ -198,7 +201,8 @@ function OnboardingWizard() {
               Welcome to Eminarc Growth OS
             </h1>
             <p className="mt-3 max-w-md text-sm text-muted-foreground sm:text-base">
-              The AI-powered operating system for B2B growth teams — research, plan, execute, and measure every growth channel from one system.
+              The AI-powered operating system for B2B growth teams — research, plan, execute, and
+              measure every growth channel from one system.
             </p>
             <div className="mt-8 grid w-full max-w-md grid-cols-1 gap-3 sm:grid-cols-3">
               <div className="flex flex-col items-center rounded-xl border border-border/50 bg-card p-3 text-center">
@@ -305,7 +309,9 @@ function OnboardingWizard() {
             <div className="mb-2 flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
               <Briefcase className="h-5 w-5" />
             </div>
-            <h2 className="font-display text-2xl font-bold">Which industry describes your business?</h2>
+            <h2 className="font-display text-2xl font-bold">
+              Which industry describes your business?
+            </h2>
             <p className="mt-1 text-sm text-muted-foreground">
               Tailors ICP templates, competitor analysis, and visibility scoring.
             </p>
@@ -389,7 +395,9 @@ function OnboardingWizard() {
                         : "border-border/60 bg-card hover:border-primary/40 hover:bg-accent/40"
                     }`}
                   >
-                    <div className={`mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg ${selected ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}>
+                    <div
+                      className={`mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg ${selected ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}
+                    >
                       <IconComp className="h-4 w-4" />
                     </div>
                     <div className="flex-1">

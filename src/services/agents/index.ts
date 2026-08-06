@@ -63,7 +63,10 @@ export async function getAgentsList(workspaceId?: string): Promise<AIAgentStatus
   }
 
   try {
-    let query = supabase.from("content_items").select("*").order("created_at", { ascending: false });
+    let query = supabase
+      .from("content_items")
+      .select("*")
+      .order("created_at", { ascending: false });
     if (workspaceId) {
       query = query.eq("workspace_id", workspaceId);
     }

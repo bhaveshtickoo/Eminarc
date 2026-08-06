@@ -92,7 +92,7 @@ src/routes/
 - Real backend / auth / database (enable Lovable Cloud when ready).
 - Persistent data (in-memory mock resets on reload).
 - Payment integration.  
-Based on everything we've built so far, this is what I'd tell Lovable.
+  Based on everything we've built so far, this is what I'd tell Lovable.
   ---
   # Eminarc Growth OS
   ## One-line vision
@@ -113,10 +113,10 @@ Based on everything we've built so far, this is what I'd tell Lovable.
   - Analytics separately
   - AI tools separately
   - Notion for planning
-  Everything is disconnected.
-  Growth OS becomes the layer above all of them.
-  It thinks like a growth consultant while acting like an AI operations team.
-  ---
+    Everything is disconnected.
+    Growth OS becomes the layer above all of them.
+    It thinks like a growth consultant while acting like an AI operations team.
+  ***
   # Target customers
   Primary
   - Founder-led B2B SaaS
@@ -124,10 +124,10 @@ Based on everything we've built so far, this is what I'd tell Lovable.
   - Agencies
   - GTM teams
   - Revenue teams
-  Markets
+    Markets
   - USA
   - MENA
-  ---
+  ***
   # MVP Goal
   Replace an expensive growth agency's repetitive work with AI while keeping strategic decisions human.
   ---
@@ -143,9 +143,9 @@ Based on everything we've built so far, this is what I'd tell Lovable.
   - Website traffic
   - Tasks
   - Weekly recommendations
-  Instead of showing numbers, it answers
+    Instead of showing numbers, it answers
   > What should I do today to grow?
-  ---
+  ***
   # Modules
   ## 1. Founder Research Agent
   Input
@@ -161,8 +161,8 @@ Based on everything we've built so far, this is what I'd tell Lovable.
   - Hiring
   - Product positioning
   - Buying signals
-  Automatically builds a complete GTM profile.
-  ---
+    Automatically builds a complete GTM profile.
+  ***
   ## 2. ICP Builder
   Instead of filters
   Describe your ideal customer
@@ -175,8 +175,8 @@ Based on everything we've built so far, this is what I'd tell Lovable.
   - hiring signals
   - locations
   - job titles
-  Then finds matching companies.
-  ---
+    Then finds matching companies.
+  ***
   ## 3. Lead Intelligence
   Every lead gets enriched with
   - LinkedIn
@@ -187,22 +187,22 @@ Based on everything we've built so far, this is what I'd tell Lovable.
   - Intent
   - Hiring
   - Social activity
-  Then receives a score.
-  ---
+    Then receives a score.
+  ***
   ## 4. Outreach Engine
   Automatically generates
   - Emails
   - LinkedIn DMs
   - Follow-ups
   - Personalization
-  Uses
+    Uses
   - company research
   - founder research
   - recent posts
   - funding
   - hiring
-  No generic outreach.
-  ---
+    No generic outreach.
+  ***
   ## 5. LinkedIn Copilot
   Handles
   - Content ideas
@@ -212,26 +212,26 @@ Based on everything we've built so far, this is what I'd tell Lovable.
   - Engagement
   - Growth analytics
   - Posting schedule
-  Tracks
+    Tracks
   - impressions
   - followers
   - engagement
   - inbound leads
-  ---
+  ***
   ## 6. Reddit Growth Agent
   Finds
   - relevant subreddits
   - discussions
   - questions
-  Suggests
+    Suggests
   - comments
   - posts
   - engagement strategy
-  Tracks
+    Tracks
   - karma
   - clicks
   - mentions
-  ---
+  ***
   ## 7. AI Visibility Auditor
   Checks
   Can ChatGPT find your company?
@@ -243,7 +243,7 @@ Based on everything we've built so far, this is what I'd tell Lovable.
   - mentions
   - missing pages
   - optimization suggestions
-  ---
+  ***
   ## 8. Website Intelligence
   Scans website
   Finds
@@ -252,8 +252,8 @@ Based on everything we've built so far, this is what I'd tell Lovable.
   - SEO issues
   - conversion issues
   - performance issues
-  Suggests improvements.
-  ---
+    Suggests improvements.
+  ***
   ## 9. Competitor Intelligence
   Tracks competitors
   Shows
@@ -263,7 +263,7 @@ Based on everything we've built so far, this is what I'd tell Lovable.
   - hiring
   - social growth
   - website changes
-  ---
+  ***
   ## 10. Content Operating System
   Creates
   - LinkedIn
@@ -272,8 +272,8 @@ Based on everything we've built so far, this is what I'd tell Lovable.
   - Blog
   - Newsletter
   - Reddit
-  Everything from one knowledge base.
-  ---
+    Everything from one knowledge base.
+  ***
   ## 11. Growth Consultant
   Instead of dashboards
   Ask
@@ -283,8 +283,8 @@ Based on everything we've built so far, this is what I'd tell Lovable.
   - reasons
   - evidence
   - recommendations
-  Exactly like a senior growth consultant.
-  ---
+    Exactly like a senior growth consultant.
+  ***
   ## 12. Weekly Action Plan
   Every Monday
   System generates
@@ -294,7 +294,7 @@ Based on everything we've built so far, this is what I'd tell Lovable.
   - experiments
   - risks
   - opportunities
-  ---
+  ***
   ## 13. Task Center
   Shows
   Today's work
@@ -304,7 +304,7 @@ Based on everything we've built so far, this is what I'd tell Lovable.
   - Send 20 emails
   - Review AI visibility report
   - Call 5 warm leads
-  ---
+  ***
   ## 14. Analytics
   Combines
   - LinkedIn
@@ -314,8 +314,8 @@ Based on everything we've built so far, this is what I'd tell Lovable.
   - Reddit
   - Search
   - AI visibility
-  Everything in one place.
-  ---
+    Everything in one place.
+  ***
   # AI Agents
   - Founder Research Agent
   - Company Research Agent
@@ -330,7 +330,7 @@ Based on everything we've built so far, this is what I'd tell Lovable.
   - Content Agent
   - Strategy Agent
   - Reporting Agent
-  ---
+  ***
   # User Flow
   1. User signs up.
   2. Connects website and LinkedIn.
@@ -342,35 +342,35 @@ Based on everything we've built so far, this is what I'd tell Lovable.
   8. Tracks performance.
   9. Suggests improvements daily.
   10. Repeats continuously.
-  ---
+  ***
   # Tech Stack (MVP)
   **Frontend**
   - Next.js
   - React
   - Tailwind CSS
   - shadcn/ui
-  **Backend**
+    **Backend**
   - FastAPI (Python)
-  **Database**
+    **Database**
   - PostgreSQL
   - Supabase
-  **Authentication**
+    **Authentication**
   - Clerk or Supabase Auth
-  **AI**
+    **AI**
   - OpenRouter
   - OpenAI
   - Gemini
   - Groq (fast inference)
-  **Automation**
+    **Automation**
   - n8n
-  **Vector Search**
+    **Vector Search**
   - Qdrant
-  **Background Jobs**
+    **Background Jobs**
   - Celery + Redis (or simpler queue initially)
-  **Deployment**
+    **Deployment**
   - Vercel (frontend)
   - Railway or Render (backend)
-  ---
+  ***
   # Design Style for Lovable
   - Modern SaaS UI
   - Dark mode first
@@ -381,7 +381,7 @@ Based on everything we've built so far, this is what I'd tell Lovable.
   - Rich charts with actionable insights (not vanity metrics)
   - Card-based dashboard
   - Fast, keyboard-friendly UX
-  ---
+  ***
   ## What makes Eminarc Growth OS different?
   Most tools optimize **one channel**.
   Eminarc Growth OS optimizes the **entire growth system**.

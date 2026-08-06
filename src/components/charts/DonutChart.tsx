@@ -105,11 +105,17 @@ export const DonutChart: React.FC<DonutChartProps> = ({
         <div className="space-y-1.5 flex-1 w-full min-w-0 overflow-hidden">
           {chartData.map((seg, idx) => {
             const labelText = seg.label || seg.name || `Segment ${idx + 1}`;
-            const pct = seg.share !== undefined ? seg.share : Math.round(((seg.value || 0) / (total || 1)) * 100);
+            const pct =
+              seg.share !== undefined
+                ? seg.share
+                : Math.round(((seg.value || 0) / (total || 1)) * 100);
             const color = seg.color || defaultDonutColors[idx % defaultDonutColors.length];
 
             return (
-              <div key={idx} className="flex items-center justify-between text-[11px] font-sans gap-1.5 min-w-0">
+              <div
+                key={idx}
+                className="flex items-center justify-between text-[11px] font-sans gap-1.5 min-w-0"
+              >
                 <div className="flex items-center space-x-1.5 min-w-0 flex-1">
                   <span
                     className="w-2 h-2 rounded-full shrink-0"
@@ -120,7 +126,9 @@ export const DonutChart: React.FC<DonutChartProps> = ({
                   </span>
                 </div>
                 <div className="flex items-center space-x-1 font-mono text-[10px] shrink-0">
-                  <span className="font-bold text-[#111111]">{seg.formattedValue || seg.value}</span>
+                  <span className="font-bold text-[#111111]">
+                    {seg.formattedValue || seg.value}
+                  </span>
                   <span className="text-[#716D64]">({pct}%)</span>
                 </div>
               </div>

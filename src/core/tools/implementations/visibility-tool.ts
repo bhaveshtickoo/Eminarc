@@ -13,7 +13,8 @@ export interface VisibilityToolParams {
 export class VisibilityTool implements AITool<VisibilityToolParams, any> {
   definition: AIToolDefinition = {
     name: "visibility_tool",
-    description: "Audits AI search engine citation scores across ChatGPT, Perplexity, Claude & Gemini.",
+    description:
+      "Audits AI search engine citation scores across ChatGPT, Perplexity, Claude & Gemini.",
     parameters: {
       type: "object",
       properties: {

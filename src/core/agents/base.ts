@@ -4,7 +4,7 @@
  */
 
 import { MemoryType } from "../memory/types";
-import { LLMResponse } from "../providers/base";
+import { LLMResponse } from "../ai/providers/base";
 
 export interface AgentExecuteParams {
   workspaceId: string;

@@ -8,11 +8,7 @@ export interface CommandGroupProps {
   children: React.ReactNode;
 }
 
-export const CommandGroup: React.FC<CommandGroupProps> = ({
-  heading,
-  count,
-  children,
-}) => {
+export const CommandGroup: React.FC<CommandGroupProps> = ({ heading, count, children }) => {
   return (
     <div className="space-y-1 py-1.5 select-none">
       <div className="flex items-center justify-between px-3.5 py-1 font-mono text-[10px] font-bold text-[#716D64] uppercase tracking-wider">

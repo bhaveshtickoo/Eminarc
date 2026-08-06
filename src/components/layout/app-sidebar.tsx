@@ -17,6 +17,8 @@ import {
   FolderKanban,
   Eye,
   Kanban,
+  Rocket,
+  Zap,
 } from "lucide-react";
 
 import {
@@ -35,6 +37,8 @@ import { cn } from "@/lib/utils";
 const nav = [
   { title: "Overview", url: "/", icon: LayoutDashboard },
   { title: "Founder Research", url: "/research", icon: Search },
+  { title: "Execution Planner", url: "/execution", icon: Rocket },
+  { title: "Campaign Engine", url: "/campaigns", icon: Zap },
   { title: "AI Search Visibility", url: "/visibility", icon: Eye },
   { title: "Growth CRM", url: "/crm", icon: Kanban },
   { title: "Agents (AI Hub)", url: "/agents", icon: Bot },
@@ -88,7 +92,7 @@ export function AppSidebar() {
                           "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground",
                       )}
                     >
-                      <Link to={item.url} className="flex items-center gap-3">
+                      <Link to={item.url as any} className="flex items-center gap-3">
                         <item.icon className="h-[1.05rem] w-[1.05rem]" />
                         {!collapsed && <span>{item.title}</span>}
                       </Link>

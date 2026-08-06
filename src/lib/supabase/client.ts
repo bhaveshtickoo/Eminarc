@@ -17,18 +17,14 @@ export const getSupabaseClient = (): SupabaseClient<Database> => {
     return supabaseClientInstance;
   }
 
-  supabaseClientInstance = createClient<Database>(
-    supabaseConfig.url,
-    supabaseConfig.anonKey,
-    {
-      auth: {
-        persistSession: true,
-        autoRefreshToken: true,
-        detectSessionInUrl: true,
-        storageKey: "eminarc_supabase_auth_token",
-      },
-    }
-  );
+  supabaseClientInstance = createClient<Database>(supabaseConfig.url, supabaseConfig.anonKey, {
+    auth: {
+      persistSession: true,
+      autoRefreshToken: true,
+      detectSessionInUrl: true,
+      storageKey: "eminarc_supabase_auth_token",
+    },
+  });
 
   return supabaseClientInstance;
 };

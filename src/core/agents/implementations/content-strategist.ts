@@ -5,7 +5,7 @@
 
 import { GrowthAgent, AgentExecuteParams } from "../base";
 import { MemoryType } from "../../memory/types";
-import { LLMResponse } from "../../providers/base";
+import { LLMResponse } from "../../ai/providers/base";
 import { aiMemoryManager } from "../../memory/memory-manager";
 import { getLLMProvider } from "@/services/ai/provider";
 
@@ -23,9 +23,10 @@ export class ContentStrategistAgent implements GrowthAgent {
   requiredMemory: MemoryType[] = ["workspace", "company", "founder", "conversation"];
 
   async execute(params: AgentExecuteParams): Promise<LLMResponse<any>> {
-    const memoryContext = await aiMemoryManager.loadFullMemoryContext(params.workspaceId, {
-      sessionId: params.sessionId,
-    });
+    const memoryContext = await aiMemoryManager.loadFullMemoryContext(
+      params.workspaceId,
+      params.sessionId ? { sessionId: params.sessionId } : undefined,
+    );
 
     const systemPrompt = `${memoryContext.formattedSystemContext}\n\nYou are the Content Strategist Agent for Eminarc Growth OS. Tools available: ${this.requiredTools.join(", ")}.`;
 

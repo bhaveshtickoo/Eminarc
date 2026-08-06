@@ -15,7 +15,8 @@ export interface ContentToolParams {
 export class ContentTool implements AITool<ContentToolParams, any> {
   definition: AIToolDefinition = {
     name: "content_tool",
-    description: "Queries multi-channel content assets and social media drafts across growth channels.",
+    description:
+      "Queries multi-channel content assets and social media drafts across growth channels.",
     parameters: {
       type: "object",
       properties: {
@@ -41,8 +42,8 @@ export class ContentTool implements AITool<ContentToolParams, any> {
     try {
       const items = await getContent({
         workspaceId: params.workspaceId,
-        channel: params.channel,
-        status: params.status,
+        ...(params.channel ? { channel: params.channel } : {}),
+        ...(params.status ? { status: params.status } : {}),
       });
 
       return { success: true, data: items };

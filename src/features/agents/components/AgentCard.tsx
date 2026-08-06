@@ -70,9 +70,7 @@ export const AgentCard: React.FC<AgentCardProps> = ({
             <h3 className="font-sans font-bold text-sm text-[#111111] leading-tight">
               {agent.name}
             </h3>
-            <span className="font-mono text-[9px] text-[#716D64] block">
-              {agent.role}
-            </span>
+            <span className="font-mono text-[9px] text-[#716D64] block">{agent.role}</span>
           </div>
         </div>
 

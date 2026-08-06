@@ -14,54 +14,173 @@ export class IntentRouter {
   detectIntent(userPrompt: string): { intent: CopilotIntent; confidence: number } {
     const lower = userPrompt.toLowerCase().trim();
 
-    if (lower.includes("research") || lower.includes("scrape") || lower.includes("company teardown") || lower.includes("find founder")) {
+    if (
+      lower.startsWith("go to") ||
+      lower.startsWith("show ") ||
+      lower.includes("navigate") ||
+      lower.includes("open page") ||
+      lower.includes("show pipeline")
+    ) {
+      return { intent: "Workspace navigation", confidence: 0.96 };
+    }
+
+    if (
+      lower.includes("research") ||
+      lower.includes("scrape") ||
+      lower.includes("company teardown") ||
+      lower.includes("find founder") ||
+      lower.includes("investigate")
+    ) {
       return { intent: "Research", confidence: 0.95 };
     }
 
-    if (lower.includes("crm") || lower.includes("lead") || lower.includes("pipeline") || lower.includes("deal") || lower.includes("qualify")) {
-      return { intent: "CRM", confidence: 0.92 };
+    if (
+      lower.includes("plan next quarter") ||
+      lower.includes("operating plan") ||
+      lower.includes("execution plan") ||
+      lower.includes("roadmap planning")
+    ) {
+      return { intent: "Planning", confidence: 0.96 };
     }
 
-    if (lower.includes("linkedin") || lower.includes("post") || lower.includes("content") || lower.includes("article") || lower.includes("blog")) {
-      return { intent: "Content", confidence: 0.94 };
+    if (
+      lower.includes("create campaign") ||
+      lower.includes("launch campaign") ||
+      lower.includes("growth campaign") ||
+      lower.includes("outreach campaign") ||
+      lower.includes("channel campaign")
+    ) {
+      return { intent: "Campaign", confidence: 0.95 };
     }
 
-    if (lower.includes("visibility") || lower.includes("chatgpt") || lower.includes("perplexity") || lower.includes("geo") || lower.includes("citation")) {
-      return { intent: "Visibility", confidence: 0.93 };
+    if (
+      lower.includes("generate tasks") ||
+      lower.includes("create task") ||
+      lower.includes("task breakdown") ||
+      lower.includes("daily tasks") ||
+      lower.includes("to-do") ||
+      lower.includes("what should i do")
+    ) {
+      return { intent: "Task generation", confidence: 0.96 };
     }
 
-    if (lower.includes("distribution") || lower.includes("sequence") || lower.includes("email") || lower.includes("outreach") || lower.includes("dispatch")) {
-      return { intent: "Distribution", confidence: 0.91 };
+    if (
+      lower.includes("dashboard") ||
+      lower.includes("growth score") ||
+      lower.includes("workspace health") ||
+      lower.includes("top opportunities") ||
+      lower.includes("insights")
+    ) {
+      return { intent: "Dashboard insights", confidence: 0.94 };
     }
 
-    if (lower.includes("report") || lower.includes("board") || lower.includes("metric") || lower.includes("roi") || lower.includes("summary")) {
-      return { intent: "Reports", confidence: 0.93 };
+    if (
+      lower.includes("kpi") ||
+      lower.includes("metric explanation") ||
+      lower.includes("conversion rate") ||
+      lower.includes("arr target") ||
+      lower.includes("explain metric")
+    ) {
+      return { intent: "KPI explanation", confidence: 0.93 };
     }
 
-    if (lower.includes("task") || lower.includes("today") || lower.includes("to-do") || lower.includes("roadmap") || lower.includes("sprint") || lower.includes("what should i do")) {
-      return { intent: "Tasks", confidence: 0.96 };
+    if (
+      lower.includes("weekly review") ||
+      lower.includes("report") ||
+      lower.includes("board report") ||
+      lower.includes("retrospective") ||
+      lower.includes("summary report")
+    ) {
+      return { intent: "Report generation", confidence: 0.94 };
     }
 
-    if (lower.includes("strategy") || lower.includes("gtm") || lower.includes("playbook") || lower.includes("positioning") || lower.includes("messaging")) {
+    if (
+      lower.includes("strategy") ||
+      lower.includes("gtm") ||
+      lower.includes("playbook") ||
+      lower.includes("positioning") ||
+      lower.includes("value prop")
+    ) {
       return { intent: "Strategy", confidence: 0.95 };
     }
 
+    if (
+      lower.includes("crm") ||
+      lower.includes("lead") ||
+      lower.includes("pipeline") ||
+      lower.includes("deal") ||
+      lower.includes("qualify")
+    ) {
+      return { intent: "CRM", confidence: 0.92 };
+    }
+
+    if (
+      lower.includes("content") ||
+      lower.includes("linkedin") ||
+      lower.includes("post") ||
+      lower.includes("article") ||
+      lower.includes("blog")
+    ) {
+      return { intent: "Content", confidence: 0.94 };
+    }
+
+    if (
+      lower.includes("visibility") ||
+      lower.includes("chatgpt") ||
+      lower.includes("perplexity") ||
+      lower.includes("geo") ||
+      lower.includes("citation")
+    ) {
+      return { intent: "Visibility", confidence: 0.93 };
+    }
+
+    if (
+      lower.includes("distribution") ||
+      lower.includes("sequence") ||
+      lower.includes("dispatch")
+    ) {
+      return { intent: "Distribution", confidence: 0.91 };
+    }
+
+    if (
+      lower.includes("hello") ||
+      lower.includes("hi") ||
+      lower.includes("who are you") ||
+      lower.includes("help me") ||
+      lower.length < 15
+    ) {
+      return { intent: "General chat", confidence: 0.85 };
+    }
+
     // Default Unknown fallback
-    return { intent: "Unknown", confidence: 0.50 };
+    return { intent: "Unknown", confidence: 0.5 };
   }
 
   /**
-   * 2. Extract structured entities (companyName, domain, channel, topic, timeframe, keywords)
+   * 2. Extract structured entities (companyName, domain, channel, topic, timeframe, navigationTarget, keywords)
    */
   extractEntities(userPrompt: string): ExtractedEntities {
     const entities: ExtractedEntities = { rawKeywords: [] };
     const lower = userPrompt.toLowerCase();
 
+    // Navigation target resolution
+    if (lower.includes("pipeline") || lower.includes("crm")) entities.navigationTarget = "/crm";
+    else if (lower.includes("execution") || lower.includes("plan"))
+      entities.navigationTarget = "/execution";
+    else if (lower.includes("campaign")) entities.navigationTarget = "/campaigns";
+    else if (lower.includes("research")) entities.navigationTarget = "/research";
+    else if (lower.includes("task")) entities.navigationTarget = "/tasks";
+    else if (lower.includes("analytics")) entities.navigationTarget = "/analytics";
+    else if (lower.includes("visibility")) entities.navigationTarget = "/visibility";
+    else if (lower.includes("content")) entities.navigationTarget = "/content";
+
     // Company Name / Domain regex extraction
-    const companyMatch = userPrompt.match(/(?:research|for|about|company)\s+([A-Z0-9.\-\s]{2,30})/i);
+    const companyMatch = userPrompt.match(
+      /(?:research|for|about|company|teardown)\s+([A-Z0-9.\-\s]{2,30})/i,
+    );
     if (companyMatch && companyMatch[1]) {
       const candidate = companyMatch[1].trim();
-      if (!["me", "the", "a", "our"].includes(candidate.toLowerCase())) {
+      if (!["me", "the", "a", "our", "hub", "page"].includes(candidate.toLowerCase())) {
         entities.companyName = candidate;
         if (candidate.includes(".")) {
           entities.domain = candidate;
@@ -79,7 +198,12 @@ export class IntentRouter {
     // Timeframe extraction
     if (lower.includes("today")) entities.timeframe = "Today";
     else if (lower.includes("this week") || lower.includes("weekly")) entities.timeframe = "Weekly";
-    else if (lower.includes("this month") || lower.includes("monthly")) entities.timeframe = "Monthly";
+    else if (
+      lower.includes("this month") ||
+      lower.includes("monthly") ||
+      lower.includes("next quarter")
+    )
+      entities.timeframe = "Quarterly";
 
     // Raw keywords
     entities.rawKeywords = userPrompt.split(/\s+/).filter((w) => w.length > 3);
@@ -94,6 +218,21 @@ export class IntentRouter {
     switch (intent) {
       case "Research":
         return "founder-research";
+      case "Strategy":
+        return "growth-strategy-agent";
+      case "Planning":
+        return "task-planner";
+      case "Campaign":
+        return "distribution-planner";
+      case "Task generation":
+        return "task-planner";
+      case "Dashboard insights":
+      case "KPI explanation":
+      case "Report generation":
+        return "report-generator";
+      case "Workspace navigation":
+      case "General chat":
+        return "content-strategist";
       case "CRM":
         return "crm-assistant";
       case "Content":
@@ -102,12 +241,6 @@ export class IntentRouter {
         return "visibility-analyst";
       case "Distribution":
         return "distribution-planner";
-      case "Reports":
-        return "report-generator";
-      case "Tasks":
-        return "task-planner";
-      case "Strategy":
-        return "growth-strategy-agent";
       case "Unknown":
       default:
         return "content-strategist"; // Fallback general assistant agent
@@ -134,11 +267,11 @@ export class IntentRouter {
     }
 
     // If initial pattern match was Unknown, invoke LLM Provider for dynamic natural language intent resolution
-    const llmPrompt = `Analyze user query and return JSON routing decision.
+    const llmPrompt = `Analyze user query and return JSON routing decision for Growth OS Copilot.
 Query: "${userPrompt}"
 
 Options for "intent":
-["Research", "CRM", "Content", "Visibility", "Distribution", "Reports", "Tasks", "Strategy", "Unknown"]
+["Research", "Strategy", "Planning", "Campaign", "Task generation", "Dashboard insights", "KPI explanation", "Report generation", "Workspace navigation", "General chat", "CRM", "Content", "Visibility", "Distribution", "Unknown"]
 
 Return JSON:
 {
@@ -171,9 +304,10 @@ Return JSON:
       return {
         intent: "Unknown",
         agentId: "content-strategist",
-        confidenceScore: 0.50,
+        confidenceScore: 0.5,
         entities,
-        reasoning: "Prompt could not be matched with high confidence. Routing to fallback general growth agent.",
+        reasoning:
+          "Prompt could not be matched with high confidence. Routing to fallback general growth agent.",
         isFallback: true,
       };
     }

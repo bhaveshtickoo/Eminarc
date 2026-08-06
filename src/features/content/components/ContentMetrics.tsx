@@ -29,7 +29,9 @@ export const ContentMetrics: React.FC<ContentMetricsProps> = ({ content }) => {
         <div className="flex items-center space-x-1.5">
           <Clock className="h-3.5 w-3.5 text-[#18181B]" />
           <span>Reading Time:</span>
-          <strong className="text-[#18181B]">{readingTimeMin} min ({wordCount} words)</strong>
+          <strong className="text-[#18181B]">
+            {readingTimeMin} min ({wordCount} words)
+          </strong>
         </div>
       </div>
 

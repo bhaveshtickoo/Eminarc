@@ -11,3 +11,4 @@ export * from "./tasks";
 export * from "./reports";
 export * from "./ai/provider";
 export * from "./ai/founder-agent";
+export * from "./brief/daily-brief-service";

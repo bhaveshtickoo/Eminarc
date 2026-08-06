@@ -196,7 +196,11 @@ function Signup() {
                 />
               </div>
             </div>
-            <Button type="submit" className="w-full gap-2" disabled={loading || Boolean(oauthLoading)}>
+            <Button
+              type="submit"
+              className="w-full gap-2"
+              disabled={loading || Boolean(oauthLoading)}
+            >
               {loading ? "Creating account…" : "Create account"}
               {!loading && <ArrowRight className="h-4 w-4" />}
             </Button>

@@ -13,7 +13,7 @@ export const authService = {
    */
   async signInWithPassword(
     email: string,
-    password: string
+    password: string,
   ): Promise<ServiceResult<{ user: User | null; session: Session | null }>> {
     try {
       const { data, error } = await supabase.auth.signInWithPassword({ email, password });
@@ -30,7 +30,7 @@ export const authService = {
   async signUp(
     email: string,
     password: string,
-    fullName?: string
+    fullName?: string,
   ): Promise<ServiceResult<{ user: User | null; session: Session | null }>> {
     try {
       const redirectTo = `${window.location.origin}/auth/callback`;
@@ -69,7 +69,10 @@ export const authService = {
   /**
    * Sign in with Social OAuth Provider (Google, GitHub)
    */
-  async signInWithOAuth(provider: Provider, returnUrl?: string): Promise<ServiceResult<{ url: string | null }>> {
+  async signInWithOAuth(
+    provider: Provider,
+    returnUrl?: string,
+  ): Promise<ServiceResult<{ url: string | null }>> {
     try {
       const redirectTo = `${window.location.origin}/auth/callback${
         returnUrl ? `?redirect=${encodeURIComponent(returnUrl)}` : ""
@@ -140,11 +143,7 @@ export const authService = {
    */
   async getUserProfile(userId: string): Promise<ServiceResult<UserProfile>> {
     try {
-      const { data, error } = await supabase
-        .from("profiles")
-        .select("*")
-        .eq("id", userId)
-        .single();
+      const { data, error } = await supabase.from("profiles").select("*").eq("id", userId).single();
 
       if (error) return { data: null, error };
       return {

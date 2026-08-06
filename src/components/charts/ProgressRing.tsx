@@ -33,11 +33,17 @@ export const ProgressRing: React.FC<ProgressRingProps> = ({
 
   return (
     <div
-      className={cn("relative inline-flex flex-col items-center justify-center select-none", className)}
+      className={cn(
+        "relative inline-flex flex-col items-center justify-center select-none",
+        className,
+      )}
       role="img"
       aria-label={ariaLabel}
     >
-      <div className="relative flex items-center justify-center" style={{ width: size, height: size }}>
+      <div
+        className="relative flex items-center justify-center"
+        style={{ width: size, height: size }}
+      >
         <svg width={size} height={size} className="transform -rotate-90">
           {/* Track Circle */}
           <circle

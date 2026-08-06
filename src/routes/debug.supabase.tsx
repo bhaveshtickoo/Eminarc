@@ -26,7 +26,10 @@ export const Route = createFileRoute("/debug/supabase")({
   head: () => ({
     meta: [
       { title: "Supabase Debug Portal — Eminarc Growth OS" },
-      { name: "description", content: "Temporary developer debugging route for Supabase telemetry." },
+      {
+        name: "description",
+        content: "Temporary developer debugging route for Supabase telemetry.",
+      },
     ],
   }),
   component: SupabaseDebugPage,
@@ -36,7 +39,9 @@ function SupabaseDebugPage() {
   const { user, session, isAuthenticated, isConfigured } = useAuth();
   const { currentWorkspace } = useWorkspace();
 
-  const [connectionStatus, setConnectionStatus] = useState<"checking" | "connected" | "disconnected">("checking");
+  const [connectionStatus, setConnectionStatus] = useState<
+    "checking" | "connected" | "disconnected"
+  >("checking");
   const [connectionLatency, setConnectionLatency] = useState<number | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
@@ -50,7 +55,9 @@ function SupabaseDebugPage() {
 
     try {
       if (!isConfigured) {
-        throw new Error("Supabase environment variables (VITE_SUPABASE_URL / VITE_SUPABASE_ANON_KEY) are missing or set to defaults.");
+        throw new Error(
+          "Supabase environment variables (VITE_SUPABASE_URL / VITE_SUPABASE_ANON_KEY) are missing or set to defaults.",
+        );
       }
 
       // Query database table health check
@@ -133,7 +140,8 @@ function SupabaseDebugPage() {
               Supabase Telemetry & Health Radar
             </h1>
             <p className="text-xs md:text-sm text-[#716D64]">
-              Inspect client connectivity, auth tokens, session state, and workspace scoping parameters.
+              Inspect client connectivity, auth tokens, session state, and workspace scoping
+              parameters.
             </p>
           </div>
 
@@ -144,7 +152,9 @@ function SupabaseDebugPage() {
               disabled={isTesting}
               className="flex items-center space-x-1.5 px-3.5 py-2 rounded-xl bg-[#FFFFFF] border border-[#E5E0D6] text-[#18181B] font-mono text-xs font-bold hover:bg-[#F7F4EE] transition-colors cursor-pointer disabled:opacity-50"
             >
-              <RefreshCw className={`h-3.5 w-3.5 ${isTesting ? "animate-spin text-primary" : ""}`} />
+              <RefreshCw
+                className={`h-3.5 w-3.5 ${isTesting ? "animate-spin text-primary" : ""}`}
+              />
               <span>Test Connection</span>
             </button>
 
@@ -153,7 +163,11 @@ function SupabaseDebugPage() {
               onClick={copyDebugJson}
               className="flex items-center space-x-1.5 px-3.5 py-2 rounded-xl bg-[#000000] text-[#FFFFFF] font-mono text-xs font-bold hover:bg-[#222222] transition-colors cursor-pointer"
             >
-              {copied ? <Check className="h-3.5 w-3.5 text-emerald-400" /> : <Copy className="h-3.5 w-3.5" />}
+              {copied ? (
+                <Check className="h-3.5 w-3.5 text-emerald-400" />
+              ) : (
+                <Copy className="h-3.5 w-3.5" />
+              )}
               <span>Copy Debug JSON</span>
             </button>
           </div>
@@ -224,7 +238,9 @@ function SupabaseDebugPage() {
               <span className="font-mono text-[10px] uppercase font-bold text-[#716D64]">
                 WORKSPACE SCOPE
               </span>
-              <Building2 className={`h-4 w-4 ${currentWorkspace?.id ? "text-emerald-600" : "text-red-600"}`} />
+              <Building2
+                className={`h-4 w-4 ${currentWorkspace?.id ? "text-emerald-600" : "text-red-600"}`}
+              />
             </div>
 
             <div className="flex items-center space-x-2 pt-1">
@@ -246,7 +262,9 @@ function SupabaseDebugPage() {
               <span className="font-mono text-[10px] uppercase font-bold text-[#716D64]">
                 CONFIG STATUS
               </span>
-              <Database className={`h-4 w-4 ${isConfigured ? "text-emerald-600" : "text-red-600"}`} />
+              <Database
+                className={`h-4 w-4 ${isConfigured ? "text-emerald-600" : "text-red-600"}`}
+              />
             </div>
 
             <div className="flex items-center space-x-2 pt-1">
@@ -333,14 +351,17 @@ function SupabaseDebugPage() {
                 <div>
                   <span className="text-[#716D64] block font-semibold">ROLE / AUTH PROVIDER</span>
                   <span className="text-[#18181B] bg-[#F7F4EE] px-3 py-1.5 rounded-lg block mt-1 border border-[#E5E0D6]">
-                    {user.role || "authenticated"} · {session?.user?.app_metadata?.provider || "email"}
+                    {user.role || "authenticated"} ·{" "}
+                    {session?.user?.app_metadata?.provider || "email"}
                   </span>
                 </div>
 
                 <div>
                   <span className="text-[#716D64] block font-semibold">LAST SIGN-IN TIMESTAMP</span>
                   <span className="text-[#18181B] bg-[#F7F4EE] px-3 py-1.5 rounded-lg block mt-1 border border-[#E5E0D6]">
-                    {user.last_sign_in_at ? new Date(user.last_sign_in_at).toLocaleString() : "Active Session"}
+                    {user.last_sign_in_at
+                      ? new Date(user.last_sign_in_at).toLocaleString()
+                      : "Active Session"}
                   </span>
                 </div>
               </div>
@@ -383,7 +404,9 @@ function SupabaseDebugPage() {
                     access_token: `${session.access_token.slice(0, 20)}...[TRUNCATED]`,
                     token_type: session.token_type,
                     expires_in: session.expires_in,
-                    expires_at: session.expires_at ? new Date(session.expires_at * 1000).toLocaleString() : null,
+                    expires_at: session.expires_at
+                      ? new Date(session.expires_at * 1000).toLocaleString()
+                      : null,
                     refresh_token: session.refresh_token ? "PRESENT" : "MISSING",
                     user: {
                       id: session.user?.id,
@@ -393,9 +416,13 @@ function SupabaseDebugPage() {
                     },
                   },
                   null,
-                  2
+                  2,
                 )
-              : JSON.stringify({ status: "NO_ACTIVE_SESSION", message: "User is unauthenticated." }, null, 2)}
+              : JSON.stringify(
+                  { status: "NO_ACTIVE_SESSION", message: "User is unauthenticated." },
+                  null,
+                  2,
+                )}
           </pre>
         </div>
 

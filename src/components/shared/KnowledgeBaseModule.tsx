@@ -119,7 +119,9 @@ export const KnowledgeBaseModule: React.FC = () => {
               </span>
             </div>
             <h4 className="font-sans font-bold text-xs text-[#111111]">{kb.industry}</h4>
-            <p className="font-sans text-[11px] text-[#716D64]">Primary competitive market sector.</p>
+            <p className="font-sans text-[11px] text-[#716D64]">
+              Primary competitive market sector.
+            </p>
           </div>
         )}
 
@@ -134,7 +136,10 @@ export const KnowledgeBaseModule: React.FC = () => {
             </div>
             <div className="flex flex-wrap gap-1 font-mono text-[10px]">
               {kb.targetMarkets.map((m, idx) => (
-                <span key={idx} className="bg-[#EDF6F0] text-[#1E4620] px-2 py-0.5 rounded border border-[#C8E4D0]">
+                <span
+                  key={idx}
+                  className="bg-[#EDF6F0] text-[#1E4620] px-2 py-0.5 rounded border border-[#C8E4D0]"
+                >
                   {m}
                 </span>
               ))}
@@ -151,7 +156,9 @@ export const KnowledgeBaseModule: React.FC = () => {
                 5. Ideal Customer Profile
               </span>
             </div>
-            <h4 className="font-sans font-bold text-xs text-[#111111]">{kb.idealCustomerProfile.primaryICP}</h4>
+            <h4 className="font-sans font-bold text-xs text-[#111111]">
+              {kb.idealCustomerProfile.primaryICP}
+            </h4>
             <p className="font-sans text-[11px] text-[#716D64]">
               Decision Makers: {kb.idealCustomerProfile.decisionMakers.join(", ")}
             </p>
@@ -203,7 +210,9 @@ export const KnowledgeBaseModule: React.FC = () => {
               </span>
             </div>
             <h4 className="font-sans font-bold text-xs text-[#111111]">{kb.messaging.tagline}</h4>
-            <p className="font-sans text-[11px] text-[#716D64]">&quot;{kb.messaging.elevatorPitch}&quot;</p>
+            <p className="font-sans text-[11px] text-[#716D64]">
+              &quot;{kb.messaging.elevatorPitch}&quot;
+            </p>
           </div>
         )}
 
@@ -269,7 +278,9 @@ export const KnowledgeBaseModule: React.FC = () => {
             </div>
             <ul className="text-[11px] text-[#716D64] space-y-1 font-mono">
               {kb.goals.map((g, idx) => (
-                <li key={idx}>• {g.title} ({g.target})</li>
+                <li key={idx}>
+                  • {g.title} ({g.target})
+                </li>
               ))}
             </ul>
           </div>

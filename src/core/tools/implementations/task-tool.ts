@@ -4,7 +4,7 @@
  */
 
 import { AITool, AIToolDefinition, AIToolResult } from "../base";
-import { getTasks, Task } from "@/services/tasks";
+import { getTasks, TaskItemData } from "@/services/tasks";
 
 export interface TaskToolParams {
   workspaceId: string;
@@ -12,7 +12,7 @@ export interface TaskToolParams {
   category?: string;
 }
 
-export class TaskTool implements AITool<TaskToolParams, Task[]> {
+export class TaskTool implements AITool<TaskToolParams, TaskItemData[]> {
   definition: AIToolDefinition = {
     name: "task_tool",
     description: "Queries and updates autonomous Growth OS execution tasks in Supabase.",
@@ -37,13 +37,9 @@ export class TaskTool implements AITool<TaskToolParams, Task[]> {
     },
   };
 
-  async execute(params: TaskToolParams): Promise<AIToolResult<Task[]>> {
+  async execute(params: TaskToolParams): Promise<AIToolResult<TaskItemData[]>> {
     try {
-      const tasks = await getTasks({
-        workspaceId: params.workspaceId,
-        status: params.status,
-        category: params.category,
-      });
+      const tasks = await getTasks(params.workspaceId);
 
       return { success: true, data: tasks };
     } catch (err) {

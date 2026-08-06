@@ -45,10 +45,7 @@ export interface SettingsTabsProps {
   onSelectTab: (id: string) => void;
 }
 
-export const SettingsTabs: React.FC<SettingsTabsProps> = ({
-  activeTabId,
-  onSelectTab,
-}) => {
+export const SettingsTabs: React.FC<SettingsTabsProps> = ({ activeTabId, onSelectTab }) => {
   // Map any legacy "tab-foo" to "foo"
   const normalizedActiveId = activeTabId.replace(/^tab-/, "");
 

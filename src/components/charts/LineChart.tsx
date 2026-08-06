@@ -117,11 +117,7 @@ export const LineChart: React.FC<LineChartProps> = ({
                   stroke={color}
                   strokeWidth={s.strokeWidth || 2}
                   isAnimationActive={false}
-                  dot={
-                    s.dot !== undefined
-                      ? s.dot
-                      : { r: 3, strokeWidth: 0, fill: color }
-                  }
+                  dot={s.dot !== undefined ? s.dot : { r: 3, strokeWidth: 0, fill: color }}
                   activeDot={{ r: 5, fill: color }}
                 />
               );

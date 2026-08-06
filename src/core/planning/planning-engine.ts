@@ -16,7 +16,7 @@ export class PlanningEngine {
   async convertStrategyToPlan(
     workspaceId: string,
     strategyId?: string,
-    strategyOutput?: GrowthStrategyOutput
+    strategyOutput?: GrowthStrategyOutput,
   ): Promise<MachineReadableExecutionSpec> {
     let strategyData = strategyOutput;
 
@@ -112,7 +112,8 @@ Return ONLY valid JSON matching this exact structure:
   ]
 }`;
 
-    const systemPrompt = "You are the Principal AI Planning Engineer for Eminarc Growth OS. Output strictly valid machine-readable JSON matching the schema.";
+    const systemPrompt =
+      "You are the Principal AI Planning Engineer for Eminarc Growth OS. Output strictly valid machine-readable JSON matching the schema.";
 
     const provider = getLLMProvider();
 
@@ -120,7 +121,10 @@ Return ONLY valid JSON matching this exact structure:
     try {
       result = await provider.completeJSON<MachineReadableExecutionSpec>(prompt, systemPrompt);
     } catch (err) {
-      console.warn("[PlanningEngine.convertStrategyToPlan] LLM provider warning, using fallback synthesis:", err);
+      console.warn(
+        "[PlanningEngine.convertStrategyToPlan] LLM provider warning, using fallback synthesis:",
+        err,
+      );
       result = {
         specVersion: "1.0.0",
         title: `Autonomous Execution Plan — ${strategyData?.title || "Growth OS"}`,
@@ -163,7 +167,8 @@ Return ONLY valid JSON matching this exact structure:
           {
             id: "tsk-002",
             title: "Draft 5 LinkedIn thought leadership posts from research teardown",
-            description: "Use Content Strategist Agent to convert research teardown into 5 viral posts.",
+            description:
+              "Use Content Strategist Agent to convert research teardown into 5 viral posts.",
             projectId: "prj-201",
             campaignId: "cmp-101",
             owner: "Content Strategist Agent",

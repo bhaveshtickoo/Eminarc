@@ -53,7 +53,10 @@ export async function getTasks(workspaceId?: string): Promise<TaskItemData[]> {
   }
 
   try {
-    let query = supabase.from("content_items").select("*").order("created_at", { ascending: false });
+    let query = supabase
+      .from("content_items")
+      .select("*")
+      .order("created_at", { ascending: false });
     if (workspaceId) {
       query = query.eq("workspace_id", workspaceId);
     }
@@ -65,8 +68,10 @@ export async function getTasks(workspaceId?: string): Promise<TaskItemData[]> {
         title: row.title,
         description: row.content || "Growth OS Execution Task",
         status: (row.status as any) === "Published" ? "Completed" : "In Progress",
-        priority: "High" as const,
-        dueDate: row.scheduled_at ? row.scheduled_at.split("T")[0] : undefined,
+        priority: "High",
+        dueDate: row.scheduled_at
+          ? row.scheduled_at.split("T")[0]
+          : new Date().toISOString().split("T")[0],
         assignedTo: "Growth OS Agent",
       }));
     }
@@ -79,7 +84,7 @@ export async function getTasks(workspaceId?: string): Promise<TaskItemData[]> {
 
 export async function createTask(
   payload: Partial<TaskItemData>,
-  workspaceId: string
+  workspaceId: string,
 ): Promise<TaskItemData> {
   const newTask: TaskItemData = {
     id: `tsk-${Date.now()}`,
@@ -96,7 +101,7 @@ export async function createTask(
       await supabase.from("content_items").insert({
         workspace_id: workspaceId,
         title: newTask.title,
-        content: newTask.description,
+        content: newTask.description || null,
         status: "Draft",
         scheduled_at: newTask.dueDate ? new Date(newTask.dueDate).toISOString() : null,
       });

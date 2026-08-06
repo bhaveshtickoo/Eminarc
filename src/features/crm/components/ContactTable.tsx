@@ -180,7 +180,9 @@ export const ContactTable: React.FC = () => {
                   </span>
                 </td>
                 <td className="py-3 px-4 font-mono text-[10px] text-[#716D64]">{c.lastContact}</td>
-                <td className="py-3 px-4 font-mono text-[10px] font-bold text-[#18181B]">{c.nextTask}</td>
+                <td className="py-3 px-4 font-mono text-[10px] font-bold text-[#18181B]">
+                  {c.nextTask}
+                </td>
               </tr>
             ))}
           </tbody>

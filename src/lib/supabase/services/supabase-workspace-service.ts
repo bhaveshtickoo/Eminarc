@@ -19,7 +19,7 @@ export const supabaseWorkspaceService = {
    */
   async createWorkspace(
     workspaceData: Partial<WorkspaceData>,
-    ownerId: string
+    ownerId: string,
   ): Promise<ServiceResult<WorkspaceData>> {
     if (!isSupabaseConfigured()) {
       // In offline/demo mode, construct mock created workspace
@@ -33,7 +33,9 @@ export const supabaseWorkspaceService = {
         timezone: workspaceData.timezone || "UTC-5 (EST)",
         targetMarkets: workspaceData.targetMarkets || ["USA"],
         targetMarket: workspaceData.targetMarket || workspaceData.targetMarkets || ["USA"],
-        logoLetter: workspaceData.logoLetter || (workspaceData.name ? workspaceData.name[0].toUpperCase() : "E"),
+        logoLetter:
+          workspaceData.logoLetter ||
+          (workspaceData.name ? workspaceData.name[0].toUpperCase() : "E"),
         logoUrl: workspaceData.logoUrl,
         status: "Active",
         tagline: workspaceData.tagline || `${workspaceData.name || "B2B"} Growth OS`,
@@ -121,10 +123,13 @@ export const supabaseWorkspaceService = {
         country: workspaceData.country || null,
         timezone: workspaceData.timezone || null,
         logo_url: workspaceData.logoUrl || null,
-        logo_letter: workspaceData.logoLetter || (workspaceData.name ? workspaceData.name[0].toUpperCase() : "W"),
+        logo_letter:
+          workspaceData.logoLetter ||
+          (workspaceData.name ? workspaceData.name[0].toUpperCase() : "W"),
         status: "Active",
         owner_id: ownerId,
-        target_market: (workspaceData.targetMarkets || workspaceData.targetMarket || ["USA"]) as unknown as Json,
+        target_market: (workspaceData.targetMarkets ||
+          workspaceData.targetMarket || ["USA"]) as unknown as Json,
         updated_at: new Date().toISOString(),
       };
 
@@ -154,8 +159,12 @@ export const supabaseWorkspaceService = {
         logoUrl: createdRow.logo_url || undefined,
         logoLetter: createdRow.logo_letter || createdRow.name[0].toUpperCase(),
         status: createdRow.status,
-        targetMarket: Array.isArray(createdRow.target_market) ? (createdRow.target_market as string[]) : ["USA"],
-        targetMarkets: Array.isArray(createdRow.target_market) ? (createdRow.target_market as string[]) : ["USA"],
+        targetMarket: Array.isArray(createdRow.target_market)
+          ? (createdRow.target_market as string[])
+          : ["USA"],
+        targetMarkets: Array.isArray(createdRow.target_market)
+          ? (createdRow.target_market as string[])
+          : ["USA"],
         brandVoice: ["Strategic", "Founder-first"],
         teamMembers: [ownerId],
         metrics: {
@@ -196,7 +205,9 @@ export const supabaseWorkspaceService = {
             distributionChannels: ["LinkedIn"],
           },
           industry: createdRow.industry || "",
-          targetMarkets: Array.isArray(createdRow.target_market) ? (createdRow.target_market as string[]) : ["USA"],
+          targetMarkets: Array.isArray(createdRow.target_market)
+            ? (createdRow.target_market as string[])
+            : ["USA"],
           idealCustomerProfile: {
             primaryICP: "B2B Founders",
             secondaryICP: "Growth Marketing Leaders",
@@ -207,7 +218,12 @@ export const supabaseWorkspaceService = {
           productsAndServices: { products: [], services: [] },
           painPoints: [],
           messaging: { tagline: "", valueProp: "", pillars: [], elevatorPitch: "" },
-          brandVoice: { toneTags: ["Strategic"], rules: [], prohibitedPhrases: [], sampleStyle: "" },
+          brandVoice: {
+            toneTags: ["Strategic"],
+            rules: [],
+            prohibitedPhrases: [],
+            sampleStyle: "",
+          },
           competitors: [],
           growthOpportunities: [],
           goals: [],
@@ -227,7 +243,7 @@ export const supabaseWorkspaceService = {
   async inviteTeamMembers(
     workspaceId: string,
     invites: TeamMemberInvite[],
-    invitedBy: string
+    invitedBy: string,
   ): Promise<ServiceResult<number>> {
     if (invites.length === 0) return { data: 0, error: null };
 
@@ -343,7 +359,10 @@ export const supabaseWorkspaceService = {
   /**
    * Update existing workspace
    */
-  async updateWorkspace(workspaceId: string, updates: Partial<WorkspaceData>): Promise<ServiceResult<null>> {
+  async updateWorkspace(
+    workspaceId: string,
+    updates: Partial<WorkspaceData>,
+  ): Promise<ServiceResult<null>> {
     if (!isSupabaseConfigured()) {
       return { data: null, error: new Error("Supabase is not configured.") };
     }
@@ -380,8 +399,10 @@ export const supabaseWorkspaceService = {
       if (updates.status !== undefined) payload.status = updates.status;
       if (updates.tagline !== undefined) payload.tagline = updates.tagline;
       if (updates.logoLetter !== undefined) payload.logo_letter = updates.logoLetter;
-      if (updates.targetMarket !== undefined) payload.target_market = updates.targetMarket as unknown as Json;
-      if (updates.targetMarkets !== undefined) payload.target_market = updates.targetMarkets as unknown as Json;
+      if (updates.targetMarket !== undefined)
+        payload.target_market = updates.targetMarket as unknown as Json;
+      if (updates.targetMarkets !== undefined)
+        payload.target_market = updates.targetMarkets as unknown as Json;
 
       const { error } = await supabase.from("workspaces").update(payload).eq("id", workspaceId);
 
@@ -395,7 +416,10 @@ export const supabaseWorkspaceService = {
   /**
    * Save Knowledge Base updates to Supabase workspace
    */
-  async updateKnowledgeBase(workspaceId: string, knowledgeBase: WorkspaceKnowledgeBase): Promise<ServiceResult<null>> {
+  async updateKnowledgeBase(
+    workspaceId: string,
+    knowledgeBase: WorkspaceKnowledgeBase,
+  ): Promise<ServiceResult<null>> {
     if (!isSupabaseConfigured()) {
       return { data: null, error: new Error("Supabase is not configured.") };
     }

@@ -21,11 +21,27 @@ export const ContentStrategyView: React.FC = () => {
   const kb = currentWorkspace.knowledgeBase;
 
   const postingCadence = [
-    { channel: "LinkedIn Founder Personal Brand", frequency: "3x / Week", format: "Thought leadership text & carousels" },
-    { channel: "Technical Medium Teardowns", frequency: "1x / Week", format: "Long-form architecture teardowns" },
+    {
+      channel: "LinkedIn Founder Personal Brand",
+      frequency: "3x / Week",
+      format: "Thought leadership text & carousels",
+    },
+    {
+      channel: "Technical Medium Teardowns",
+      frequency: "1x / Week",
+      format: "Long-form architecture teardowns",
+    },
     { channel: "X / Twitter Threads", frequency: "2x / Week", format: "5-tweet punchy breakdowns" },
-    { channel: "Substack / Email Newsletter", frequency: "1x / Week", format: "Executive strategy briefing" },
-    { channel: "Reddit r/SaaS Case Studies", frequency: "Bi-Weekly", format: "Authentic community discussions" },
+    {
+      channel: "Substack / Email Newsletter",
+      frequency: "1x / Week",
+      format: "Executive strategy briefing",
+    },
+    {
+      channel: "Reddit r/SaaS Case Studies",
+      frequency: "Bi-Weekly",
+      format: "Authentic community discussions",
+    },
   ];
 
   const priorityTopics = [
@@ -121,11 +137,16 @@ export const ContentStrategyView: React.FC = () => {
           </div>
           <div className="space-y-2">
             {kb.messaging.pillars.map((pil, idx) => (
-              <div key={idx} className="p-2.5 rounded-xl bg-[#FFFFFF] border border-[#E5E0D6] text-xs">
+              <div
+                key={idx}
+                className="p-2.5 rounded-xl bg-[#FFFFFF] border border-[#E5E0D6] text-xs"
+              >
                 <span className="font-mono text-[9px] font-bold text-[#2D6A4F] block">
                   PILLAR 0{idx + 1} • {pil.title.toUpperCase()}
                 </span>
-                <p className="text-[#111111] font-semibold mt-0.5 leading-snug">&quot;{pil.hook}&quot;</p>
+                <p className="text-[#111111] font-semibold mt-0.5 leading-snug">
+                  &quot;{pil.hook}&quot;
+                </p>
               </div>
             ))}
           </div>
@@ -142,15 +163,25 @@ export const ContentStrategyView: React.FC = () => {
           <div className="space-y-1.5 font-sans text-xs">
             <div className="p-2.5 rounded-xl bg-[#FFFFFF] border border-[#E5E0D6]">
               <strong className="text-[#111111] block">1. System-Over-Campaign Thinking</strong>
-              <span className="text-[#716D64] text-[11px]">Systemic B2B growth vs one-off marketing sprints.</span>
+              <span className="text-[#716D64] text-[11px]">
+                Systemic B2B growth vs one-off marketing sprints.
+              </span>
             </div>
             <div className="p-2.5 rounded-xl bg-[#FFFFFF] border border-[#E5E0D6]">
-              <strong className="text-[#111111] block">2. Generative Engine Optimization (GEO)</strong>
-              <span className="text-[#716D64] text-[11px]">Getting cited by ChatGPT, Perplexity & Claude.</span>
+              <strong className="text-[#111111] block">
+                2. Generative Engine Optimization (GEO)
+              </strong>
+              <span className="text-[#716D64] text-[11px]">
+                Getting cited by ChatGPT, Perplexity & Claude.
+              </span>
             </div>
             <div className="p-2.5 rounded-xl bg-[#FFFFFF] border border-[#E5E0D6]">
-              <strong className="text-[#111111] block">3. Multi-Channel Repurposing Architecture</strong>
-              <span className="text-[#716D64] text-[11px]">Scaling 1 technical breakdown into 7 assets.</span>
+              <strong className="text-[#111111] block">
+                3. Multi-Channel Repurposing Architecture
+              </strong>
+              <span className="text-[#716D64] text-[11px]">
+                Scaling 1 technical breakdown into 7 assets.
+              </span>
             </div>
           </div>
         </div>
@@ -168,7 +199,10 @@ export const ContentStrategyView: React.FC = () => {
           </div>
           <div className="space-y-2">
             {postingCadence.map((cad, idx) => (
-              <div key={idx} className="flex items-center justify-between p-2.5 rounded-xl bg-[#FFFFFF] border border-[#E5E0D6] text-xs">
+              <div
+                key={idx}
+                className="flex items-center justify-between p-2.5 rounded-xl bg-[#FFFFFF] border border-[#E5E0D6] text-xs"
+              >
                 <div>
                   <span className="font-bold text-[#111111] block">{cad.channel}</span>
                   <span className="text-[#716D64] text-[10px]">{cad.format}</span>
@@ -191,13 +225,18 @@ export const ContentStrategyView: React.FC = () => {
           </div>
           <div className="flex flex-wrap gap-1.5 font-mono text-[10px]">
             {kb.brandVoice.toneTags.map((tone, idx) => (
-              <span key={idx} className="bg-[#18181B] text-[#FFFFFF] px-2.5 py-0.5 rounded font-bold">
+              <span
+                key={idx}
+                className="bg-[#18181B] text-[#FFFFFF] px-2.5 py-0.5 rounded font-bold"
+              >
                 {tone}
               </span>
             ))}
           </div>
           <div className="space-y-1 text-xs text-[#18181B]">
-            <span className="font-mono text-[9px] uppercase text-[#716D64] font-bold block">GUIDELINES</span>
+            <span className="font-mono text-[9px] uppercase text-[#716D64] font-bold block">
+              GUIDELINES
+            </span>
             {kb.brandVoice.rules.map((rule, idx) => (
               <p key={idx} className="text-[11px] text-[#716D64]">
                 • {rule}
@@ -219,7 +258,10 @@ export const ContentStrategyView: React.FC = () => {
           </div>
           <div className="space-y-1.5 font-sans text-xs">
             {priorityTopics.map((topic, idx) => (
-              <div key={idx} className="p-2.5 rounded-xl bg-[#FFFFFF] border border-[#E5E0D6] flex items-center space-x-2">
+              <div
+                key={idx}
+                className="p-2.5 rounded-xl bg-[#FFFFFF] border border-[#E5E0D6] flex items-center space-x-2"
+              >
                 <span className="font-mono text-[10px] font-bold text-[#2D6A4F]">0{idx + 1}</span>
                 <span className="font-bold text-[#111111]">{topic}</span>
               </div>
@@ -240,7 +282,10 @@ export const ContentStrategyView: React.FC = () => {
           </div>
           <div className="space-y-2">
             {kb.painPoints.map((pp, idx) => (
-              <div key={idx} className="p-2.5 rounded-xl bg-[#FFFFFF] border border-[#E5E0D6] text-xs space-y-1">
+              <div
+                key={idx}
+                className="p-2.5 rounded-xl bg-[#FFFFFF] border border-[#E5E0D6] text-xs space-y-1"
+              >
                 <h5 className="font-bold text-[#111111]">{pp.title}</h5>
                 <p className="text-[#716D64] text-[11px]">{pp.impact}</p>
               </div>
@@ -261,7 +306,10 @@ export const ContentStrategyView: React.FC = () => {
           </div>
           <div className="space-y-2">
             {kb.growthOpportunities.map((go, idx) => (
-              <div key={idx} className="p-2.5 rounded-xl bg-[#FFFFFF] border border-[#E5E0D6] text-xs space-y-1">
+              <div
+                key={idx}
+                className="p-2.5 rounded-xl bg-[#FFFFFF] border border-[#E5E0D6] text-xs space-y-1"
+              >
                 <strong className="text-[#111111] block">{go.title}</strong>
                 <p className="text-[#716D64] text-[11px]">{go.description}</p>
               </div>

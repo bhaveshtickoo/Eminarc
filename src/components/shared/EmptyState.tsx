@@ -47,9 +47,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
           {title}
         </h3>
 
-        <p className="font-sans text-xs md:text-sm text-[#52525B] leading-relaxed">
-          {description}
-        </p>
+        <p className="font-sans text-xs md:text-sm text-[#52525B] leading-relaxed">{description}</p>
       </div>
 
       <div className="flex flex-wrap items-center justify-center gap-3 pt-2 font-mono text-xs">

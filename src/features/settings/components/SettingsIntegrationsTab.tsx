@@ -19,7 +19,8 @@ export const SettingsIntegrationsTab: React.FC = () => {
       category: "Social & Prospecting",
       status: "connected",
       icon: "💼",
-      description: "Automated post publishing, organic impression tracking, and direct message outreach.",
+      description:
+        "Automated post publishing, organic impression tracking, and direct message outreach.",
     },
     {
       id: "openai",
@@ -51,7 +52,8 @@ export const SettingsIntegrationsTab: React.FC = () => {
       category: "Webhooks",
       status: "disconnected",
       icon: "🔄",
-      description: "Custom trigger webhooks for CRM updates, automated enrichment, and sync pipelines.",
+      description:
+        "Custom trigger webhooks for CRM updates, automated enrichment, and sync pipelines.",
     },
     {
       id: "posthog",

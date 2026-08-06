@@ -37,7 +37,8 @@ export const StatusCard: React.FC = () => {
         </div>
 
         <div className="p-3 rounded-xl bg-[#FBF9F5] border border-[#E5E0D6] text-[11px] font-sans text-[#716D64]">
-          Workspace <strong className="text-[#111111]">{currentWorkspace.name}</strong> research intelligence active and synchronized across all growth modules.
+          Workspace <strong className="text-[#111111]">{currentWorkspace.name}</strong> research
+          intelligence active and synchronized across all growth modules.
         </div>
       </div>
     </div>

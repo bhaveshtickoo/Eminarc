@@ -15,6 +15,18 @@ import { AgentExecuteParams, GrowthAgent } from "../agents/base";
 import { RetryHandler, globalRetryHandler } from "./utils/retry-handler";
 import { UsageTracker, globalUsageTracker } from "./utils/usage-tracker";
 
+import {
+  globalWorkflowOrchestrator,
+  WorkflowOrchestrator,
+} from "./multi-agent/workflow-orchestrator";
+import {
+  globalGrowthPipeline,
+  AutonomousGrowthPipeline,
+  PipelineParams,
+} from "./multi-agent/growth-pipeline";
+import { EventListener } from "./multi-agent/workflow-orchestrator";
+import { GrowthPipelineResult } from "./multi-agent/types";
+
 export interface ExecutionParams extends LLMRequestOptions {
   prompt: string;
   providerName?: string;
@@ -28,15 +40,21 @@ export class AIOrchestrator {
   private agentRegistry: AgentRegistry;
   private retryHandler: RetryHandler;
   private usageTracker: UsageTracker;
+  private workflowOrchestrator: WorkflowOrchestrator;
+  private growthPipeline: AutonomousGrowthPipeline;
 
   constructor(
     agentRegistry = globalAgentRegistry,
     retryHandler = globalRetryHandler,
-    usageTracker = globalUsageTracker
+    usageTracker = globalUsageTracker,
+    workflowOrchestrator = globalWorkflowOrchestrator,
+    growthPipeline = globalGrowthPipeline,
   ) {
     this.agentRegistry = agentRegistry;
     this.retryHandler = retryHandler;
     this.usageTracker = usageTracker;
+    this.workflowOrchestrator = workflowOrchestrator;
+    this.growthPipeline = growthPipeline;
 
     // Register built-in providers out of the box
     this.registerProvider(new OpenRouterProvider());
@@ -83,10 +101,43 @@ export class AIOrchestrator {
   }
 
   /**
+   * Execute complete 8-step Autonomous Growth Collaboration Workflow Pipeline
+   */
+  async runGrowthPipeline(params: PipelineParams): Promise<GrowthPipelineResult> {
+    return this.growthPipeline.runPipeline(params);
+  }
+
+  /**
+   * Subscribe to live workflow progress & streaming events
+   */
+  subscribeWorkflow(listener: EventListener): () => void {
+    return this.workflowOrchestrator.subscribe(listener);
+  }
+
+  /**
+   * Cancel workflow step by ID
+   */
+  cancelWorkflow(stepId?: string): void {
+    if (stepId) {
+      this.workflowOrchestrator.cancelStep(stepId);
+    } else {
+      this.workflowOrchestrator.cancelAll();
+    }
+  }
+
+  /**
+   * Get recorded handoff log
+   */
+  getHandoffLog() {
+    return this.workflowOrchestrator.getHandoffLog();
+  }
+
+  /**
    * 4. Main Execution Engine method
    */
   async execute<T = any>(params: ExecutionParams): Promise<LLMResponse<T>> {
-    const executionId = params.executionId || `exec-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`;
+    const executionId =
+      params.executionId || `exec-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`;
     const providerName = params.providerName || this.defaultProviderName;
     const provider = this.providers.get(providerName);
 
@@ -98,10 +149,11 @@ export class AIOrchestrator {
 
     try {
       const response = await this.retryHandler.retry<LLMResponse<T>>(
-        (signal) => provider.complete<T>(params.prompt, { ...params, signal: signal || controller.signal }),
+        (signal) =>
+          provider.complete<T>(params.prompt, { ...params, signal: signal || controller.signal }),
         3,
         500,
-        controller.signal
+        controller.signal,
       );
 
       this.trackUsage({
@@ -125,9 +177,10 @@ export class AIOrchestrator {
    */
   async executeStreaming(
     params: ExecutionParams,
-    onChunk: (chunk: string) => void
+    onChunk: (chunk: string) => void,
   ): Promise<LLMResponse<string>> {
-    const executionId = params.executionId || `stream-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`;
+    const executionId =
+      params.executionId || `stream-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`;
     const providerName = params.providerName || this.defaultProviderName;
     const provider = this.providers.get(providerName);
 
@@ -153,7 +206,7 @@ export class AIOrchestrator {
           }),
         3,
         500,
-        controller.signal
+        controller.signal,
       );
 
       this.trackUsage({

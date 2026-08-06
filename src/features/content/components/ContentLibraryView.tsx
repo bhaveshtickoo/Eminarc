@@ -47,7 +47,8 @@ export const initialLibraryItems: LibraryItem[] = [
   {
     id: "lib-1",
     title: "System Over Campaign Breakdown",
-    excerpt: "Why B2B SaaS founders must transition from one-off marketing sprints to an operating system.",
+    excerpt:
+      "Why B2B SaaS founders must transition from one-off marketing sprints to an operating system.",
     platform: "LinkedIn Post",
     platformIcon: Linkedin,
     status: "Published",
@@ -59,7 +60,8 @@ export const initialLibraryItems: LibraryItem[] = [
   {
     id: "lib-2",
     title: "Generative Engine Optimization (GEO) Playbook",
-    excerpt: "How to structure technical markdown breakdowns to rank in ChatGPT, Perplexity, and Claude search queries.",
+    excerpt:
+      "How to structure technical markdown breakdowns to rank in ChatGPT, Perplexity, and Claude search queries.",
     platform: "Medium Teardown",
     platformIcon: FileText,
     status: "Scheduled",
@@ -107,7 +109,8 @@ export const initialLibraryItems: LibraryItem[] = [
   {
     id: "lib-6",
     title: "Why Campaigns Die in 30 Days (Short Script)",
-    excerpt: "60-second video script for LinkedIn and YouTube Shorts explaining growth system compounding.",
+    excerpt:
+      "60-second video script for LinkedIn and YouTube Shorts explaining growth system compounding.",
     platform: "Video Script",
     platformIcon: Video,
     status: "Draft",
@@ -147,7 +150,12 @@ export const ContentLibraryView: React.FC = () => {
         title: item.title,
         excerpt: item.excerpt,
         platform: item.channel,
-        platformIcon: item.channel === "LinkedIn" ? Linkedin : item.channel === "Reddit" ? MessageSquare : FileText,
+        platformIcon:
+          item.channel === "LinkedIn"
+            ? Linkedin
+            : item.channel === "Reddit"
+              ? MessageSquare
+              : FileText,
         status: item.status as any,
         campaign: "Growth OS Campaign",
         tags: [item.channel, "Growth"],
@@ -209,7 +217,9 @@ export const ContentLibraryView: React.FC = () => {
       item.excerpt.toLowerCase().includes(search.toLowerCase()) ||
       item.campaign.toLowerCase().includes(search.toLowerCase());
     const matchesStatus = statusFilter === "All" || item.status === statusFilter;
-    const matchesPlatform = platformFilter === "All" || item.platform.toLowerCase().includes(platformFilter.toLowerCase());
+    const matchesPlatform =
+      platformFilter === "All" ||
+      item.platform.toLowerCase().includes(platformFilter.toLowerCase());
     const matchesTag = selectedTag === "All" || item.tags.includes(selectedTag);
     return matchesSearch && matchesStatus && matchesPlatform && matchesTag;
   });
@@ -375,7 +385,9 @@ export const ContentLibraryView: React.FC = () => {
                 {/* Card Footer & Actions */}
                 <div className="pt-4 mt-4 border-t border-[rgba(0,0,0,0.06)] space-y-3">
                   <div className="flex items-center justify-between font-mono text-[10px] text-[#716D64]">
-                    <span>Campaign: <strong className="text-[#18181B]">{item.campaign}</strong></span>
+                    <span>
+                      Campaign: <strong className="text-[#18181B]">{item.campaign}</strong>
+                    </span>
                     <span className="flex items-center">
                       <Clock className="h-3 w-3 mr-1" />
                       {item.lastUpdated}

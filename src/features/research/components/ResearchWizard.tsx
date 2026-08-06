@@ -66,7 +66,9 @@ export const ResearchWizard: React.FC<ResearchWizardProps> = ({
     }
 
     if (type === "website") {
-      const isValid = url.includes(".") && (url.startsWith("http://") || url.startsWith("https://") || url.length > 4);
+      const isValid =
+        url.includes(".") &&
+        (url.startsWith("http://") || url.startsWith("https://") || url.length > 4);
       if (!isValid) {
         setWebsiteError("Please enter a valid website domain (e.g. https://company.com)");
         return false;

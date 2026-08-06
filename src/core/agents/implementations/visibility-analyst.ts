@@ -5,14 +5,15 @@
 
 import { GrowthAgent, AgentExecuteParams } from "../base";
 import { MemoryType } from "../../memory/types";
-import { LLMResponse } from "../../providers/base";
+import { LLMResponse } from "../../ai/providers/base";
 import { aiMemoryManager } from "../../memory/memory-manager";
 import { getLLMProvider } from "@/services/ai/provider";
 
 export class VisibilityAnalystAgent implements GrowthAgent {
   id = "visibility-analyst";
   name = "Visibility Analyst Agent";
-  description = "Audits Generative Engine Optimization (GEO) citations across ChatGPT, Perplexity, Claude, & Gemini.";
+  description =
+    "Audits Generative Engine Optimization (GEO) citations across ChatGPT, Perplexity, Claude, & Gemini.";
   capabilities = [
     "Generative Engine Citation Audit",
     "Share of Model (SoM) Analytics",
@@ -23,9 +24,10 @@ export class VisibilityAnalystAgent implements GrowthAgent {
   requiredMemory: MemoryType[] = ["workspace", "company", "research"];
 
   async execute(params: AgentExecuteParams): Promise<LLMResponse<any>> {
-    const memoryContext = await aiMemoryManager.loadFullMemoryContext(params.workspaceId, {
-      companyId: params.companyId,
-    });
+    const memoryContext = await aiMemoryManager.loadFullMemoryContext(
+      params.workspaceId,
+      params.companyId ? { companyId: params.companyId } : undefined,
+    );
 
     const systemPrompt = `${memoryContext.formattedSystemContext}\n\nYou are the Visibility Analyst Agent for Eminarc Growth OS. Tools available: ${this.requiredTools.join(", ")}.`;
 

@@ -16,7 +16,7 @@ export class RecommendationService {
     workspaceId: string,
     output: RecommendationOutput,
     companyId?: string,
-    strategyId?: string
+    strategyId?: string,
   ): Promise<ServiceResult<RecommendationRow>> {
     if (!isSupabaseConfigured()) {
       return {
@@ -53,7 +53,8 @@ export class RecommendationService {
       console.error("[RecommendationService.saveRecommendations] Error:", err);
       return {
         data: null,
-        error: err instanceof Error ? err : new Error("Failed to save recommendations in Supabase."),
+        error:
+          err instanceof Error ? err : new Error("Failed to save recommendations in Supabase."),
       };
     }
   }
@@ -63,7 +64,7 @@ export class RecommendationService {
    */
   static async getLatestRecommendations(
     workspaceId: string,
-    companyId?: string
+    companyId?: string,
   ): Promise<ServiceResult<RecommendationRow>> {
     if (!isSupabaseConfigured()) {
       return { data: null, error: new Error("Supabase is unconfigured.") };

@@ -12,19 +12,29 @@ export type GrowthCampaignUpdate = Database["public"]["Tables"]["growth_campaign
 export type CampaignType =
   | "LinkedIn"
   | "Email"
+  | "Content Calendar"
+  | "Launch Plan"
+  | "Webinar"
   | "SEO"
-  | "Website"
-  | "Partnerships"
-  | "Events"
   | "Paid"
-  | "Communities";
+  | "Partnership"
+  | "Community"
+  | "Referral";
 
 export type CampaignStatus = "draft" | "scheduled" | "active" | "paused" | "completed" | "archived";
 
 export interface CampaignAsset {
   id: string;
   title: string;
-  type: "Carousel" | "Email Template" | "Landing Page" | "Ad Copy" | "Deck" | "Article";
+  type:
+    | "Carousel"
+    | "Email Template"
+    | "Landing Page"
+    | "Ad Copy"
+    | "Deck"
+    | "Article"
+    | "Calendar Schedule"
+    | "Webinar Deck";
   content: string;
   status: "Draft" | "Approved" | "Published";
 }
@@ -44,6 +54,19 @@ export interface CampaignKPIItem {
   currentValue: string;
 }
 
+export interface ContentCalendarEntry {
+  date: string;
+  platform: string;
+  topic: string;
+  format: string;
+}
+
+export interface LaunchPhase {
+  phaseName: string;
+  durationDays: number;
+  keyActions: string[];
+}
+
 export interface CampaignSpec {
   id: string;
   title: string;
@@ -54,6 +77,11 @@ export interface CampaignSpec {
   assets: CampaignAsset[];
   tasks: CampaignTaskItem[];
   timeline: string;
+  dependencies?: string[];
+  contentCalendar?: ContentCalendarEntry[];
+  launchPlan?: LaunchPhase[];
+  webinarTopic?: string;
+  referralIncentive?: string;
   kpis: CampaignKPIItem[];
   status: CampaignStatus;
 }

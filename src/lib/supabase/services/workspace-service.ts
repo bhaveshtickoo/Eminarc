@@ -100,7 +100,7 @@ export const workspaceService = {
    */
   async createWorkspace(
     ownerId: string,
-    workspaceData?: Partial<WorkspaceInsert>
+    workspaceData?: Partial<WorkspaceInsert>,
   ): Promise<ServiceResult<WorkspaceRow>> {
     try {
       if (!ownerId) {
@@ -172,17 +172,15 @@ export const workspaceService = {
       }
 
       // Step 2: Create membership record for owner in workspace_members table
-      const { error: memberErr } = await supabase
-        .from("workspace_members")
-        .upsert(
-          {
-            workspace_id: createdWs.id,
-            user_id: ownerId,
-            role: "owner",
-            created_at: now,
-          },
-          { onConflict: "workspace_id,user_id" }
-        );
+      const { error: memberErr } = await supabase.from("workspace_members").upsert(
+        {
+          workspace_id: createdWs.id,
+          user_id: ownerId,
+          role: "owner",
+          created_at: now,
+        },
+        { onConflict: "workspace_id,user_id" },
+      );
 
       if (memberErr) {
         console.warn("[WorkspaceService] Membership creation warning:", memberErr);
@@ -199,7 +197,7 @@ export const workspaceService = {
    */
   async updateWorkspace(
     workspaceId: string,
-    updates: Partial<WorkspaceUpdate>
+    updates: Partial<WorkspaceUpdate>,
   ): Promise<ServiceResult<WorkspaceRow>> {
     try {
       if (!workspaceId) {
@@ -265,7 +263,7 @@ export const workspaceService = {
    */
   async ensureWorkspace(
     userId: string,
-    defaultName?: string
+    defaultName?: string,
   ): Promise<ServiceResult<WorkspaceRow>> {
     try {
       if (!userId) {

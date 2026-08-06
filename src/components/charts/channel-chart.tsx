@@ -4,7 +4,13 @@ const series: StackedBarSeriesConfig[] = [
   { key: "linkedin", name: "LinkedIn", color: "var(--color-primary)", stackId: "a" },
   { key: "email", name: "Email", color: "var(--color-chart-2)", stackId: "a" },
   { key: "reddit", name: "Reddit", color: "var(--color-chart-3)", stackId: "a" },
-  { key: "search", name: "Search", color: "var(--color-chart-4)", stackId: "a", radius: [4, 4, 0, 0] },
+  {
+    key: "search",
+    name: "Search",
+    color: "var(--color-chart-4)",
+    stackId: "a",
+    radius: [4, 4, 0, 0],
+  },
 ];
 
 const chartData = [

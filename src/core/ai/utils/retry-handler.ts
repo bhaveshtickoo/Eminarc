@@ -13,7 +13,7 @@ export class RetryHandler {
     fn: (signal?: AbortSignal) => Promise<T>,
     maxRetries = 3,
     initialDelayMs = 500,
-    signal?: AbortSignal
+    signal?: AbortSignal,
   ): Promise<T> {
     let attempt = 0;
     let delay = initialDelayMs;
@@ -40,7 +40,9 @@ export class RetryHandler {
           throw err;
         }
 
-        console.warn(`[RetryHandler] Retryable error encountered (attempt ${attempt}/${maxRetries}). Retrying in ${delay}ms...`);
+        console.warn(
+          `[RetryHandler] Retryable error encountered (attempt ${attempt}/${maxRetries}). Retrying in ${delay}ms...`,
+        );
         await new Promise((resolve) => setTimeout(resolve, delay));
         delay *= 2; // Exponential backoff
       }

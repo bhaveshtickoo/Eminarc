@@ -15,8 +15,15 @@ export interface UserSession {
 }
 
 export interface AuthService {
-  signInWithPassword: (email: string, password: string) => Promise<{ session: UserSession | null; error: Error | null }>;
-  signUp: (email: string, password: string, fullName: string) => Promise<{ session: UserSession | null; error: Error | null }>;
+  signInWithPassword: (
+    email: string,
+    password: string,
+  ) => Promise<{ session: UserSession | null; error: Error | null }>;
+  signUp: (
+    email: string,
+    password: string,
+    fullName: string,
+  ) => Promise<{ session: UserSession | null; error: Error | null }>;
   signOut: () => Promise<{ error: Error | null }>;
   getSession: () => Promise<UserSession | null>;
   resetPassword: (email: string) => Promise<{ success: boolean; error: Error | null }>;

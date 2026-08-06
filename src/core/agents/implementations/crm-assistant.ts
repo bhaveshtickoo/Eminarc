@@ -5,14 +5,15 @@
 
 import { GrowthAgent, AgentExecuteParams } from "../base";
 import { MemoryType } from "../../memory/types";
-import { LLMResponse } from "../../providers/base";
+import { LLMResponse } from "../../ai/providers/base";
 import { aiMemoryManager } from "../../memory/memory-manager";
 import { getLLMProvider } from "@/services/ai/provider";
 
 export class CRMAssistantAgent implements GrowthAgent {
   id = "crm-assistant";
   name = "CRM Assistant Agent";
-  description = "Qualifies inbound leads, calculates deal potential scores, and manages CRM pipelines.";
+  description =
+    "Qualifies inbound leads, calculates deal potential scores, and manages CRM pipelines.";
   capabilities = [
     "Lead Quality Scoring & Enrichment",
     "Pipeline Stage Recommendations",
@@ -23,10 +24,13 @@ export class CRMAssistantAgent implements GrowthAgent {
   requiredMemory: MemoryType[] = ["workspace", "company", "campaign"];
 
   async execute(params: AgentExecuteParams): Promise<LLMResponse<any>> {
-    const memoryContext = await aiMemoryManager.loadFullMemoryContext(params.workspaceId, {
-      companyId: params.companyId,
-      campaignId: params.campaignId,
-    });
+    const memOpts: any = {};
+    if (params.companyId) memOpts.companyId = params.companyId;
+    if (params.campaignId) memOpts.campaignId = params.campaignId;
+    const memoryContext = await aiMemoryManager.loadFullMemoryContext(
+      params.workspaceId,
+      Object.keys(memOpts).length > 0 ? memOpts : undefined,
+    );
 
     const systemPrompt = `${memoryContext.formattedSystemContext}\n\nYou are the CRM Assistant Agent for Eminarc Growth OS. Tools available: ${this.requiredTools.join(", ")}.`;
 

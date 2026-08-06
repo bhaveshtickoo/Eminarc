@@ -5,14 +5,15 @@
 
 import { GrowthAgent, AgentExecuteParams } from "../base";
 import { MemoryType } from "../../memory/types";
-import { LLMResponse } from "../../providers/base";
+import { LLMResponse } from "../../ai/providers/base";
 import { aiMemoryManager } from "../../memory/memory-manager";
 import { getLLMProvider } from "@/services/ai/provider";
 
 export class DistributionPlannerAgent implements GrowthAgent {
   id = "distribution-planner";
   name = "Distribution Planner Agent";
-  description = "Plans outreach sequences, campaign dispatching, and multi-channel post distribution.";
+  description =
+    "Plans outreach sequences, campaign dispatching, and multi-channel post distribution.";
   capabilities = [
     "Outreach Sequence Scheduling",
     "Omnichannel Post Dispatch",
@@ -23,9 +24,10 @@ export class DistributionPlannerAgent implements GrowthAgent {
   requiredMemory: MemoryType[] = ["workspace", "campaign"];
 
   async execute(params: AgentExecuteParams): Promise<LLMResponse<any>> {
-    const memoryContext = await aiMemoryManager.loadFullMemoryContext(params.workspaceId, {
-      campaignId: params.campaignId,
-    });
+    const memoryContext = await aiMemoryManager.loadFullMemoryContext(
+      params.workspaceId,
+      params.campaignId ? { campaignId: params.campaignId } : undefined,
+    );
 
     const systemPrompt = `${memoryContext.formattedSystemContext}\n\nYou are the Distribution Planner Agent for Eminarc Growth OS. Tools available: ${this.requiredTools.join(", ")}.`;
 

@@ -9,18 +9,19 @@ This document outlines the architecture for workspace creation, user workspace m
 Every authenticated user in Eminarc Growth OS belongs to at least one **Workspace**.
 
 ### Workspace Attributes
-| Field Name | Type | Description |
-| :--- | :--- | :--- |
-| `name` | `string` | Company / Workspace Name (e.g., *Eminarc Growth Labs*). |
-| `industry` | `string` | Primary business industry (e.g., *B2B SaaS*, *Growth Agency*). |
-| `domain` / `website` | `string` | Corporate web URL (e.g., `https://eminarc.com`). |
-| `brand` | `string` | Brand voice & positioning tone (e.g., *Strategic & Analytical*). |
-| `country` | `string` | Headquarter country (e.g., *United States*). |
-| `timezone` | `string` | Primary operational timezone (e.g., *UTC-5 EST*). |
-| `targetMarkets` | `string[]` | Target geographical markets (e.g., `["USA", "MENA", "Europe"]`). |
-| `logoLetter` | `string` | Monogram letter preview (e.g., `E`). |
-| `logoUrl` | `string` | Custom logo image URL (optional). |
-| `ownerId` | `string` | User ID of the workspace creator. |
+
+| Field Name           | Type       | Description                                                      |
+| :------------------- | :--------- | :--------------------------------------------------------------- |
+| `name`               | `string`   | Company / Workspace Name (e.g., _Eminarc Growth Labs_).          |
+| `industry`           | `string`   | Primary business industry (e.g., _B2B SaaS_, _Growth Agency_).   |
+| `domain` / `website` | `string`   | Corporate web URL (e.g., `https://eminarc.com`).                 |
+| `brand`              | `string`   | Brand voice & positioning tone (e.g., _Strategic & Analytical_). |
+| `country`            | `string`   | Headquarter country (e.g., _United States_).                     |
+| `timezone`           | `string`   | Primary operational timezone (e.g., _UTC-5 EST_).                |
+| `targetMarkets`      | `string[]` | Target geographical markets (e.g., `["USA", "MENA", "Europe"]`). |
+| `logoLetter`         | `string`   | Monogram letter preview (e.g., `E`).                             |
+| `logoUrl`            | `string`   | Custom logo image URL (optional).                                |
+| `ownerId`            | `string`   | User ID of the workspace creator.                                |
 
 ---
 
@@ -68,7 +69,9 @@ After completing user signup, the user is automatically navigated to `/onboardin
 ## 🗄️ Supabase Persistence & Database Schema
 
 ### 1. `workspaces` Table
+
 Stores primary workspace metadata:
+
 ```sql
 CREATE TABLE public.workspaces (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -93,7 +96,9 @@ CREATE TABLE public.workspaces (
 ```
 
 ### 2. `workspace_members` Table
+
 Associates authenticated users with workspaces and roles (`owner`, `admin`, `member`, `viewer`):
+
 ```sql
 CREATE TABLE public.workspace_members (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -105,7 +110,9 @@ CREATE TABLE public.workspace_members (
 ```
 
 ### 3. `workspace_invites` Table
+
 Tracks pending team member invitations:
+
 ```sql
 CREATE TABLE public.workspace_invites (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),

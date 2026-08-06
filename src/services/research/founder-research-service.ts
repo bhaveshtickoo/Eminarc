@@ -6,6 +6,7 @@
 import { supabase } from "@/lib/supabase/client";
 import type { Database, ServiceResult } from "@/lib/supabase/types";
 import { founderAgent } from "../ai/founder-agent";
+import { aiMemoryManager } from "@/core/memory/memory-manager";
 
 // Type definitions mapped from Supabase database schema
 export type CompanyRow = Database["public"]["Tables"]["companies"]["Row"];
@@ -30,7 +31,7 @@ export class FounderResearchService {
    */
   static async startResearch(
     workspaceId: string,
-    companyId: string
+    companyId: string,
   ): Promise<ServiceResult<ResearchJobRow>> {
     try {
       if (!workspaceId || !companyId) {
@@ -48,11 +49,7 @@ export class FounderResearchService {
         started_at: new Date().toISOString(),
       };
 
-      const { data, error } = await supabase
-        .from("research_jobs")
-        .insert(newJob)
-        .select()
-        .single();
+      const { data, error } = await supabase.from("research_jobs").insert(newJob).select().single();
 
       if (error) throw error;
 
@@ -71,7 +68,7 @@ export class FounderResearchService {
    */
   static async updateJob(
     jobId: string,
-    updates: Partial<ResearchJobUpdate>
+    updates: Partial<ResearchJobUpdate>,
   ): Promise<ServiceResult<ResearchJobRow>> {
     try {
       if (!jobId) {
@@ -105,7 +102,7 @@ export class FounderResearchService {
     workspaceId: string,
     companyId: string,
     companyName: string,
-    website: string
+    website: string,
   ): Promise<void> {
     try {
       // Step 1: Transition status from 'queued' to 'running' and set initial progress = 20
@@ -113,7 +110,10 @@ export class FounderResearchService {
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
       // Step 2: Company research step via FounderAgent
-      const compDetails = await founderAgent.researchCompany({ domain: website, name: companyName });
+      const compDetails = await founderAgent.researchCompany({
+        domain: website,
+        name: companyName,
+      });
       await this.updateJob(jobId, { progress: 45 });
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
@@ -132,23 +132,68 @@ export class FounderResearchService {
       await this.updateJob(jobId, { progress: 65 });
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      // Step 4: ICP, Pain Points, Buying Signals generation
-      const icp = await founderAgent.generateICP({
-        companyName,
-        industry: compDetails.industry,
-        productSummary: compDetails.description,
-      });
-      const painPoints = await founderAgent.generatePainPoints({
-        companyName,
-        industry: compDetails.industry,
-        targetAudience: icp.primaryTarget,
-      });
-      const buyingSignals = await founderAgent.generateBuyingSignals({
-        companyName,
-        industry: compDetails.industry,
-      });
+      // Step 4: ICP, Pain Points, Buying Signals, LinkedIn, GTM, TechStack, Competitors, Content, Positioning, TAM, SWOT
+      const [
+        icp,
+        painPoints,
+        buyingSignals,
+        linkedIn,
+        gtm,
+        techStack,
+        competitors,
+        content,
+        positioning,
+        tam,
+        swot,
+      ] = await Promise.all([
+        founderAgent.generateICP({
+          companyName,
+          industry: compDetails.industry,
+          productSummary: compDetails.description,
+        }),
+        founderAgent.generatePainPoints({
+          companyName,
+          industry: compDetails.industry,
+          targetAudience: "Early to Mid-Stage Founders",
+        }),
+        founderAgent.generateBuyingSignals({
+          companyName,
+          industry: compDetails.industry,
+        }),
+        founderAgent.researchLinkedIn({
+          founderName: founderDetails.fullName,
+          companyName,
+        }),
+        founderAgent.generateGTMAnalysis({
+          companyName,
+          industry: compDetails.industry,
+        }),
+        founderAgent.detectTechStack({
+          website,
+          companyName,
+        }),
+        founderAgent.discoverCompetitors({
+          companyName,
+          category: compDetails.category,
+        }),
+        founderAgent.analyzeContent({
+          companyName,
+          founderName: founderDetails.fullName,
+        }),
+        founderAgent.analyzeMarketPositioning({
+          companyName,
+        }),
+        founderAgent.estimateTAM({
+          companyName,
+          industry: compDetails.industry,
+        }),
+        founderAgent.generateSWOT({
+          companyName,
+          industry: compDetails.industry,
+        }),
+      ]);
+
       await this.updateJob(jobId, { progress: 85 });
-      await new Promise((resolve) => setTimeout(resolve, 1000));
 
       // Step 5: Summary synthesis & saving completed report in Supabase
       const summary = await founderAgent.generateSummary({
@@ -165,17 +210,14 @@ export class FounderResearchService {
         icp,
         painPoints,
         buyingSignals,
-        techStack: [
-          "React / Next.js",
-          "Supabase Database",
-          "HubSpot CRM",
-          "LinkedIn Sales Navigator",
-          "Google Analytics 4",
-        ],
-        competitors: [
-          { name: "Legacy Enterprise Tool", gap: "No generative AI search radar or LLM optimization" },
-          { name: "Single Feature App", gap: "Siloed execution without CRM pipeline connection" },
-        ],
+        linkedIn,
+        gtm,
+        techStack,
+        competitors,
+        content,
+        positioning,
+        tam,
+        swot,
         opportunityScore: summary.opportunityScore,
         summary: summary.executiveSummary,
       };
@@ -187,13 +229,22 @@ export class FounderResearchService {
         icp: icp as any,
         pain_points: painPoints as any,
         buying_signals: buyingSignals as any,
-        tech_stack: reportPayload.techStack as any,
-        competitors: reportPayload.competitors as any,
+        tech_stack: techStack.crmAndSalesTools as any,
+        competitors: competitors as any,
         confidence_score: summary.opportunityScore,
         raw_json: reportPayload as any,
       });
 
-      // Step 6: Mark job completed with 100% progress
+      // Step 6: Memory ingestion into Workspace Knowledge Base & Founder Memory
+      await aiMemoryManager.saveMemoryItem({
+        workspaceId,
+        memoryType: "founder",
+        key: `founder-research-${companyId}`,
+        content: `Founder Intelligence Teardown for ${companyName} (${founderDetails.fullName}): ICP=${icp.primaryTarget}, TAM=${tam.tamUsd}, GTM=${gtm.gtmMotion}, OpportunityScore=${summary.opportunityScore}%.`,
+        tags: ["founder-research", companyName.toLowerCase(), "icp", "tam"],
+      });
+
+      // Step 7: Mark job completed with 100% progress
       await this.updateJob(jobId, {
         status: "completed",
         progress: 100,
@@ -278,11 +329,7 @@ export class FounderResearchService {
         };
       }
 
-      const { data, error } = await supabase
-        .from("founders")
-        .insert(founderData)
-        .select()
-        .single();
+      const { data, error } = await supabase.from("founders").insert(founderData).select().single();
 
       if (error) throw error;
 
@@ -300,7 +347,7 @@ export class FounderResearchService {
    * Save a completed research report in Supabase
    */
   static async saveReport(
-    reportData: ResearchReportInsert
+    reportData: ResearchReportInsert,
   ): Promise<ServiceResult<ResearchReportRow>> {
     try {
       if (!reportData.company_id) {

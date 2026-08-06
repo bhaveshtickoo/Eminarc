@@ -6,12 +6,7 @@
 import { Database } from "@/lib/supabase/types";
 
 export type MemoryType =
-  | "workspace"
-  | "company"
-  | "founder"
-  | "conversation"
-  | "campaign"
-  | "research";
+  "workspace" | "company" | "founder" | "conversation" | "campaign" | "research";
 
 export type AIMemoryRow = Database["public"]["Tables"]["ai_memories"]["Row"];
 export type AIMemoryInsert = Database["public"]["Tables"]["ai_memories"]["Insert"];

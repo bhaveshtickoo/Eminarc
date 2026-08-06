@@ -318,7 +318,9 @@ export const ContentCalendarView: React.FC = () => {
         <div className="rounded-[18px] bg-[#FCFAF7] border border-[rgba(0,0,0,0.08)] p-6 shadow-[0_1px_3px_0_rgba(0,0,0,0.025)] space-y-4">
           <div className="flex items-center justify-between font-mono text-xs font-bold text-[#716D64] border-b border-[#E5E0D6] pb-3">
             <span>WEEKLY SCHEDULE (AUG 03 – AUG 09, 2026)</span>
-            <span>{items.filter((i) => i.dayNumber >= 3 && i.dayNumber <= 9).length} POSTS PLANNED</span>
+            <span>
+              {items.filter((i) => i.dayNumber >= 3 && i.dayNumber <= 9).length} POSTS PLANNED
+            </span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-7 gap-3">
@@ -360,8 +362,12 @@ export const ContentCalendarView: React.FC = () => {
                               {item.status}
                             </span>
                           </div>
-                          <h4 className="font-sans font-bold text-xs text-[#111111]">{item.title}</h4>
-                          <p className="font-mono text-[9px] text-[#716D64]">Campaign: {item.campaign}</p>
+                          <h4 className="font-sans font-bold text-xs text-[#111111]">
+                            {item.title}
+                          </h4>
+                          <p className="font-mono text-[9px] text-[#716D64]">
+                            Campaign: {item.campaign}
+                          </p>
                           <p className="font-mono text-[9px] text-[#716D64]">Owner: {item.owner}</p>
                         </div>
                       );
@@ -412,11 +418,17 @@ export const ContentCalendarView: React.FC = () => {
                       </div>
 
                       <div className="flex flex-wrap items-center gap-3 font-mono text-xs text-[#716D64] mt-1">
-                        <span>Platform: <strong className="text-[#18181B]">{item.platform}</strong></span>
+                        <span>
+                          Platform: <strong className="text-[#18181B]">{item.platform}</strong>
+                        </span>
                         <span>•</span>
-                        <span>Campaign: <strong className="text-[#18181B]">{item.campaign}</strong></span>
+                        <span>
+                          Campaign: <strong className="text-[#18181B]">{item.campaign}</strong>
+                        </span>
                         <span>•</span>
-                        <span>Owner: <strong className="text-[#18181B]">{item.owner}</strong></span>
+                        <span>
+                          Owner: <strong className="text-[#18181B]">{item.owner}</strong>
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -424,7 +436,9 @@ export const ContentCalendarView: React.FC = () => {
                   <div className="flex items-center space-x-3 font-mono text-xs text-[#716D64] self-end sm:self-auto shrink-0">
                     <div className="flex items-center space-x-1 bg-[#EFEAE1] px-2.5 py-1 rounded-lg">
                       <Clock className="h-3.5 w-3.5 text-[#18181B]" />
-                      <span className="font-bold text-[#18181B]">{item.scheduledDate} ({item.time})</span>
+                      <span className="font-bold text-[#18181B]">
+                        {item.scheduledDate} ({item.time})
+                      </span>
                     </div>
                   </div>
                 </div>

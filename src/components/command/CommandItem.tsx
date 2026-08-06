@@ -22,11 +22,7 @@ export interface CommandItemProps {
   onMouseEnter?: () => void;
 }
 
-export const CommandItem: React.FC<CommandItemProps> = ({
-  item,
-  isActive,
-  onMouseEnter,
-}) => {
+export const CommandItem: React.FC<CommandItemProps> = ({ item, isActive, onMouseEnter }) => {
   const Icon = item.icon;
 
   return (
@@ -35,18 +31,14 @@ export const CommandItem: React.FC<CommandItemProps> = ({
       onMouseEnter={onMouseEnter}
       className={cn(
         "group flex items-center justify-between px-3.5 py-2.5 rounded-xl transition-all duration-100 cursor-pointer select-none font-sans",
-        isActive
-          ? "bg-[#18181B] text-[#FFFFFF] shadow-sm"
-          : "hover:bg-[#FCFAF7] text-[#111111]",
+        isActive ? "bg-[#18181B] text-[#FFFFFF] shadow-sm" : "hover:bg-[#FCFAF7] text-[#111111]",
       )}
     >
       <div className="flex items-center space-x-3 min-w-0 flex-1">
         <div
           className={cn(
             "flex h-7 w-7 items-center justify-center rounded-lg font-mono text-xs shrink-0 transition-colors",
-            isActive
-              ? "bg-[#FFFFFF]/20 text-[#FFFFFF]"
-              : "bg-[#EFEAE1] text-[#18181B]",
+            isActive ? "bg-[#FFFFFF]/20 text-[#FFFFFF]" : "bg-[#EFEAE1] text-[#18181B]",
           )}
         >
           <Icon className="h-3.5 w-3.5" />
@@ -95,9 +87,7 @@ export const CommandItem: React.FC<CommandItemProps> = ({
         <span
           className={cn(
             "font-mono text-[9px] uppercase font-bold px-2 py-0.5 rounded",
-            isActive
-              ? "bg-[#FFFFFF]/20 text-[#FFFFFF]"
-              : "bg-[#EFEAE1] text-[#716D64]",
+            isActive ? "bg-[#FFFFFF]/20 text-[#FFFFFF]" : "bg-[#EFEAE1] text-[#716D64]",
           )}
         >
           {item.category}

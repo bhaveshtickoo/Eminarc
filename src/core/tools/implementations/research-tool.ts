@@ -18,7 +18,8 @@ export interface ResearchToolParams {
 export class ResearchTool implements AITool<ResearchToolParams, any> {
   definition: AIToolDefinition = {
     name: "research_tool",
-    description: "Triggers and polls asynchronous Founder Research Agent jobs and reports in Supabase.",
+    description:
+      "Triggers and polls asynchronous Founder Research Agent jobs and reports in Supabase.",
     parameters: {
       type: "object",
       properties: {
@@ -60,7 +61,10 @@ export class ResearchTool implements AITool<ResearchToolParams, any> {
 
         if (!compRes.data) throw compRes.error || new Error("Failed to create company.");
 
-        const jobRes = await FounderResearchService.startResearch(params.workspaceId, compRes.data.id);
+        const jobRes = await FounderResearchService.startResearch(
+          params.workspaceId,
+          compRes.data.id,
+        );
         if (!jobRes.data) throw jobRes.error || new Error("Failed to start research job.");
 
         // Launch background worker
@@ -69,7 +73,7 @@ export class ResearchTool implements AITool<ResearchToolParams, any> {
           params.workspaceId,
           compRes.data.id,
           params.companyName,
-          params.website
+          params.website,
         );
 
         return { success: true, data: { jobId: jobRes.data.id, companyId: compRes.data.id } };

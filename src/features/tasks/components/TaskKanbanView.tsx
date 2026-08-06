@@ -10,10 +10,7 @@ export interface TaskKanbanViewProps {
 
 export const kanbanStages = ["To Do", "In Progress", "Done", "AI Suggested"] as const;
 
-export const TaskKanbanView: React.FC<TaskKanbanViewProps> = ({
-  tasks,
-  onToggleComplete,
-}) => {
+export const TaskKanbanView: React.FC<TaskKanbanViewProps> = ({ tasks, onToggleComplete }) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-start select-none">
       {kanbanStages.map((stage) => {
@@ -33,11 +30,7 @@ export const TaskKanbanView: React.FC<TaskKanbanViewProps> = ({
 
             <div className="space-y-2">
               {stageTasks.map((task) => (
-                <TaskCard
-                  key={task.id}
-                  task={task}
-                  onToggleComplete={onToggleComplete}
-                />
+                <TaskCard key={task.id} task={task} onToggleComplete={onToggleComplete} />
               ))}
 
               {stageTasks.length === 0 && (

@@ -27,7 +27,7 @@ const supabaseUrl = getEnvVar("VITE_SUPABASE_URL", "NEXT_PUBLIC_SUPABASE_URL");
 const supabaseAnonKey = getEnvVar(
   "VITE_SUPABASE_ANON_KEY",
   "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY",
-  "NEXT_PUBLIC_SUPABASE_ANON_KEY"
+  "NEXT_PUBLIC_SUPABASE_ANON_KEY",
 );
 
 const isPlaceholder = (val: string): boolean => {
@@ -38,9 +38,9 @@ const isPlaceholder = (val: string): boolean => {
 export const isSupabaseConfigured = (): boolean => {
   return Boolean(
     supabaseUrl &&
-      supabaseAnonKey &&
-      !isPlaceholder(supabaseUrl) &&
-      !isPlaceholder(supabaseAnonKey)
+    supabaseAnonKey &&
+    !isPlaceholder(supabaseUrl) &&
+    !isPlaceholder(supabaseAnonKey),
   );
 };
 
@@ -52,6 +52,6 @@ export const supabaseConfig: SupabaseConfig = {
 
 if (!supabaseConfig.isConfigured && typeof window !== "undefined") {
   console.warn(
-    "[Eminarc Growth OS] Supabase is not fully configured. Please set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in your .env file."
+    "[Eminarc Growth OS] Supabase is not fully configured. Please set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in your .env file.",
   );
 }

@@ -31,7 +31,8 @@ export const ConfidenceCard: React.FC = () => {
       </div>
 
       <p className="font-sans text-xs text-[#716D64] mt-1.5 leading-normal">
-        Based on company website analysis, founder LinkedIn profile audit, and industry category benchmarking.
+        Based on company website analysis, founder LinkedIn profile audit, and industry category
+        benchmarking.
       </p>
 
       {/* Progress Bar Gauge */}

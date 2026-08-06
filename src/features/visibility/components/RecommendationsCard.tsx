@@ -19,7 +19,8 @@ export const mockRecommendations: RecommendationItem[] = [
     id: "rec-1",
     title: "Improve FAQ & Structured Schema",
     category: "Generative Engine Optimization (GEO)",
-    description: "Deploy FAQPage JSON-LD schema on product pages to increase ChatGPT and Perplexity citation extraction by 28%.",
+    description:
+      "Deploy FAQPage JSON-LD schema on product pages to increase ChatGPT and Perplexity citation extraction by 28%.",
     impact: "+14% Visibility",
     priority: "High",
   },
@@ -27,7 +28,8 @@ export const mockRecommendations: RecommendationItem[] = [
     id: "rec-2",
     title: "Add Competitor Comparison Page",
     category: "Market Positioning",
-    description: "Publish an explicit comparison page (Eminarc vs. HubSpot & Taplio) to capture LLM buyer evaluation queries.",
+    description:
+      "Publish an explicit comparison page (Eminarc vs. HubSpot & Taplio) to capture LLM buyer evaluation queries.",
     impact: "+18% Citations",
     priority: "High",
   },
@@ -35,7 +37,8 @@ export const mockRecommendations: RecommendationItem[] = [
     id: "rec-3",
     title: "Publish Founder Story on Medium",
     category: "Founder Brand Building",
-    description: "Write an architectural breakdown on Medium covering systemic growth vs. campaign sprints.",
+    description:
+      "Write an architectural breakdown on Medium covering systemic growth vs. campaign sprints.",
     impact: "+10% Citation Rank",
     priority: "Medium",
   },
@@ -51,7 +54,8 @@ export const mockRecommendations: RecommendationItem[] = [
     id: "rec-5",
     title: "Expand Reddit Community Case Studies",
     category: "Community Authority",
-    description: "Share authentic teardowns in r/SaaS and r/startups to build zero-CAC backlink velocity.",
+    description:
+      "Share authentic teardowns in r/SaaS and r/startups to build zero-CAC backlink velocity.",
     impact: "+8% Citation Share",
     priority: "Low",
   },
@@ -110,13 +114,9 @@ export const RecommendationsCard: React.FC = () => {
                 </span>
               </div>
 
-              <h4 className="font-sans font-bold text-sm text-[#111111]">
-                {rec.title}
-              </h4>
+              <h4 className="font-sans font-bold text-sm text-[#111111]">{rec.title}</h4>
 
-              <p className="font-sans text-xs text-[#716D64] leading-normal">
-                {rec.description}
-              </p>
+              <p className="font-sans text-xs text-[#716D64] leading-normal">{rec.description}</p>
             </div>
 
             <div className="flex items-center space-x-3 shrink-0 self-end sm:self-auto font-mono text-xs">

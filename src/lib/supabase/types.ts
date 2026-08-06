@@ -5,13 +5,7 @@
 
 import type { User, Session, AuthError } from "@supabase/supabase-js";
 
-export type Json =
-  | string
-  | number
-  | boolean
-  | null
-  | { [key: string]: Json | undefined }
-  | Json[];
+export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
 
 export interface Database {
   public: {
@@ -24,6 +18,7 @@ export interface Database {
           avatar_url: string | null;
           role: string | null;
           onboarding_completed: boolean;
+          theme?: string | null;
           created_at: string;
           updated_at: string;
         };
@@ -34,6 +29,7 @@ export interface Database {
           avatar_url?: string | null;
           role?: string | null;
           onboarding_completed?: boolean;
+          theme?: string | null;
           created_at?: string;
           updated_at?: string;
         };
@@ -44,6 +40,7 @@ export interface Database {
           avatar_url?: string | null;
           role?: string | null;
           onboarding_completed?: boolean;
+          theme?: string | null;
           created_at?: string;
           updated_at?: string;
         };

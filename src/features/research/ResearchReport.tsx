@@ -83,7 +83,8 @@ export const ResearchReport: React.FC<ResearchReportProps> = ({ formData }) => {
       >
         <div className="space-y-3">
           <p>
-            Founder profile linked to <strong>{kb.founderProfile.name}</strong> ({kb.founderProfile.title}, {founderHandle}). {kb.founderProfile.bio}
+            Founder profile linked to <strong>{kb.founderProfile.name}</strong> (
+            {kb.founderProfile.title}, {founderHandle}). {kb.founderProfile.bio}
           </p>
           <ul className="space-y-2 border-l-2 border-[#18181B] pl-4 py-1 text-xs md:text-sm text-[#18181B]">
             <li>
@@ -93,7 +94,8 @@ export const ResearchReport: React.FC<ResearchReportProps> = ({ formData }) => {
               <strong>Content Persona:</strong> {kb.founderProfile.contentPersona}
             </li>
             <li>
-              <strong>Distribution Channels:</strong> {kb.founderProfile.distributionChannels.join(", ")}
+              <strong>Distribution Channels:</strong>{" "}
+              {kb.founderProfile.distributionChannels.join(", ")}
             </li>
           </ul>
         </div>
@@ -116,7 +118,8 @@ export const ResearchReport: React.FC<ResearchReportProps> = ({ formData }) => {
               {kb.targetMarket.primaryICP}
             </h4>
             <p className="text-xs text-[#716D64] leading-relaxed">
-              Target Decision Makers: {kb.targetMarket.decisionMakers.join(", ")} ({kb.targetMarket.companySize}).
+              Target Decision Makers: {kb.targetMarket.decisionMakers.join(", ")} (
+              {kb.targetMarket.companySize}).
             </p>
           </div>
 
@@ -170,12 +173,21 @@ export const ResearchReport: React.FC<ResearchReportProps> = ({ formData }) => {
       >
         <div className="space-y-3">
           <div className="p-4 rounded-xl bg-[#FFFFFF] border border-[#E5E0D6] space-y-1">
-            <span className="font-mono text-[10px] font-bold text-[#716D64] block">ELEVATOR PITCH</span>
-            <p className="text-xs font-semibold text-[#111111] leading-relaxed">&quot;{kb.messaging.elevatorPitch}&quot;</p>
+            <span className="font-mono text-[10px] font-bold text-[#716D64] block">
+              ELEVATOR PITCH
+            </span>
+            <p className="text-xs font-semibold text-[#111111] leading-relaxed">
+              &quot;{kb.messaging.elevatorPitch}&quot;
+            </p>
           </div>
           {kb.messaging.pillars.map((pillar, idx) => (
-            <div key={idx} className="p-3.5 rounded-xl bg-[#FFFFFF] border border-[#E5E0D6] space-y-1">
-              <span className="font-mono text-[10px] font-bold text-[#2D6A4F]">PILLAR 0{idx + 1} • {pillar.title.toUpperCase()}</span>
+            <div
+              key={idx}
+              className="p-3.5 rounded-xl bg-[#FFFFFF] border border-[#E5E0D6] space-y-1"
+            >
+              <span className="font-mono text-[10px] font-bold text-[#2D6A4F]">
+                PILLAR 0{idx + 1} • {pillar.title.toUpperCase()}
+              </span>
               <p className="text-xs font-medium text-[#111111]">&quot;{pillar.hook}&quot;</p>
             </div>
           ))}
@@ -222,7 +234,10 @@ export const ResearchReport: React.FC<ResearchReportProps> = ({ formData }) => {
       >
         <div className="space-y-3">
           {kb.products.map((prod, idx) => (
-            <div key={idx} className="p-4 rounded-xl bg-[#FFFFFF] border border-[#E5E0D6] space-y-2">
+            <div
+              key={idx}
+              className="p-4 rounded-xl bg-[#FFFFFF] border border-[#E5E0D6] space-y-2"
+            >
               <div className="flex items-center justify-between">
                 <h4 className="font-sans font-bold text-sm text-[#111111]">{prod.name}</h4>
                 <span className="font-mono text-[10px] font-bold text-[#0369A1] bg-[#E0F2FE] px-2 py-0.5 rounded border border-[#BAE6FD]">
@@ -232,7 +247,10 @@ export const ResearchReport: React.FC<ResearchReportProps> = ({ formData }) => {
               <p className="text-xs text-[#716D64]">{prod.description}</p>
               <div className="flex flex-wrap gap-1.5 pt-1">
                 {prod.keyFeatures.map((feat, fIdx) => (
-                  <span key={fIdx} className="font-mono text-[10px] bg-[#EFEAE1] px-2 py-0.5 rounded text-[#18181B]">
+                  <span
+                    key={fIdx}
+                    className="font-mono text-[10px] bg-[#EFEAE1] px-2 py-0.5 rounded text-[#18181B]"
+                  >
                     ✓ {feat}
                   </span>
                 ))}
@@ -251,7 +269,10 @@ export const ResearchReport: React.FC<ResearchReportProps> = ({ formData }) => {
       >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {kb.services.map((serv, idx) => (
-            <div key={idx} className="p-3.5 rounded-xl bg-[#FFFFFF] border border-[#E5E0D6] space-y-2">
+            <div
+              key={idx}
+              className="p-3.5 rounded-xl bg-[#FFFFFF] border border-[#E5E0D6] space-y-2"
+            >
               <h5 className="font-sans font-bold text-xs text-[#111111]">{serv.name}</h5>
               <p className="text-[11px] text-[#716D64]">{serv.scope}</p>
               <div className="space-y-1 pt-1 font-mono text-[10px] text-[#2D6A4F]">
@@ -274,7 +295,10 @@ export const ResearchReport: React.FC<ResearchReportProps> = ({ formData }) => {
       >
         <div className="space-y-2.5">
           {kb.goals.map((g, idx) => (
-            <div key={idx} className="flex items-center justify-between p-3 rounded-xl bg-[#FFFFFF] border border-[#E5E0D6]">
+            <div
+              key={idx}
+              className="flex items-center justify-between p-3 rounded-xl bg-[#FFFFFF] border border-[#E5E0D6]"
+            >
               <div className="flex items-center space-x-3">
                 <span className="font-mono text-xs font-bold text-[#2D6A4F] bg-[#EDF6F0] px-2 py-0.5 rounded border border-[#C8E4D0]">
                   {g.priority}
@@ -301,7 +325,10 @@ export const ResearchReport: React.FC<ResearchReportProps> = ({ formData }) => {
       >
         <div className="space-y-3">
           {kb.challenges.map((ch, idx) => (
-            <div key={idx} className="p-4 rounded-xl bg-[#FFFFFF] border border-[#E5E0D6] space-y-1.5">
+            <div
+              key={idx}
+              className="p-4 rounded-xl bg-[#FFFFFF] border border-[#E5E0D6] space-y-1.5"
+            >
               <div className="flex items-center justify-between">
                 <h5 className="font-sans font-bold text-xs text-[#111111]">{ch.title}</h5>
                 <span className="font-mono text-[9px] uppercase font-bold text-[#B45309] bg-[#FEF3C7] px-2 py-0.5 rounded border border-[#FDE68A]">

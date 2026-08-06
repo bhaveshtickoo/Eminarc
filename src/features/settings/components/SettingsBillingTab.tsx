@@ -5,9 +5,27 @@ import { CreditCard, Download, CheckCircle2, ShieldCheck, Zap } from "lucide-rea
 import { toast } from "sonner";
 
 export const invoiceHistory = [
-  { id: "inv-101", date: "Aug 01, 2026", amount: "$299.00", plan: "Eminarc Pro (Monthly)", status: "Paid" },
-  { id: "inv-100", date: "Jul 01, 2026", amount: "$299.00", plan: "Eminarc Pro (Monthly)", status: "Paid" },
-  { id: "inv-099", date: "Jun 01, 2026", amount: "$299.00", plan: "Eminarc Pro (Monthly)", status: "Paid" },
+  {
+    id: "inv-101",
+    date: "Aug 01, 2026",
+    amount: "$299.00",
+    plan: "Eminarc Pro (Monthly)",
+    status: "Paid",
+  },
+  {
+    id: "inv-100",
+    date: "Jul 01, 2026",
+    amount: "$299.00",
+    plan: "Eminarc Pro (Monthly)",
+    status: "Paid",
+  },
+  {
+    id: "inv-099",
+    date: "Jun 01, 2026",
+    amount: "$299.00",
+    plan: "Eminarc Pro (Monthly)",
+    status: "Paid",
+  },
 ];
 
 export const SettingsBillingTab: React.FC = () => {
@@ -21,7 +39,9 @@ export const SettingsBillingTab: React.FC = () => {
               ACTIVE PLAN
             </span>
             <h3 className="font-sans font-bold text-xl text-[#111111] mt-1">Eminarc Pro Plan</h3>
-            <p className="font-sans text-xs text-[#52525B]">Full access to Research, Content OS, GEO Radar, CRM, and 7 AI Agents.</p>
+            <p className="font-sans text-xs text-[#52525B]">
+              Full access to Research, Content OS, GEO Radar, CRM, and 7 AI Agents.
+            </p>
           </div>
 
           <div className="font-mono text-right">
@@ -34,7 +54,9 @@ export const SettingsBillingTab: React.FC = () => {
         <div className="flex flex-wrap items-center justify-between gap-3 font-mono text-xs">
           <div className="flex items-center space-x-2 text-[#716D64]">
             <CreditCard className="h-4 w-4 text-[#18181B]" />
-            <span>Card ending in <strong className="text-[#18181B]">•••• 4242</strong></span>
+            <span>
+              Card ending in <strong className="text-[#18181B]">•••• 4242</strong>
+            </span>
           </div>
 
           <button
@@ -56,10 +78,15 @@ export const SettingsBillingTab: React.FC = () => {
 
         <div className="space-y-2">
           {invoiceHistory.map((inv) => (
-            <div key={inv.id} className="flex items-center justify-between p-3 rounded-xl bg-[#FFFFFF] border border-[#E5E0D6] text-xs">
+            <div
+              key={inv.id}
+              className="flex items-center justify-between p-3 rounded-xl bg-[#FFFFFF] border border-[#E5E0D6] text-xs"
+            >
               <div>
                 <h4 className="font-bold text-[#111111]">{inv.plan}</h4>
-                <p className="font-mono text-[10px] text-[#716D64]">{inv.date} • {inv.amount}</p>
+                <p className="font-mono text-[10px] text-[#716D64]">
+                  {inv.date} • {inv.amount}
+                </p>
               </div>
 
               <button

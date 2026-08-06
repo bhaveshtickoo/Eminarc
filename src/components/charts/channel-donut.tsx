@@ -16,7 +16,7 @@ export function ChannelDonut() {
         name: c.name,
         value: c.value,
         color: c.color,
-        share: c.share,
+        share: c.value,
       }))}
       centerLabel="Total Leads"
       centerValue={total}

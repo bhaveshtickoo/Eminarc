@@ -16,7 +16,7 @@ export class PlanningService {
   static async saveExecutionPlan(
     workspaceId: string,
     spec: MachineReadableExecutionSpec,
-    strategyId?: string
+    strategyId?: string,
   ): Promise<ServiceResult<ExecutionPlanRow>> {
     if (!isSupabaseConfigured()) {
       return {
@@ -64,7 +64,7 @@ export class PlanningService {
    */
   static async getExecutionPlan(
     workspaceId: string,
-    strategyId?: string
+    strategyId?: string,
   ): Promise<ServiceResult<ExecutionPlanRow>> {
     if (!isSupabaseConfigured()) {
       return { data: null, error: new Error("Supabase is unconfigured.") };
@@ -100,7 +100,7 @@ export class PlanningService {
    */
   static async syncTasksToSupabase(
     workspaceId: string,
-    tasks: MachineReadableExecutionSpec["tasks"]
+    tasks: MachineReadableExecutionSpec["tasks"],
   ): Promise<void> {
     try {
       for (const t of tasks) {
@@ -112,7 +112,7 @@ export class PlanningService {
             priority: t.priority,
             dueDate: t.deadlineIso.split("T")[0],
           },
-          workspaceId
+          workspaceId,
         );
       }
     } catch (err) {

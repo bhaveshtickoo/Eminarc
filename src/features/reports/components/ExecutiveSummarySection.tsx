@@ -55,7 +55,8 @@ export const ExecutiveSummarySection: React.FC<ExecutiveSummarySectionProps> = (
         </p>
 
         <p className="font-sans text-xs text-[#52525B] leading-normal">
-          This analysis synthesizes multi-channel telemetry for {currentWorkspace.name}, evaluating brand messaging alignment, generative engine visibility (GEO), and pipeline velocity.
+          This analysis synthesizes multi-channel telemetry for {currentWorkspace.name}, evaluating
+          brand messaging alignment, generative engine visibility (GEO), and pipeline velocity.
         </p>
       </div>
 
@@ -75,7 +76,10 @@ export const ExecutiveSummarySection: React.FC<ExecutiveSummarySectionProps> = (
 
           <div className="space-y-2">
             {data.keyWins.map((win, idx) => (
-              <div key={idx} className="flex items-start space-x-2 p-2.5 rounded-xl bg-[#FFFFFF] border border-[#E5E0D6] text-xs">
+              <div
+                key={idx}
+                className="flex items-start space-x-2 p-2.5 rounded-xl bg-[#FFFFFF] border border-[#E5E0D6] text-xs"
+              >
                 <CheckCircle2 className="h-4 w-4 text-[#2D6A4F] shrink-0 mt-0.5" />
                 <span className="font-sans font-medium text-[#111111] leading-relaxed">{win}</span>
               </div>
@@ -97,7 +101,10 @@ export const ExecutiveSummarySection: React.FC<ExecutiveSummarySectionProps> = (
 
           <div className="space-y-2">
             {data.risks.map((risk, idx) => (
-              <div key={idx} className="p-3 rounded-xl bg-[#FFFFFF] border border-[#E5E0D6] space-y-1 text-xs">
+              <div
+                key={idx}
+                className="p-3 rounded-xl bg-[#FFFFFF] border border-[#E5E0D6] space-y-1 text-xs"
+              >
                 <div className="flex items-center justify-between">
                   <h4 className="font-bold text-[#111111]">{risk.title}</h4>
                   <span
@@ -109,7 +116,9 @@ export const ExecutiveSummarySection: React.FC<ExecutiveSummarySectionProps> = (
                     {risk.severity} RISK
                   </span>
                 </div>
-                <p className="font-mono text-[10px] text-[#716D64]">Mitigation: {risk.mitigation}</p>
+                <p className="font-mono text-[10px] text-[#716D64]">
+                  Mitigation: {risk.mitigation}
+                </p>
               </div>
             ))}
           </div>
@@ -125,11 +134,18 @@ export const ExecutiveSummarySection: React.FC<ExecutiveSummarySectionProps> = (
           </span>
           <div className="space-y-2">
             {data.opportunities.map((opp, idx) => (
-              <div key={idx} className="p-3 rounded-xl bg-[#FFFFFF] border border-[#E5E0D6] text-xs space-y-1">
+              <div
+                key={idx}
+                className="p-3 rounded-xl bg-[#FFFFFF] border border-[#E5E0D6] text-xs space-y-1"
+              >
                 <strong className="text-[#111111] block">{opp.title}</strong>
                 <div className="flex justify-between font-mono text-[9px] text-[#716D64] pt-1">
-                  <span>Impact: <strong className="text-[#2D6A4F]">{opp.impact}</strong></span>
-                  <span>Effort: <strong>{opp.effort}</strong></span>
+                  <span>
+                    Impact: <strong className="text-[#2D6A4F]">{opp.impact}</strong>
+                  </span>
+                  <span>
+                    Effort: <strong>{opp.effort}</strong>
+                  </span>
                 </div>
               </div>
             ))}
@@ -143,7 +159,10 @@ export const ExecutiveSummarySection: React.FC<ExecutiveSummarySectionProps> = (
           </span>
           <div className="space-y-2">
             {data.recommendations.map((rec, idx) => (
-              <div key={idx} className="p-3 rounded-xl bg-[#FFFFFF] border border-[#E5E0D6] text-xs space-y-1">
+              <div
+                key={idx}
+                className="p-3 rounded-xl bg-[#FFFFFF] border border-[#E5E0D6] text-xs space-y-1"
+              >
                 <span className="font-mono text-[9px] uppercase font-bold text-[#0369A1] bg-[#E0F2FE] px-1.5 py-0.5 rounded border border-[#BAE6FD] inline-block mb-1">
                   {rec.priority}
                 </span>
@@ -161,7 +180,10 @@ export const ExecutiveSummarySection: React.FC<ExecutiveSummarySectionProps> = (
           </span>
           <div className="space-y-2">
             {data.nextWeekPriorities.map((prio, idx) => (
-              <div key={idx} className="p-3 rounded-xl bg-[#FFFFFF] border border-[#E5E0D6] flex items-center space-x-2 text-xs">
+              <div
+                key={idx}
+                className="p-3 rounded-xl bg-[#FFFFFF] border border-[#E5E0D6] flex items-center space-x-2 text-xs"
+              >
                 <span className="font-mono text-[10px] font-bold text-[#2D6A4F]">0{idx + 1}</span>
                 <span className="font-bold text-[#111111]">{prio}</span>
               </div>

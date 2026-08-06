@@ -86,10 +86,7 @@ export async function getLeads(filters?: {
   }
 
   try {
-    let query = supabase
-      .from("leads")
-      .select("*")
-      .order("created_at", { ascending: false });
+    let query = supabase.from("leads").select("*").order("created_at", { ascending: false });
 
     if (filters?.workspaceId) {
       query = query.eq("workspace_id", filters.workspaceId);
@@ -127,9 +124,7 @@ export async function getLeads(filters?: {
 function filterLeads(leadsList: Lead[], filters?: { status?: string; query?: string }): Lead[] {
   let result = [...leadsList];
   if (filters?.status && filters.status !== "All") {
-    result = result.filter(
-      (l) => l.status.toLowerCase() === filters.status?.toLowerCase()
-    );
+    result = result.filter((l) => l.status.toLowerCase() === filters.status?.toLowerCase());
   }
   if (filters?.query) {
     const q = filters.query.toLowerCase();
@@ -137,7 +132,7 @@ function filterLeads(leadsList: Lead[], filters?: { status?: string; query?: str
       (l) =>
         l.name.toLowerCase().includes(q) ||
         l.company.toLowerCase().includes(q) ||
-        l.email.toLowerCase().includes(q)
+        l.email.toLowerCase().includes(q),
     );
   }
   return result;
@@ -167,7 +162,8 @@ export async function getPipeline(workspaceId?: string): Promise<PipelineSummary
       const total = leads.reduce((acc, l) => acc + (l.value || 0), 0);
       return {
         totalValue: `$${total.toLocaleString()}`,
-        qualifiedCount: leads.filter((l) => l.stage === "Qualified" || l.stage === "Proposal").length,
+        qualifiedCount: leads.filter((l) => l.stage === "Qualified" || l.stage === "Proposal")
+          .length,
         meetingsCount: leads.filter((l) => l.stage === "Proposal").length,
         proposalsCount: leads.filter((l) => l.stage === "Proposal").length,
         closedCount: leads.filter((l) => l.stage === "Closed Won").length,

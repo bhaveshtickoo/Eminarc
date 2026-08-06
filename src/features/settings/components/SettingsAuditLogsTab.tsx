@@ -14,10 +14,38 @@ export interface AuditLogItem {
 }
 
 export const auditLogs: AuditLogItem[] = [
-  { id: "log-1", action: "User Role Updated (Jordan Davis → Editor)", actor: "Bhavesh Tickoo", ipAddress: "192.168.1.42", timestamp: "10 mins ago", severity: "Info" },
-  { id: "log-2", action: "Generated Secret API Key (HubSpot Webhook)", actor: "Pratyush", ipAddress: "192.168.1.88", timestamp: "1 hour ago", severity: "Security" },
-  { id: "log-3", action: "Updated White-Label Subdomain Settings", actor: "Bhavesh Tickoo", ipAddress: "192.168.1.42", timestamp: "Yesterday 05:20 PM", severity: "Info" },
-  { id: "log-4", action: "Failed Login Attempt (Password Throttle)", actor: "Unknown Actor", ipAddress: "45.14.22.109", timestamp: "Aug 01, 2026", severity: "Warning" },
+  {
+    id: "log-1",
+    action: "User Role Updated (Jordan Davis → Editor)",
+    actor: "Bhavesh Tickoo",
+    ipAddress: "192.168.1.42",
+    timestamp: "10 mins ago",
+    severity: "Info",
+  },
+  {
+    id: "log-2",
+    action: "Generated Secret API Key (HubSpot Webhook)",
+    actor: "Pratyush",
+    ipAddress: "192.168.1.88",
+    timestamp: "1 hour ago",
+    severity: "Security",
+  },
+  {
+    id: "log-3",
+    action: "Updated White-Label Subdomain Settings",
+    actor: "Bhavesh Tickoo",
+    ipAddress: "192.168.1.42",
+    timestamp: "Yesterday 05:20 PM",
+    severity: "Info",
+  },
+  {
+    id: "log-4",
+    action: "Failed Login Attempt (Password Throttle)",
+    actor: "Unknown Actor",
+    ipAddress: "45.14.22.109",
+    timestamp: "Aug 01, 2026",
+    severity: "Warning",
+  },
 ];
 
 export const SettingsAuditLogsTab: React.FC = () => {
@@ -31,8 +59,13 @@ export const SettingsAuditLogsTab: React.FC = () => {
                 COMPLIANCE AUDIT LOGS (UI ONLY)
               </span>
             </div>
-            <h3 className="font-sans font-bold text-lg text-[#111111] mt-1">Enterprise Audit Trail</h3>
-            <p className="font-sans text-xs text-[#52525B]">Immutable system audit trail logging all security events, role changes, and API actions.</p>
+            <h3 className="font-sans font-bold text-lg text-[#111111] mt-1">
+              Enterprise Audit Trail
+            </h3>
+            <p className="font-sans text-xs text-[#52525B]">
+              Immutable system audit trail logging all security events, role changes, and API
+              actions.
+            </p>
           </div>
 
           <button
@@ -47,7 +80,10 @@ export const SettingsAuditLogsTab: React.FC = () => {
 
         <div className="space-y-2">
           {auditLogs.map((log) => (
-            <div key={log.id} className="p-3 rounded-xl bg-[#FFFFFF] border border-[#E5E0D6] space-y-1 text-xs">
+            <div
+              key={log.id}
+              className="p-3 rounded-xl bg-[#FFFFFF] border border-[#E5E0D6] space-y-1 text-xs"
+            >
               <div className="flex items-center justify-between">
                 <h4 className="font-bold text-[#111111]">{log.action}</h4>
                 <span
@@ -63,7 +99,8 @@ export const SettingsAuditLogsTab: React.FC = () => {
                 </span>
               </div>
               <p className="font-mono text-[10px] text-[#716D64]">
-                Actor: <strong className="text-[#18181B]">{log.actor}</strong> • IP: {log.ipAddress} • {log.timestamp}
+                Actor: <strong className="text-[#18181B]">{log.actor}</strong> • IP: {log.ipAddress}{" "}
+                • {log.timestamp}
               </p>
             </div>
           ))}

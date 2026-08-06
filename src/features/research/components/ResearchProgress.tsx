@@ -86,9 +86,7 @@ export const ResearchProgress: React.FC<ResearchProgressProps> = ({
                 >
                   {s.title}
                 </span>
-                <span className="font-mono text-[9px] text-[#716D64] block">
-                  {s.subtitle}
-                </span>
+                <span className="font-mono text-[9px] text-[#716D64] block">{s.subtitle}</span>
               </div>
             </div>
           );

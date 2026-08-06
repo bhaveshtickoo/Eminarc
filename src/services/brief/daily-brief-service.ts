@@ -17,7 +17,8 @@ export class DailyBriefService {
   static async getTodayBrief(workspaceId: string): Promise<DailyGrowthBriefRow | null> {
     if (!isSupabaseConfigured()) return null;
 
-    const todayDate = new Date().toISOString().split("T")[0];
+    const todayDate: string =
+      new Date().toISOString().split("T")[0] || new Date().toISOString().slice(0, 10);
     try {
       const { data, error } = await supabase
         .from("daily_growth_briefs")
@@ -42,9 +43,12 @@ export class DailyBriefService {
     const memoryContext = await aiMemoryManager.loadFullMemoryContext(workspaceId);
     const activeTasks = await getTasks(workspaceId);
 
-    const pendingTaskTitles = activeTasks.filter((t) => t.status !== "Completed").map((t) => t.title);
+    const pendingTaskTitles = activeTasks
+      .filter((t) => t.status !== "Completed")
+      .map((t) => t.title);
 
-    const todayDate = new Date().toISOString().split("T")[0];
+    const todayDate: string =
+      new Date().toISOString().split("T")[0] || new Date().toISOString().slice(0, 10);
 
     const prompt = `Synthesize today's executive Daily Growth Brief for workspace "${workspaceId}".
 MEMORY CONTEXT: ${memoryContext.formattedSystemContext}
@@ -83,7 +87,8 @@ Return ONLY valid JSON matching this exact structure:
   ]
 }`;
 
-    const systemPrompt = "You are the Principal AI Chief of Staff for Eminarc Growth OS. Output strictly valid JSON matching the schema.";
+    const systemPrompt =
+      "You are the Principal AI Chief of Staff for Eminarc Growth OS. Output strictly valid JSON matching the schema.";
 
     const provider = getLLMProvider();
 
@@ -91,9 +96,13 @@ Return ONLY valid JSON matching this exact structure:
     try {
       output = await provider.completeJSON<DailyGrowthBriefOutput>(prompt, systemPrompt);
     } catch (err) {
-      console.warn("[DailyBriefService.generateDailyBrief] LLM provider warning, using fallback synthesis:", err);
+      console.warn(
+        "[DailyBriefService.generateDailyBrief] LLM provider warning, using fallback synthesis:",
+        err,
+      );
       output = {
-        todaysFocus: "Launch Generative Engine Optimization (GEO) Radar & Publish Founder Positioning Teardown",
+        todaysFocus:
+          "Launch Generative Engine Optimization (GEO) Radar & Publish Founder Positioning Teardown",
         topOpportunities: [
           "High-intent inbound SaaS leads actively searching for Growth OS solutions",
           "Uncapped LinkedIn organic distribution for founder-led thought leadership carousels",
@@ -103,7 +112,10 @@ Return ONLY valid JSON matching this exact structure:
           "Outbound email deliverability rate drops if domain warmup is delayed",
           "SDR lead response latency exceeding 15 minutes during peak hours",
         ],
-        tasksDue: pendingTaskTitles.length > 0 ? pendingTaskTitles.slice(0, 3) : ["Audit Perplexity Citation Schema"],
+        tasksDue:
+          pendingTaskTitles.length > 0
+            ? pendingTaskTitles.slice(0, 3)
+            : ["Audit Perplexity Citation Schema"],
         researchCompleted: [
           "TrueLift.ai — McKinsey 5-Step Consulting Teardown",
           "Revix Growth — Founder Positioning & Pain Point Matrix",
@@ -140,7 +152,7 @@ Return ONLY valid JSON matching this exact structure:
             recommended_actions: output.recommendedActions as any,
             raw_json: output as any,
           },
-          { onConflict: "workspace_id,brief_date" }
+          { onConflict: "workspace_id,brief_date" },
         );
       } catch (err) {
         console.warn("[DailyBriefService.generateDailyBrief] Supabase save warning:", err);

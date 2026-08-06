@@ -28,7 +28,9 @@ export class OpenRouterProvider implements LLMProvider {
   constructor(apiKey?: string, baseUrl = "https://openrouter.ai/api/v1") {
     this.apiKey =
       apiKey ||
-      (typeof process !== "undefined" ? process.env?.VITE_OPENROUTER_API_KEY || process.env?.OPENROUTER_API_KEY : "") ||
+      (typeof process !== "undefined" && process.env
+        ? process.env["VITE_OPENROUTER_API_KEY"] || process.env["OPENROUTER_API_KEY"]
+        : "") ||
       "";
     this.baseUrl = baseUrl;
   }
@@ -36,7 +38,7 @@ export class OpenRouterProvider implements LLMProvider {
   async completeJSON<T>(
     prompt: string,
     systemPrompt = "You are an expert B2B SaaS growth analyst. Output strictly valid JSON.",
-    options: LLMRequestOptions = {}
+    options: LLMRequestOptions = {},
   ): Promise<T> {
     if (!this.apiKey) {
       throw new Error("OpenRouter API key is not configured.");
@@ -89,7 +91,9 @@ export class GenericOpenAIProvider implements LLMProvider {
   constructor(apiKey?: string, baseUrl = "https://api.openai.com/v1") {
     this.apiKey =
       apiKey ||
-      (typeof process !== "undefined" ? process.env?.VITE_OPENAI_API_KEY || process.env?.OPENAI_API_KEY : "") ||
+      (typeof process !== "undefined" && process.env
+        ? process.env["VITE_OPENAI_API_KEY"] || process.env["OPENAI_API_KEY"]
+        : "") ||
       "";
     this.baseUrl = baseUrl;
   }
@@ -97,7 +101,7 @@ export class GenericOpenAIProvider implements LLMProvider {
   async completeJSON<T>(
     prompt: string,
     systemPrompt = "You are a B2B intelligence agent. Output strictly valid JSON.",
-    options: LLMRequestOptions = {}
+    options: LLMRequestOptions = {},
   ): Promise<T> {
     if (!this.apiKey) {
       throw new Error("OpenAI API key is not configured.");
@@ -138,12 +142,12 @@ export class GenericOpenAIProvider implements LLMProvider {
  */
 export function getLLMProvider(): LLMProvider {
   const openRouterKey =
-    typeof process !== "undefined"
-      ? process.env?.VITE_OPENROUTER_API_KEY || process.env?.OPENROUTER_API_KEY
+    typeof process !== "undefined" && process.env
+      ? process.env["VITE_OPENROUTER_API_KEY"] || process.env["OPENROUTER_API_KEY"]
       : undefined;
   const openAIKey =
-    typeof process !== "undefined"
-      ? process.env?.VITE_OPENAI_API_KEY || process.env?.OPENAI_API_KEY
+    typeof process !== "undefined" && process.env
+      ? process.env["VITE_OPENAI_API_KEY"] || process.env["OPENAI_API_KEY"]
       : undefined;
 
   if (openRouterKey) {

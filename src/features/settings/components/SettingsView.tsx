@@ -43,7 +43,10 @@ export const SettingsView: React.FC = () => {
       <div className="p-6 md:p-8 rounded-[18px] bg-[#FCFAF7] border border-[rgba(0,0,0,0.08)] shadow-[0_1px_3px_0_rgba(0,0,0,0.025)] flex flex-col lg:flex-row lg:items-center justify-between gap-6">
         <div>
           {/* Functional SaaS Breadcrumb Header */}
-          <nav aria-label="Breadcrumb" className="flex items-center space-x-2 font-mono text-xs mb-3">
+          <nav
+            aria-label="Breadcrumb"
+            className="flex items-center space-x-2 font-mono text-xs mb-3"
+          >
             <Link
               to="/settings"
               search={{ tab: "workspace" }}
@@ -75,7 +78,8 @@ export const SettingsView: React.FC = () => {
           </h1>
 
           <p className="font-sans text-xs md:text-sm text-[#52525B] mt-1">
-            Manage workspace organization, team seats, white-label branding, API secrets, and compliance policies.
+            Manage workspace organization, team seats, white-label branding, API secrets, and
+            compliance policies.
           </p>
         </div>
       </div>

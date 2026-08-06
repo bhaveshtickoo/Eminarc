@@ -61,7 +61,9 @@ export const BarChart: React.FC<BarChartProps> = ({
             <div key={s.key} className="flex items-center space-x-2">
               <span
                 className="h-2.5 w-2.5 rounded"
-                style={{ backgroundColor: s.color || defaultBarColors[idx % defaultBarColors.length] }}
+                style={{
+                  backgroundColor: s.color || defaultBarColors[idx % defaultBarColors.length],
+                }}
               />
               <span className="font-medium text-[#18181B]">{s.name || s.key}</span>
             </div>

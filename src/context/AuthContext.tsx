@@ -30,11 +30,9 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const supabaseCtx = useSupabaseContext();
 
-  const signInWithGoogle = (returnUrl?: string) =>
-    authService.signInWithOAuth("google", returnUrl);
+  const signInWithGoogle = (returnUrl?: string) => authService.signInWithOAuth("google", returnUrl);
 
-  const signInWithGitHub = (returnUrl?: string) =>
-    authService.signInWithOAuth("github", returnUrl);
+  const signInWithGitHub = (returnUrl?: string) => authService.signInWithOAuth("github", returnUrl);
 
   const value: AuthContextType = {
     user: supabaseCtx.user,

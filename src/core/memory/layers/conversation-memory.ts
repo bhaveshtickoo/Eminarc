@@ -7,7 +7,10 @@ import { SupabaseMemoryStore } from "../supabase-memory-store";
 import { ConversationMemoryData } from "../types";
 
 export class ConversationMemoryLayer {
-  static async load(workspaceId: string, sessionId?: string): Promise<ConversationMemoryData | null> {
+  static async load(
+    workspaceId: string,
+    sessionId?: string,
+  ): Promise<ConversationMemoryData | null> {
     const entries = await SupabaseMemoryStore.queryMemories({
       workspaceId,
       type: "conversation",

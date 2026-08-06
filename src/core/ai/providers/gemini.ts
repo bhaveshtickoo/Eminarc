@@ -23,7 +23,7 @@ export class GeminiProvider implements LLMProvider {
 
   async complete<T = any>(
     prompt: string,
-    options: LLMRequestOptions = {}
+    options: LLMRequestOptions = {},
   ): Promise<LLMResponse<T>> {
     const startTime = Date.now();
     const apiKey = options.apiKey || this.defaultApiKey;
@@ -45,7 +45,10 @@ export class GeminiProvider implements LLMProvider {
     const contents = [];
 
     if (options.systemPrompt) {
-      contents.push({ role: "user", parts: [{ text: `System Instruction: ${options.systemPrompt}` }] });
+      contents.push({
+        role: "user",
+        parts: [{ text: `System Instruction: ${options.systemPrompt}` }],
+      });
     }
     contents.push({ role: "user", parts: [{ text: prompt }] });
 

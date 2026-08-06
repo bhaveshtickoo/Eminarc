@@ -22,7 +22,8 @@ export interface WebsiteScraperResultData {
 export class WebsiteScraperTool implements AITool<WebsiteScraperParams, WebsiteScraperResultData> {
   definition: AIToolDefinition = {
     name: "website_scraper",
-    description: "Scrapes company websites, extracts HTML meta headers, titles, and content summaries.",
+    description:
+      "Scrapes company websites, extracts HTML meta headers, titles, and content summaries.",
     parameters: {
       type: "object",
       properties: {
@@ -63,7 +64,7 @@ export class WebsiteScraperTool implements AITool<WebsiteScraperParams, WebsiteS
         contentSummary: `Parsed website content for ${domain}. High affinity for founder-led growth, automated pipelines, and Generative AI Search Optimization (GEO).`,
       };
 
-      return { success: true, data, error: undefined };
+      return { success: true, data };
     } catch (err) {
       return {
         success: false,

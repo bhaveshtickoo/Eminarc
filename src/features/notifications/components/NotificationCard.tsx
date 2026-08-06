@@ -85,9 +85,7 @@ export const NotificationCard: React.FC<NotificationCardProps> = ({
         <div
           className={cn(
             "flex h-9 w-9 items-center justify-center rounded-xl font-mono text-xs shrink-0 mt-0.5",
-            notification.read
-              ? "bg-[#EFEAE1] text-[#18181B]"
-              : "bg-[#18181B] text-[#FFFFFF]",
+            notification.read ? "bg-[#EFEAE1] text-[#18181B]" : "bg-[#18181B] text-[#FFFFFF]",
           )}
         >
           <Icon className="h-4 w-4" />
@@ -99,9 +97,7 @@ export const NotificationCard: React.FC<NotificationCardProps> = ({
               {notification.title}
             </h4>
 
-            {!notification.read && (
-              <span className="h-2 w-2 rounded-full bg-[#2D6A4F] shrink-0" />
-            )}
+            {!notification.read && <span className="h-2 w-2 rounded-full bg-[#2D6A4F] shrink-0" />}
 
             <span
               className={cn(

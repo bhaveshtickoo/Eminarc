@@ -6,7 +6,12 @@
 import { supabase } from "@/lib/supabase/client";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 import { ServiceResult } from "@/lib/supabase/types";
-import { GeneratedProjectSpec, GeneratedTaskSpec, WorkspaceProjectRow, WorkspaceTaskRow } from "./types";
+import {
+  GeneratedProjectSpec,
+  GeneratedTaskSpec,
+  WorkspaceProjectRow,
+  WorkspaceTaskRow,
+} from "./types";
 
 export class TaskGeneratorService {
   /**
@@ -14,7 +19,7 @@ export class TaskGeneratorService {
    */
   static async saveProjects(
     workspaceId: string,
-    projects: GeneratedProjectSpec[]
+    projects: GeneratedProjectSpec[],
   ): Promise<ServiceResult<WorkspaceProjectRow[]>> {
     if (!isSupabaseConfigured()) {
       return { data: [], error: null };
@@ -51,7 +56,7 @@ export class TaskGeneratorService {
    */
   static async saveTasks(
     workspaceId: string,
-    tasks: GeneratedTaskSpec[]
+    tasks: GeneratedTaskSpec[],
   ): Promise<ServiceResult<WorkspaceTaskRow[]>> {
     if (!isSupabaseConfigured()) {
       return { data: [], error: null };
@@ -91,11 +96,80 @@ export class TaskGeneratorService {
   }
 
   /**
+   * Retrieve projects for a workspace
+   */
+  static async getWorkspaceProjects(
+    workspaceId: string,
+  ): Promise<ServiceResult<WorkspaceProjectRow[]>> {
+    if (!isSupabaseConfigured()) {
+      return { data: [], error: null };
+    }
+
+    try {
+      const { data, error } = await supabase
+        .from("workspace_projects")
+        .select("*")
+        .eq("workspace_id", workspaceId)
+        .is("deleted_at", null)
+        .order("created_at", { ascending: false });
+
+      if (error) throw error;
+      return { data: data || [], error: null };
+    } catch (err) {
+      console.error("[TaskGeneratorService.getWorkspaceProjects] Error:", err);
+      return {
+        data: [],
+        error: err instanceof Error ? err : new Error("Failed to retrieve workspace projects."),
+      };
+    }
+  }
+
+  /**
+   * Retrieve generated tasks for a workspace
+   */
+  static async getWorkspaceTasks(
+    workspaceId: string,
+    campaignId?: string,
+    projectId?: string,
+  ): Promise<ServiceResult<WorkspaceTaskRow[]>> {
+    if (!isSupabaseConfigured()) {
+      return { data: [], error: null };
+    }
+
+    try {
+      let query = supabase
+        .from("workspace_tasks")
+        .select("*")
+        .eq("workspace_id", workspaceId)
+        .is("deleted_at", null)
+        .order("created_at", { ascending: false });
+
+      if (campaignId) {
+        query = query.eq("campaign_id", campaignId);
+      }
+
+      if (projectId) {
+        query = query.eq("project_id", projectId);
+      }
+
+      const { data, error } = await query;
+      if (error) throw error;
+      return { data: data || [], error: null };
+    } catch (err) {
+      console.error("[TaskGeneratorService.getWorkspaceTasks] Error:", err);
+      return {
+        data: [],
+        error: err instanceof Error ? err : new Error("Failed to retrieve workspace tasks."),
+      };
+    }
+  }
+
+  /**
    * Support Manual Edits: Update Task properties in Supabase
    */
   static async updateTask(
     taskId: string,
-    updates: Partial<GeneratedTaskSpec>
+    updates: Partial<GeneratedTaskSpec>,
   ): Promise<ServiceResult<WorkspaceTaskRow>> {
     if (!isSupabaseConfigured()) {
       return { data: null, error: new Error("Supabase is unconfigured.") };
@@ -109,7 +183,8 @@ export class TaskGeneratorService {
       if (updates.dependencies !== undefined) payload.dependencies = updates.dependencies;
       if (updates.dueDate !== undefined) payload.due_date = updates.dueDate;
       if (updates.priority !== undefined) payload.priority = updates.priority;
-      if (updates.estimatedEffortHours !== undefined) payload.estimated_effort_hours = updates.estimatedEffortHours;
+      if (updates.estimatedEffortHours !== undefined)
+        payload.estimated_effort_hours = updates.estimatedEffortHours;
       if (updates.assignedOwner !== undefined) payload.assigned_owner = updates.assignedOwner;
       if (updates.status !== undefined) payload.status = updates.status;
 

@@ -112,7 +112,10 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  h1, h2, h3, h4 {
+  h1,
+  h2,
+  h3,
+  h4 {
     font-family: var(--font-display);
     letter-spacing: -0.02em;
   }
@@ -130,7 +133,9 @@
 }
 
 @utility card-glow {
-  box-shadow: 0 1px 2px oklch(0.17 0.004 90 / 0.04), 0 8px 24px -16px oklch(0.17 0.004 90 / 0.18);
+  box-shadow:
+    0 1px 2px oklch(0.17 0.004 90 / 0.04),
+    0 8px 24px -16px oklch(0.17 0.004 90 / 0.18);
 }
 
 @utility section-label {

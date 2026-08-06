@@ -64,7 +64,8 @@ export const ContentAssistant: React.FC = () => {
       id: "sug-5",
       category: "READABILITY",
       title: "Shorten Paragraph Lengths",
-      preview: "Break down 4-line blocks into 2-sentence bullet points for higher mobile reading completion.",
+      preview:
+        "Break down 4-line blocks into 2-sentence bullet points for higher mobile reading completion.",
       actionText: "Optimize Readability",
     },
     {
@@ -115,9 +116,7 @@ export const ContentAssistant: React.FC = () => {
             className="group rounded-xl bg-[#FFFFFF] border border-[#E5E0D6] p-3.5 space-y-2 transition-all duration-150 hover:border-[rgba(0,0,0,0.14)] shadow-[0_1px_2px_0_rgba(0,0,0,0.02)]"
           >
             <div className="flex items-center justify-between">
-              <span className="font-mono text-[9px] font-bold text-[#716D64]">
-                {item.category}
-              </span>
+              <span className="font-mono text-[9px] font-bold text-[#716D64]">{item.category}</span>
               {item.badge && (
                 <span className="font-mono text-[8px] uppercase font-bold text-[#0369A1] bg-[#E0F2FE] px-1.5 py-0.5 rounded border border-[#BAE6FD]">
                   {item.badge}

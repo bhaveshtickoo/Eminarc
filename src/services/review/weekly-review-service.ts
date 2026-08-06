@@ -39,10 +39,13 @@ export class WeeklyReviewService {
    */
   static async generateWeeklyReview(
     workspaceId: string,
-    weekStartDate?: string
+    weekStartDate?: string,
   ): Promise<WeeklyGrowthReviewOutput> {
     const memoryContext = await aiMemoryManager.loadFullMemoryContext(workspaceId);
-    const startDate = weekStartDate || new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().split("T")[0];
+    const startDate: string =
+      weekStartDate ||
+      new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().split("T")[0] ||
+      new Date().toISOString().slice(0, 10);
 
     const prompt = `Synthesize weekly retrospective Growth Review for workspace "${workspaceId}".
 WEEK START DATE: ${startDate}
@@ -91,7 +94,8 @@ Return ONLY valid JSON matching this exact structure:
   ]
 }`;
 
-    const systemPrompt = "You are the Principal AI Growth Advisor for Eminarc Growth OS. Output strictly valid JSON matching the schema.";
+    const systemPrompt =
+      "You are the Principal AI Growth Advisor for Eminarc Growth OS. Output strictly valid JSON matching the schema.";
 
     const provider = getLLMProvider();
 
@@ -99,7 +103,10 @@ Return ONLY valid JSON matching this exact structure:
     try {
       output = await provider.completeJSON<WeeklyGrowthReviewOutput>(prompt, systemPrompt);
     } catch (err) {
-      console.warn("[WeeklyReviewService.generateWeeklyReview] LLM provider warning, using fallback synthesis:", err);
+      console.warn(
+        "[WeeklyReviewService.generateWeeklyReview] LLM provider warning, using fallback synthesis:",
+        err,
+      );
       output = {
         title: "Weekly Retrospective & Executive Growth Review",
         weekStartDate: startDate,
@@ -161,7 +168,7 @@ Return ONLY valid JSON matching this exact structure:
             recommended_next_steps: output.recommendedNextSteps as any,
             raw_json: output as any,
           },
-          { onConflict: "workspace_id,week_start_date" }
+          { onConflict: "workspace_id,week_start_date" },
         );
       } catch (err) {
         console.warn("[WeeklyReviewService.generateWeeklyReview] Supabase save warning:", err);

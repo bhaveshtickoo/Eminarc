@@ -42,9 +42,33 @@ interface ClientItem {
 function Clients() {
   const { currentWorkspace } = useWorkspace();
   const [clients, setClients] = useState<ClientItem[]>([
-    { id: "c1", initials: "AC", name: "Acme Corp", program: "Enterprise Growth OS", progress: 85, status: "Active", mrr: "$2,500" },
-    { id: "c2", initials: "SM", name: "Starlight Media", program: "GEO & Content Engine", progress: 62, status: "Onboarding", mrr: "$1,800" },
-    { id: "c3", initials: "AS", name: "Apex SaaS", program: "Pipeline Automation", progress: 94, status: "Active", mrr: "$4,200" },
+    {
+      id: "c1",
+      initials: "AC",
+      name: "Acme Corp",
+      program: "Enterprise Growth OS",
+      progress: 85,
+      status: "Active",
+      mrr: "$2,500",
+    },
+    {
+      id: "c2",
+      initials: "SM",
+      name: "Starlight Media",
+      program: "GEO & Content Engine",
+      progress: 62,
+      status: "Onboarding",
+      mrr: "$1,800",
+    },
+    {
+      id: "c3",
+      initials: "AS",
+      name: "Apex SaaS",
+      program: "Pipeline Automation",
+      progress: 94,
+      status: "Active",
+      mrr: "$4,200",
+    },
   ]);
 
   useEffect(() => {

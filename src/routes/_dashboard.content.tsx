@@ -57,10 +57,7 @@ function ContentOSPage() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* LEFT PANEL: Strategy & Campaigns (3 cols) */}
         <div className="lg:col-span-3">
-          <CampaignSidebar
-            activeFilter={activeFilter}
-            onFilterChange={setActiveFilter}
-          />
+          <CampaignSidebar activeFilter={activeFilter} onFilterChange={setActiveFilter} />
         </div>
 
         {/* CENTER PANEL: Content Workspace (6 cols) */}

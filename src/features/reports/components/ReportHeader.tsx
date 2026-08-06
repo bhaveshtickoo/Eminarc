@@ -1,16 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import {
-  Download,
-  Share2,
-  Copy,
-  Archive,
-  Calendar,
-  ShieldCheck,
-  Check,
-  Clock,
-} from "lucide-react";
+import { Download, Share2, Copy, Archive, Calendar, ShieldCheck, Check, Clock } from "lucide-react";
 import { toast } from "sonner";
 import { useWorkspace } from "@/hooks/useWorkspace";
 import { cn } from "@/lib/utils";
@@ -90,9 +81,13 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
       {/* Action Toolbar: Export PDF, Share, Duplicate, Archive, Schedule */}
       <div className="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-[rgba(0,0,0,0.06)]">
         <div className="flex items-center space-x-2 font-mono text-xs text-[#716D64]">
-          <span>Category: <strong className="text-[#18181B]">{reportCategory}</strong></span>
+          <span>
+            Category: <strong className="text-[#18181B]">{reportCategory}</strong>
+          </span>
           <span>•</span>
-          <span>Status: <strong className="text-[#2D6A4F]">Published Brief</strong></span>
+          <span>
+            Status: <strong className="text-[#2D6A4F]">Published Brief</strong>
+          </span>
         </div>
 
         <div className="flex flex-wrap items-center gap-2 font-mono text-xs">

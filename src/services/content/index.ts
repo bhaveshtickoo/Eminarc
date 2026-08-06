@@ -22,7 +22,8 @@ export const defaultMockContent: ContentItemData[] = [
     channel: "LinkedIn",
     status: "Published",
     date: "AUG 03",
-    excerpt: "Buyers rely on AI search citations and peer communities before visiting landing pages...",
+    excerpt:
+      "Buyers rely on AI search citations and peer communities before visiting landing pages...",
   },
   {
     id: "cnt-2",
@@ -38,7 +39,8 @@ export const defaultMockContent: ContentItemData[] = [
     channel: "Reddit",
     status: "Scheduled",
     date: "AUG 05",
-    excerpt: "Transparent teardown of value-first community posts without self-promotion penalty...",
+    excerpt:
+      "Transparent teardown of value-first community posts without self-promotion penalty...",
   },
 ];
 
@@ -73,7 +75,11 @@ export async function getContent(filters?: {
       title: row.title,
       channel: (row.channel as any) || "LinkedIn",
       status: (row.status as any) || "Draft",
-      date: row.created_at ? new Date(row.created_at).toLocaleDateString("en-US", { month: "short", day: "2-digit" }).toUpperCase() : "TODAY",
+      date: row.created_at
+        ? new Date(row.created_at)
+            .toLocaleDateString("en-US", { month: "short", day: "2-digit" })
+            .toUpperCase()
+        : "TODAY",
       excerpt: row.content || "Structured content asset generated for growth channels.",
     }));
 
@@ -86,18 +92,14 @@ export async function getContent(filters?: {
 
 function filterContent(
   items: ContentItemData[],
-  filters?: { channel?: string; status?: string }
+  filters?: { channel?: string; status?: string },
 ): ContentItemData[] {
   let result = [...items];
   if (filters?.channel && filters.channel !== "All") {
-    result = result.filter(
-      (c) => c.channel.toLowerCase() === filters.channel?.toLowerCase()
-    );
+    result = result.filter((c) => c.channel.toLowerCase() === filters.channel?.toLowerCase());
   }
   if (filters?.status && filters.status !== "All") {
-    result = result.filter(
-      (c) => c.status.toLowerCase() === filters.status?.toLowerCase()
-    );
+    result = result.filter((c) => c.status.toLowerCase() === filters.status?.toLowerCase());
   }
   return result;
 }
@@ -120,7 +122,7 @@ export async function generateContent(params: {
 
 export async function repurposeContent(
   assetId: string,
-  targetFormat: string
+  targetFormat: string,
 ): Promise<ContentItemData> {
   // Mock generator placeholder (Do not connect live AI)
   return {

@@ -13,7 +13,8 @@ export const initialNotifications: NotificationItemData[] = [
     id: "notif-1",
     type: "Research Completed",
     title: "Founder Research Completed for TrueLift.ai",
-    description: "McKinsey 5-step research audit finished. 13 Workspace Knowledge Base entities populated.",
+    description:
+      "McKinsey 5-step research audit finished. 13 Workspace Knowledge Base entities populated.",
     timestamp: "10 mins ago",
     dateCategory: "Today",
     groupCategory: "AI",
@@ -39,7 +40,8 @@ export const initialNotifications: NotificationItemData[] = [
     id: "notif-3",
     type: "CRM Activity",
     title: "TrueLift.ai Advanced to Negotiation Stage",
-    description: "Deal stage moved from Proposal to Negotiation after MSA contract review ($24,000 ARR).",
+    description:
+      "Deal stage moved from Proposal to Negotiation after MSA contract review ($24,000 ARR).",
     timestamp: "2 hours ago",
     dateCategory: "Today",
     groupCategory: "CRM",
@@ -52,7 +54,8 @@ export const initialNotifications: NotificationItemData[] = [
     id: "notif-4",
     type: "Content Generated",
     title: "1-Click Repurposing Complete (8 Assets)",
-    description: "Content OS generated 8 multi-channel assets from core System Over Campaign breakdown.",
+    description:
+      "Content OS generated 8 multi-channel assets from core System Over Campaign breakdown.",
     timestamp: "Yesterday 04:30 PM",
     dateCategory: "Yesterday",
     groupCategory: "System",
@@ -78,7 +81,8 @@ export const initialNotifications: NotificationItemData[] = [
     id: "notif-6",
     type: "Report Ready",
     title: "Monthly Executive Board Briefing Generated",
-    description: "McKinsey/BCG executive consulting report for August 2026 is ready for PDF export.",
+    description:
+      "McKinsey/BCG executive consulting report for August 2026 is ready for PDF export.",
     timestamp: "Aug 01, 2026",
     dateCategory: "This Week",
     groupCategory: "System",
@@ -91,7 +95,8 @@ export const initialNotifications: NotificationItemData[] = [
     id: "notif-7",
     type: "AI Suggestion",
     title: "Deploy FAQ JSON-LD Schema on Product Pages",
-    description: "AI Visibility Agent identified structured schema opportunity to increase Perplexity citations by 28%.",
+    description:
+      "AI Visibility Agent identified structured schema opportunity to increase Perplexity citations by 28%.",
     timestamp: "Jul 31, 2026",
     dateCategory: "This Week",
     groupCategory: "AI",
@@ -124,9 +129,7 @@ export const NotificationsView: React.FC = () => {
   const navigate = useNavigate();
 
   const handleMarkRead = (id: string) => {
-    setNotifications((prev) =>
-      prev.map((n) => (n.id === id ? { ...n, read: true } : n)),
-    );
+    setNotifications((prev) => prev.map((n) => (n.id === id ? { ...n, read: true } : n)));
     toast.success("Marked as read");
   };
 
@@ -180,7 +183,8 @@ export const NotificationsView: React.FC = () => {
           </h1>
 
           <p className="font-sans text-xs md:text-sm text-[#52525B] mt-1">
-            Real-time activity alerts for founder research, AI visibility, content generation, and CRM pipeline events.
+            Real-time activity alerts for founder research, AI visibility, content generation, and
+            CRM pipeline events.
           </p>
         </div>
 
