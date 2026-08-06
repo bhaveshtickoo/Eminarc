@@ -69,7 +69,7 @@ export function DashboardLayout() {
   const routerState = useRouterState();
   const currentPath = routerState.location.pathname;
 
-  const { user, profile, signOut } = useAuth();
+  const { user, profile, signOut, isDemoMode } = useAuth();
   const [chatOpen, setChatOpen] = useState(false);
   const [commandOpen, setCommandOpen] = useState(false);
   const [notificationsList, setNotificationsList] =
@@ -127,10 +127,16 @@ export function DashboardLayout() {
 
   return (
     <SidebarProvider>
-      <div className="flex h-screen w-full select-none">
-        <AppSidebar />
+      <div className="flex h-screen w-full select-none flex-col">
+        {isDemoMode && (
+          <div className="bg-amber-500/15 border-b border-amber-500/30 px-4 py-1.5 text-center text-xs font-mono font-bold text-amber-800 dark:text-amber-300 flex items-center justify-center gap-2 z-50 shrink-0">
+            <span className="inline-block animate-pulse">⚠️</span>
+            <span>Demo Mode Enabled – Authentication Disabled</span>
+          </div>
+        )}
         <div className="flex flex-1 overflow-hidden">
-          <SidebarInset className="flex flex-col">
+          <AppSidebar />
+          <SidebarInset className="flex flex-col flex-1 overflow-hidden">
             <header className="flex h-14 shrink-0 items-center justify-between border-b px-4 bg-background/80 backdrop-blur-md">
               <div className="flex items-center gap-3">
                 <SidebarTrigger className="-ml-1" />

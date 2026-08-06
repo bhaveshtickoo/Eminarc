@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate, useRouterState } from "@tanstack/react-router";
 import { useEffect } from "react";
 import { useAuth } from "@/hooks/useAuth";
+import { isDemoModeEnabled } from "@/context/AuthContext";
 import { Sparkles } from "lucide-react";
 
 interface ProtectedRouteProps {
@@ -9,11 +10,16 @@ interface ProtectedRouteProps {
 }
 
 export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
-  const { isAuthenticated, isLoading, isConfigured, profile } = useAuth();
+  const { isAuthenticated, isLoading, isConfigured, profile, isDemoMode } = useAuth();
   const navigate = useNavigate();
   const currentLocation = useRouterState({ select: (s) => s.location.pathname });
 
+  const isDemo = isDemoMode || isDemoModeEnabled();
+
   useEffect(() => {
+    // If Demo Mode is enabled, always allow access
+    if (isDemo) return;
+
     // If Supabase is configured and authentication check is complete
     if (!isLoading && isConfigured) {
       if (!isAuthenticated) {
@@ -25,7 +31,7 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
         navigate({ to: "/onboarding" });
       }
     }
-  }, [isAuthenticated, isLoading, isConfigured, profile, currentLocation, navigate]);
+  }, [isAuthenticated, isLoading, isConfigured, profile, currentLocation, navigate, isDemo]);
 
   if (isLoading) {
     return (
